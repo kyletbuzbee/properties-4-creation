@@ -16,6 +16,10 @@ module.exports = function(eleventyConfig) {
   
   // Copy public folder assets
   eleventyConfig.addPassthroughCopy({ "public": "." });
+  
+  // Copy root files needed for GitHub Pages
+  eleventyConfig.addPassthroughCopy("CNAME");
+  eleventyConfig.addPassthroughCopy(".nojekyll");
 
   // Watch targets for development
   eleventyConfig.addWatchTarget("src/css/");
