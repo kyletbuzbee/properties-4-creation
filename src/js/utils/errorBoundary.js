@@ -512,7 +512,7 @@ User Agent: ${error.userAgent}
    * Attempt to recover from error
    * @param {Object} error - Enhanced error object
    */
-  attemptRecovery (_error) {
+  attemptRecovery () {
     // Simple recovery strategy: clear error state after a delay
     setTimeout(() => {
       this.retryCount = 0;
@@ -611,7 +611,7 @@ export function createGlobalErrorBoundary (options = {}) {
  */
 export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
-    fallbackUI: (_error, _retryOptions) => {
+    fallbackUI: () => {
       return `
         <div class="error-boundary" role="alert">
           <div class="error-boundary__content">

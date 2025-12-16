@@ -94,11 +94,7 @@ export class AriaLiveRegions {
    * @param {Object} options - Additional options
    */
   announce (message, priority = 'polite', options = {}) {
-    const {
-      delay: _delay = this.options.announcementDelay,
-      queue = true,
-      clear: _clear = false
-    } = options;
+    const { queue = true } = options;
 
     const announcement = {
       message: this.sanitizeMessage(message),
