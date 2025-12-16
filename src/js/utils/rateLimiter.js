@@ -10,7 +10,7 @@
  */
 
 export class RateLimiter {
-  constructor(maxAttempts = 5, windowMs = 60000) {
+  constructor (maxAttempts = 5, windowMs = 60000) {
     this.maxAttempts = maxAttempts;
     this.windowMs = windowMs;
     this.attempts = new Map();
@@ -25,7 +25,7 @@ export class RateLimiter {
    * @param {string} key - User identifier
    * @returns {Object} Result with allowed status and retry information
    */
-  isAllowed(key) {
+  isAllowed (key) {
     const now = Date.now();
     const userAttempts = this.attempts.get(key) || [];
     
@@ -61,7 +61,7 @@ export class RateLimiter {
    * Get user identifier using multiple methods
    * @returns {string} User identifier key
    */
-  getUserIdentifier() {
+  getUserIdentifier () {
     // Try multiple identification methods for better accuracy
     const identifiers = [
       () => this.getClientIP(),
@@ -89,7 +89,7 @@ export class RateLimiter {
    * Get client IP address (best effort)
    * @returns {string|null} IP address or null if unavailable
    */
-  getClientIP() {
+  getClientIP () {
     // This is a simplified version - in production, you'd get this from server headers
     // For client-side implementation, we use other methods
     return localStorage.getItem('client_ip') || null;
@@ -99,7 +99,7 @@ export class RateLimiter {
    * Generate browser fingerprint
    * @returns {string} Browser fingerprint
    */
-  getFingerprint() {
+  getFingerprint () {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     ctx.textBaseline = 'top';
@@ -128,7 +128,7 @@ export class RateLimiter {
    * Get or generate session ID
    * @returns {string} Session identifier
    */
-  getSessionId() {
+  getSessionId () {
     let sessionId = sessionStorage.getItem('form_session_id');
     if (!sessionId) {
       sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
@@ -141,7 +141,7 @@ export class RateLimiter {
    * Get user agent string
    * @returns {string} User agent
    */
-  getUserAgent() {
+  getUserAgent () {
     return navigator.userAgent || 'unknown';
   }
 
@@ -149,7 +149,7 @@ export class RateLimiter {
    * Get fallback identifier when others fail
    * @returns {string} Random identifier
    */
-  getFallbackIdentifier() {
+  getFallbackIdentifier () {
     let fallbackId = localStorage.getItem('fallback_fingerprint');
     if (!fallbackId) {
       fallbackId = 'fallback_' + this.hashString(Date.now() + Math.random());
@@ -163,7 +163,7 @@ export class RateLimiter {
    * @param {string} str - String to hash
    * @returns {string} Hash string
    */
-  hashString(str) {
+  hashString (str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
@@ -178,7 +178,7 @@ export class RateLimiter {
    * @param {string} key - User identifier
    * @returns {number} Remaining attempts
    */
-  getRemainingAttempts(key) {
+  getRemainingAttempts (key) {
     const userAttempts = this.attempts.get(key) || [];
     const now = Date.now();
     const validAttempts = userAttempts.filter(timestamp => now - timestamp < this.windowMs);
@@ -191,7 +191,7 @@ export class RateLimiter {
    * @param {string} key - User identifier
    * @returns {number} Seconds until reset (0 if not rate limited)
    */
-  getTimeUntilReset(key) {
+  getTimeUntilReset (key) {
     const userAttempts = this.attempts.get(key) || [];
     if (userAttempts.length === 0) return 0;
 
@@ -206,7 +206,7 @@ export class RateLimiter {
    * Reset attempts for user (for testing or admin purposes)
    * @param {string} key - User identifier
    */
-  resetUserAttempts(key) {
+  resetUserAttempts (key) {
     this.attempts.delete(key);
   }
 
@@ -215,7 +215,7 @@ export class RateLimiter {
    * @param {string} key - User identifier
    * @returns {number} Current attempt count
    */
-  getAttemptCount(key) {
+  getAttemptCount (key) {
     const userAttempts = this.attempts.get(key) || [];
     const now = Date.now();
     return userAttempts.filter(timestamp => now - timestamp < this.windowMs).length;
@@ -224,7 +224,7 @@ export class RateLimiter {
   /**
    * Start cleanup interval to prevent memory leaks
    */
-  startCleanupInterval() {
+  startCleanupInterval () {
     // Clean up expired entries every 5 minutes
     this.cleanupInterval = setInterval(() => {
       this.cleanup();
@@ -234,7 +234,7 @@ export class RateLimiter {
   /**
    * Clean up expired attempts to prevent memory leaks
    */
-  cleanup() {
+  cleanup () {
     const now = Date.now();
     const expiredKeys = [];
 
@@ -260,7 +260,7 @@ export class RateLimiter {
    * Get statistics about current rate limiting state
    * @returns {Object} Statistics object
    */
-  getStats() {
+  getStats () {
     const now = Date.now();
     let totalActiveUsers = 0;
     let totalAttempts = 0;
@@ -285,7 +285,7 @@ export class RateLimiter {
   /**
    * Destroy rate limiter and clean up resources
    */
-  destroy() {
+  destroy () {
     if (this.cleanupInterval) {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = null;
@@ -299,7 +299,7 @@ export class RateLimiter {
  * Create rate limiter instance with defaults for Properties 4 Creations
  * @returns {RateLimiter} Configured rate limiter instance
  */
-export function createFormRateLimiter() {
+export function createFormRateLimiter () {
   return new RateLimiter(3, 60000); // 3 attempts per minute
 }
 
@@ -307,7 +307,7 @@ export function createFormRateLimiter() {
  * Rate limiter for contact forms (more restrictive)
  * @returns {RateLimiter} Contact form rate limiter
  */
-export function createContactFormRateLimiter() {
+export function createContactFormRateLimiter () {
   return new RateLimiter(2, 300000); // 2 attempts per 5 minutes
 }
 
@@ -315,7 +315,7 @@ export function createContactFormRateLimiter() {
  * Rate limiter for application forms (moderate)
  * @returns {RateLimiter} Application form rate limiter
  */
-export function createApplicationRateLimiter() {
+export function createApplicationRateLimiter () {
   return new RateLimiter(5, 600000); // 5 attempts per 10 minutes
 }
 

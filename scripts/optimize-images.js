@@ -20,10 +20,10 @@ const CONFIG = {
   placeholderWidth: 32,
   placeholderQuality: 60,
   inputDirs: [
-    'public/images/properties',
-    'public/images/banners',
-    'public/images/our-work-gallery',
-    'public/images/before-after-comparison'
+    'images//properties',
+    'images//banners',
+    'images//our-work-gallery',
+    'images//before-after-comparison'
   ],
   outputFormat: 'webp'
 };

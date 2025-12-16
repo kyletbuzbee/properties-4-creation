@@ -11,7 +11,7 @@
  */
 
 export class ErrorBoundary {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       fallbackUI: null,
       enableLogging: true,
@@ -34,7 +34,7 @@ export class ErrorBoundary {
   /**
    * Set up global error and unhandled rejection handlers
    */
-  setupGlobalHandlers() {
+  setupGlobalHandlers () {
     // Handle JavaScript runtime errors
     this.originalErrorHandler = window.onerror;
     window.onerror = (message, source, lineno, colno, error) => {
@@ -73,7 +73,7 @@ export class ErrorBoundary {
    * @param {Error} error - The error object
    * @param {Object} context - Additional error context
    */
-  handleError(error, context = {}) {
+  handleError (error, context = {}) {
     if (this.isReportingError) {
       // Prevent infinite recursion
       return;
@@ -132,7 +132,7 @@ export class ErrorBoundary {
    * @param {Object} context - Error context
    * @returns {Object} Enhanced error object
    */
-  enhanceError(error, context) {
+  enhanceError (error, context) {
     const enhanced = {
       message: error?.message || 'Unknown error',
       stack: error?.stack || 'No stack trace available',
@@ -150,14 +150,14 @@ export class ErrorBoundary {
 
     // Add additional context for different error types
     switch (context.type) {
-      case 'unhandledRejection':
-        enhanced.promise = context.promise;
-        break;
-      case 'runtime':
-        enhanced.source = context.source;
-        enhanced.lineno = context.lineno;
-        enhanced.colno = context.colno;
-        break;
+    case 'unhandledRejection':
+      enhanced.promise = context.promise;
+      break;
+    case 'runtime':
+      enhanced.source = context.source;
+      enhanced.lineno = context.lineno;
+      enhanced.colno = context.colno;
+      break;
     }
 
     return enhanced;
@@ -167,7 +167,7 @@ export class ErrorBoundary {
    * Generate unique error ID
    * @returns {string} Unique error identifier
    */
-  generateErrorId() {
+  generateErrorId () {
     return `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
@@ -176,7 +176,7 @@ export class ErrorBoundary {
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  logError(error, context) {
+  logError (error, context) {
     const logMessage = `
 🚨 Error Boundary Caught Error
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -201,7 +201,7 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  async reportToMonitoring(error, context) {
+  async reportToMonitoring (error, context) {
     try {
       // Check if monitoring service is available
       if (typeof window.Sentry !== 'undefined') {
@@ -238,12 +238,12 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  async reportToCustomEndpoint(error, context) {
+  async reportToCustomEndpoint (error, context) {
     try {
       await fetch('/api/error-report', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           error,
@@ -265,7 +265,7 @@ User Agent: ${error.userAgent}
    * Get current session ID for error tracking
    * @returns {string} Session identifier
    */
-  getSessionId() {
+  getSessionId () {
     let sessionId = sessionStorage.getItem('error_boundary_session');
     if (!sessionId) {
       sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -278,7 +278,7 @@ User Agent: ${error.userAgent}
    * Display user-friendly fallback UI
    * @param {Object} error - Enhanced error object
    */
-  displayFallbackUI(error) {
+  displayFallbackUI (error) {
     // Check if we have a custom fallback UI
     if (this.options.fallbackUI && typeof this.options.fallbackUI === 'function') {
       const fallbackContent = this.options.fallbackUI(error, this.getRetryOptions());
@@ -296,7 +296,7 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @returns {string} HTML content for fallback UI
    */
-  createDefaultFallbackUI(error) {
+  createDefaultFallbackUI (error) {
     const isCritical = this.errorCount > 3;
     const canRetry = this.retryCount < this.options.maxRetries && !isCritical;
 
@@ -313,9 +313,9 @@ User Agent: ${error.userAgent}
           
           <p class="error-boundary__message">
             ${isCritical 
-              ? 'We\'re experiencing technical difficulties. Please try refreshing the page.' 
-              : 'We encountered an unexpected error. You can try again or refresh the page.'
-            }
+    ? 'We\'re experiencing technical difficulties. Please try refreshing the page.' 
+    : 'We encountered an unexpected error. You can try again or refresh the page.'
+}
           </p>
           
           <div class="error-boundary__actions">
@@ -364,9 +364,9 @@ User Agent: ${error.userAgent}
    * Render fallback UI to the page
    * @param {string} content - HTML content to render
    */
-  renderFallbackUI(content) {
+  renderFallbackUI (content) {
     // Find appropriate container
-    let container = document.getElementById('app') || document.body;
+    const container = document.getElementById('app') || document.body;
     
     // Clear existing content
     container.innerHTML = content;
@@ -387,7 +387,7 @@ User Agent: ${error.userAgent}
   /**
    * Inject CSS styles for error boundary UI
    */
-  injectErrorBoundaryStyles() {
+  injectErrorBoundaryStyles () {
     if (document.getElementById('error-boundary-styles')) {
       return; // Styles already injected
     }
@@ -481,7 +481,7 @@ User Agent: ${error.userAgent}
    * Get retry options for fallback UI
    * @returns {Object} Retry configuration
    */
-  getRetryOptions() {
+  getRetryOptions () {
     return {
       canRetry: this.retryCount < this.options.maxRetries,
       retryCount: this.retryCount,
@@ -494,7 +494,7 @@ User Agent: ${error.userAgent}
    * Attempt to recover from error
    * @param {Object} error - Enhanced error object
    */
-  attemptRecovery(error) {
+  attemptRecovery (error) {
     // Simple recovery strategy: clear error state after a delay
     setTimeout(() => {
       this.retryCount = 0;
@@ -504,7 +504,7 @@ User Agent: ${error.userAgent}
   /**
    * Retry operation (called from fallback UI)
    */
-  retry() {
+  retry () {
     if (this.retryCount < this.options.maxRetries) {
       this.retryCount++;
       
@@ -520,7 +520,7 @@ User Agent: ${error.userAgent}
   /**
    * Show detailed error information (called from fallback UI)
    */
-  showDetails() {
+  showDetails () {
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display = 
@@ -532,7 +532,7 @@ User Agent: ${error.userAgent}
    * Get error statistics
    * @returns {Object} Error statistics
    */
-  getStats() {
+  getStats () {
     return {
       errorCount: this.errorCount,
       lastError: this.lastError,
@@ -545,7 +545,7 @@ User Agent: ${error.userAgent}
   /**
    * Reset error boundary state (for testing)
    */
-  reset() {
+  reset () {
     this.errorCount = 0;
     this.lastError = null;
     this.retryCount = 0;
@@ -556,7 +556,7 @@ User Agent: ${error.userAgent}
   /**
    * Destroy error boundary and restore original handlers
    */
-  destroy() {
+  destroy () {
     // Restore original error handlers
     window.onerror = this.originalErrorHandler;
     window.onunhandledrejection = this.originalUnhandledRejection;
@@ -578,7 +578,7 @@ User Agent: ${error.userAgent}
  * @param {Object} options - Error boundary options
  * @returns {ErrorBoundary} Error boundary instance
  */
-export function createGlobalErrorBoundary(options = {}) {
+export function createGlobalErrorBoundary (options = {}) {
   const errorBoundary = new ErrorBoundary(options);
   
   // Store globally for fallback UI callbacks
@@ -591,7 +591,7 @@ export function createGlobalErrorBoundary(options = {}) {
  * Create error boundary with Properties 4 Creations defaults
  * @returns {ErrorBoundary} Configured error boundary instance
  */
-export function createPropertiesErrorBoundary() {
+export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
     fallbackUI: (error, retryOptions) => {
       return `

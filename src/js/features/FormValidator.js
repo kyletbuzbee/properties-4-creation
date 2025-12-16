@@ -15,7 +15,7 @@
 import { RateLimiter, createFormRateLimiter } from '../utils/rateLimiter.js';
 
 export class FormValidator {
-  constructor(formSelector, options = {}) {
+  constructor (formSelector, options = {}) {
     this.form = typeof formSelector === 'string'
       ? document.querySelector(formSelector)
       : formSelector;
@@ -118,7 +118,7 @@ export class FormValidator {
   /**
    * Initialize the form validator
    */
-  init() {
+  init () {
     if (!this.form) {
       console.warn('FormValidator: Form not found');
       return;
@@ -142,7 +142,7 @@ export class FormValidator {
    * Setup validation for a single field
    * @param {HTMLElement} field - Form field element
    */
-  setupField(field) {
+  setupField (field) {
     const fieldId = field.id || field.name || `field-${Math.random().toString(36).substr(2, 9)}`;
     
     // Ensure field has an ID
@@ -205,7 +205,7 @@ export class FormValidator {
    * @param {HTMLElement} field - Form field element
    * @returns {boolean} True if field is valid
    */
-  validateField(field) {
+  validateField (field) {
     const value = field.value;
     const fieldId = field.id;
     const errors = [];
@@ -276,7 +276,7 @@ export class FormValidator {
    * @param {HTMLElement} field - Form field element
    * @param {Object} state - Field validation state
    */
-  updateFieldUI(field, state) {
+  updateFieldUI (field, state) {
     const group = field.closest('.form-group') || field.parentElement;
     const errorContainer = this.getErrorContainer(field);
 
@@ -318,7 +318,7 @@ export class FormValidator {
    * @param {HTMLElement} field - Form field element
    * @returns {HTMLElement|null} Error container element
    */
-  getErrorContainer(field) {
+  getErrorContainer (field) {
     const describedBy = field.getAttribute('aria-describedby');
     if (describedBy) {
       return document.getElementById(describedBy);
@@ -332,7 +332,7 @@ export class FormValidator {
    * Validate entire form
    * @returns {boolean} True if form is valid
    */
-  validateForm() {
+  validateForm () {
     const fields = this.form.querySelectorAll('[data-validate], [required]');
     let isValid = true;
     let firstInvalidField = null;
@@ -358,7 +358,7 @@ export class FormValidator {
    * Handle form submission
    * @param {Event} e - Submit event
    */
-  async handleSubmit(e) {
+  async handleSubmit (e) {
     e.preventDefault();
 
     // Check rate limiting first
@@ -408,7 +408,7 @@ export class FormValidator {
    * Get user identifier for rate limiting
    * @returns {string} User identifier key
    */
-  getUserIdentifier() {
+  getUserIdentifier () {
     if (this.rateLimiter) {
       return this.rateLimiter.getUserIdentifier();
     }
@@ -419,7 +419,7 @@ export class FormValidator {
    * Show rate limiting error message
    * @param {Object} rateLimitResult - Rate limit check result
    */
-  showRateLimitError(rateLimitResult) {
+  showRateLimitError (rateLimitResult) {
     const errorMessage = rateLimitResult.retryAfter 
       ? `Too many attempts. Please wait ${rateLimitResult.retryAfter} seconds before trying again.`
       : 'Too many attempts. Please try again later.';
@@ -479,7 +479,7 @@ export class FormValidator {
    * Set form loading state
    * @param {boolean} loading - Loading state
    */
-  setLoadingState(loading) {
+  setLoadingState (loading) {
     const submitButton = this.form.querySelector('[type="submit"]');
     
     if (loading) {
@@ -506,7 +506,7 @@ export class FormValidator {
    * Get all validation errors
    * @returns {Array} Array of error objects
    */
-  getErrors() {
+  getErrors () {
     const errors = [];
     
     this.fieldStates.forEach((state, fieldId) => {
@@ -525,7 +525,7 @@ export class FormValidator {
    * Get rate limiting statistics
    * @returns {Object|null} Rate limit stats or null if disabled
    */
-  getRateLimitStats() {
+  getRateLimitStats () {
     if (!this.rateLimiter) return null;
     
     const userKey = this.getUserIdentifier();
@@ -540,7 +540,7 @@ export class FormValidator {
   /**
    * Reset rate limiting for user (admin/testing function)
    */
-  resetRateLimit() {
+  resetRateLimit () {
     if (this.rateLimiter) {
       const userKey = this.getUserIdentifier();
       this.rateLimiter.resetUserAttempts(userKey);
@@ -565,14 +565,14 @@ export class FormValidator {
    * @param {string} name - Validator name
    * @param {Function} validator - Validator function
    */
-  addValidator(name, validator) {
+  addValidator (name, validator) {
     this.validators[name] = validator;
   }
 
   /**
    * Reset form and validation states
    */
-  reset() {
+  reset () {
     this.form.reset();
     
     this.fieldStates.forEach((state, fieldId) => {
@@ -602,7 +602,7 @@ export class FormValidator {
   /**
    * Destroy validator and clean up
    */
-  destroy() {
+  destroy () {
     this.debounceTimers.forEach(timer => clearTimeout(timer));
     this.debounceTimers.clear();
     this.fieldStates.clear();
@@ -619,7 +619,7 @@ export class FormValidator {
  * Initialize form validators on all forms with data-validate-form attribute
  * @returns {FormValidator[]} Array of validator instances
  */
-export function initFormValidators() {
+export function initFormValidators () {
   const forms = document.querySelectorAll('[data-validate-form]');
   return Array.from(forms).map(form => new FormValidator(form));
 }

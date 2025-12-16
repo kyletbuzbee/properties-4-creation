@@ -14,7 +14,7 @@ export class LazyLoader {
    * @param {string} options.rootMargin - IntersectionObserver root margin (default: '50px 0px')
    * @param {number} options.threshold - IntersectionObserver threshold (default: 0.01)
    */
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.selector = options.selector || 'img[data-src]';
     this.rootMargin = options.rootMargin || '50px 0px';
     this.threshold = options.threshold || 0.01;
@@ -27,7 +27,7 @@ export class LazyLoader {
   /**
    * Initialize the lazy loader
    */
-  init() {
+  init () {
     const images = document.querySelectorAll(this.selector);
     
     if (images.length === 0) {
@@ -46,7 +46,7 @@ export class LazyLoader {
   /**
    * Create the IntersectionObserver
    */
-  createObserver() {
+  createObserver () {
     this.observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach(entry => {
@@ -67,7 +67,7 @@ export class LazyLoader {
    * Load a single image
    * @param {HTMLImageElement} img - The image element to load
    */
-  loadImage(img) {
+  loadImage (img) {
     // Get the actual source
     const src = img.dataset.src;
     const srcset = img.dataset.srcset;
@@ -124,7 +124,7 @@ export class LazyLoader {
    * Load all images immediately (fallback for no IntersectionObserver)
    * @param {NodeList} images - List of image elements
    */
-  loadAllImages(images) {
+  loadAllImages (images) {
     images.forEach(img => this.loadImage(img));
   }
 
@@ -132,7 +132,7 @@ export class LazyLoader {
    * Manually observe a new image
    * @param {HTMLImageElement} img - Image element to observe
    */
-  observe(img) {
+  observe (img) {
     if (this.observer) {
       this.observer.observe(img);
     } else {
@@ -143,7 +143,7 @@ export class LazyLoader {
   /**
    * Disconnect the observer
    */
-  disconnect() {
+  disconnect () {
     if (this.observer) {
       this.observer.disconnect();
     }
@@ -153,7 +153,7 @@ export class LazyLoader {
    * Get the count of loaded images
    * @returns {number} Number of images loaded
    */
-  getLoadedCount() {
+  getLoadedCount () {
     return this.loadedCount;
   }
 }
@@ -162,7 +162,7 @@ export class LazyLoader {
  * Initialize lazy loading for native lazy loading support
  * Adds loading="lazy" support check and polyfill
  */
-export function initNativeLazyLoading() {
+export function initNativeLazyLoading () {
   // Check for native lazy loading support
   if ('loading' in HTMLImageElement.prototype) {
     // Native lazy loading is supported
@@ -191,7 +191,7 @@ export function initNativeLazyLoading() {
  * @param {string} options.defaultSize - Default size to use (default: '800')
  * @returns {string} HTML string for the picture element
  */
-export function createResponsiveImage(options) {
+export function createResponsiveImage (options) {
   const {
     basePath,
     alt,

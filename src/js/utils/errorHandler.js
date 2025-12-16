@@ -11,7 +11,7 @@
  */
 
 export class ErrorHandler {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       logToConsole: true,
       showUserNotification: true,
@@ -34,7 +34,7 @@ export class ErrorHandler {
   /**
    * Initialize global error handlers
    */
-  init() {
+  init () {
     if (this.isInitialized) return;
 
     // Global JavaScript error handler
@@ -69,11 +69,11 @@ export class ErrorHandler {
   /**
    * Wrap global fetch to catch network errors
    */
-  wrapFetch() {
+  wrapFetch () {
     const originalFetch = window.fetch;
     const self = this;
 
-    window.fetch = async function(...args) {
+    window.fetch = async function (...args) {
       try {
         const response = await originalFetch.apply(this, args);
         
@@ -105,7 +105,7 @@ export class ErrorHandler {
    * Handle an error
    * @param {Object} error - Error object
    */
-  handleError(error) {
+  handleError (error) {
     // Deduplicate errors
     if (this.options.deduplicateErrors) {
       const errorKey = `${error.type}:${error.message}`;
@@ -151,7 +151,7 @@ export class ErrorHandler {
    * Log error to internal storage
    * @param {Object} error - Error object
    */
-  logError(error) {
+  logError (error) {
     this.errorLog.push(error);
     
     // Limit error log size
@@ -171,7 +171,7 @@ export class ErrorHandler {
    * Show user-friendly notification
    * @param {Object} error - Error object
    */
-  showNotification(error) {
+  showNotification (error) {
     const message = this.getUserFriendlyMessage(error);
     
     // Create or get toast container
@@ -230,7 +230,7 @@ export class ErrorHandler {
    * @param {Object} error - Error object
    * @returns {string} User-friendly message
    */
-  getUserFriendlyMessage(error) {
+  getUserFriendlyMessage (error) {
     const messages = {
       'Network Error': 'Unable to connect to the server. Please check your internet connection.',
       'Fetch Error': 'Failed to load data. Please try again later.',
@@ -242,20 +242,20 @@ export class ErrorHandler {
     // Check for specific HTTP status codes
     if (error.status) {
       switch (error.status) {
-        case 400:
-          return 'Invalid request. Please check your input and try again.';
-        case 401:
-          return 'Please log in to continue.';
-        case 403:
-          return 'You don\'t have permission to access this resource.';
-        case 404:
-          return 'The requested resource was not found.';
-        case 429:
-          return 'Too many requests. Please wait a moment and try again.';
-        case 500:
-          return 'Server error. Our team has been notified.';
-        case 503:
-          return 'Service temporarily unavailable. Please try again later.';
+      case 400:
+        return 'Invalid request. Please check your input and try again.';
+      case 401:
+        return 'Please log in to continue.';
+      case 403:
+        return 'You don\'t have permission to access this resource.';
+      case 404:
+        return 'The requested resource was not found.';
+      case 429:
+        return 'Too many requests. Please wait a moment and try again.';
+      case 500:
+        return 'Server error. Our team has been notified.';
+      case 503:
+        return 'Service temporarily unavailable. Please try again later.';
       }
     }
 
@@ -266,7 +266,7 @@ export class ErrorHandler {
    * Report error to server
    * @param {Object} error - Error object
    */
-  async reportError(error) {
+  async reportError (error) {
     // Don't report in development
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       return;
@@ -295,7 +295,7 @@ export class ErrorHandler {
    * Get or create session ID
    * @returns {string} Session ID
    */
-  getSessionId() {
+  getSessionId () {
     let sessionId = sessionStorage.getItem('p4c_session_id');
     if (!sessionId) {
       sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -309,7 +309,7 @@ export class ErrorHandler {
    * @param {string} text - Text to escape
    * @returns {string} Escaped text
    */
-  escapeHtml(text) {
+  escapeHtml (text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
@@ -321,11 +321,11 @@ export class ErrorHandler {
    * @param {Object} options - Options
    * @returns {Function} Wrapped function
    */
-  createBoundary(fn, options = {}) {
+  createBoundary (fn, options = {}) {
     const self = this;
     const { fallback, rethrow = false } = options;
 
-    return async function(...args) {
+    return async function (...args) {
       try {
         return await fn.apply(this, args);
       } catch (error) {
@@ -355,7 +355,7 @@ export class ErrorHandler {
    * @param {string} message - Error message
    * @param {Object} context - Additional context
    */
-  log(message, context = {}) {
+  log (message, context = {}) {
     this.handleError({
       type: 'Manual Log',
       message,
@@ -368,14 +368,14 @@ export class ErrorHandler {
    * Get error log
    * @returns {Array} Error log
    */
-  getErrorLog() {
+  getErrorLog () {
     return [...this.errorLog];
   }
 
   /**
    * Clear error log
    */
-  clearErrorLog() {
+  clearErrorLog () {
     this.errorLog = [];
     this.recentErrors.clear();
     sessionStorage.removeItem('p4c_error_log');
@@ -385,7 +385,7 @@ export class ErrorHandler {
    * Get error statistics
    * @returns {Object} Error statistics
    */
-  getStats() {
+  getStats () {
     const stats = {
       total: this.errorLog.length,
       byType: {},
@@ -408,7 +408,7 @@ let errorHandlerInstance = null;
  * @param {Object} options - Error handler options
  * @returns {ErrorHandler} Error handler instance
  */
-export function getErrorHandler(options = {}) {
+export function getErrorHandler (options = {}) {
   if (!errorHandlerInstance) {
     errorHandlerInstance = new ErrorHandler(options);
   }
@@ -418,7 +418,7 @@ export function getErrorHandler(options = {}) {
 /**
  * Initialize error handler with default options
  */
-export function initErrorHandler() {
+export function initErrorHandler () {
   return getErrorHandler({
     logToConsole: true,
     showUserNotification: true,

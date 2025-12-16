@@ -1506,23 +1506,23 @@ body {
 
 /* Individual Property Hero Backgrounds */
 .longview-hero {
-    background-image: url('public/images/properties/properties-longview-victorian.webp');
+    background-image: url('images//properties/properties-longview-victorian.webp');
 }
 
 .jefferson-hero {
-    background-image: url('public/images/properties/properties-jefferson-river-front.webp');
+    background-image: url('images//properties/properties-jefferson-river-front.webp');
 }
 
 .kemp-hero {
-    background-image: url('public/images/properties/properties-kemp-townhome.webp');
+    background-image: url('images//properties/properties-kemp-townhome.webp');
 }
 
 .marshall-hero {
-    background-image: url('public/images/properties/properties-marshall-farmhouse.webp');
+    background-image: url('images//properties/properties-marshall-farmhouse.webp');
 }
 
 .mineola-hero {
-    background-image: url('public/images/properties/properties-mineola-studio.webp');
+    background-image: url('images//properties/properties-mineola-studio.webp');
 }
 
 .property-detail-hero .container {

@@ -12,7 +12,7 @@ import DOMPurify from 'dompurify';
  * @param {Object} config - DOMPurify configuration options
  * @returns {string} Sanitized HTML string
  */
-export function sanitizeHtml(dirty, config = {}) {
+export function sanitizeHtml (dirty, config = {}) {
   const defaultConfig = {
     ALLOWED_TAGS: [
       'p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -35,7 +35,7 @@ export function sanitizeHtml(dirty, config = {}) {
  * @param {string} text - Input text
  * @returns {string} Escaped HTML string
  */
-export function escapeHtml(text) {
+export function escapeHtml (text) {
   if (typeof text !== 'string') {
     return String(text);
   }
@@ -50,7 +50,7 @@ export function escapeHtml(text) {
  * @param {FormData} formData - FormData object from form submission
  * @returns {Object} Sanitized form data object
  */
-export function sanitizeFormData(formData) {
+export function sanitizeFormData (formData) {
   const sanitized = {};
   
   for (const [key, value] of formData.entries()) {
@@ -70,7 +70,7 @@ export function sanitizeFormData(formData) {
  * @param {string} url - Input URL
  * @returns {string} Sanitized URL or '#' if invalid
  */
-export function sanitizeUrl(url) {
+export function sanitizeUrl (url) {
   if (typeof url !== 'string') return '#';
   
   // Remove potentially dangerous protocols
@@ -99,7 +99,7 @@ export function sanitizeUrl(url) {
  * @param {Object} attributes - Element attributes
  * @returns {HTMLElement} Safe DOM element
  */
-export function createSafeElement(tag, content = '', attributes = {}) {
+export function createSafeElement (tag, content = '', attributes = {}) {
   const element = document.createElement(tag);
   
   // Add attributes safely
@@ -128,7 +128,7 @@ export function createSafeElement(tag, content = '', attributes = {}) {
  * @param {string} email - Email address
  * @returns {string} Valid email or empty string
  */
-export function sanitizeEmail(email) {
+export function sanitizeEmail (email) {
   if (typeof email !== 'string') return '';
   
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -142,7 +142,7 @@ export function sanitizeEmail(email) {
  * @param {string} phone - Phone number
  * @returns {string} Clean phone number or empty string
  */
-export function sanitizePhone(phone) {
+export function sanitizePhone (phone) {
   if (typeof phone !== 'string') return '';
   
   // Remove all non-digit characters except + and ()
@@ -158,7 +158,7 @@ export function sanitizePhone(phone) {
  * @param {string} input - User input
  * @returns {string} Cleaned input
  */
-export function cleanUserInput(input) {
+export function cleanUserInput (input) {
   if (typeof input !== 'string') return '';
   
   return input

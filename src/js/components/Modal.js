@@ -12,7 +12,7 @@
  */
 
 export class Modal {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       closeOnBackdrop: true,
       closeOnEscape: true,
@@ -33,7 +33,7 @@ export class Modal {
   /**
    * Initialize modal triggers
    */
-  init() {
+  init () {
     // Find all modal triggers
     const triggers = document.querySelectorAll('[data-modal-trigger]');
     
@@ -56,7 +56,7 @@ export class Modal {
    * Open a modal by ID
    * @param {string} modalId - The ID of the modal to open
    */
-  open(modalId) {
+  open (modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) {
       console.warn(`Modal: Element with ID "${modalId}" not found`);
@@ -113,7 +113,7 @@ export class Modal {
   /**
    * Close the active modal
    */
-  close() {
+  close () {
     if (!this.activeModal) return;
 
     const modal = this.activeModal;
@@ -152,7 +152,7 @@ export class Modal {
    * Toggle modal open/close
    * @param {string} modalId - The ID of the modal to toggle
    */
-  toggle(modalId) {
+  toggle (modalId) {
     if (this.activeModal && this.activeModal.id === modalId) {
       this.close();
     } else {
@@ -164,7 +164,7 @@ export class Modal {
    * Handle keydown events
    * @param {KeyboardEvent} e - Keyboard event
    */
-  handleKeydown(e) {
+  handleKeydown (e) {
     if (e.key === 'Escape' && this.options.closeOnEscape) {
       e.preventDefault();
       this.close();
@@ -175,7 +175,7 @@ export class Modal {
    * Handle backdrop click
    * @param {MouseEvent} e - Mouse event
    */
-  handleBackdropClick(e) {
+  handleBackdropClick (e) {
     // Only close if clicking the backdrop (modal element itself), not content
     if (e.target === this.activeModal) {
       this.close();
@@ -186,7 +186,7 @@ export class Modal {
    * Setup focus trap within modal
    * @param {HTMLElement} modal - Modal element
    */
-  setupFocusTrap(modal) {
+  setupFocusTrap (modal) {
     const focusableElements = this.getFocusableElements(modal);
     
     if (focusableElements.length === 0) return;
@@ -223,7 +223,7 @@ export class Modal {
    * @param {HTMLElement} container - Container element
    * @returns {NodeList} Focusable elements
    */
-  getFocusableElements(container) {
+  getFocusableElements (container) {
     const focusableSelectors = [
       'button:not([disabled])',
       'a[href]',
@@ -242,7 +242,7 @@ export class Modal {
    * @param {HTMLElement} container - Container element
    * @returns {HTMLElement|null} First focusable element
    */
-  getFirstFocusableElement(container) {
+  getFirstFocusableElement (container) {
     const focusableElements = this.getFocusableElements(container);
     return focusableElements.length > 0 ? focusableElements[0] : null;
   }
@@ -251,7 +251,7 @@ export class Modal {
    * Announce message to screen readers
    * @param {string} message - Message to announce
    */
-  announceToScreenReader(message) {
+  announceToScreenReader (message) {
     const announcement = document.createElement('div');
     announcement.setAttribute('role', 'status');
     announcement.setAttribute('aria-live', 'polite');
@@ -269,7 +269,7 @@ export class Modal {
    * @param {Object} config - Modal configuration
    * @returns {HTMLElement} Created modal element
    */
-  static create(config = {}) {
+  static create (config = {}) {
     const {
       id = `modal-${Date.now()}`,
       title = '',
@@ -325,7 +325,7 @@ export class Modal {
    * Destroy modal and clean up
    * @param {string} modalId - ID of modal to destroy
    */
-  static destroy(modalId) {
+  static destroy (modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
       // Remove focus trap handler if exists
@@ -340,7 +340,7 @@ export class Modal {
    * Check if any modal is currently open
    * @returns {boolean} True if a modal is open
    */
-  isOpen() {
+  isOpen () {
     return this.activeModal !== null;
   }
 
@@ -348,7 +348,7 @@ export class Modal {
    * Get the currently active modal
    * @returns {HTMLElement|null} Active modal element
    */
-  getActiveModal() {
+  getActiveModal () {
     return this.activeModal;
   }
 }
@@ -361,7 +361,7 @@ let modalInstance = null;
  * @param {Object} options - Modal options
  * @returns {Modal} Modal instance
  */
-export function getModalInstance(options = {}) {
+export function getModalInstance (options = {}) {
   if (!modalInstance) {
     modalInstance = new Modal(options);
   }

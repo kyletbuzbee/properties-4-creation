@@ -11,7 +11,7 @@
  */
 
 export class Accordion {
-  constructor(containerSelector, options = {}) {
+  constructor (containerSelector, options = {}) {
     this.container = typeof containerSelector === 'string' 
       ? document.querySelector(containerSelector) 
       : containerSelector;
@@ -31,7 +31,7 @@ export class Accordion {
   /**
    * Initialize the accordion
    */
-  init() {
+  init () {
     if (!this.container) {
       console.warn('Accordion: Container not found');
       return;
@@ -95,7 +95,7 @@ export class Accordion {
    * Toggle an accordion panel
    * @param {number} index - Panel index
    */
-  toggle(index) {
+  toggle (index) {
     if (index < 0 || index >= this.items.length) return;
 
     const { isOpen } = this.items[index];
@@ -112,7 +112,7 @@ export class Accordion {
    * @param {number} index - Panel index
    * @param {boolean} animate - Whether to animate
    */
-  open(index, animate = true) {
+  open (index, animate = true) {
     if (index < 0 || index >= this.items.length) return;
 
     const { button, panel, isOpen } = this.items[index];
@@ -153,7 +153,7 @@ export class Accordion {
    * @param {number} index - Panel index
    * @param {boolean} animate - Whether to animate
    */
-  close(index, animate = true) {
+  close (index, animate = true) {
     if (index < 0 || index >= this.items.length) return;
 
     const { button, panel, isOpen } = this.items[index];
@@ -184,7 +184,7 @@ export class Accordion {
    * Animate panel opening
    * @param {HTMLElement} panel - Panel element
    */
-  animateOpen(panel) {
+  animateOpen (panel) {
     // Get the natural height
     panel.style.maxHeight = 'none';
     const height = panel.scrollHeight;
@@ -209,7 +209,7 @@ export class Accordion {
    * Animate panel closing
    * @param {HTMLElement} panel - Panel element
    */
-  animateClose(panel) {
+  animateClose (panel) {
     // Set current height explicitly
     const height = panel.scrollHeight;
     panel.style.maxHeight = `${height}px`;
@@ -235,35 +235,35 @@ export class Accordion {
    * @param {KeyboardEvent} e - Keyboard event
    * @param {number} index - Current panel index
    */
-  handleKeydown(e, index) {
+  handleKeydown (e, index) {
     const { key } = e;
     
     switch (key) {
-      case 'Enter':
-      case ' ':
-        e.preventDefault();
-        this.toggle(index);
-        break;
+    case 'Enter':
+    case ' ':
+      e.preventDefault();
+      this.toggle(index);
+      break;
         
-      case 'ArrowDown':
-        e.preventDefault();
-        this.focusNext(index);
-        break;
+    case 'ArrowDown':
+      e.preventDefault();
+      this.focusNext(index);
+      break;
         
-      case 'ArrowUp':
-        e.preventDefault();
-        this.focusPrevious(index);
-        break;
+    case 'ArrowUp':
+      e.preventDefault();
+      this.focusPrevious(index);
+      break;
         
-      case 'Home':
-        e.preventDefault();
-        this.focusFirst();
-        break;
+    case 'Home':
+      e.preventDefault();
+      this.focusFirst();
+      break;
         
-      case 'End':
-        e.preventDefault();
-        this.focusLast();
-        break;
+    case 'End':
+      e.preventDefault();
+      this.focusLast();
+      break;
     }
   }
 
@@ -271,7 +271,7 @@ export class Accordion {
    * Focus next accordion button
    * @param {number} currentIndex - Current index
    */
-  focusNext(currentIndex) {
+  focusNext (currentIndex) {
     const nextIndex = (currentIndex + 1) % this.items.length;
     this.items[nextIndex].button.focus();
   }
@@ -280,7 +280,7 @@ export class Accordion {
    * Focus previous accordion button
    * @param {number} currentIndex - Current index
    */
-  focusPrevious(currentIndex) {
+  focusPrevious (currentIndex) {
     const prevIndex = currentIndex === 0 ? this.items.length - 1 : currentIndex - 1;
     this.items[prevIndex].button.focus();
   }
@@ -288,7 +288,7 @@ export class Accordion {
   /**
    * Focus first accordion button
    */
-  focusFirst() {
+  focusFirst () {
     if (this.items.length > 0) {
       this.items[0].button.focus();
     }
@@ -297,7 +297,7 @@ export class Accordion {
   /**
    * Focus last accordion button
    */
-  focusLast() {
+  focusLast () {
     if (this.items.length > 0) {
       this.items[this.items.length - 1].button.focus();
     }
@@ -306,14 +306,14 @@ export class Accordion {
   /**
    * Open all panels
    */
-  openAll() {
+  openAll () {
     this.items.forEach((_, index) => this.open(index));
   }
 
   /**
    * Close all panels
    */
-  closeAll() {
+  closeAll () {
     this.items.forEach((_, index) => this.close(index));
   }
 
@@ -321,7 +321,7 @@ export class Accordion {
    * Get open panel indices
    * @returns {number[]} Array of open panel indices
    */
-  getOpenPanels() {
+  getOpenPanels () {
     return this.items
       .map((item, index) => item.isOpen ? index : -1)
       .filter(index => index !== -1);
@@ -332,14 +332,14 @@ export class Accordion {
    * @param {number} index - Panel index
    * @returns {boolean} True if panel is open
    */
-  isPanelOpen(index) {
+  isPanelOpen (index) {
     return this.items[index]?.isOpen || false;
   }
 
   /**
    * Destroy the accordion and clean up
    */
-  destroy() {
+  destroy () {
     this.items.forEach(({ button, panel }) => {
       button.removeAttribute('aria-expanded');
       button.removeAttribute('aria-controls');
@@ -364,7 +364,7 @@ export class Accordion {
  * @param {Object} options - Accordion options
  * @returns {Accordion[]} Array of accordion instances
  */
-export function initAccordions(selector = '.accordion', options = {}) {
+export function initAccordions (selector = '.accordion', options = {}) {
   const containers = document.querySelectorAll(selector);
   return Array.from(containers).map(container => new Accordion(container, options));
 }

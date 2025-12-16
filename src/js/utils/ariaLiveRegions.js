@@ -10,7 +10,7 @@
  */
 
 export class AriaLiveRegions {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       containerId: 'aria-live-container',
       politeRegionId: 'aria-live-polite',
@@ -30,7 +30,7 @@ export class AriaLiveRegions {
   /**
    * Initialize ARIA live regions
    */
-  init() {
+  init () {
     this.createRegionContainer();
     this.createLiveRegions();
   }
@@ -38,7 +38,7 @@ export class AriaLiveRegions {
   /**
    * Create container for live regions
    */
-  createRegionContainer() {
+  createRegionContainer () {
     let container = document.getElementById(this.options.containerId);
     
     if (!container) {
@@ -65,7 +65,7 @@ export class AriaLiveRegions {
   /**
    * Create polite and assertive live regions
    */
-  createLiveRegions() {
+  createLiveRegions () {
     // Polite region for non-critical updates
     this.politeRegion = document.createElement('div');
     this.politeRegion.id = this.options.politeRegionId;
@@ -93,7 +93,7 @@ export class AriaLiveRegions {
    * @param {string} priority - 'polite' or 'assertive'
    * @param {Object} options - Additional options
    */
-  announce(message, priority = 'polite', options = {}) {
+  announce (message, priority = 'polite', options = {}) {
     const {
       delay = this.options.announcementDelay,
       queue = true,
@@ -122,7 +122,7 @@ export class AriaLiveRegions {
   /**
    * Process announcement queue
    */
-  async processQueue() {
+  async processQueue () {
     if (this.isProcessing || this.announcementQueue.length === 0) {
       return;
     }
@@ -146,7 +146,7 @@ export class AriaLiveRegions {
    * Deliver announcement to appropriate live region
    * @param {Object} announcement - Announcement object
    */
-  async deliverAnnouncement(announcement) {
+  async deliverAnnouncement (announcement) {
     const { message, priority } = announcement;
     const region = priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
 
@@ -168,7 +168,7 @@ export class AriaLiveRegions {
    * @param {string} fieldName - Name of the field with error
    * @param {string} message - Error message
    */
-  announceValidationError(fieldName, message) {
+  announceValidationError (fieldName, message) {
     const announcement = `Error in ${fieldName}: ${message}`;
     this.announce(announcement, 'assertive');
   }
@@ -177,7 +177,7 @@ export class AriaLiveRegions {
    * Announce form validation success
    * @param {string} fieldName - Name of the field that's now valid
    */
-  announceValidationSuccess(fieldName) {
+  announceValidationSuccess (fieldName) {
     const announcement = `${fieldName} is now valid`;
     this.announce(announcement, 'polite');
   }
@@ -187,7 +187,7 @@ export class AriaLiveRegions {
    * @param {string} status - 'success', 'error', 'loading'
    * @param {string} message - Status message
    */
-  announceFormStatus(status, message) {
+  announceFormStatus (status, message) {
     const priority = status === 'error' ? 'assertive' : 'polite';
     this.announce(message, priority);
   }
@@ -197,7 +197,7 @@ export class AriaLiveRegions {
    * @param {number} count - Number of results
    * @param {string} filterType - Type of filter applied
    */
-  announceFilterResults(count, filterType) {
+  announceFilterResults (count, filterType) {
     let message;
     if (count === 0) {
       message = `No results found for ${filterType}`;
@@ -214,7 +214,7 @@ export class AriaLiveRegions {
    * Announce page navigation
    * @param {string} pageName - Name of the page navigated to
    */
-  announcePageNavigation(pageName) {
+  announcePageNavigation (pageName) {
     const message = `Navigated to ${pageName} page`;
     this.announce(message, 'polite');
   }
@@ -224,7 +224,7 @@ export class AriaLiveRegions {
    * @param {string} action - 'opened', 'closed'
    * @param {string} modalName - Name of the modal
    */
-  announceModalState(action, modalName) {
+  announceModalState (action, modalName) {
     const message = action === 'opened' 
       ? `${modalName} modal opened` 
       : `${modalName} modal closed`;
@@ -236,7 +236,7 @@ export class AriaLiveRegions {
    * @param {string} contentType - Type of content updated
    * @param {string} updateMessage - Description of the update
    */
-  announceContentUpdate(contentType, updateMessage) {
+  announceContentUpdate (contentType, updateMessage) {
     const message = `${contentType} updated: ${updateMessage}`;
     this.announce(message, 'polite');
   }
@@ -244,7 +244,7 @@ export class AriaLiveRegions {
   /**
    * Clear all pending announcements
    */
-  clearQueue() {
+  clearQueue () {
     this.announcementQueue = [];
     this.isProcessing = false;
   }
@@ -253,7 +253,7 @@ export class AriaLiveRegions {
    * Clear specific live region
    * @param {string} priority - 'polite' or 'assertive'
    */
-  clearRegion(priority = 'polite') {
+  clearRegion (priority = 'polite') {
     const region = priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
     region.textContent = '';
   }
@@ -261,7 +261,7 @@ export class AriaLiveRegions {
   /**
    * Clear both live regions
    */
-  clearAllRegions() {
+  clearAllRegions () {
     this.clearRegion('polite');
     this.clearRegion('assertive');
   }
@@ -271,7 +271,7 @@ export class AriaLiveRegions {
    * @param {string} message - Message to sanitize
    * @returns {string} Sanitized message
    */
-  sanitizeMessage(message) {
+  sanitizeMessage (message) {
     if (typeof message !== 'string') {
       return '';
     }
@@ -287,7 +287,7 @@ export class AriaLiveRegions {
    * Generate unique ID for announcements
    * @returns {string} Unique ID
    */
-  generateId() {
+  generateId () {
     return `announcement_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
@@ -296,7 +296,7 @@ export class AriaLiveRegions {
    * @param {number} ms - Milliseconds to delay
    * @returns {Promise} Promise that resolves after delay
    */
-  delay(ms) {
+  delay (ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
@@ -304,7 +304,7 @@ export class AriaLiveRegions {
    * Get current queue status
    * @returns {Object} Queue status information
    */
-  getQueueStatus() {
+  getQueueStatus () {
     return {
       queueLength: this.announcementQueue.length,
       isProcessing: this.isProcessing,
@@ -319,7 +319,7 @@ export class AriaLiveRegions {
   /**
    * Destroy live regions and clean up
    */
-  destroy() {
+  destroy () {
     this.clearQueue();
     
     if (this.regionContainer && this.regionContainer.parentNode) {
@@ -339,7 +339,7 @@ export class AriaLiveRegions {
  * @param {Object} options - Configuration options
  * @returns {AriaLiveRegions} Live regions instance
  */
-export function createAriaLiveRegions(options = {}) {
+export function createAriaLiveRegions (options = {}) {
   return new AriaLiveRegions(options);
 }
 
@@ -348,7 +348,7 @@ export function createAriaLiveRegions(options = {}) {
  * @param {Object} options - Configuration options
  * @returns {AriaLiveRegions} Live regions instance
  */
-export function getGlobalAriaLiveRegions(options = {}) {
+export function getGlobalAriaLiveRegions (options = {}) {
   if (!window._ariaLiveRegions) {
     window._ariaLiveRegions = createAriaLiveRegions(options);
   }

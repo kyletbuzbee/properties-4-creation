@@ -11,7 +11,7 @@
  */
 
 export class PropertyFilter {
-  constructor(properties, containerSelector) {
+  constructor (properties, containerSelector) {
     this.allProperties = properties || [];
     this.filteredProperties = [...this.allProperties];
     this.container = document.querySelector(containerSelector);
@@ -29,7 +29,7 @@ export class PropertyFilter {
   /**
    * Initialize the filter system
    */
-  init() {
+  init () {
     if (!this.container) {
       console.warn('PropertyFilter: Container not found');
       return;
@@ -44,7 +44,7 @@ export class PropertyFilter {
   /**
    * Create the filter UI elements
    */
-  createFilterUI() {
+  createFilterUI () {
     this.filterBar = document.createElement('div');
     this.filterBar.className = 'filter-bar';
     this.filterBar.setAttribute('role', 'search');
@@ -128,7 +128,7 @@ export class PropertyFilter {
   /**
    * Attach event listeners to filter controls
    */
-  attachEventListeners() {
+  attachEventListeners () {
     // Debounced search input
     const searchInput = document.getElementById('property-search');
     if (searchInput) {
@@ -204,7 +204,7 @@ export class PropertyFilter {
   /**
    * Apply all active filters to the property list
    */
-  applyFilters() {
+  applyFilters () {
     this.filteredProperties = this.allProperties.filter(prop => {
       // Search filter
       if (this.filters.search) {
@@ -243,7 +243,7 @@ export class PropertyFilter {
   /**
    * Reset all filters to default state
    */
-  resetFilters() {
+  resetFilters () {
     // Reset filter state
     this.filters = {
       bedrooms: null,
@@ -280,7 +280,7 @@ export class PropertyFilter {
   /**
    * Render the filtered property cards
    */
-  render() {
+  render () {
     if (!this.container) return;
 
     this.container.innerHTML = '';
@@ -324,7 +324,7 @@ export class PropertyFilter {
    * @param {number} index - Card index for animation delay
    * @returns {HTMLElement} Property card element
    */
-  createPropertyCard(prop, index) {
+  createPropertyCard (prop, index) {
     const card = document.createElement('article');
     card.className = 'property-card';
     card.style.animationDelay = `${index * 50}ms`;
@@ -382,7 +382,7 @@ export class PropertyFilter {
   /**
    * Update the results count display
    */
-  updateResultsCount() {
+  updateResultsCount () {
     const countElement = document.getElementById('results-count');
     const labelElement = document.getElementById('results-label');
     
@@ -399,7 +399,7 @@ export class PropertyFilter {
    * Announce message to screen readers
    * @param {string} message - Message to announce
    */
-  announceToScreenReader(message) {
+  announceToScreenReader (message) {
     const announcement = document.createElement('div');
     announcement.setAttribute('role', 'status');
     announcement.setAttribute('aria-live', 'polite');
@@ -417,7 +417,7 @@ export class PropertyFilter {
    * @param {string} text - Text to escape
    * @returns {string} Escaped text
    */
-  escapeHtml(text) {
+  escapeHtml (text) {
     if (typeof text !== 'string') return '';
     const div = document.createElement('div');
     div.textContent = text;
@@ -428,7 +428,7 @@ export class PropertyFilter {
    * Update properties data (for dynamic loading)
    * @param {Array} properties - New properties array
    */
-  updateProperties(properties) {
+  updateProperties (properties) {
     this.allProperties = properties || [];
     this.applyFilters();
   }
@@ -437,7 +437,7 @@ export class PropertyFilter {
    * Get current filter state
    * @returns {Object} Current filters
    */
-  getFilters() {
+  getFilters () {
     return { ...this.filters };
   }
 
@@ -445,7 +445,7 @@ export class PropertyFilter {
    * Set filters programmatically
    * @param {Object} filters - Filters to apply
    */
-  setFilters(filters) {
+  setFilters (filters) {
     this.filters = { ...this.filters, ...filters };
     this.applyFilters();
   }
@@ -453,7 +453,7 @@ export class PropertyFilter {
   /**
    * Destroy the filter instance and clean up
    */
-  destroy() {
+  destroy () {
     if (this.filterBar) {
       this.filterBar.remove();
     }
