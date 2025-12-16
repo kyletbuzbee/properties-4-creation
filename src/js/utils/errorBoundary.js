@@ -65,7 +65,7 @@ export class ErrorBoundary {
       event.preventDefault();
     };
 
-    console.log('ErrorBoundary: Global error handlers initialized');
+    // ErrorBoundary: Global error handlers initialized
   }
 
   /**
@@ -512,7 +512,7 @@ User Agent: ${error.userAgent}
    * Attempt to recover from error
    * @param {Object} error - Enhanced error object
    */
-  attemptRecovery (error) {
+  attemptRecovery (_error) {
     // Simple recovery strategy: clear error state after a delay
     setTimeout(() => {
       this.retryCount = 0;
@@ -587,7 +587,7 @@ User Agent: ${error.userAgent}
       delete window.ErrorBoundaryInstance;
     }
 
-    console.log('ErrorBoundary: Destroyed and handlers restored');
+    // ErrorBoundary: Destroyed and handlers restored
   }
 }
 
@@ -611,7 +611,7 @@ export function createGlobalErrorBoundary (options = {}) {
  */
 export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
-    fallbackUI: (error, retryOptions) => {
+    fallbackUI: (_error, _retryOptions) => {
       return `
         <div class="error-boundary" role="alert">
           <div class="error-boundary__content">

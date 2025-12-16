@@ -34,7 +34,7 @@ export class Accordion {
    */
   init () {
     if (!this.container) {
-      console.warn('Accordion: Container not found');
+      // Accordion: Container not found - silently ignore
       return;
     }
 

@@ -95,9 +95,9 @@ export class AriaLiveRegions {
    */
   announce (message, priority = 'polite', options = {}) {
     const {
-      delay = this.options.announcementDelay,
+      delay: _delay = this.options.announcementDelay,
       queue = true,
-      clear = false
+      clear: _clear = false
     } = options;
 
     const announcement = {
@@ -160,8 +160,8 @@ export class AriaLiveRegions {
     // Set the announcement message
     region.textContent = message;
 
-    // Log announcement for debugging
-    console.log(`[ARIA Live] ${priority.toUpperCase()}: ${message}`);
+    // Log announcement for debugging (disabled in production)
+    // console.log(`[ARIA Live] ${priority.toUpperCase()}: ${message}`);
   }
 
   /**
@@ -333,7 +333,7 @@ export class AriaLiveRegions {
     this.politeRegion = null;
     this.assertiveRegion = null;
 
-    console.log('AriaLiveRegions: Destroyed and cleaned up');
+    // AriaLiveRegions: Destroyed and cleaned up
   }
 }
 

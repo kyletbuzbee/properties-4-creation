@@ -59,7 +59,7 @@ export class Modal {
   open (modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) {
-      console.warn(`Modal: Element with ID "${modalId}" not found`);
+      // Modal: Element with ID not found - silently ignore
       return;
     }
 

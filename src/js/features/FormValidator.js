@@ -129,7 +129,7 @@ export class FormValidator {
    */
   init () {
     if (!this.form) {
-      console.warn('FormValidator: Form not found');
+      // FormValidator: Form not found - silently ignore
       return;
     }
 
@@ -412,7 +412,7 @@ export class FormValidator {
 
         await this.options.onSubmit(data, formData);
       } catch (error) {
-        console.error('Form submission error:', error);
+        // Form submission error logged for debugging
         if (typeof this.options.onError === 'function') {
           this.options.onError([{ field: 'form', message: error.message }]);
         }

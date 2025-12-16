@@ -31,7 +31,7 @@ export class PropertyFilter {
    */
   init () {
     if (!this.container) {
-      console.warn('PropertyFilter: Container not found');
+      // PropertyFilter: Container not found - silently ignore
       return;
     }
 

@@ -44,7 +44,7 @@ export class CSRFProtection {
   attachToForm (formId) {
     const form = document.getElementById(formId);
     if (!form) {
-      console.warn(`Form with ID '${formId}' not found`);
+      // Form with ID not found - silently ignore
       return;
     }
 
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const csrfToken = form.querySelector('input[name="csrf_token"]');
       if (!csrfToken || !window.csrfProtection.validateToken(csrfToken.value)) {
         e.preventDefault();
-        console.error('CSRF token validation failed');
+        // CSRF token validation failed
         alert('Security validation failed. Please try again.');
         return false;
       }
