@@ -1,0 +1,133 @@
+[
+  {
+    "id": "1",
+    "title": "Downtown Tyler Renovation",
+    "type": "project",
+    "url": "projects/downtown-tyler-renovation.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "tags": ["Section 8 Ready", "Veteran Priority", "Modern Kitchen", "Hardwood Floors", "Pet Friendly"],
+    "location": "Downtown Tyler, TX",
+    "price": "$1,200/mo",
+    "bedrooms": "2",
+    "bathrooms": "2",
+    "sqft": "1,200"
+  },
+  {
+    "id": "2",
+    "title": "Longview Historic Lofts",
+    "type": "project",
+    "url": "projects/longview-historic-lofts.html",
+    "description": "Historic building conversion with modern amenities in downtown Longview. Transformed from a historic warehouse into luxurious loft living that respects history while providing modern comforts.",
+    "tags": ["Market Rate", "Historic Building", "Pet Friendly", "Bike Storage"],
+    "location": "Downtown Longview, TX",
+    "price": "$1,800/mo",
+    "bedrooms": "3",
+    "bathrooms": "2",
+    "sqft": "1,800"
+  },
+  {
+    "id": "3",
+    "title": "Jefferson Riverside Gardens",
+    "type": "project",
+    "url": "projects/jefferson-riverside-gardens.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "tags": ["Section 8 Ready", "Waterfront", "Garden Views", "Patio Access", "Laundry Facility"],
+    "location": "Near Big Cypress Bayou, Jefferson, TX",
+    "price": "$950/mo",
+    "bedrooms": "1",
+    "bathrooms": "1",
+    "sqft": "850"
+  },
+  {
+    "id": "4",
+    "title": "East Texas Veteran Housing",
+    "type": "resource",
+    "url": "resources.html#veteran-housing",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "location": "East Texas",
+    "tags": ["Veterans", "Housing Assistance", "Section 8"]
+  },
+  {
+    "id": "5",
+    "title": "Section 8 Voucher Guide - East Texas",
+    "type": "resource",
+    "url": "resources.html#section8-guide",
+    "description": "Complete guide to Section 8 housing vouchers and rental assistance in Texas",
+    "location": "Texas",
+    "tags": ["Section 8", "Rental Assistance", "Government Programs"]
+  },
+  {
+    "id": "6",
+    "title": "Fair Market Rent Calculator",
+    "type": "resource",
+    "url": "resources.html#calculator",
+    "description": "Calculate your potential housing assistance and fair market rents",
+    "location": "Texas",
+    "tags": ["Calculator", "Fair Market Rent", "Housing Assistance"]
+  },
+  {
+    "id": "7",
+    "title": "East Texas Renovation Experts",
+    "type": "page",
+    "url": "about.html",
+    "description": "Learn about Properties 4 Creation's mission to provide quality affordable housing",
+    "location": "East Texas",
+    "tags": ["Company", "Mission", "Quality Assurance"]
+  },
+  {
+    "id": "8",
+    "title": "Contact - East Texas Properties",
+    "type": "page",
+    "url": "contact.html",
+    "description": "Get in touch with our East Texas housing specialists",
+    "location": "Tyler, TX",
+    "phone": "(903) 647-0000",
+    "email": "contact@properties4creation.com"
+  },
+  {
+    "id": "9",
+    "title": "Available East Texas Properties",
+    "type": "page",
+    "url": "projects.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "location": "East Texas, TX",
+    "tags": ["Properties", "Homes", "Veteran Sanctuary", "Section 8", "Story-Focused"]
+  },
+  {
+    "id": "10",
+    "title": "Veteran Housing Resources",
+    "type": "page",
+    "url": "resources.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "location": "Texas",
+    "tags": ["Veterans", "Resources", "Benefits"]
+  },
+  {
+    "id": "11",
+    "title": "Downtown Tyler Historic Schools",
+    "type": "resource",
+    "url": "projects/downtown-tyler-renovation.html#schools",
+    "description": "Excellent schools near Downtown Tyler Renovation including Tyler Junior College",
+    "location": "Downtown Tyler, TX",
+    "tags": ["Education", "Schools", "Urban Living", "Veteran Friendly"]
+  },
+  {
+    "id": "12",
+    "title": "Fair Cash Offers for Veterans",
+    "type": "resource",
+    "url": "get-started.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "location": "East Texas, TX",
+    "tags": ["Cash Offers", "Fair Pricing", "Sell Property", "Veteran Owned"]
+  },
+  {
+    "id": "13",
+    "title": "Renovation Standards Transparency",
+    "type": "page",
+    "url": "transparency.html",
+    "description": "Affordable housing for families and veterans in East Texas. Section 8 eligible, professionally renovated, and community focused.",
+    "location": "East Texas",
+    "tags": ["Transparency", "Standards", "HVAC", "Roof", "Electrical", "Plumbing"]
+  }
+]
+
