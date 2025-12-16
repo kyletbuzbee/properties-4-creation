@@ -1,7 +1,7 @@
 /**
  * Accordion - Accessible Accordion Component
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - ARIA expanded states
  * - Keyboard navigation (Enter/Space to toggle, Arrow keys)
@@ -12,10 +12,11 @@
 
 export class Accordion {
   constructor (containerSelector, options = {}) {
-    this.container = typeof containerSelector === 'string' 
-      ? document.querySelector(containerSelector) 
-      : containerSelector;
-    
+    this.container =
+      typeof containerSelector === 'string'
+        ? document.querySelector(containerSelector)
+        : containerSelector;
+
     this.options = {
       allowMultiple: false,
       defaultOpen: [], // Array of indices to open by default
@@ -23,7 +24,7 @@ export class Accordion {
       onToggle: null,
       ...options
     };
-    
+
     this.items = [];
     this.init();
   }
@@ -33,23 +34,29 @@ export class Accordion {
    */
   init () {
     if (!this.container) {
-      console.warn('Accordion: Container not found');
+      // Accordion: Container not found - silently ignore
       return;
     }
 
     // Support both BEM naming and legacy FAQ naming
-    const accordionItems = this.container.querySelectorAll('.accordion__item, .faq-item');
-    
+    const accordionItems = this.container.querySelectorAll(
+      '.accordion__item, .faq-item'
+    );
+
     accordionItems.forEach((item, index) => {
-      const button = item.querySelector('.accordion__button, .accordion__header, .faq-question');
-      const panel = item.querySelector('.accordion__panel, .accordion__content, .faq-answer');
-      
+      const button = item.querySelector(
+        '.accordion__button, .accordion__header, .faq-question'
+      );
+      const panel = item.querySelector(
+        '.accordion__panel, .accordion__content, .faq-answer'
+      );
+
       if (!button || !panel) return;
 
       // Generate unique IDs
       const buttonId = button.id || `accordion-button-${index}`;
       const panelId = panel.id || `accordion-panel-${index}`;
-      
+
       button.id = buttonId;
       panel.id = panelId;
 
@@ -58,7 +65,7 @@ export class Accordion {
       button.setAttribute('aria-controls', panelId);
       button.setAttribute('role', 'button');
       button.setAttribute('tabindex', '0');
-      
+
       panel.setAttribute('aria-labelledby', buttonId);
       panel.setAttribute('role', 'region');
       panel.hidden = true;
@@ -84,7 +91,7 @@ export class Accordion {
     });
 
     // Open default panels
-    this.options.defaultOpen.forEach(index => {
+    this.options.defaultOpen.forEach((index) => {
       if (index >= 0 && index < this.items.length) {
         this.open(index, false);
       }
@@ -99,7 +106,7 @@ export class Accordion {
     if (index < 0 || index >= this.items.length) return;
 
     const { isOpen } = this.items[index];
-    
+
     if (isOpen) {
       this.close(index);
     } else {
@@ -116,7 +123,7 @@ export class Accordion {
     if (index < 0 || index >= this.items.length) return;
 
     const { button, panel, isOpen } = this.items[index];
-    
+
     if (isOpen) return;
 
     // Close other panels if not allowing multiple
@@ -157,7 +164,7 @@ export class Accordion {
     if (index < 0 || index >= this.items.length) return;
 
     const { button, panel, isOpen } = this.items[index];
-    
+
     if (!isOpen) return;
 
     // Update state
@@ -189,10 +196,10 @@ export class Accordion {
     panel.style.maxHeight = 'none';
     const height = panel.scrollHeight;
     panel.style.maxHeight = '0px';
-    
+
     // Force reflow
     panel.offsetHeight;
-    
+
     // Animate to natural height
     panel.style.transition = `max-height ${this.options.animationDuration}ms ease-out`;
     panel.style.maxHeight = `${height}px`;
@@ -213,10 +220,10 @@ export class Accordion {
     // Set current height explicitly
     const height = panel.scrollHeight;
     panel.style.maxHeight = `${height}px`;
-    
+
     // Force reflow
     panel.offsetHeight;
-    
+
     // Animate to 0
     panel.style.transition = `max-height ${this.options.animationDuration}ms ease-out`;
     panel.style.maxHeight = '0px';
@@ -237,29 +244,29 @@ export class Accordion {
    */
   handleKeydown (e, index) {
     const { key } = e;
-    
+
     switch (key) {
     case 'Enter':
     case ' ':
       e.preventDefault();
       this.toggle(index);
       break;
-        
+
     case 'ArrowDown':
       e.preventDefault();
       this.focusNext(index);
       break;
-        
+
     case 'ArrowUp':
       e.preventDefault();
       this.focusPrevious(index);
       break;
-        
+
     case 'Home':
       e.preventDefault();
       this.focusFirst();
       break;
-        
+
     case 'End':
       e.preventDefault();
       this.focusLast();
@@ -281,7 +288,8 @@ export class Accordion {
    * @param {number} currentIndex - Current index
    */
   focusPrevious (currentIndex) {
-    const prevIndex = currentIndex === 0 ? this.items.length - 1 : currentIndex - 1;
+    const prevIndex =
+      currentIndex === 0 ? this.items.length - 1 : currentIndex - 1;
     this.items[prevIndex].button.focus();
   }
 
@@ -323,8 +331,8 @@ export class Accordion {
    */
   getOpenPanels () {
     return this.items
-      .map((item, index) => item.isOpen ? index : -1)
-      .filter(index => index !== -1);
+      .map((item, index) => (item.isOpen ? index : -1))
+      .filter((index) => index !== -1);
   }
 
   /**
@@ -346,14 +354,14 @@ export class Accordion {
       button.removeAttribute('role');
       button.removeAttribute('tabindex');
       button.classList.remove('accordion__button--active');
-      
+
       panel.removeAttribute('aria-labelledby');
       panel.removeAttribute('role');
       panel.hidden = false;
       panel.style.maxHeight = '';
       panel.classList.remove('accordion__panel--active');
     });
-    
+
     this.items = [];
   }
 }
@@ -366,7 +374,9 @@ export class Accordion {
  */
 export function initAccordions (selector = '.accordion', options = {}) {
   const containers = document.querySelectorAll(selector);
-  return Array.from(containers).map(container => new Accordion(container, options));
+  return Array.from(containers).map(
+    (container) => new Accordion(container, options)
+  );
 }
 
 // Export for global access if needed

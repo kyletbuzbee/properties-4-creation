@@ -13,39 +13,40 @@
 
 :root {
   /* Primary Colors */
-  --color-primary-navy: #0B1120;
+  --color-primary-navy: #0b1120;
   --color-primary-navy-light: #1a2332;
   --color-primary-navy-dark: #050811;
-  --color-primary-gold: #C28E5A;
+  --color-primary-gold: #c28e5a;
   --color-primary-gold-light: #d99a6a;
   --color-primary-gold-dark: #b07e4a;
-  --color-primary-beige: #F5F5F0;
-  
+  --color-primary-beige: #f5f5f0;
+
   /* Semantic Colors */
-  --color-semantic-error: #D32F2F;
-  --color-semantic-success: #388E3C;
-  --color-semantic-warning: #F57C00;
-  --color-semantic-info: #1976D2;
-  
+  --color-semantic-error: #d32f2f;
+  --color-semantic-success: #388e3c;
+  --color-semantic-warning: #f57c00;
+  --color-semantic-info: #1976d2;
+
   /* Neutral Colors */
-  --color-neutral-white: #FFFFFF;
-  --color-neutral-gray-50: #F9FAFB;
-  --color-neutral-gray-100: #F3F4F6;
-  --color-neutral-gray-200: #E5E7EB;
-  --color-neutral-gray-300: #D1D5DB;
-  --color-neutral-gray-400: #9CA3AF;
-  --color-neutral-gray-500: #6B7280;
-  --color-neutral-gray-600: #4B5563;
+  --color-neutral-white: #ffffff;
+  --color-neutral-gray-50: #f9fafb;
+  --color-neutral-gray-100: #f3f4f6;
+  --color-neutral-gray-200: #e5e7eb;
+  --color-neutral-gray-300: #d1d5db;
+  --color-neutral-gray-400: #9ca3af;
+  --color-neutral-gray-500: #6b7280;
+  --color-neutral-gray-600: #4b5563;
   --color-neutral-gray-700: #374151;
-  --color-neutral-gray-800: #1F2937;
+  --color-neutral-gray-800: #1f2937;
   --color-neutral-gray-900: #111827;
   --color-neutral-black: #000000;
-  
+
   /* Typography - Font Families */
-  --font-family-serif: 'Merriweather', Georgia, serif;
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  --font-family-mono: 'Monaco', 'Courier New', monospace;
-  
+  --font-family-serif: "Merriweather", Georgia, serif;
+  --font-family-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --font-family-mono: "Monaco", "Courier New", monospace;
+
   /* Typography - Font Sizes */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -57,7 +58,7 @@
   --font-size-4xl: 2.25rem;
   --font-size-5xl: 3rem;
   --font-size-6xl: 3.75rem;
-  
+
   /* Typography - Font Weights */
   --font-weight-light: 300;
   --font-weight-normal: 400;
@@ -65,12 +66,12 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
-  
+
   /* Typography - Letter Spacing */
   --letter-spacing-tight: -0.02em;
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.02em;
-  
+
   /* Spacing */
   --spacing-0: 0;
   --spacing-1: 0.25rem;
@@ -86,17 +87,20 @@
   --spacing-20: 5rem;
   --spacing-24: 6rem;
   --spacing-32: 8rem;
-  
+
   /* Shadows */
   --shadow-none: none;
   --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-  
+
   /* Border Radius */
   --radius-none: 0;
   --radius-sm: 0.125rem;
@@ -107,21 +111,21 @@
   --radius-2xl: 1rem;
   --radius-3xl: 1.5rem;
   --radius-full: 9999px;
-  
+
   /* Motion - Duration */
   --duration-instant: 0ms;
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 350ms;
   --duration-slower: 500ms;
-  
+
   /* Motion - Easing */
   --easing-linear: linear;
   --easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
   --easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  
+
   /* Breakpoints (for reference in JS) */
   --breakpoint-xs: 320px;
   --breakpoint-sm: 640px;
@@ -129,7 +133,7 @@
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1280px;
   --breakpoint-2xl: 1536px;
-  
+
   /* Z-Index */
   --z-hide: -1;
   --z-base: 0;
@@ -148,23 +152,23 @@
 
 [data-theme="dark"] {
   --color-primary-navy: #1a2332;
-  --color-primary-beige: #1F2937;
+  --color-primary-beige: #1f2937;
   --color-neutral-white: #111827;
-  --color-neutral-black: #FFFFFF;
-  --color-neutral-gray-50: #1F2937;
+  --color-neutral-black: #ffffff;
+  --color-neutral-gray-50: #1f2937;
   --color-neutral-gray-100: #374151;
-  --color-neutral-gray-200: #4B5563;
-  --color-neutral-gray-800: #F3F4F6;
-  --color-neutral-gray-900: #F9FAFB;
+  --color-neutral-gray-200: #4b5563;
+  --color-neutral-gray-800: #f3f4f6;
+  --color-neutral-gray-900: #f9fafb;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-primary-navy: #1a2332;
-    --color-primary-beige: #1F2937;
+    --color-primary-beige: #1f2937;
     --color-neutral-white: #111827;
-    --color-neutral-black: #FFFFFF;
-    --color-neutral-gray-50: #1F2937;
+    --color-neutral-black: #ffffff;
+    --color-neutral-gray-50: #1f2937;
     --color-neutral-gray-100: #374151;
   }
 }

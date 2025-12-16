@@ -1,7 +1,7 @@
 /**
  * FormValidator - Enhanced Form Validation System
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Real-time validation with debouncing
  * - Multiple validation types (email, phone, zip, required, etc.)
@@ -16,10 +16,11 @@ import { RateLimiter, createFormRateLimiter } from '../utils/rateLimiter.js';
 
 export class FormValidator {
   constructor (formSelector, options = {}) {
-    this.form = typeof formSelector === 'string'
-      ? document.querySelector(formSelector)
-      : formSelector;
-    
+    this.form =
+      typeof formSelector === 'string'
+        ? document.querySelector(formSelector)
+        : formSelector;
+
     this.options = {
       validateOnBlur: true,
       validateOnInput: true,
@@ -38,8 +39,11 @@ export class FormValidator {
 
     // Initialize rate limiter
     if (this.options.enableRateLimit) {
-      this.rateLimiter = this.options.rateLimitConfig 
-        ? new RateLimiter(this.rateLimitConfig.maxAttempts, this.rateLimitConfig.windowMs)
+      this.rateLimiter = this.options.rateLimitConfig
+        ? new RateLimiter(
+          this.rateLimitConfig.maxAttempts,
+          this.rateLimitConfig.windowMs
+        )
         : createFormRateLimiter();
     }
 
@@ -49,37 +53,39 @@ export class FormValidator {
         valid: value.trim().length > 0,
         message: 'This field is required'
       }),
-      
+
       email: (value) => ({
         valid: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
         message: 'Please enter a valid email address'
       }),
-      
+
       phone: (value) => ({
-        valid: /^\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/.test(value),
+        valid: /^\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/.test(
+          value
+        ),
         message: 'Please enter a valid phone number (e.g., 903-555-1234)'
       }),
-      
+
       zip: (value) => ({
         valid: /^\d{5}(-\d{4})?$/.test(value),
         message: 'Please enter a valid ZIP code (e.g., 75701 or 75701-1234)'
       }),
-      
+
       minLength: (value, length) => ({
         valid: value.length >= parseInt(length, 10),
         message: `Must be at least ${length} characters`
       }),
-      
+
       maxLength: (value, length) => ({
         valid: value.length <= parseInt(length, 10),
         message: `Must be no more than ${length} characters`
       }),
-      
+
       pattern: (value, pattern) => ({
         valid: new RegExp(pattern).test(value),
         message: 'Please match the requested format'
       }),
-      
+
       match: (value, fieldName) => {
         const matchField = this.form.querySelector(`[name="${fieldName}"]`);
         return {
@@ -87,22 +93,25 @@ export class FormValidator {
           message: `Must match ${fieldName}`
         };
       },
-      
+
       number: (value) => ({
         valid: !isNaN(parseFloat(value)) && isFinite(value),
         message: 'Please enter a valid number'
       }),
-      
+
       url: (value) => ({
-        valid: /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(value),
+        valid:
+          /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
+            value
+          ),
         message: 'Please enter a valid URL'
       }),
-      
+
       date: (value) => ({
         valid: !isNaN(Date.parse(value)),
         message: 'Please enter a valid date'
       }),
-      
+
       ssn: (value) => ({
         valid: /^\d{3}-?\d{2}-?\d{4}$/.test(value),
         message: 'Please enter a valid SSN (XXX-XX-XXXX)'
@@ -111,7 +120,7 @@ export class FormValidator {
 
     this.debounceTimers = new Map();
     this.fieldStates = new Map();
-    
+
     this.init();
   }
 
@@ -120,7 +129,7 @@ export class FormValidator {
    */
   init () {
     if (!this.form) {
-      console.warn('FormValidator: Form not found');
+      // FormValidator: Form not found - silently ignore
       return;
     }
 
@@ -129,8 +138,8 @@ export class FormValidator {
 
     // Find all validatable fields
     const fields = this.form.querySelectorAll('[data-validate], [required]');
-    
-    fields.forEach(field => {
+
+    fields.forEach((field) => {
       this.setupField(field);
     });
 
@@ -143,8 +152,11 @@ export class FormValidator {
    * @param {HTMLElement} field - Form field element
    */
   setupField (field) {
-    const fieldId = field.id || field.name || `field-${Math.random().toString(36).substr(2, 9)}`;
-    
+    const fieldId =
+      field.id ||
+      field.name ||
+      `field-${Math.random().toString(36).substr(2, 9)}`;
+
     // Ensure field has an ID
     if (!field.id) {
       field.id = fieldId;
@@ -158,7 +170,7 @@ export class FormValidator {
       errorContainer.id = `${fieldId}-error`;
       errorContainer.setAttribute('role', 'alert');
       errorContainer.setAttribute('aria-live', 'polite');
-      
+
       const group = field.closest('.form-group') || field.parentElement;
       group.appendChild(errorContainer);
     }
@@ -186,7 +198,7 @@ export class FormValidator {
           const timer = setTimeout(() => {
             this.validateField(field);
           }, this.options.debounceDelay);
-          
+
           this.debounceTimers.set(fieldId, timer);
         }
       });
@@ -215,7 +227,10 @@ export class FormValidator {
     state.touched = true;
 
     // Check required
-    if (field.hasAttribute('required') || field.dataset.validate?.includes('required')) {
+    if (
+      field.hasAttribute('required') ||
+      field.dataset.validate?.includes('required')
+    ) {
       const result = this.validators.required(value);
       if (!result.valid) {
         errors.push(result.message);
@@ -225,12 +240,14 @@ export class FormValidator {
     // Skip other validations if empty and not required
     if (value.trim().length > 0) {
       // Get validation types from data attribute
-      const validateTypes = (field.dataset.validate || '').split(' ').filter(Boolean);
-      
-      validateTypes.forEach(type => {
+      const validateTypes = (field.dataset.validate || '')
+        .split(' ')
+        .filter(Boolean);
+
+      validateTypes.forEach((type) => {
         // Handle validators with parameters (e.g., minLength:5)
         const [validatorName, param] = type.split(':');
-        
+
         if (this.validators[validatorName] && validatorName !== 'required') {
           const result = this.validators[validatorName](value, param);
           if (!result.valid) {
@@ -243,7 +260,7 @@ export class FormValidator {
       if (field.minLength > 0 && value.length < field.minLength) {
         errors.push(`Must be at least ${field.minLength} characters`);
       }
-      
+
       if (field.maxLength > 0 && value.length > field.maxLength) {
         errors.push(`Must be no more than ${field.maxLength} characters`);
       }
@@ -264,7 +281,10 @@ export class FormValidator {
     // Callbacks
     if (state.valid && typeof this.options.onFieldValid === 'function') {
       this.options.onFieldValid(field);
-    } else if (!state.valid && typeof this.options.onFieldInvalid === 'function') {
+    } else if (
+      !state.valid &&
+      typeof this.options.onFieldInvalid === 'function'
+    ) {
       this.options.onFieldInvalid(field, errors);
     }
 
@@ -290,7 +310,7 @@ export class FormValidator {
       group.classList.add('form-group--error');
       field.classList.add('form-control--error');
       field.setAttribute('aria-invalid', 'true');
-      
+
       if (errorContainer) {
         errorContainer.textContent = state.errors[0] || '';
         errorContainer.style.display = 'block';
@@ -299,13 +319,12 @@ export class FormValidator {
       // Add shake animation
       field.classList.add('shake');
       setTimeout(() => field.classList.remove('shake'), 300);
-      
     } else if (state.touched && this.options.showSuccessState) {
       // Success state
       group.classList.add('form-group--success');
       field.classList.add('form-control--success');
       field.setAttribute('aria-invalid', 'false');
-      
+
       if (errorContainer) {
         errorContainer.textContent = '';
         errorContainer.style.display = 'none';
@@ -323,7 +342,7 @@ export class FormValidator {
     if (describedBy) {
       return document.getElementById(describedBy);
     }
-    
+
     const group = field.closest('.form-group') || field.parentElement;
     return group.querySelector('.form-error');
   }
@@ -337,7 +356,7 @@ export class FormValidator {
     let isValid = true;
     let firstInvalidField = null;
 
-    fields.forEach(field => {
+    fields.forEach((field) => {
       const fieldValid = this.validateField(field);
       if (!fieldValid && isValid) {
         isValid = false;
@@ -390,11 +409,10 @@ export class FormValidator {
       try {
         // Show loading state
         this.setLoadingState(true);
-        
+
         await this.options.onSubmit(data, formData);
-        
       } catch (error) {
-        console.error('Form submission error:', error);
+        // Form submission error logged for debugging
         if (typeof this.options.onError === 'function') {
           this.options.onError([{ field: 'form', message: error.message }]);
         }
@@ -420,7 +438,7 @@ export class FormValidator {
    * @param {Object} rateLimitResult - Rate limit check result
    */
   showRateLimitError (rateLimitResult) {
-    const errorMessage = rateLimitResult.retryAfter 
+    const errorMessage = rateLimitResult.retryAfter
       ? `Too many attempts. Please wait ${rateLimitResult.retryAfter} seconds before trying again.`
       : 'Too many attempts. Please try again later.';
 
@@ -431,7 +449,7 @@ export class FormValidator {
       formErrorContainer.className = 'form-error form-error--global';
       formErrorContainer.setAttribute('role', 'alert');
       formErrorContainer.setAttribute('aria-live', 'assertive');
-      
+
       const submitButton = this.form.querySelector('[type="submit"]');
       if (submitButton) {
         submitButton.parentNode.insertBefore(formErrorContainer, submitButton);
@@ -467,11 +485,13 @@ export class FormValidator {
 
     // Call error callback
     if (typeof this.options.onError === 'function') {
-      this.options.onError([{ 
-        field: 'form', 
-        message: errorMessage,
-        type: 'rate_limit' 
-      }]);
+      this.options.onError([
+        {
+          field: 'form',
+          message: errorMessage,
+          type: 'rate_limit'
+        }
+      ]);
     }
   }
 
@@ -481,7 +501,7 @@ export class FormValidator {
    */
   setLoadingState (loading) {
     const submitButton = this.form.querySelector('[type="submit"]');
-    
+
     if (loading) {
       this.form.classList.add('form--loading');
       if (submitButton) {
@@ -508,7 +528,7 @@ export class FormValidator {
    */
   getErrors () {
     const errors = [];
-    
+
     this.fieldStates.forEach((state, fieldId) => {
       if (!state.valid) {
         errors.push({
@@ -527,7 +547,7 @@ export class FormValidator {
    */
   getRateLimitStats () {
     if (!this.rateLimiter) return null;
-    
+
     const userKey = this.getUserIdentifier();
     return {
       attempts: this.rateLimiter.getAttemptCount(userKey),
@@ -544,13 +564,13 @@ export class FormValidator {
     if (this.rateLimiter) {
       const userKey = this.getUserIdentifier();
       this.rateLimiter.resetUserAttempts(userKey);
-      
+
       // Clear any rate limit error display
       const formErrorContainer = this.form.querySelector('.form-error--global');
       if (formErrorContainer) {
         formErrorContainer.style.display = 'none';
       }
-      
+
       this.form.classList.remove('form--rate-limited');
       const submitButton = this.form.querySelector('[type="submit"]');
       if (submitButton) {
@@ -574,19 +594,19 @@ export class FormValidator {
    */
   reset () {
     this.form.reset();
-    
+
     this.fieldStates.forEach((state, fieldId) => {
       state.touched = false;
       state.valid = true;
       state.errors = [];
-      
+
       const field = document.getElementById(fieldId);
       if (field) {
         const group = field.closest('.form-group') || field.parentElement;
         group.classList.remove('form-group--error', 'form-group--success');
         field.classList.remove('form-control--error', 'form-control--success');
         field.removeAttribute('aria-invalid');
-        
+
         const errorContainer = this.getErrorContainer(field);
         if (errorContainer) {
           errorContainer.textContent = '';
@@ -603,11 +623,11 @@ export class FormValidator {
    * Destroy validator and clean up
    */
   destroy () {
-    this.debounceTimers.forEach(timer => clearTimeout(timer));
+    this.debounceTimers.forEach((timer) => clearTimeout(timer));
     this.debounceTimers.clear();
     this.fieldStates.clear();
     this.form.removeAttribute('novalidate');
-    
+
     // Clean up rate limiter
     if (this.rateLimiter) {
       this.rateLimiter.destroy();
@@ -621,7 +641,7 @@ export class FormValidator {
  */
 export function initFormValidators () {
   const forms = document.querySelectorAll('[data-validate-form]');
-  return Array.from(forms).map(form => new FormValidator(form));
+  return Array.from(forms).map((form) => new FormValidator(form));
 }
 
 // Export for global access

@@ -1,7 +1,7 @@
 /**
  * Lazy Loading Utility
  * Properties 4 Creations - Performance Optimization
- * 
+ *
  * Uses IntersectionObserver for efficient lazy loading of images
  * Falls back to immediate loading for browsers without support
  */
@@ -20,7 +20,7 @@ export class LazyLoader {
     this.threshold = options.threshold || 0.01;
     this.observer = null;
     this.loadedCount = 0;
-    
+
     this.init();
   }
 
@@ -29,14 +29,14 @@ export class LazyLoader {
    */
   init () {
     const images = document.querySelectorAll(this.selector);
-    
+
     if (images.length === 0) {
       return;
     }
 
     if ('IntersectionObserver' in window) {
       this.createObserver();
-      images.forEach(img => this.observer.observe(img));
+      images.forEach((img) => this.observer.observe(img));
     } else {
       // Fallback: load all images immediately
       this.loadAllImages(images);
@@ -49,7 +49,7 @@ export class LazyLoader {
   createObserver () {
     this.observer = new IntersectionObserver(
       (entries, observer) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             this.loadImage(entry.target);
             observer.unobserve(entry.target);
@@ -77,15 +77,15 @@ export class LazyLoader {
 
     // Create a new image to preload
     const preloadImg = new Image();
-    
+
     preloadImg.onload = () => {
       // Apply the source
       img.src = src;
-      
+
       if (srcset) {
         img.srcset = srcset;
       }
-      
+
       if (sizes) {
         img.sizes = sizes;
       }
@@ -93,19 +93,21 @@ export class LazyLoader {
       // Add loaded class for CSS transitions
       img.classList.remove('lazy');
       img.classList.add('lazy-loaded');
-      
+
       // Remove data attributes
       delete img.dataset.src;
       delete img.dataset.srcset;
       delete img.dataset.sizes;
-      
+
       this.loadedCount++;
-      
+
       // Dispatch custom event
-      img.dispatchEvent(new CustomEvent('lazyloaded', {
-        bubbles: true,
-        detail: { src, loadedCount: this.loadedCount }
-      }));
+      img.dispatchEvent(
+        new CustomEvent('lazyloaded', {
+          bubbles: true,
+          detail: { src, loadedCount: this.loadedCount }
+        })
+      );
     };
 
     preloadImg.onerror = () => {
@@ -125,7 +127,7 @@ export class LazyLoader {
    * @param {NodeList} images - List of image elements
    */
   loadAllImages (images) {
-    images.forEach(img => this.loadImage(img));
+    images.forEach((img) => this.loadImage(img));
   }
 
   /**
@@ -167,7 +169,7 @@ export function initNativeLazyLoading () {
   if ('loading' in HTMLImageElement.prototype) {
     // Native lazy loading is supported
     const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
+    images.forEach((img) => {
       // Ensure src is set for native lazy loading
       if (img.dataset.src && !img.src) {
         img.src = img.dataset.src;
@@ -200,8 +202,11 @@ export function createResponsiveImage (options) {
     className = ''
   } = options;
 
-  const srcset = sizes.map(size => `${basePath}-${size}w.webp ${size}w`).join(', ');
-  const sizesAttr = '(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px';
+  const srcset = sizes
+    .map((size) => `${basePath}-${size}w.webp ${size}w`)
+    .join(', ');
+  const sizesAttr =
+    '(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px';
 
   return `
     <picture>
@@ -225,14 +230,14 @@ export function createResponsiveImage (options) {
 // Auto-initialize on DOMContentLoaded if not imported as module
 if (typeof window !== 'undefined' && !window.LazyLoader) {
   window.LazyLoader = LazyLoader;
-  
+
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize for data-src images
     const lazyLoader = new LazyLoader();
-    
+
     // Also handle native lazy loading
     initNativeLazyLoading();
-    
+
     // Expose instance globally for debugging
     window.lazyLoaderInstance = lazyLoader;
   });

@@ -1,7 +1,7 @@
 /**
  * ErrorBoundary - Comprehensive Error Handling System
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Global error catching for unhandled exceptions
  * - Promise rejection handling
@@ -44,12 +44,12 @@ export class ErrorBoundary {
         lineno,
         colno
       });
-      
+
       // Call original handler if it exists
       if (this.originalErrorHandler) {
         return this.originalErrorHandler(message, source, lineno, colno, error);
       }
-      
+
       return false; // Don't prevent default
     };
 
@@ -60,12 +60,12 @@ export class ErrorBoundary {
         type: 'unhandledRejection',
         promise: event.promise
       });
-      
+
       // Prevent default browser behavior
       event.preventDefault();
     };
 
-    console.log('ErrorBoundary: Global error handlers initialized');
+    // ErrorBoundary: Global error handlers initialized
   }
 
   /**
@@ -84,7 +84,7 @@ export class ErrorBoundary {
     try {
       // Create enhanced error object
       const enhancedError = this.enhanceError(error, context);
-      
+
       // Update internal state
       this.lastError = enhancedError;
       this.errorCount++;
@@ -116,7 +116,6 @@ export class ErrorBoundary {
       if (this.options.enableRetry) {
         this.attemptRecovery(enhancedError);
       }
-
     } catch (reportingError) {
       // Fallback error handling if reporting itself fails
       console.error('ErrorBoundary: Failed to handle error:', reportingError);
@@ -229,7 +228,10 @@ User Agent: ${error.userAgent}
         await this.reportToCustomEndpoint(error, context);
       }
     } catch (reportingError) {
-      console.warn('ErrorBoundary: Failed to report to monitoring service:', reportingError);
+      console.warn(
+        'ErrorBoundary: Failed to report to monitoring service:',
+        reportingError
+      );
     }
   }
 
@@ -257,7 +259,10 @@ User Agent: ${error.userAgent}
       });
     } catch (fetchError) {
       // Silent fail for custom endpoint
-      console.warn('ErrorBoundary: Failed to report to custom endpoint:', fetchError);
+      console.warn(
+        'ErrorBoundary: Failed to report to custom endpoint:',
+        fetchError
+      );
     }
   }
 
@@ -280,8 +285,14 @@ User Agent: ${error.userAgent}
    */
   displayFallbackUI (error) {
     // Check if we have a custom fallback UI
-    if (this.options.fallbackUI && typeof this.options.fallbackUI === 'function') {
-      const fallbackContent = this.options.fallbackUI(error, this.getRetryOptions());
+    if (
+      this.options.fallbackUI &&
+      typeof this.options.fallbackUI === 'function'
+    ) {
+      const fallbackContent = this.options.fallbackUI(
+        error,
+        this.getRetryOptions()
+      );
       this.renderFallbackUI(fallbackContent);
       return;
     }
@@ -312,14 +323,17 @@ User Agent: ${error.userAgent}
           </h2>
           
           <p class="error-boundary__message">
-            ${isCritical 
-    ? 'We\'re experiencing technical difficulties. Please try refreshing the page.' 
+            ${
+  isCritical
+    ? 'We\'re experiencing technical difficulties. Please try refreshing the page.'
     : 'We encountered an unexpected error. You can try again or refresh the page.'
 }
           </p>
           
           <div class="error-boundary__actions">
-            ${canRetry ? `
+            ${
+  canRetry
+    ? `
               <button 
                 type="button" 
                 class="btn btn-primary error-boundary__retry"
@@ -327,7 +341,9 @@ User Agent: ${error.userAgent}
               >
                 Try Again
               </button>
-            ` : ''}
+            `
+    : ''
+}
             
             <button 
               type="button" 
@@ -367,18 +383,20 @@ User Agent: ${error.userAgent}
   renderFallbackUI (content) {
     // Find appropriate container
     const container = document.getElementById('app') || document.body;
-    
+
     // Clear existing content
     container.innerHTML = content;
-    
+
     // Add CSS if not already present
     this.injectErrorBoundaryStyles();
-    
+
     // Make error boundary instance globally accessible for callbacks
     window.ErrorBoundaryInstance = this;
-    
+
     // Focus management for accessibility
-    const firstFocusable = container.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    const firstFocusable = container.querySelector(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
     if (firstFocusable) {
       firstFocusable.focus();
     }
@@ -494,7 +512,7 @@ User Agent: ${error.userAgent}
    * Attempt to recover from error
    * @param {Object} error - Enhanced error object
    */
-  attemptRecovery (error) {
+  attemptRecovery () {
     // Simple recovery strategy: clear error state after a delay
     setTimeout(() => {
       this.retryCount = 0;
@@ -507,11 +525,11 @@ User Agent: ${error.userAgent}
   retry () {
     if (this.retryCount < this.options.maxRetries) {
       this.retryCount++;
-      
+
       // Hide error UI and try to restore normal state
       const container = document.getElementById('app') || document.body;
       container.innerHTML = '';
-      
+
       // Trigger a page reload to reset state
       window.location.reload();
     }
@@ -523,7 +541,7 @@ User Agent: ${error.userAgent}
   showDetails () {
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
-      detailsElement.style.display = 
+      detailsElement.style.display =
         detailsElement.style.display === 'none' ? 'block' : 'none';
     }
   }
@@ -560,16 +578,16 @@ User Agent: ${error.userAgent}
     // Restore original error handlers
     window.onerror = this.originalErrorHandler;
     window.onunhandledrejection = this.originalUnhandledRejection;
-    
+
     // Clear state
     this.reset();
-    
+
     // Remove global reference
     if (window.ErrorBoundaryInstance === this) {
       delete window.ErrorBoundaryInstance;
     }
-    
-    console.log('ErrorBoundary: Destroyed and handlers restored');
+
+    // ErrorBoundary: Destroyed and handlers restored
   }
 }
 
@@ -580,10 +598,10 @@ User Agent: ${error.userAgent}
  */
 export function createGlobalErrorBoundary (options = {}) {
   const errorBoundary = new ErrorBoundary(options);
-  
+
   // Store globally for fallback UI callbacks
   window.ErrorBoundaryInstance = errorBoundary;
-  
+
   return errorBoundary;
 }
 
@@ -593,7 +611,7 @@ export function createGlobalErrorBoundary (options = {}) {
  */
 export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
-    fallbackUI: (error, retryOptions) => {
+    fallbackUI: () => {
       return `
         <div class="error-boundary" role="alert">
           <div class="error-boundary__content">

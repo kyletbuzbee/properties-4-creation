@@ -1,7 +1,7 @@
 /**
  * Modal - Accessible Modal Dialog Component
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Focus trapping within modal
  * - Keyboard navigation (Escape to close, Tab cycling)
@@ -21,12 +21,12 @@ export class Modal {
       onClose: null,
       ...options
     };
-    
+
     this.activeModal = null;
     this.focusedElementBeforeModal = null;
     this.boundHandleKeydown = this.handleKeydown.bind(this);
     this.boundHandleBackdropClick = this.handleBackdropClick.bind(this);
-    
+
     this.init();
   }
 
@@ -36,8 +36,8 @@ export class Modal {
   init () {
     // Find all modal triggers
     const triggers = document.querySelectorAll('[data-modal-trigger]');
-    
-    triggers.forEach(trigger => {
+
+    triggers.forEach((trigger) => {
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
         const modalId = trigger.dataset.modalTrigger || trigger.dataset.modal;
@@ -47,7 +47,7 @@ export class Modal {
 
     // Find all close buttons within modals
     const closeButtons = document.querySelectorAll('[data-modal-close]');
-    closeButtons.forEach(btn => {
+    closeButtons.forEach((btn) => {
       btn.addEventListener('click', () => this.close());
     });
   }
@@ -59,7 +59,7 @@ export class Modal {
   open (modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) {
-      console.warn(`Modal: Element with ID "${modalId}" not found`);
+      // Modal: Element with ID not found - silently ignore
       return;
     }
 
@@ -72,7 +72,7 @@ export class Modal {
     modal.setAttribute('aria-hidden', 'false');
     modal.setAttribute('aria-modal', 'true');
     modal.setAttribute('role', 'dialog');
-    
+
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
     document.body.classList.add('modal-open');
@@ -81,7 +81,7 @@ export class Modal {
     if (this.options.closeOnEscape) {
       document.addEventListener('keydown', this.boundHandleKeydown);
     }
-    
+
     if (this.options.closeOnBackdrop) {
       modal.addEventListener('click', this.boundHandleBackdropClick);
     }
@@ -188,7 +188,7 @@ export class Modal {
    */
   setupFocusTrap (modal) {
     const focusableElements = this.getFocusableElements(modal);
-    
+
     if (focusableElements.length === 0) return;
 
     const firstFocusable = focusableElements[0];
@@ -258,7 +258,7 @@ export class Modal {
     announcement.className = 'sr-only';
     announcement.textContent = message;
     document.body.appendChild(announcement);
-    
+
     setTimeout(() => {
       announcement.remove();
     }, 1000);
@@ -290,10 +290,14 @@ export class Modal {
       <div class="modal__backdrop"></div>
       <div class="modal__dialog" role="document">
         <div class="modal__content">
-          ${title ? `
+          ${
+  title
+    ? `
             <header class="modal__header">
               <h2 class="modal__title" id="${id}-title">${title}</h2>
-              ${closable ? `
+              ${
+  closable
+    ? `
                 <button type="button" 
                         class="modal__close" 
                         data-modal-close
@@ -302,17 +306,25 @@ export class Modal {
                     <path d="M18 6L6 18M6 6l12 12"/>
                   </svg>
                 </button>
-              ` : ''}
+              `
+    : ''
+}
             </header>
-          ` : ''}
+          `
+    : ''
+}
           <div class="modal__body">
             ${content}
           </div>
-          ${footer ? `
+          ${
+  footer
+    ? `
             <footer class="modal__footer">
               ${footer}
             </footer>
-          ` : ''}
+          `
+    : ''
+}
         </div>
       </div>
     `;

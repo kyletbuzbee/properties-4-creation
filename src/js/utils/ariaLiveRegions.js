@@ -1,7 +1,7 @@
 /**
  * ARIA Live Regions - Dynamic Content Accessibility Utility
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Manages aria-live regions for dynamic content updates
  * - Supports polite and assertive live regions
@@ -40,7 +40,7 @@ export class AriaLiveRegions {
    */
   createRegionContainer () {
     let container = document.getElementById(this.options.containerId);
-    
+
     if (!container) {
       container = document.createElement('div');
       container.id = this.options.containerId;
@@ -52,13 +52,13 @@ export class AriaLiveRegions {
         overflow: hidden;
         clip: rect(0, 0, 0, 0);
       `;
-      
+
       // Add screen reader only class for better styling control
       container.className = 'sr-only';
-      
+
       document.body.appendChild(container);
     }
-    
+
     this.regionContainer = container;
   }
 
@@ -73,7 +73,7 @@ export class AriaLiveRegions {
     this.politeRegion.setAttribute('aria-atomic', 'true');
     this.politeRegion.setAttribute('aria-relevant', 'additions text');
     this.politeRegion.className = 'aria-live-region aria-live-polite';
-    
+
     // Assertive region for critical updates (errors, alerts)
     this.assertiveRegion = document.createElement('div');
     this.assertiveRegion.id = this.options.assertiveRegionId;
@@ -94,11 +94,7 @@ export class AriaLiveRegions {
    * @param {Object} options - Additional options
    */
   announce (message, priority = 'polite', options = {}) {
-    const {
-      delay = this.options.announcementDelay,
-      queue = true,
-      clear = false
-    } = options;
+    const { queue = true } = options;
 
     const announcement = {
       message: this.sanitizeMessage(message),
@@ -132,7 +128,7 @@ export class AriaLiveRegions {
     while (this.announcementQueue.length > 0) {
       const announcement = this.announcementQueue.shift();
       await this.deliverAnnouncement(announcement);
-      
+
       // Small delay between announcements for better screen reader experience
       if (this.announcementQueue.length > 0) {
         await this.delay(200);
@@ -148,7 +144,8 @@ export class AriaLiveRegions {
    */
   async deliverAnnouncement (announcement) {
     const { message, priority } = announcement;
-    const region = priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
+    const region =
+      priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
 
     // Clear region if requested
     region.textContent = '';
@@ -159,8 +156,8 @@ export class AriaLiveRegions {
     // Set the announcement message
     region.textContent = message;
 
-    // Log announcement for debugging
-    console.log(`[ARIA Live] ${priority.toUpperCase()}: ${message}`);
+    // Log announcement for debugging (disabled in production)
+    // console.log(`[ARIA Live] ${priority.toUpperCase()}: ${message}`);
   }
 
   /**
@@ -206,7 +203,7 @@ export class AriaLiveRegions {
     } else {
       message = `${count} results found for ${filterType}`;
     }
-    
+
     this.announce(message, 'polite');
   }
 
@@ -225,9 +222,10 @@ export class AriaLiveRegions {
    * @param {string} modalName - Name of the modal
    */
   announceModalState (action, modalName) {
-    const message = action === 'opened' 
-      ? `${modalName} modal opened` 
-      : `${modalName} modal closed`;
+    const message =
+      action === 'opened'
+        ? `${modalName} modal opened`
+        : `${modalName} modal closed`;
     this.announce(message, 'polite');
   }
 
@@ -254,7 +252,8 @@ export class AriaLiveRegions {
    * @param {string} priority - 'polite' or 'assertive'
    */
   clearRegion (priority = 'polite') {
-    const region = priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
+    const region =
+      priority === 'assertive' ? this.assertiveRegion : this.politeRegion;
     region.textContent = '';
   }
 
@@ -275,7 +274,7 @@ export class AriaLiveRegions {
     if (typeof message !== 'string') {
       return '';
     }
-    
+
     // Basic sanitization - remove potential script tags
     return message
       .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
@@ -297,7 +296,7 @@ export class AriaLiveRegions {
    * @returns {Promise} Promise that resolves after delay
    */
   delay (ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
@@ -321,16 +320,16 @@ export class AriaLiveRegions {
    */
   destroy () {
     this.clearQueue();
-    
+
     if (this.regionContainer && this.regionContainer.parentNode) {
       this.regionContainer.parentNode.removeChild(this.regionContainer);
     }
-    
+
     this.regionContainer = null;
     this.politeRegion = null;
     this.assertiveRegion = null;
-    
-    console.log('AriaLiveRegions: Destroyed and cleaned up');
+
+    // AriaLiveRegions: Destroyed and cleaned up
   }
 }
 

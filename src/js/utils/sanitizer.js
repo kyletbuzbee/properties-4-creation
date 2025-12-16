@@ -15,8 +15,26 @@ import DOMPurify from 'dompurify';
 export function sanitizeHtml (dirty, config = {}) {
   const defaultConfig = {
     ALLOWED_TAGS: [
-      'p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-      'ul', 'ol', 'li', 'a', 'span', 'div', 'blockquote', 'code', 'pre'
+      'p',
+      'br',
+      'strong',
+      'em',
+      'u',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'ul',
+      'ol',
+      'li',
+      'a',
+      'span',
+      'div',
+      'blockquote',
+      'code',
+      'pre'
     ],
     ALLOWED_ATTR: ['href', 'title', 'class', 'id'],
     ALLOW_DATA_ATTR: false,
@@ -39,7 +57,7 @@ export function escapeHtml (text) {
   if (typeof text !== 'string') {
     return String(text);
   }
-  
+
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
@@ -52,7 +70,7 @@ export function escapeHtml (text) {
  */
 export function sanitizeFormData (formData) {
   const sanitized = {};
-  
+
   for (const [key, value] of formData.entries()) {
     if (typeof value === 'string') {
       // Basic HTML entity encoding for form inputs
@@ -61,7 +79,7 @@ export function sanitizeFormData (formData) {
       sanitized[key] = value;
     }
   }
-  
+
   return sanitized;
 }
 
@@ -72,17 +90,17 @@ export function sanitizeFormData (formData) {
  */
 export function sanitizeUrl (url) {
   if (typeof url !== 'string') return '#';
-  
+
   // Remove potentially dangerous protocols
   const dangerousProtocols = ['javascript:', 'data:', 'vbscript:', 'file:'];
   const lowerUrl = url.toLowerCase();
-  
+
   for (const protocol of dangerousProtocols) {
     if (lowerUrl.startsWith(protocol)) {
       return '#';
     }
   }
-  
+
   // Basic URL validation
   try {
     new URL(url, window.location.origin);
@@ -101,7 +119,7 @@ export function sanitizeUrl (url) {
  */
 export function createSafeElement (tag, content = '', attributes = {}) {
   const element = document.createElement(tag);
-  
+
   // Add attributes safely
   for (const [key, value] of Object.entries(attributes)) {
     if (key === 'className') {
@@ -114,12 +132,12 @@ export function createSafeElement (tag, content = '', attributes = {}) {
       element.setAttribute(key, String(value));
     }
   }
-  
+
   // Add content safely
   if (content) {
     element.textContent = content;
   }
-  
+
   return element;
 }
 
@@ -130,10 +148,10 @@ export function createSafeElement (tag, content = '', attributes = {}) {
  */
 export function sanitizeEmail (email) {
   if (typeof email !== 'string') return '';
-  
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const sanitized = email.trim().toLowerCase();
-  
+
   return emailRegex.test(sanitized) ? sanitized : '';
 }
 
@@ -144,10 +162,10 @@ export function sanitizeEmail (email) {
  */
 export function sanitizePhone (phone) {
   if (typeof phone !== 'string') return '';
-  
+
   // Remove all non-digit characters except + and ()
   const cleaned = phone.replace(/[^\d+()]/g, '');
-  
+
   // Basic validation: should have 10-15 digits
   const digitsOnly = cleaned.replace(/\D/g, '');
   return digitsOnly.length >= 10 && digitsOnly.length <= 15 ? cleaned : '';
@@ -160,7 +178,7 @@ export function sanitizePhone (phone) {
  */
 export function cleanUserInput (input) {
   if (typeof input !== 'string') return '';
-  
+
   return input
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')

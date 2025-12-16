@@ -28,7 +28,10 @@
       const target = e.target;
 
       // Handle card interactions (property cards, etc.)
-      if (target.classList.contains('property-card') && (e.key === 'Enter' || e.key === ' ')) {
+      if (
+        target.classList.contains('property-card') &&
+        (e.key === 'Enter' || e.key === ' ')
+      ) {
         e.preventDefault();
         const link = target.querySelector('a');
         if (link) {
@@ -37,7 +40,10 @@
       }
 
       // Handle CTA buttons
-      if (target.classList.contains('cta-link') && (e.key === 'Enter' || e.key === ' ')) {
+      if (
+        target.classList.contains('cta-link') &&
+        (e.key === 'Enter' || e.key === ' ')
+      ) {
         e.preventDefault();
         window.location.href = target.href;
       }
@@ -93,7 +99,8 @@
   // Enhanced Focus Management
   function enhanceFocusManagement () {
     // Focus trap for modals/dialogs when they exist
-    const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    const focusableElementsString =
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
 
     document.addEventListener('keydown', (e) => {
       // ESC key handling for overlays
@@ -121,13 +128,16 @@
     const images = document.querySelectorAll('img');
     let missingAltCount = 0;
 
-    images.forEach(img => {
+    images.forEach((img) => {
       if (!img.alt || img.alt.trim() === '') {
         console.warn('Accessibility Warning: Image missing alt text:', img.src);
         missingAltCount++;
 
         // In development mode, highlight missing alt text
-        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        if (
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1'
+        ) {
           img.style.outline = '3px solid #ff6b6b';
           img.style.outlineOffset = '2px';
         }
@@ -135,7 +145,9 @@
     });
 
     if (missingAltCount > 0) {
-      console.warn(`Accessibility: ${missingAltCount} images missing alt text.`);
+      console.warn(
+        `Accessibility: ${missingAltCount} images missing alt text.`
+      );
     }
   }
 
@@ -143,15 +155,21 @@
   function enhanceFormAccessibility () {
     const forms = document.querySelectorAll('form');
 
-    forms.forEach(form => {
+    forms.forEach((form) => {
       const inputs = form.querySelectorAll('input, select, textarea');
 
-      inputs.forEach(input => {
+      inputs.forEach((input) => {
         // Ensure all inputs have proper labeling
-        if (!input.getAttribute('aria-label') && !input.getAttribute('aria-labelledby')) {
+        if (
+          !input.getAttribute('aria-label') &&
+          !input.getAttribute('aria-labelledby')
+        ) {
           const label = form.querySelector(`label[for="${input.id}"]`);
           if (!label && input.id) {
-            console.warn('Form accessibility: Input may be missing label:', input.id);
+            console.warn(
+              'Form accessibility: Input may be missing label:',
+              input.id
+            );
           }
         }
 
@@ -164,7 +182,10 @@
             // Update ARIA-describedby for screen readers
             const errorMsg = formGroup.querySelector('.error-message');
             if (errorMsg && input.id) {
-              input.setAttribute('aria-describedby', errorMsg.id || `error-${input.id}`);
+              input.setAttribute(
+                'aria-describedby',
+                errorMsg.id || `error-${input.id}`
+              );
               errorMsg.id = errorMsg.id || `error-${input.id}`;
             }
           }
@@ -232,5 +253,4 @@
     validateAltText: validateAltText,
     enhanceFormAccessibility: enhanceFormAccessibility
   };
-
 })();

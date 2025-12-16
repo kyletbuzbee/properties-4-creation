@@ -1,7 +1,7 @@
 /**
  * ErrorHandler - Global Error Handling Utility
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Global error catching (JavaScript errors, unhandled rejections)
  * - User-friendly error messages
@@ -27,7 +27,7 @@ export class ErrorHandler {
     this.errorLog = [];
     this.recentErrors = new Map();
     this.isInitialized = false;
-    
+
     this.init();
   }
 
@@ -76,7 +76,7 @@ export class ErrorHandler {
     window.fetch = async function (...args) {
       try {
         const response = await originalFetch.apply(this, args);
-        
+
         if (!response.ok) {
           self.handleError({
             type: 'Network Error',
@@ -86,7 +86,7 @@ export class ErrorHandler {
             timestamp: new Date().toISOString()
           });
         }
-        
+
         return response;
       } catch (error) {
         self.handleError({
@@ -110,11 +110,14 @@ export class ErrorHandler {
     if (this.options.deduplicateErrors) {
       const errorKey = `${error.type}:${error.message}`;
       const lastOccurrence = this.recentErrors.get(errorKey);
-      
-      if (lastOccurrence && Date.now() - lastOccurrence < this.options.deduplicateWindow) {
+
+      if (
+        lastOccurrence &&
+        Date.now() - lastOccurrence < this.options.deduplicateWindow
+      ) {
         return; // Skip duplicate error
       }
-      
+
       this.recentErrors.set(errorKey, Date.now());
     }
 
@@ -153,7 +156,7 @@ export class ErrorHandler {
    */
   logError (error) {
     this.errorLog.push(error);
-    
+
     // Limit error log size
     if (this.errorLog.length > this.options.maxErrors) {
       this.errorLog.shift();
@@ -161,7 +164,10 @@ export class ErrorHandler {
 
     // Store in sessionStorage for persistence
     try {
-      sessionStorage.setItem('p4c_error_log', JSON.stringify(this.errorLog.slice(-20)));
+      sessionStorage.setItem(
+        'p4c_error_log',
+        JSON.stringify(this.errorLog.slice(-20))
+      );
     } catch (e) {
       // Storage might be full or disabled
     }
@@ -173,7 +179,7 @@ export class ErrorHandler {
    */
   showNotification (error) {
     const message = this.getUserFriendlyMessage(error);
-    
+
     // Create or get toast container
     let toastContainer = document.getElementById('error-toast-container');
     if (!toastContainer) {
@@ -232,11 +238,13 @@ export class ErrorHandler {
    */
   getUserFriendlyMessage (error) {
     const messages = {
-      'Network Error': 'Unable to connect to the server. Please check your internet connection.',
+      'Network Error':
+        'Unable to connect to the server. Please check your internet connection.',
       'Fetch Error': 'Failed to load data. Please try again later.',
       'JavaScript Error': 'Something went wrong. Please refresh the page.',
-      'Unhandled Promise Rejection': 'An unexpected error occurred. Please try again.',
-      'default': 'An error occurred. Please try again or contact support.'
+      'Unhandled Promise Rejection':
+        'An unexpected error occurred. Please try again.',
+      default: 'An error occurred. Please try again or contact support.'
     };
 
     // Check for specific HTTP status codes
@@ -268,7 +276,10 @@ export class ErrorHandler {
    */
   async reportError (error) {
     // Don't report in development
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    if (
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+    ) {
       return;
     }
 
@@ -392,7 +403,7 @@ export class ErrorHandler {
       recent: this.errorLog.slice(-5)
     };
 
-    this.errorLog.forEach(error => {
+    this.errorLog.forEach((error) => {
       stats.byType[error.type] = (stats.byType[error.type] || 0) + 1;
     });
 
