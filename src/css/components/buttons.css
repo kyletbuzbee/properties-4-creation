@@ -25,11 +25,11 @@
   transition: all var(--duration-base) var(--easing-ease-out);
   user-select: none;
   white-space: nowrap;
-  
+
   /* Ensure 44x44px touch target (WCAG) */
   min-height: 44px;
   min-width: 44px;
-  
+
   /* Prevent layout shift */
   position: relative;
   overflow: hidden;
@@ -53,7 +53,11 @@
 
 /* Primary Button */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary-gold), var(--color-primary-gold-light));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-gold),
+    var(--color-primary-gold-light)
+  );
   color: var(--color-primary-navy);
   border-color: var(--color-primary-gold);
 }
@@ -176,7 +180,7 @@
 }
 
 .btn-loading::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
@@ -195,7 +199,9 @@
 }
 
 @keyframes btn-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -208,7 +214,7 @@
 }
 
 .btn-ripple::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
@@ -217,7 +223,9 @@
   background: rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  transition: width 0.6s ease-out, height 0.6s ease-out;
+  transition:
+    width 0.6s ease-out,
+    height 0.6s ease-out;
 }
 
 .btn-ripple:active::before {
@@ -306,11 +314,11 @@
     min-height: 48px;
     padding: var(--spacing-4) var(--spacing-6);
   }
-  
+
   .btn:active {
     transform: scale(0.98);
   }
-  
+
   .btn-sm {
     min-height: 44px;
     padding: var(--spacing-3) var(--spacing-5);
@@ -325,15 +333,15 @@
   .btn {
     transition: none;
   }
-  
+
   .btn-ripple::before {
     transition: none;
   }
-  
+
   .btn-loading::after {
     animation: none;
   }
-  
+
   .btn:hover {
     transform: none;
   }
@@ -347,7 +355,7 @@
   .btn {
     border-width: 3px;
   }
-  
+
   .btn:focus-visible {
     outline-width: 4px;
   }

@@ -1,7 +1,7 @@
 /**
  * RateLimiter - Form Rate Limiting Utility
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Configurable attempts and time window
  * - Memory-based attempt tracking
@@ -15,7 +15,7 @@ export class RateLimiter {
     this.windowMs = windowMs;
     this.attempts = new Map();
     this.cleanupInterval = null;
-    
+
     // Start cleanup interval to prevent memory leaks
     this.startCleanupInterval();
   }
@@ -28,15 +28,19 @@ export class RateLimiter {
   isAllowed (key) {
     const now = Date.now();
     const userAttempts = this.attempts.get(key) || [];
-    
+
     // Remove expired attempts (older than windowMs)
-    const validAttempts = userAttempts.filter(timestamp => now - timestamp < this.windowMs);
-    
+    const validAttempts = userAttempts.filter(
+      (timestamp) => now - timestamp < this.windowMs
+    );
+
     // Check if user has exceeded limit
     if (validAttempts.length >= this.maxAttempts) {
       const oldestAttempt = validAttempts[0];
-      const retryAfter = Math.ceil((oldestAttempt + this.windowMs - now) / 1000);
-      
+      const retryAfter = Math.ceil(
+        (oldestAttempt + this.windowMs - now) / 1000
+      );
+
       return {
         allowed: false,
         retryAfter: Math.max(1, retryAfter), // Ensure positive value
@@ -44,11 +48,11 @@ export class RateLimiter {
         maxAttempts: this.maxAttempts
       };
     }
-    
+
     // Add current attempt
     validAttempts.push(now);
     this.attempts.set(key, validAttempts);
-    
+
     return {
       allowed: true,
       attempts: validAttempts.length,
@@ -131,7 +135,8 @@ export class RateLimiter {
   getSessionId () {
     let sessionId = sessionStorage.getItem('form_session_id');
     if (!sessionId) {
-      sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      sessionId =
+        'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
       sessionStorage.setItem('form_session_id', sessionId);
     }
     return sessionId;
@@ -167,7 +172,7 @@ export class RateLimiter {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash).toString(36);
@@ -181,8 +186,10 @@ export class RateLimiter {
   getRemainingAttempts (key) {
     const userAttempts = this.attempts.get(key) || [];
     const now = Date.now();
-    const validAttempts = userAttempts.filter(timestamp => now - timestamp < this.windowMs);
-    
+    const validAttempts = userAttempts.filter(
+      (timestamp) => now - timestamp < this.windowMs
+    );
+
     return Math.max(0, this.maxAttempts - validAttempts.length);
   }
 
@@ -197,8 +204,10 @@ export class RateLimiter {
 
     const now = Date.now();
     const oldestAttempt = Math.min(...userAttempts);
-    const timeUntilReset = Math.ceil((oldestAttempt + this.windowMs - now) / 1000);
-    
+    const timeUntilReset = Math.ceil(
+      (oldestAttempt + this.windowMs - now) / 1000
+    );
+
     return Math.max(0, timeUntilReset);
   }
 
@@ -218,7 +227,8 @@ export class RateLimiter {
   getAttemptCount (key) {
     const userAttempts = this.attempts.get(key) || [];
     const now = Date.now();
-    return userAttempts.filter(timestamp => now - timestamp < this.windowMs).length;
+    return userAttempts.filter((timestamp) => now - timestamp < this.windowMs)
+      .length;
   }
 
   /**
@@ -226,9 +236,12 @@ export class RateLimiter {
    */
   startCleanupInterval () {
     // Clean up expired entries every 5 minutes
-    this.cleanupInterval = setInterval(() => {
-      this.cleanup();
-    }, 5 * 60 * 1000);
+    this.cleanupInterval = setInterval(
+      () => {
+        this.cleanup();
+      },
+      5 * 60 * 1000
+    );
   }
 
   /**
@@ -239,8 +252,10 @@ export class RateLimiter {
     const expiredKeys = [];
 
     for (const [key, attempts] of this.attempts.entries()) {
-      const validAttempts = attempts.filter(timestamp => now - timestamp < this.windowMs);
-      
+      const validAttempts = attempts.filter(
+        (timestamp) => now - timestamp < this.windowMs
+      );
+
       if (validAttempts.length === 0) {
         expiredKeys.push(key);
       } else if (validAttempts.length !== attempts.length) {
@@ -249,11 +264,13 @@ export class RateLimiter {
     }
 
     // Remove keys with no valid attempts
-    expiredKeys.forEach(key => {
+    expiredKeys.forEach((key) => {
       this.attempts.delete(key);
     });
 
-    console.log(`RateLimiter: Cleaned up ${expiredKeys.length} expired entries`);
+    console.log(
+      `RateLimiter: Cleaned up ${expiredKeys.length} expired entries`
+    );
   }
 
   /**
@@ -266,7 +283,9 @@ export class RateLimiter {
     let totalAttempts = 0;
 
     for (const attempts of this.attempts.values()) {
-      const validAttempts = attempts.filter(timestamp => now - timestamp < this.windowMs);
+      const validAttempts = attempts.filter(
+        (timestamp) => now - timestamp < this.windowMs
+      );
       if (validAttempts.length > 0) {
         totalActiveUsers++;
         totalAttempts += validAttempts.length;
@@ -290,7 +309,7 @@ export class RateLimiter {
       clearInterval(this.cleanupInterval);
       this.cleanupInterval = null;
     }
-    
+
     this.attempts.clear();
   }
 }

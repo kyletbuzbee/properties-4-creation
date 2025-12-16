@@ -15,7 +15,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/_data");
   
   // Copy public folder assets
-  eleventyConfig.addPassthroughCopy({ "public": "images" });
+  eleventyConfig.addPassthroughCopy({ "public": "." });
 
   // Watch targets for development
   eleventyConfig.addWatchTarget("src/css/");

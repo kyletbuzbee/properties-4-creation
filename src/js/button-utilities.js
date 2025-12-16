@@ -16,8 +16,8 @@ class ButtonUtils {
   }
 
   /**
-     * Setup ripple effects for buttons
-     */
+   * Setup ripple effects for buttons
+   */
   setupRippleEffects () {
     document.addEventListener('click', (e) => {
       const button = e.target.closest('.btn');
@@ -31,8 +31,8 @@ class ButtonUtils {
   }
 
   /**
-     * Create ripple effect
-     */
+   * Create ripple effect
+   */
   createRipple (button, event) {
     const ripple = document.createElement('span');
     ripple.className = 'btn-ripple';
@@ -54,10 +54,13 @@ class ButtonUtils {
   }
 
   /**
-     * Set loading state on button
-     */
+   * Set loading state on button
+   */
   static setLoading (selector, loadingText = 'Loading...') {
-    const button = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const button =
+      typeof selector === 'string'
+        ? document.querySelector(selector)
+        : selector;
     if (!button) return;
 
     button.classList.add('loading');
@@ -72,10 +75,13 @@ class ButtonUtils {
   }
 
   /**
-     * Remove loading state from button
-     */
+   * Remove loading state from button
+   */
   static removeLoading (selector, newText = null) {
-    const button = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const button =
+      typeof selector === 'string'
+        ? document.querySelector(selector)
+        : selector;
     if (!button) return;
 
     button.classList.remove('loading');
@@ -91,8 +97,8 @@ class ButtonUtils {
   }
 
   /**
-     * Setup loading states for forms
-     */
+   * Setup loading states for forms
+   */
   setupLoadingStates () {
     document.addEventListener('submit', (e) => {
       const form = e.target;
@@ -105,10 +111,13 @@ class ButtonUtils {
   }
 
   /**
-     * Add confirmation dialog to button
-     */
+   * Add confirmation dialog to button
+   */
   static addConfirmation (selector, message, callback) {
-    const button = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const button =
+      typeof selector === 'string'
+        ? document.querySelector(selector)
+        : selector;
     if (!button) return;
 
     button.addEventListener('click', (e) => {
@@ -124,39 +133,42 @@ class ButtonUtils {
   }
 
   /**
-     * Setup confirmation dialogs
-     */
+   * Setup confirmation dialogs
+   */
   setupConfirmationDialogs () {
     // Auto-setup for buttons with data-confirm attribute
-    document.querySelectorAll('[data-confirm]').forEach(button => {
+    document.querySelectorAll('[data-confirm]').forEach((button) => {
       const message = button.dataset.confirm;
       ButtonUtils.addConfirmation(button, message);
     });
   }
 
   /**
-     * Copy text to clipboard
-     */
+   * Copy text to clipboard
+   */
   static copyToClipboard (text, button = null) {
-    navigator.clipboard.writeText(text).then(() => {
-      if (button) {
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i data-lucide="check" class="icon"></i> Copied!';
-        button.classList.add('btn-success');
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        if (button) {
+          const originalText = button.innerHTML;
+          button.innerHTML = '<i data-lucide="check" class="icon"></i> Copied!';
+          button.classList.add('btn-success');
 
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.classList.remove('btn-success');
-        }, 2000);
-      }
-    }).catch(err => {
-      console.error('Failed to copy text: ', err);
-    });
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+          }, 2000);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to copy text: ', err);
+      });
   }
 
   /**
-     * Setup copy to clipboard functionality
-     */
+   * Setup copy to clipboard functionality
+   */
   setupCopyToClipboard () {
     document.addEventListener('click', (e) => {
       const button = e.target.closest('[data-copy]');
@@ -168,14 +180,14 @@ class ButtonUtils {
   }
 
   /**
-     * Toggle button group active state
-     */
+   * Toggle button group active state
+   */
   static toggleButtonGroup (button) {
     const group = button.closest('.btn-group');
     if (!group) return;
 
     // Remove active state from all buttons in group
-    group.querySelectorAll('.btn').forEach(btn => {
+    group.querySelectorAll('.btn').forEach((btn) => {
       btn.classList.remove('active');
       btn.setAttribute('aria-pressed', 'false');
     });
@@ -186,8 +198,8 @@ class ButtonUtils {
   }
 
   /**
-     * Setup button groups
-     */
+   * Setup button groups
+   */
   setupButtonGroups () {
     document.addEventListener('click', (e) => {
       const button = e.target.closest('.btn-group .btn');
@@ -198,10 +210,10 @@ class ButtonUtils {
   }
 
   /**
-     * Initialize button groups on page load
-     */
+   * Initialize button groups on page load
+   */
   initializeButtonGroups () {
-    document.querySelectorAll('.btn-group .active').forEach(button => {
+    document.querySelectorAll('.btn-group .active').forEach((button) => {
       button.setAttribute('aria-pressed', 'true');
     });
   }

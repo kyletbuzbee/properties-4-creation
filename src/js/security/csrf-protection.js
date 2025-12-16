@@ -17,9 +17,10 @@ export class CSRFProtection {
       this.token = window.crypto.randomUUID();
     } else {
       // Fallback for older browsers
-      this.token = 'csrf_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+      this.token =
+        'csrf_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
     }
-        
+
     // Store in session storage
     sessionStorage.setItem(this.tokenName, this.token);
     return this.token;
@@ -59,7 +60,7 @@ export class CSRFProtection {
     csrfInput.type = 'hidden';
     csrfInput.name = this.tokenName;
     csrfInput.value = this.getToken();
-        
+
     form.appendChild(csrfInput);
   }
 
@@ -81,13 +82,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Attach CSRF tokens to all forms
   const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
+  forms.forEach((form) => {
     if (!form.id) {
       form.id = 'form_' + Math.random().toString(36).substr(2, 9);
     }
-        
+
     window.csrfProtection.attachToForm(form.id);
-        
+
     // Add CSRF validation on form submission
     form.addEventListener('submit', (e) => {
       const csrfToken = form.querySelector('input[name="csrf_token"]');

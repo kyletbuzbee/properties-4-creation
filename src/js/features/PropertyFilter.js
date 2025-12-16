@@ -1,7 +1,7 @@
 /**
  * PropertyFilter - Advanced Property Filtering System
  * Properties 4 Creations
- * 
+ *
  * Features:
  * - Debounced search input
  * - Bedroom/bathroom filters
@@ -49,7 +49,7 @@ export class PropertyFilter {
     this.filterBar.className = 'filter-bar';
     this.filterBar.setAttribute('role', 'search');
     this.filterBar.setAttribute('aria-label', 'Property filters');
-    
+
     this.filterBar.innerHTML = `
       <div class="filter-controls">
         <div class="filter-group filter-group--search">
@@ -121,7 +121,7 @@ export class PropertyFilter {
         </span>
       </div>
     `;
-    
+
     this.container.insertAdjacentElement('beforebegin', this.filterBar);
   }
 
@@ -154,7 +154,9 @@ export class PropertyFilter {
     const bedroomSelect = document.getElementById('filter-bedrooms');
     if (bedroomSelect) {
       bedroomSelect.addEventListener('change', (e) => {
-        this.filters.bedrooms = e.target.value ? parseInt(e.target.value, 10) : null;
+        this.filters.bedrooms = e.target.value
+          ? parseInt(e.target.value, 10)
+          : null;
         this.applyFilters();
       });
     }
@@ -163,7 +165,9 @@ export class PropertyFilter {
     const bathroomSelect = document.getElementById('filter-bathrooms');
     if (bathroomSelect) {
       bathroomSelect.addEventListener('change', (e) => {
-        this.filters.bathrooms = e.target.value ? parseInt(e.target.value, 10) : null;
+        this.filters.bathrooms = e.target.value
+          ? parseInt(e.target.value, 10)
+          : null;
         this.applyFilters();
       });
     }
@@ -177,7 +181,7 @@ export class PropertyFilter {
 
         const tag = tagButton.dataset.tag;
         const index = this.filters.tags.indexOf(tag);
-        
+
         if (index > -1) {
           this.filters.tags.splice(index, 1);
           tagButton.classList.remove('active');
@@ -187,7 +191,7 @@ export class PropertyFilter {
           tagButton.classList.add('active');
           tagButton.setAttribute('aria-pressed', 'true');
         }
-        
+
         this.applyFilters();
       });
     }
@@ -205,29 +209,38 @@ export class PropertyFilter {
    * Apply all active filters to the property list
    */
   applyFilters () {
-    this.filteredProperties = this.allProperties.filter(prop => {
+    this.filteredProperties = this.allProperties.filter((prop) => {
       // Search filter
       if (this.filters.search) {
-        const searchable = `${prop.name || ''} ${prop.address || ''} ${prop.city || ''} ${prop.description || ''}`.toLowerCase();
+        const searchable =
+          `${prop.name || ''} ${prop.address || ''} ${prop.city || ''} ${prop.description || ''}`.toLowerCase();
         if (!searchable.includes(this.filters.search)) {
           return false;
         }
       }
 
       // Bedroom filter
-      if (this.filters.bedrooms !== null && prop.bedrooms < this.filters.bedrooms) {
+      if (
+        this.filters.bedrooms !== null &&
+        prop.bedrooms < this.filters.bedrooms
+      ) {
         return false;
       }
 
       // Bathroom filter
-      if (this.filters.bathrooms !== null && prop.bathrooms < this.filters.bathrooms) {
+      if (
+        this.filters.bathrooms !== null &&
+        prop.bathrooms < this.filters.bathrooms
+      ) {
         return false;
       }
 
       // Tag filter (must have ALL selected tags)
       if (this.filters.tags.length > 0) {
         const propTags = prop.tags || [];
-        const hasAllTags = this.filters.tags.every(tag => propTags.includes(tag));
+        const hasAllTags = this.filters.tags.every((tag) =>
+          propTags.includes(tag)
+        );
         if (!hasAllTags) {
           return false;
         }
@@ -263,7 +276,7 @@ export class PropertyFilter {
     if (bathroomSelect) bathroomSelect.value = '';
 
     // Reset tag buttons
-    document.querySelectorAll('.tag-filter').forEach(btn => {
+    document.querySelectorAll('.tag-filter').forEach((btn) => {
       btn.classList.remove('active');
       btn.setAttribute('aria-pressed', 'false');
     });
@@ -284,7 +297,7 @@ export class PropertyFilter {
     if (!this.container) return;
 
     this.container.innerHTML = '';
-    
+
     if (this.filteredProperties.length === 0) {
       this.container.innerHTML = `
         <div class="no-results" role="status">
@@ -330,9 +343,12 @@ export class PropertyFilter {
     card.style.animationDelay = `${index * 50}ms`;
     card.setAttribute('data-property-id', prop.id || prop.slug);
 
-    const tagsHtml = (prop.tags || []).map(tag => 
-      `<span class="property-card__tag">${this.escapeHtml(tag)}</span>`
-    ).join('');
+    const tagsHtml = (prop.tags || [])
+      .map(
+        (tag) =>
+          `<span class="property-card__tag">${this.escapeHtml(tag)}</span>`
+      )
+      .join('');
 
     card.innerHTML = `
       <div class="property-card__image-container">
@@ -385,13 +401,16 @@ export class PropertyFilter {
   updateResultsCount () {
     const countElement = document.getElementById('results-count');
     const labelElement = document.getElementById('results-label');
-    
+
     if (countElement) {
       countElement.textContent = this.filteredProperties.length;
     }
-    
+
     if (labelElement) {
-      labelElement.textContent = this.filteredProperties.length === 1 ? 'property found' : 'properties found';
+      labelElement.textContent =
+        this.filteredProperties.length === 1
+          ? 'property found'
+          : 'properties found';
     }
   }
 
@@ -406,7 +425,7 @@ export class PropertyFilter {
     announcement.className = 'sr-only';
     announcement.textContent = message;
     document.body.appendChild(announcement);
-    
+
     setTimeout(() => {
       announcement.remove();
     }, 1000);

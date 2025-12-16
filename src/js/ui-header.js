@@ -17,7 +17,7 @@
       });
 
       // Close menu when clicking on links
-      navLinks.forEach(link => {
+      navLinks.forEach((link) => {
         link.addEventListener('click', closeMenu);
       });
 
@@ -46,7 +46,9 @@
       navMenu.setAttribute('aria-hidden', !isExpanded);
 
       // Announce to screen readers
-      const announcement = isExpanded ? 'Navigation menu opened' : 'Navigation menu closed';
+      const announcement = isExpanded
+        ? 'Navigation menu opened'
+        : 'Navigation menu closed';
       announceToScreenReader(announcement);
     }
 
@@ -64,25 +66,29 @@
     let lastScrollY = window.scrollY;
 
     if (header) {
-      window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
+      window.addEventListener(
+        'scroll',
+        () => {
+          const currentScrollY = window.scrollY;
 
-        // Add/remove scrolled class for styling adjustments
-        if (currentScrollY > 50) {
-          header.classList.add('scrolled');
-        } else {
-          header.classList.remove('scrolled');
-        }
+          // Add/remove scrolled class for styling adjustments
+          if (currentScrollY > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
 
-        // Hide/show header on scroll (optional enhancement)
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          header.style.transform = 'translateY(-100%)';
-        } else {
-          header.style.transform = 'translateY(0)';
-        }
+          // Hide/show header on scroll (optional enhancement)
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            header.style.transform = 'translateY(-100%)';
+          } else {
+            header.style.transform = 'translateY(0)';
+          }
 
-        lastScrollY = currentScrollY;
-      }, { passive: true });
+          lastScrollY = currentScrollY;
+        },
+        { passive: true }
+      );
     }
   }
 
@@ -91,13 +97,15 @@
     const currentPath = window.location.pathname;
     const navLinks = document.querySelectorAll('.nav-link');
 
-    navLinks.forEach(link => {
+    navLinks.forEach((link) => {
       const linkPath = link.getAttribute('href');
 
       // Handle exact matches and root path
-      if (linkPath === currentPath ||
-                (currentPath === '/' && linkPath === 'index.html') ||
-                (currentPath === '/index.html' && linkPath === 'index.html')) {
+      if (
+        linkPath === currentPath ||
+        (currentPath === '/' && linkPath === 'index.html') ||
+        (currentPath === '/index.html' && linkPath === 'index.html')
+      ) {
         link.classList.add('active');
         link.setAttribute('aria-current', 'page');
       } else {
@@ -111,7 +119,7 @@
   function initializeCTALinks () {
     const ctaLinks = document.querySelectorAll('.cta-link');
 
-    ctaLinks.forEach(link => {
+    ctaLinks.forEach((link) => {
       // Add click tracking if needed in future
       link.addEventListener('click', (e) => {
         // Could add analytics tracking here
@@ -156,7 +164,9 @@
 
   // Logo/Home Link Enhancement
   function initializeLogoLink () {
-    const logoLink = document.querySelector('.nav-brand a') || document.querySelector('.nav-brand h1');
+    const logoLink =
+      document.querySelector('.nav-brand a') ||
+      document.querySelector('.nav-brand h1');
 
     if (logoLink && logoLink.tagName !== 'A') {
       // If logo is not already a link, wrap it
@@ -202,7 +212,7 @@
       'public/css/style.css'
     ];
 
-    criticalLinks.forEach(link => {
+    criticalLinks.forEach((link) => {
       const linkElement = document.querySelector(`link[href="${link}"]`);
       if (linkElement && !linkElement.hasAttribute('rel')) {
         linkElement.setAttribute('rel', 'preload');
@@ -249,5 +259,4 @@
       }
     }
   };
-
 })();

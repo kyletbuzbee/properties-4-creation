@@ -382,8 +382,12 @@
 }
 
 @keyframes skeleton-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* ========================================
@@ -394,11 +398,11 @@
   .property-card__features {
     gap: var(--spacing-2);
   }
-  
+
   .property-card__feature {
     font-size: var(--font-size-xs);
   }
-  
+
   .stat-card__value {
     font-size: var(--font-size-3xl);
   }
@@ -414,16 +418,16 @@
   .property-card__image {
     transition: none;
   }
-  
+
   .property-card:hover,
   .stat-card:hover {
     transform: none;
   }
-  
+
   .property-card:hover .property-card__image {
     transform: none;
   }
-  
+
   .card-skeleton__image,
   .card-skeleton__title,
   .card-skeleton__text {

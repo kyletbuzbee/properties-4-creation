@@ -1,7 +1,7 @@
 /**
  * Main Application Entry Point
  * Properties 4 Creations
- * 
+ *
  * This file initializes all JavaScript components and features
  */
 
@@ -31,7 +31,7 @@ if (menuToggle && navMenu) {
     menuToggle.classList.toggle('active');
   });
 
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('active');
       menuToggle.classList.remove('active');
@@ -100,10 +100,10 @@ const propertiesData = [
 // POPULATE PROPERTIES GRID (SECURE - NO XSS VULNERABILITIES)
 const propertiesGrid = document.getElementById('properties-grid');
 if (propertiesGrid) {
-  propertiesData.forEach(prop => {
+  propertiesData.forEach((prop) => {
     const card = document.createElement('div');
     card.className = 'property-card';
-        
+
     // Create image container
     const imageDiv = document.createElement('div');
     imageDiv.className = 'property-image';
@@ -111,27 +111,27 @@ if (propertiesGrid) {
     imageDiv.style.backgroundSize = 'cover';
     imageDiv.style.backgroundPosition = 'center';
     imageDiv.setAttribute('alt', prop.name);
-        
+
     // Create content container
     const contentDiv = document.createElement('div');
     contentDiv.className = 'property-content';
-        
+
     // Create title element (secure - uses textContent)
     const titleEl = document.createElement('h3');
     titleEl.className = 'property-title';
     titleEl.textContent = prop.name;
-        
+
     // Create location element (secure)
     const locationEl = document.createElement('p');
     locationEl.style.color = 'var(--dark-gray)';
     locationEl.style.fontSize = '0.9rem';
     locationEl.style.marginBottom = '1rem';
     locationEl.textContent = prop.location;
-        
+
     // Create details container
     const detailsDiv = document.createElement('div');
     detailsDiv.className = 'property-details';
-        
+
     // Add beds detail
     const bedsItem = document.createElement('div');
     bedsItem.className = 'detail-item';
@@ -143,7 +143,7 @@ if (propertiesGrid) {
     bedsValue.textContent = prop.bedrooms.toString();
     bedsItem.appendChild(bedsLabel);
     bedsItem.appendChild(bedsValue);
-        
+
     // Add baths detail
     const bathsItem = document.createElement('div');
     bathsItem.className = 'detail-item';
@@ -155,7 +155,7 @@ if (propertiesGrid) {
     bathsValue.textContent = prop.bathrooms.toString();
     bathsItem.appendChild(bathsLabel);
     bathsItem.appendChild(bathsValue);
-        
+
     // Add status detail
     const statusItem = document.createElement('div');
     statusItem.className = 'detail-item';
@@ -169,40 +169,40 @@ if (propertiesGrid) {
     statusValue.textContent = prop.price;
     statusItem.appendChild(statusLabel);
     statusItem.appendChild(statusValue);
-        
+
     // Add all details
     detailsDiv.appendChild(bedsItem);
     detailsDiv.appendChild(bathsItem);
     detailsDiv.appendChild(statusItem);
-        
+
     // Create tags container
     const tagsDiv = document.createElement('div');
     tagsDiv.className = 'property-tags';
-        
+
     // Add tags securely (escape text content)
-    prop.tags.forEach(tag => {
+    prop.tags.forEach((tag) => {
       const tagSpan = document.createElement('span');
       tagSpan.className = 'tag';
       tagSpan.textContent = tag; // Secure - no HTML injection possible
       tagsDiv.appendChild(tagSpan);
     });
-        
+
     // Create apply button
     const applyLink = document.createElement('a');
     applyLink.href = 'apply.html';
     applyLink.className = 'btn btn-primary property-btn';
     applyLink.textContent = 'Apply for This Home';
-        
+
     // Assemble all elements
     contentDiv.appendChild(titleEl);
     contentDiv.appendChild(locationEl);
     contentDiv.appendChild(detailsDiv);
     contentDiv.appendChild(tagsDiv);
     contentDiv.appendChild(applyLink);
-        
+
     card.appendChild(imageDiv);
     card.appendChild(contentDiv);
-        
+
     propertiesGrid.appendChild(card);
   });
 }
@@ -220,7 +220,8 @@ if (sliderContainer) {
     x = Math.max(0, Math.min(x, rect.width));
     const percentage = (x / rect.width) * 100;
     sliderHandle.style.left = `${percentage}%`;
-    sliderContainer.querySelector('.slider-after').style.clipPath = `inset(0 0 0 ${percentage}%)`;
+    sliderContainer.querySelector('.slider-after').style.clipPath =
+      `inset(0 0 0 ${percentage}%)`;
   };
 
   sliderHandle.addEventListener('mousedown', () => {
@@ -255,17 +256,27 @@ if (filterBtn) {
   filterBtn.addEventListener('click', () => {
     const bedroomFilter = document.getElementById('bedroom-filter').value;
     const locationFilter = document.getElementById('location-filter').value;
-    const searchFilter = document.getElementById('search-filter').value.toLowerCase();
+    const searchFilter = document
+      .getElementById('search-filter')
+      .value.toLowerCase();
 
     const cards = document.querySelectorAll('.property-card');
-    cards.forEach(card => {
-      const title = card.querySelector('.property-title').textContent.toLowerCase();
-      const location = card.querySelector('.property-content p').textContent.toLowerCase();
+    cards.forEach((card) => {
+      const title = card
+        .querySelector('.property-title')
+        .textContent.toLowerCase();
+      const location = card
+        .querySelector('.property-content p')
+        .textContent.toLowerCase();
       const bedrooms = card.querySelector('.detail-value').textContent;
 
       const matchesBedroom = !bedroomFilter || bedrooms === bedroomFilter;
-      const matchesLocation = !locationFilter || location.includes(locationFilter.toLowerCase());
-      const matchesSearch = !searchFilter || title.includes(searchFilter) || location.includes(searchFilter);
+      const matchesLocation =
+        !locationFilter || location.includes(locationFilter.toLowerCase());
+      const matchesSearch =
+        !searchFilter ||
+        title.includes(searchFilter) ||
+        location.includes(searchFilter);
 
       if (matchesBedroom && matchesLocation && matchesSearch) {
         card.style.display = 'block';
@@ -291,7 +302,8 @@ if (form) {
       });
     }
     // Basic fallback sanitization
-    return input.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    return input
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
       .replace(/<[^>]*>/g, '')
       .trim();
   }
@@ -302,7 +314,7 @@ if (form) {
     let isValid = true;
     const formGroups = form.querySelectorAll('.form-group');
 
-    formGroups.forEach(group => {
+    formGroups.forEach((group) => {
       const input = group.querySelector('input, select, textarea');
       if (!input) return;
 
@@ -314,10 +326,18 @@ if (form) {
       if (input.required && !sanitizedValue) {
         group.classList.add('error');
         isValid = false;
-      } else if (input.type === 'email' && sanitizedValue && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)) {
+      } else if (
+        input.type === 'email' &&
+        sanitizedValue &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
+      ) {
         group.classList.add('error');
         isValid = false;
-      } else if (input.id === 'phone' && sanitizedValue && !/^[0-9\-\+\(\)\s]+$/.test(sanitizedValue)) {
+      } else if (
+        input.id === 'phone' &&
+        sanitizedValue &&
+        !/^[0-9\-\+\(\)\s]+$/.test(sanitizedValue)
+      ) {
         group.classList.add('error');
         isValid = false;
       } else if (input.type === 'checkbox' && !input.checked) {
@@ -353,7 +373,7 @@ if (contactForm) {
     let isValid = true;
     const contactFormGroups = contactForm.querySelectorAll('.form-group');
 
-    contactFormGroups.forEach(group => {
+    contactFormGroups.forEach((group) => {
       const input = group.querySelector('input, textarea');
       if (!input) return;
 
@@ -362,7 +382,11 @@ if (contactForm) {
       if (input.required && !input.value.trim()) {
         group.classList.add('error');
         isValid = false;
-      } else if (input.type === 'email' && input.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+      } else if (
+        input.type === 'email' &&
+        input.value &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
+      ) {
         group.classList.add('error');
         isValid = false;
       }
@@ -410,7 +434,7 @@ document.addEventListener('click', (e) => {
 });
 
 // Alt text checker - Production build will strip console statements
-document.querySelectorAll('img').forEach(img => {
+document.querySelectorAll('img').forEach((img) => {
   if (!img.alt) {
     // Accessibility issue detected - alt text missing
     // This would be logged in development builds only
@@ -462,18 +486,22 @@ document.addEventListener('DOMContentLoaded', () => {
         city: prop.location.split(',')[0].trim(),
         bedrooms: prop.bedrooms,
         bathrooms: prop.bathrooms,
-        sqft: 1200 + (index * 150), // Placeholder sqft
+        sqft: 1200 + index * 150, // Placeholder sqft
         image: prop.image,
-        tags: prop.tags.map(tag => {
+        tags: prop.tags.map((tag) => {
           if (tag.includes('Section 8')) return 'Section 8';
           if (tag.includes('HUD-VASH')) return 'HUD-VASH';
-          if (tag.includes('Pet') || tag.includes('Family')) return 'Pet Friendly';
+          if (tag.includes('Pet') || tag.includes('Family'))
+            return 'Pet Friendly';
           return tag;
         }),
         featured: index === 0
       }));
 
-      const propertyFilter = new PropertyFilter(formattedProperties, '#properties-grid');
+      const propertyFilter = new PropertyFilter(
+        formattedProperties,
+        '#properties-grid'
+      );
       propertyFilter.init();
       window.propertyFilter = propertyFilter;
     } catch (e) {
@@ -493,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
             successMessage.classList.add('show');
             applicationForm.style.display = 'none';
           }
-                    
+
           setTimeout(() => {
             applicationForm.reset();
             applicationForm.style.display = 'block';
@@ -522,7 +550,7 @@ document.addEventListener('DOMContentLoaded', () => {
             contactSuccess.style.display = 'block';
             contactFormEl.style.display = 'none';
           }
-                    
+
           setTimeout(() => {
             contactFormEl.reset();
             contactFormEl.style.display = 'block';

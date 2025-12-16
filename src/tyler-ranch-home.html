@@ -1,328 +1,397 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tyler Ranch Home - Properties 4 Creations</title>
-    <link rel="manifest" href="public/manifest.json">
-    <link rel="stylesheet" href="public/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu" crossorigin="anonymous">
-    <meta name="theme-color" content="#0B1120">
-    <meta name="description" content="Tyler Ranch Home - 3BR, 2BA renovated home in Tyler, TX. Section 8 ready with modern kitchen, quartz counters, and new HVAC. $1,100/mo.">
-    <meta property="og:title" content="Tyler Ranch Home - Properties 4 Creations">
-    <meta property="og:description" content="Newly renovated 3BR home with quartz counters and new HVAC. Section 8 accepted.">
-    <meta property="og:image" content="images/properties/properties-tyler-ranch-home.webp">
-</head>
-<body>
+    <link rel="manifest" href="public/manifest.json" />
+    <link rel="stylesheet" href="public/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
+      integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
+      crossorigin="anonymous"
+    />
+    <meta name="theme-color" content="#0B1120" />
+    <meta
+      name="description"
+      content="Tyler Ranch Home - 3BR, 2BA renovated home in Tyler, TX. Section 8 ready with modern kitchen, quartz counters, and new HVAC. $1,100/mo."
+    />
+    <meta
+      property="og:title"
+      content="Tyler Ranch Home - Properties 4 Creations"
+    />
+    <meta
+      property="og:description"
+      content="Newly renovated 3BR home with quartz counters and new HVAC. Section 8 accepted."
+    />
+    <meta
+      property="og:image"
+      content="images/properties/properties-tyler-ranch-home.webp"
+    />
+  </head>
+  <body>
     <!-- Skip Link -->
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- HEADER -->
     <header class="header-glass">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-brand">
-                    <h1>Properties 4 Creations</h1>
-                </div>
-                <button class="menu-toggle" aria-label="Toggle navigation menu">
-                    <i data-lucide="menu"></i>
-                    <i data-lucide="x"></i>
-                </button>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="properties.html" class="nav-link active">Properties</a></li>
-                    <li><a href="resources.html" class="nav-link">Resources</a></li>
-                    <li><a href="transparency.html" class="nav-link">Transparency</a></li>
-                    <li><a href="impact.html" class="nav-link">Impact</a></li>
-                    <li><a href="apply.html" class="nav-link">Apply Now</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="nav-container">
+          <div class="nav-brand">
+            <h1>Properties 4 Creations</h1>
+          </div>
+          <button class="menu-toggle" aria-label="Toggle navigation menu">
+            <i data-lucide="menu"></i>
+            <i data-lucide="x"></i>
+          </button>
+          <ul class="nav-menu" id="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li>
+              <a href="properties.html" class="nav-link active">Properties</a>
+            </li>
+            <li><a href="resources.html" class="nav-link">Resources</a></li>
+            <li>
+              <a href="transparency.html" class="nav-link">Transparency</a>
+            </li>
+            <li><a href="impact.html" class="nav-link">Impact</a></li>
+            <li><a href="apply.html" class="nav-link">Apply Now</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main id="main">
-        <!-- HERO SECTION -->
-        <section class="property-hero">
-            <div class="property-hero-image">
-                <img src="/images/properties/properties-tyler-ranch-home.webp" alt="Tyler Ranch Home exterior showing renovated ranch-style home with modern landscaping" loading="lazy">
-                <div class="property-hero-overlay">
-                    <div class="property-hero-content">
-                        <h1>Tyler Ranch Home</h1>
-                        <div class="property-meta">
-                            <span class="property-location">
-                                <i data-lucide="map-pin"></i> Tyler, TX
-                            </span>
-                            <div class="property-specs">
-                                <span class="property-beds">
-                                    <i data-lucide="users"></i> 3 Bed
-                                </span>
-                                <span class="property-baths">
-                                    <i data-lucide="droplets"></i> 2 Bath
-                                </span>
-                                <span class="property-sqft">
-                                    <i data-lucide="square"></i> 1,400 sqft
-                                </span>
-                            </div>
-                        </div>
-                        <div class="property-price">
-                            <span class="price-amount">Section 8 Ready</span>
-                            <span class="price-note">Market Rate: $1,100/mo</span>
-                        </div>
-                        <div class="property-actions">
-                            <a href="#apply-section" class="btn btn-primary">Apply Now</a>
-                            <a href="#tour-section" class="btn btn-secondary">Schedule Tour</a>
-                        </div>
-                    </div>
+      <!-- HERO SECTION -->
+      <section class="property-hero">
+        <div class="property-hero-image">
+          <img
+            src="/images/properties/properties-tyler-ranch-home.webp"
+            alt="Tyler Ranch Home exterior showing renovated ranch-style home with modern landscaping"
+            loading="lazy"
+          />
+          <div class="property-hero-overlay">
+            <div class="property-hero-content">
+              <h1>Tyler Ranch Home</h1>
+              <div class="property-meta">
+                <span class="property-location">
+                  <i data-lucide="map-pin"></i> Tyler, TX
+                </span>
+                <div class="property-specs">
+                  <span class="property-beds">
+                    <i data-lucide="users"></i> 3 Bed
+                  </span>
+                  <span class="property-baths">
+                    <i data-lucide="droplets"></i> 2 Bath
+                  </span>
+                  <span class="property-sqft">
+                    <i data-lucide="square"></i> 1,400 sqft
+                  </span>
                 </div>
+              </div>
+              <div class="property-price">
+                <span class="price-amount">Section 8 Ready</span>
+                <span class="price-note">Market Rate: $1,100/mo</span>
+              </div>
+              <div class="property-actions">
+                <a href="#apply-section" class="btn btn-primary">Apply Now</a>
+                <a href="#tour-section" class="btn btn-secondary"
+                  >Schedule Tour</a
+                >
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- PROPERTY DETAILS -->
-        <section class="property-details-section">
-            <div class="container">
-                <div class="property-details-grid">
-                    <!-- Overview -->
-                    <div class="property-overview">
-                        <h2>Property Overview</h2>
-                        <p>Newly renovated 3BR home with quartz counters and new HVAC. Section 8 accepted. This charming ranch-style home offers modern comforts with historic charm.</p>
-                        <div class="property-features">
-                            <div class="feature-tags">
-                                <span class="tag">Section 8 Ready</span>
-                                <span class="tag">Veteran Priority</span>
-                                <span class="tag">Newly Renovated</span>
-                                <span class="tag">Modern Kitchen</span>
-                                <span class="tag">Central HVAC</span>
-                            </div>
-                            <div class="property-stats">
-                                <div class="stat-item">
-                                    <span class="stat-label">Property Type</span>
-                                    <span class="stat-value">Single Family Home</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Year Built</span>
-                                    <span class="stat-value">1990 (Renovated 2025)</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Lot Size</span>
-                                    <span class="stat-value">7,200 sqft</span>
-                                </div>
-                                <div class="stat-item">
-                                    <span class="stat-label">Available</span>
-                                    <span class="stat-value">Immediately</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Amenities -->
-                    <div class="property-amenities">
-                        <h3>Amenities & Features</h3>
-                        <div class="amenities-grid">
-                            <div class="amenity-category">
-                                <h4>Kitchen</h4>
-                                <ul>
-                                    <li>Quartz countertop</li>
-                                    <li>Stainless steel appliances</li>
-                                    <li>Ceramic tile flooring</li>
-                                    <li>Modern cabinetry</li>
-                                    <li>Breakfast bar</li>
-                                </ul>
-                            </div>
-                            <div class="amenity-category">
-                                <h4>Bathrooms</h4>
-                                <ul>
-                                    <li>Spa-style fixtures</li>
-                                    <li>Ceramic tile surrounds</li>
-                                    <li>Modern vanities</li>
-                                    <li>Double sink in master</li>
-                                    <li>Linen storage</li>
-                                </ul>
-                            </div>
-                            <div class="amenity-category">
-                                <h4>Exterior</h4>
-                                <ul>
-                                    <li>Fenced backyard</li>
-                                    <li>Covered front porch</li>
-                                    <li>Two-car carport</li>
-                                    <li>Mature landscaping</li>
-                                    <li>Security lighting</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+      <!-- PROPERTY DETAILS -->
+      <section class="property-details-section">
+        <div class="container">
+          <div class="property-details-grid">
+            <!-- Overview -->
+            <div class="property-overview">
+              <h2>Property Overview</h2>
+              <p>
+                Newly renovated 3BR home with quartz counters and new HVAC.
+                Section 8 accepted. This charming ranch-style home offers modern
+                comforts with historic charm.
+              </p>
+              <div class="property-features">
+                <div class="feature-tags">
+                  <span class="tag">Section 8 Ready</span>
+                  <span class="tag">Veteran Priority</span>
+                  <span class="tag">Newly Renovated</span>
+                  <span class="tag">Modern Kitchen</span>
+                  <span class="tag">Central HVAC</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- GALLERY SECTION -->
-        <section class="property-gallery">
-            <div class="container">
-                <h2>Property Gallery</h2>
-                <div class="gallery-grid">
-                    <div class="gallery-item">
-                        <img src="/images/our-work-gallery/our-work-remodeling.webp" alt="Tyler Ranch Home fully renovated kitchen with modern appliances and quartz counters" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/images/before-after-comparison/projects-after-kitchen.webp" alt="Tyler Ranch Home modernized bathroom with new fixtures and ceramic tile" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/images/before-after-comparison/projects-after-living-room.webp" alt="Tyler Ranch Home updated living room with modern finishes" loading="lazy">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/images/before-after-comparison/projects-after-front-porch.webp" alt="Tyler Ranch Home covered front porch perfect for outdoor relaxation" loading="lazy">
-                    </div>
+                <div class="property-stats">
+                  <div class="stat-item">
+                    <span class="stat-label">Property Type</span>
+                    <span class="stat-value">Single Family Home</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Year Built</span>
+                    <span class="stat-value">1990 (Renovated 2025)</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Lot Size</span>
+                    <span class="stat-value">7,200 sqft</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Available</span>
+                    <span class="stat-value">Immediately</span>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
 
-        <!-- LOCATION & COMMUNITY -->
-        <section class="property-location">
-            <div class="container">
-                <h2>Location & Community</h2>
-                <div class="location-grid">
-                    <div class="location-map">
-                    <div id="property-map" class="property-map-container" role="img" aria-label="Interactive map showing Tyler Ranch Home location in Tyler, Texas"></div>
-                    </div>
-                    <div class="location-details">
-                        <h3>Neighborhood Benefits</h3>
-                        <div class="location-features">
-                            <div class="location-feature">
-                                <i data-lucide="school"></i>
-                                <div>
-                                    <h4>Excellent Schools</h4>
-                                    <p>Tyler ISD schools with high ratings</p>
-                                </div>
-                            </div>
-                            <div class="location-feature">
-                                <i data-lucide="hospital"></i>
-                                <div>
-                                    <h4>Healthcare Access</h4>
-                                    <p>Close to TYSiM Medical Center & UT Health Tyler</p>
-                                </div>
-                            </div>
-                            <div class="location-feature">
-                                <i data-lucide="shopping-cart"></i>
-                                <div>
-                                    <h4>Shopping & Dining</h4>
-                                    <p>Near major retailers and restaurants</p>
-                                </div>
-                            </div>
-                            <div class="location-feature">
-                                <i data-lucide="car"></i>
-                                <div>
-                                    <h4>Transportation Hub</h4>
-                                    <p>Easy access to I-20 and downtown Tyler</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Amenities -->
+            <div class="property-amenities">
+              <h3>Amenities & Features</h3>
+              <div class="amenities-grid">
+                <div class="amenity-category">
+                  <h4>Kitchen</h4>
+                  <ul>
+                    <li>Quartz countertop</li>
+                    <li>Stainless steel appliances</li>
+                    <li>Ceramic tile flooring</li>
+                    <li>Modern cabinetry</li>
+                    <li>Breakfast bar</li>
+                  </ul>
                 </div>
+                <div class="amenity-category">
+                  <h4>Bathrooms</h4>
+                  <ul>
+                    <li>Spa-style fixtures</li>
+                    <li>Ceramic tile surrounds</li>
+                    <li>Modern vanities</li>
+                    <li>Double sink in master</li>
+                    <li>Linen storage</li>
+                  </ul>
+                </div>
+                <div class="amenity-category">
+                  <h4>Exterior</h4>
+                  <ul>
+                    <li>Fenced backyard</li>
+                    <li>Covered front porch</li>
+                    <li>Two-car carport</li>
+                    <li>Mature landscaping</li>
+                    <li>Security lighting</li>
+                  </ul>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <!-- APPLICATION SECTION -->
-        <section id="apply-section" class="property-application">
-            <div class="container">
-                <h2>Apply for This Property</h2>
-                <div class="application-process">
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <h3>Complete Pre-Application</h3>
-                            <p>Tell us about yourself and verify eligibility</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <h3>Schedule Tour</h3>
-                            <p>See the property firsthand</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <h3>Application Review</h3>
-                            <p>We verify your voucher and references</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">4</div>
-                            <h3>Lease Signing</h3>
-                            <p>Mutual agreement and key exchange</p>
-                        </div>
-                    </div>
-                    <div class="application-actions">
-                        <a href="apply.html" class="btn btn-primary btn-lg">Start Application</a>
-                        <a href="tel:+19035551234" class="btn btn-secondary btn-lg">Call to Inquire</a>
-                    </div>
-                </div>
+      <!-- GALLERY SECTION -->
+      <section class="property-gallery">
+        <div class="container">
+          <h2>Property Gallery</h2>
+          <div class="gallery-grid">
+            <div class="gallery-item">
+              <img
+                src="/images/our-work-gallery/our-work-remodeling.webp"
+                alt="Tyler Ranch Home fully renovated kitchen with modern appliances and quartz counters"
+                loading="lazy"
+              />
             </div>
-        </section>
+            <div class="gallery-item">
+              <img
+                src="/images/before-after-comparison/projects-after-kitchen.webp"
+                alt="Tyler Ranch Home modernized bathroom with new fixtures and ceramic tile"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="/images/before-after-comparison/projects-after-living-room.webp"
+                alt="Tyler Ranch Home updated living room with modern finishes"
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item">
+              <img
+                src="/images/before-after-comparison/projects-after-front-porch.webp"
+                alt="Tyler Ranch Home covered front porch perfect for outdoor relaxation"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOCATION & COMMUNITY -->
+      <section class="property-location">
+        <div class="container">
+          <h2>Location & Community</h2>
+          <div class="location-grid">
+            <div class="location-map">
+              <div
+                id="property-map"
+                class="property-map-container"
+                role="img"
+                aria-label="Interactive map showing Tyler Ranch Home location in Tyler, Texas"
+              ></div>
+            </div>
+            <div class="location-details">
+              <h3>Neighborhood Benefits</h3>
+              <div class="location-features">
+                <div class="location-feature">
+                  <i data-lucide="school"></i>
+                  <div>
+                    <h4>Excellent Schools</h4>
+                    <p>Tyler ISD schools with high ratings</p>
+                  </div>
+                </div>
+                <div class="location-feature">
+                  <i data-lucide="hospital"></i>
+                  <div>
+                    <h4>Healthcare Access</h4>
+                    <p>Close to TYSiM Medical Center & UT Health Tyler</p>
+                  </div>
+                </div>
+                <div class="location-feature">
+                  <i data-lucide="shopping-cart"></i>
+                  <div>
+                    <h4>Shopping & Dining</h4>
+                    <p>Near major retailers and restaurants</p>
+                  </div>
+                </div>
+                <div class="location-feature">
+                  <i data-lucide="car"></i>
+                  <div>
+                    <h4>Transportation Hub</h4>
+                    <p>Easy access to I-20 and downtown Tyler</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPLICATION SECTION -->
+      <section id="apply-section" class="property-application">
+        <div class="container">
+          <h2>Apply for This Property</h2>
+          <div class="application-process">
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Complete Pre-Application</h3>
+                <p>Tell us about yourself and verify eligibility</p>
+              </div>
+              <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Schedule Tour</h3>
+                <p>See the property firsthand</p>
+              </div>
+              <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Application Review</h3>
+                <p>We verify your voucher and references</p>
+              </div>
+              <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Lease Signing</h3>
+                <p>Mutual agreement and key exchange</p>
+              </div>
+            </div>
+            <div class="application-actions">
+              <a href="apply.html" class="btn btn-primary btn-lg"
+                >Start Application</a
+              >
+              <a href="tel:+19035551234" class="btn btn-secondary btn-lg"
+                >Call to Inquire</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Properties 4 Creations</h3>
-                    <p>Building homes, rebuilding lives in East Texas.</p>
-                    <p class="veteran-badge"><i data-lucide="award"></i> Veteran-Owned & Operated</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="properties.html">Browse All Properties</a></li>
-                        <li><a href="resources.html">Resources</a></li>
-                        <li><a href="transparency.html">Our Standards</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="tel:+19035551234">(903) 555-1234</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
-                <p>Serving East Texas with premium housing solutions for veterans and families.</p>
-            </div>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Properties 4 Creations</h3>
+            <p>Building homes, rebuilding lives in East Texas.</p>
+            <p class="veteran-badge">
+              <i data-lucide="award"></i> Veteran-Owned & Operated
+            </p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="properties.html">Browse All Properties</a></li>
+              <li><a href="resources.html">Resources</a></li>
+              <li><a href="transparency.html">Our Standards</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Contact</h4>
+            <ul>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="tel:+19035551234">(903) 555-1234</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="terms.html">Terms of Service</a></li>
+              <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
+          <p>
+            Serving East Texas with premium housing solutions for veterans and
+            families.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <!-- SCRIPTS -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB" crossorigin="anonymous"></script>
+    <script
+      src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
+      integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
     <script src="public/js/main.js"></script>
 
     <!-- MINI MAP -->
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha384-sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        // Initialize property map
-        document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('property-map')) {
-                const map = L.map('property-map').setView([32.351, -95.301], 15);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors'
-                }).addTo(map);
+      // Initialize property map
+      document.addEventListener("DOMContentLoaded", function () {
+        if (document.getElementById("property-map")) {
+          const map = L.map("property-map").setView([32.351, -95.301], 15);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "© OpenStreetMap contributors",
+          }).addTo(map);
 
-                // Add property marker
-                L.marker([32.351, -95.301])
-                    .addTo(map)
-                    .bindPopup('<b>Tyler Ranch Home</b><br>3BR, 2BA - Section 8 Ready')
-                    .openPopup();
-            }
-        });
+          // Add property marker
+          L.marker([32.351, -95.301])
+            .addTo(map)
+            .bindPopup("<b>Tyler Ranch Home</b><br>3BR, 2BA - Section 8 Ready")
+            .openPopup();
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
