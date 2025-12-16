@@ -1,31 +1,29 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Properties 4 Creations - Veteran Housing Solutions East Texas</title>
-<link rel="manifest" href="manifest.json" />
-<link rel="apple-touch-icon" href="images/logo/brand-logo.svg" />
-<link rel="icon" type="image/svg+xml" href="images/logo/brand-logo.svg" />
-<meta name="theme-color" content="#0B1120" />
-<meta name="description" content="Providing premium, renovated housing for veterans and families in East Texas. 100% Voucher Acceptance for Section 8 &amp; HUD-VASH programs." />
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/images/logo/brand-logo.svg">
+<link rel="icon" type="image/svg+xml" href="/images/logo/brand-logo.svg">
+<meta name="theme-color" content="#0B1120">
+<meta name="description" content="Providing premium, renovated housing for veterans and families in East Texas. 100% Voucher Acceptance for Section 8 &amp; HUD-VASH programs.">
 
 <!-- DNS Prefetch & Preconnect for Performance -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="dns-prefetch" href="https://unpkg.com" />
-<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
-<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
 <!-- Preload Critical Assets -->
-<link rel="preload" href="/css/style.css" as="style" />
-<link rel="preload" href="/js/main.js" as="script" />
+<link rel="preload" href="/css/style.css" as="style">
+<link rel="preload" href="/js/main.js" as="script">
 
 <!-- Content Security Policy - Development Mode (SECURE) -->
-<meta
-  http-equiv="Content-Security-Policy"
-  content="default-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com data:;
+<meta http-equiv="Content-Security-Policy" 
+      content="default-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com data:;
                script-src 'self' https://unpkg.com https://cdn.jsdelivr.net;
                style-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com;
                img-src 'self' data: https: http:;
@@ -35,202 +33,131 @@
                object-src 'none';
                frame-ancestors 'self';
                base-uri 'self';
-               form-action 'self';"
-/>
+               form-action 'self';">
 
 <!-- Security Headers -->
-<meta http-equiv="X-Content-Type-Options" content="nosniff" />
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
-<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
-    <link rel="stylesheet" href="css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css"
-      integrity="sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
-      integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <header class="header-glass">p
-<nav class="navbar" role="navigation" aria-label="Main navigation">
-  <div class="nav-container">
-    <div class="nav-brand">
-      <a href="/" class="brand-link">
-        <img
-          src="images/logo.png"
-          alt="Properties 4 Creations Logo"
-          class="brand-logo"
-        />
-        <span class="brand-text">Properties 4 Creations</span>
-      </a>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css" integrity="sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu" crossorigin="anonymous">
+</head>
+<body>
+    <header class="header-glass"><nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="/" class="brand-link">
+                <img src="/images/logo/brand-logo-header-footer.svg" alt="Properties 4 Creations Logo" class="brand-logo">
+                <span class="brand-text">Properties 4 Creations</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/properties/" class="nav-link">Properties</a></li>
+            <li><a href="/about/" class="nav-link">About</a></li>
+            <li><a href="/resources/" class="nav-link">Resources</a></li>
+            <li><a href="/contact/" class="nav-link">Contact</a></li>
+            <li><a href="/apply/" class="btn btn-primary cta-link">Apply Now</a></li>
+        </ul>
     </div>
-
-    <button
-      class="menu-toggle"
-      aria-label="Toggle navigation menu"
-      aria-expanded="false"
-    >
-      <span class="menu-toggle__line"></span>
-      <span class="menu-toggle__line"></span>
-      <span class="menu-toggle__line"></span>
-    </button>
-
-    <div class="nav-menu" id="nav-menu">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a href="/" class="nav-link" aria-current="page">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="properties.html" class="nav-link active">Properties</a>
-        </li>
-        <li class="nav-item">
-          <a href="about.html" class="nav-link">About</a>
-        </li>
-        <li class="nav-item">
-          <a href="resources.html" class="nav-link">Resources</a>
-        </li>
-        <li class="nav-item">
-          <a href="contact.html" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a href="apply.html" class="btn btn-primary nav-cta">Apply Now</a>
-        </li>
-      </ul>
-    </div>
-  </div>
 </nav>
 </header>
 
 
     <main id="main-content">
-      <!-- HOMEPAGE SECTION -->
-      <section
-        id="home"
-        class="hero"
-        style="
-          background-image: url(&quot;/images/banners/hero-home-banner.webp&quot;);
-          background-size: cover;
-          background-position: center;
-        "
-        aria-label="Welcome to Properties 4 Creations"
-      >
-        <div class="hero-content">
-          <h2>Building Homes, Rebuilding Lives</h2>
-          <p class="hero-subtitle">
-            Premium, renovated housing for veterans and families in East Texas
-          </p>
-          <p class="hero-tagline">
-            Veteran-Owned & Operated | 100% Section 8 & HUD-VASH Acceptance
-          </p>
-          <div class="hero-ctas">
-            <a href="properties.html" class="btn btn-primary"
-              >Browse Available Homes</a
-            >
-            <a href="apply.html" class="btn btn-secondary"
-              >Start Your Application</a
-            >
-          </div>
-        </div>
-      </section>
+        <!-- HOMEPAGE SECTION -->
+        <section id="home" class="hero" style="background-image: url('/images/banners/hero-home-banner.webp'); background-size: cover; background-position: center;" aria-label="Welcome to Properties 4 Creations">
+            <div class="hero-content">
+                <h2>Building Homes, Rebuilding Lives</h2>
+                <p class="hero-subtitle">Premium, renovated housing for veterans and families in East Texas</p>
+                <p class="hero-tagline">Veteran-Owned & Operated | 100% Section 8 & HUD-VASH Acceptance</p>
+                <div class="hero-ctas">
+                    <a href="properties.html" class="btn btn-primary">Browse Available Homes</a>
+                    <a href="apply.html" class="btn btn-secondary">Start Your Application</a>
+                </div>
+            </div>
+        </section>
 
-      <!-- IMPACT SNAPSHOT -->
-      <section class="impact-snapshot" aria-label="Our impact in numbers">
-        <div class="container">
-          <h2>Real Results for Real Families</h2>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <span class="stat-number">55+</span>
-              <span class="stat-label">Safe Homes</span>
+        <!-- IMPACT SNAPSHOT -->
+        <section class="impact-snapshot" aria-label="Our impact in numbers">
+            <div class="container">
+                <h2>Real Results for Real Families</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number">55+</span>
+                        <span class="stat-label">Safe Homes</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">25+</span>
+                        <span class="stat-label">Properties Renovated</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">20+</span>
+                        <span class="stat-label">Veterans Housed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Voucher Acceptance</span>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-              <span class="stat-number">25+</span>
-              <span class="stat-label">Properties Renovated</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">20+</span>
-              <span class="stat-label">Veterans Housed</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-number">100%</span>
-              <span class="stat-label">Voucher Acceptance</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- MAP SECTION -->
-      <section class="map-section" aria-label="Our service area in East Texas">
-        <div class="container">
-          <h2>Service Area</h2>
-          <p>
-            Serving communities across East Texas, from Tyler to Longview and
-            beyond.
-          </p>
-          <div id="map" class="leaflet-map"></div>
-        </div>
-      </section>
+        <!-- MAP SECTION -->
+        <section class="map-section" aria-label="Our service area in East Texas">
+            <div class="container">
+                <h2>Service Area</h2>
+                <p>Serving communities across East Texas, from Tyler to Longview and beyond.</p>
+                <div id="map" class="leaflet-map"></div>
+            </div>
+        </section>
 
-      <!-- TRUST SECTION -->
-      <section
-        class="trust-section"
-        aria-label="Why choose Properties 4 Creations"
-      >
-        <div class="container">
-          <h2>Why Choose Properties 4 Creations?</h2>
-          <div class="trust-grid">
-            <div class="trust-card">
-              <div class="trust-icon"><i data-lucide="home"></i></div>
-              <h3>Premium Renovations</h3>
-              <p>
-                Every home meets our rigorous renovation standards: new HVAC,
-                roofing, electrical, and plumbing systems.
-              </p>
+        <!-- TRUST SECTION -->
+        <section class="trust-section" aria-label="Why choose Properties 4 Creations">
+            <div class="container">
+                <h2>Why Choose Properties 4 Creations?</h2>
+                <div class="trust-grid">
+                    <div class="trust-card">
+                        <div class="trust-icon"><i data-lucide="home"></i></div>
+                        <h3>Premium Renovations</h3>
+                        <p>Every home meets our rigorous renovation standards: new HVAC, roofing, electrical, and plumbing systems.</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon"><i data-lucide="shield"></i></div>
+                        <h3>Veteran-Led</h3>
+                        <p>Founded and operated by veterans, for veterans. We understand your needs and are committed to your success.</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon"><i data-lucide="check-circle"></i></div>
+                        <h3>100% Voucher Acceptance</h3>
+                        <p>We accept Section 8, HUD-VASH, and other housing vouchers. No discrimination.</p>
+                    </div>
+                    <div class="trust-card">
+                        <div class="trust-icon"><i data-lucide="eye"></i></div>
+                        <h3>Transparent Process</h3>
+                        <p>Clear, honest communication every step of the way. See our full renovation standards and quality commitments.</p>
+                    </div>
+                </div>
             </div>
-            <div class="trust-card">
-              <div class="trust-icon"><i data-lucide="shield"></i></div>
-              <h3>Veteran-Led</h3>
-              <p>
-                Founded and operated by veterans, for veterans. We understand
-                your needs and are committed to your success.
-              </p>
-            </div>
-            <div class="trust-card">
-              <div class="trust-icon"><i data-lucide="check-circle"></i></div>
-              <h3>100% Voucher Acceptance</h3>
-              <p>
-                We accept Section 8, HUD-VASH, and other housing vouchers. No
-                discrimination.
-              </p>
-            </div>
-            <div class="trust-card">
-              <div class="trust-icon"><i data-lucide="eye"></i></div>
-              <h3>Transparent Process</h3>
-              <p>
-                Clear, honest communication every step of the way. See our full
-                renovation standards and quality commitments.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- CTA SECTION -->
-      <section class="cta-section">
-        <div class="container">
-          <h2>Ready to Find Your Home?</h2>
-          <p>
-            Browse our available properties or start your application today.
-          </p>
-          <a href="apply.html" class="btn btn-primary btn-lg">Get Started</a>
-        </div>
-      </section>
+        <!-- CTA SECTION -->
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Find Your Home?</h2>
+                <p>Browse our available properties or start your application today.</p>
+                <a href="apply.html" class="btn btn-primary btn-lg">Get Started</a>
+            </div>
+        </section>
     </main>
 
     <!-- FOOTER -->
@@ -283,45 +210,35 @@
 
 
     <!-- SCRIPTS -->
-    <script
-      src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
-      integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB" crossorigin="anonymous"></script>
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
     </script>
-    <script src="public/js/main.js"></script>
+    <script src="/js/main.js"></script>
     <script>
-      // MAP INITIALIZATION
-      if (document.getElementById("map")) {
-        const script = document.createElement("script");
-        script.src =
-          "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js";
-        script.integrity =
-          "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";
-        script.crossOrigin = "anonymous";
-        script.onload = () => {
-          const map = L.map("map").setView([32.35, -95.3], 10);
-          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "© OpenStreetMap contributors",
-            maxZoom: 19,
-          }).addTo(map);
+        // MAP INITIALIZATION
+        if (document.getElementById('map')) {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+            script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+            script.crossOrigin = 'anonymous';
+            script.onload = () => {
+                const map = L.map('map').setView([32.35, -95.3], 10);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 19
+                }).addTo(map);
 
-          L.marker([32.351, -95.301], {
-            title: "Tyler Properties",
-          })
-            .addTo(map)
-            .bindPopup("<b>Tyler, TX</b><br>Multiple Properties Available");
+                L.marker([32.351, -95.301], {
+                    title: 'Tyler Properties'
+                }).addTo(map).bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
 
-          L.marker([32.5, -94.74], {
-            title: "Longview Properties",
-          })
-            .addTo(map)
-            .bindPopup("<b>Longview, TX</b><br>Multiple Properties Available");
-        };
-        document.head.appendChild(script);
-      }
+                L.marker([32.50, -94.74], {
+                    title: 'Longview Properties'
+                }).addTo(map).bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
+            };
+            document.head.appendChild(script);
+        }
     </script>
-  </body>
+</body>
 </html>

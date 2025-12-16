@@ -352,7 +352,7 @@ export class PropertyFilter {
 
     card.innerHTML = `
       <div class="property-card__image-container">
-        <img src="${this.escapeHtml(prop.image || '/images/properties/placeholder.webp')}" 
+        <img src="${this.escapeHtml(prop.image || '"/images/properties/placeholder.webp')}" 
              alt="${this.escapeHtml(prop.name)}" 
              loading="lazy" 
              decoding="async"
