@@ -1,0 +1,101 @@
+{
+  "name": "properties-4-creations",
+  "version": "2.0.0",
+  "description": "Veteran & family housing website in East Texas",
+  "main": "src/index.html",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:watch": "vitest --watch",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "lint": "eslint src/js/**/*.js",
+    "lint:fix": "eslint src/js/**/*.js --fix",
+    "lighthouse": "lhci autorun",
+    "security-audit": "npm audit",
+    "format": "prettier --write \"src/**/*.{html,js,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{html,js,css,md}\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@vitest/ui": "^1.0.0",
+    "@vitest/coverage-v8": "^1.0.0",
+    "vitest": "^1.0.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsdoc": "^46.8.2",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "prettier": "^3.0.3",
+    "playwright": "^1.40.0",
+    "@playwright/test": "^1.40.0",
+    "@lhci/cli": "^0.12.0",
+    "axe-core": "^4.8.2",
+    "jsdom": "^23.0.1",
+    "happy-dom": "^12.0.0",
+    "c8": "^8.0.1"
+  },
+  "keywords": [
+    "housing",
+    "veterans",
+    "section8",
+    "hud-vash",
+    "accessibility",
+    "wcag",
+    "elevenjs"
+  ],
+  "author": "Properties 4 Creations",
+  "license": "MIT",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "collectCoverageFrom": [
+      "src/js/**/*.js",
+      "!src/js/main.js",
+      "!src/js/**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "vitest": {
+    "environment": "jsdom",
+    "setupFiles": [
+      "./tests/setup.js"
+    ],
+    "coverage": {
+      "provider": "v8",
+      "reporter": [
+        "text",
+        "json",
+        "html",
+        "lcov"
+      ],
+      "exclude": [
+        "node_modules/",
+        "tests/",
+        "dist/",
+        "**/*.test.js",
+        "**/*.spec.js"
+      ]
+    },
+    "testTimeout": 10000,
+    "hookTimeout": 10000
+  }
+}
