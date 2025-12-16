@@ -107,6 +107,33 @@ body {
     display: flex;
     list-style: none;
     gap: 2rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 0.75rem;
+}
+
+.brand-logo {
+    height: 40px;
+    width: auto;
+}
+
+.brand-text {
+    font-family: 'Merriweather', serif;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .nav-menu a {
@@ -1506,23 +1533,23 @@ body {
 
 /* Individual Property Hero Backgrounds */
 .longview-hero {
-    background-image: url('images//properties/properties-longview-victorian.webp');
+    background-image: url('/images/properties/properties-longview-victorian.webp');
 }
 
 .jefferson-hero {
-    background-image: url('images//properties/properties-jefferson-river-front.webp');
+    background-image: url('/images/properties/properties-jefferson-river-front.webp');
 }
 
 .kemp-hero {
-    background-image: url('images//properties/properties-kemp-townhome.webp');
+    background-image: url('/images/properties/properties-kemp-townhome.webp');
 }
 
 .marshall-hero {
-    background-image: url('images//properties/properties-marshall-farmhouse.webp');
+    background-image: url('/images/properties/properties-marshall-farmhouse.webp');
 }
 
 .mineola-hero {
-    background-image: url('images//properties/properties-mineola-studio.webp');
+    background-image: url('/images/properties/properties-mineola-studio.webp');
 }
 
 .property-detail-hero .container {
@@ -1667,5 +1694,3 @@ body {
     justify-content: center;
     flex-wrap: wrap;
 }
-
-

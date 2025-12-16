@@ -4,18 +4,17 @@
  */
 
 module.exports = function(eleventyConfig) {
-  // Passthrough copy for static assets
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addPassthroughCopy("src/images");
-  eleventyConfig.addPassthroughCopy("src/videos");
-  eleventyConfig.addPassthroughCopy("src/manifest.json");
-  eleventyConfig.addPassthroughCopy("src/sw.js");
-  eleventyConfig.addPassthroughCopy("src/search-index.json");
-  eleventyConfig.addPassthroughCopy("src/_data");
+  // Passthrough copy for static assets from src
+  eleventyConfig.addPassthroughCopy({ "src/css": "css" });
+  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
+  eleventyConfig.addPassthroughCopy({ "src/videos": "videos" });
+  eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
+  eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
+  eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
+  eleventyConfig.addPassthroughCopy({ "src/_data": "_data" });
   
-  // Copy public folder assets
-  eleventyConfig.addPassthroughCopy({ "public": "images" });
+  // Copy public folder assets (images, etc) to root
+  eleventyConfig.addPassthroughCopy({ "public/images": "images" });
 
   // Watch targets for development
   eleventyConfig.addWatchTarget("src/css/");
