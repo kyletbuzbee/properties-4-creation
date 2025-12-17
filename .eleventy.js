@@ -4,22 +4,26 @@
  */
 
 module.exports = function(eleventyConfig) {
-  // Passthrough copy for static assets
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addPassthroughCopy("src/images");
-  eleventyConfig.addPassthroughCopy("src/videos");
-  eleventyConfig.addPassthroughCopy("src/manifest.json");
-  eleventyConfig.addPassthroughCopy("src/sw.js");
-  eleventyConfig.addPassthroughCopy("src/search-index.json");
-  eleventyConfig.addPassthroughCopy("src/_data");
+  // Passthrough copy for static assets from src
+  eleventyConfig.addPassthroughCopy({ "src/css": "css" });
+  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
+  eleventyConfig.addPassthroughCopy({ "src/videos": "videos" });
+  eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
+  eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
+  eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
+  eleventyConfig.addPassthroughCopy({ "src/_data": "_data" });
   
+<<<<<<< HEAD
   // Copy  folder assets
   eleventyConfig.addPassthroughCopy({ "": "." });
   
   // Copy root files needed for GitHub Pages
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy(".nojekyll");
+=======
+  // Copy public folder assets (images, etc) to root
+  eleventyConfig.addPassthroughCopy({ "public/images": "images" });
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
 
   // Watch targets for development
   eleventyConfig.addWatchTarget("src/css/");
