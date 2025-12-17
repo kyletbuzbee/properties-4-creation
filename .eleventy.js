@@ -14,8 +14,8 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/search-index.json");
   eleventyConfig.addPassthroughCopy("src/_data");
   
-  // Copy public folder assets
-  eleventyConfig.addPassthroughCopy({ "public": "." });
+  // Copy  folder assets
+  eleventyConfig.addPassthroughCopy({ "": "." });
   
   // Copy root files needed for GitHub Pages
   eleventyConfig.addPassthroughCopy("CNAME");
