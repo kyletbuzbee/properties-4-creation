@@ -23,8 +23,8 @@
     "@11ty/eleventy": "^2.0.1",
     "@lhci/cli": "^0.12.0",
     "@playwright/test": "^1.40.0",
-    "@vitest/coverage-v8": "^1.0.0",
-    "@vitest/ui": "^1.0.0",
+    "@vitest/coverage-v8": "^4.0.16",
+    "@vitest/ui": "^4.0.16",
     "axe-core": "^4.8.2",
     "c8": "^8.0.1",
     "eslint": "^8.50.0",
@@ -36,7 +36,7 @@
     "jsdom": "^23.0.1",
     "playwright": "^1.40.0",
     "prettier": "^3.0.3",
-    "vitest": "^1.0.0"
+    "vitest": "^4.0.16"
   },
   "keywords": [
     "housing",
