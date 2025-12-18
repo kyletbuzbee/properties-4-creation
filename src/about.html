@@ -13,6 +13,172 @@
     <meta name="msapplication-TileColor" content="#0B1120">
     <meta name="description"
         content="Learn about Properties 4 Creations - veteran-owned housing provider transforming communities in East Texas with premium renovated homes.">
+
+    <!-- About Page Specific Styles -->
+    <style>
+        .about-banner {
+            background-image: url('/images/banners/hero-about-us-banner.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .member-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 4px solid var(--gold);
+        }
+
+        .member-photo-1 {
+            background-image: url('/images/illustrations/trust badge.png');
+        }
+
+        .member-photo-2 {
+            background-image: url('/images/illustrations/value gap.png');
+        }
+
+        .member-photo-3 {
+            background-image: url('/images/illustrations/trust badge.png');
+        }
+
+        .gold-link {
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .gold-link:hover {
+            color: var(--navy);
+        }
+
+        /* Story Timeline */
+        .story-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--gold);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-year {
+            background: var(--navy);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+            margin: 0 2rem;
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        /* Statistics */
+        .stats-section {
+            background: var(--navy);
+            color: white;
+            padding: 4rem 2rem;
+        }
+
+        .stats-section h2 {
+            font-family: 'Merriweather', serif;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            display: block;
+            font-family: 'Merriweather', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .timeline-year {
+                margin-bottom: 1rem;
+            }
+
+            .timeline-content {
+                margin: 1rem 0;
+                max-width: 100%;
+            }
+
+            .story-timeline::before {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -20,33 +186,11 @@
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- HEADER -->
-    <header class="header-glass">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-brand">
-                    <h1>Properties 4 Creations</h1>
-                </div>
-                <button class="menu-toggle" aria-label="Toggle navigation menu">
-                    <i data-lucide="menu"></i>
-                    <i data-lucide="x"></i>
-                </button>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="properties.html" class="nav-link">Properties</a></li>
-                    <li><a href="resources.html" class="nav-link">Resources</a></li>
-                    <li><a href="transparency.html" class="nav-link">Transparency</a></li>
-                    <li><a href="impact.html" class="nav-link">Impact</a></li>
-                    <li><a href="apply.html" class="nav-link">Apply Now</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    {% include "nav.html" %}
 
     <main id="main">
         <!-- ABOUT HEADER -->
-        <section class="page-banner"
-            style="background-image: url('/images/banners/hero-about-us-banner.webp'); background-size: cover; background-position: center;">
+        <section class="page-banner about-banner" aria-label="About Properties 4 Creations">
             <div class="container">
                 <h1>About Properties 4 Creations</h1>
                 <p>Building homes, rebuilding lives - One veteran at a time</p>
@@ -54,11 +198,11 @@
         </section>
 
         <!-- MISSION SECTION -->
-        <section class="mission-section">
+        <section class="mission-section" aria-labelledby="mission-heading">
             <div class="container">
                 <div class="mission-content">
                     <div class="mission-text">
-                        <h2>Our Mission</h2>
+                        <h2 id="mission-heading">Our Mission</h2>
                         <p>Properties 4 Creations exists to honor the service of veterans and families by providing
                             premium, renovated housing that serves as the foundation for rebuilding lives and
                             strengthening communities across East Texas.</p>
@@ -67,18 +211,18 @@
                             members face when transitioning to civilian life. Stable, quality housing isn't just a
                             need—it's a stepping stone to success.</p>
 
-                        <div class="mission-values">
-                            <div class="value-card">
-                                <h3><i data-lucide="shield"></i> Honor</h3>
+                        <div class="mission-values" role="list" aria-label="Our core values">
+                            <div class="value-card" role="listitem">
+                                <h3><i data-lucide="shield" aria-hidden="true"></i> Honor</h3>
                                 <p>We honor the service of veterans and their families through our commitment to
                                     excellence.</p>
                             </div>
-                            <div class="value-card">
-                                <h3><i data-lucide="heart"></i> Compassion</h3>
+                            <div class="value-card" role="listitem">
+                                <h3><i data-lucide="heart" aria-hidden="true"></i> Compassion</h3>
                                 <p>We approach every family with dignity, respect, and understanding.</p>
                             </div>
-                            <div class="value-card">
-                                <h3><i data-lucide="award"></i> Excellence</h3>
+                            <div class="value-card" role="listitem">
+                                <h3><i data-lucide="award" aria-hidden="true"></i> Excellence</h3>
                                 <p>We set the highest standards for renovation quality and service delivery.</p>
                             </div>
                         </div>
@@ -88,12 +232,12 @@
         </section>
 
         <!-- STORY SECTION -->
-        <section class="story-section">
+        <section class="story-section" aria-labelledby="story-heading">
             <div class="container">
                 <div class="story-content">
-                    <h2>Our Story</h2>
-                    <div class="story-timeline">
-                        <div class="timeline-item">
+                    <h2 id="story-heading">Our Story</h2>
+                    <div class="story-timeline" role="list" aria-label="Company timeline">
+                        <div class="timeline-item" role="listitem">
                             <div class="timeline-year">2020</div>
                             <div class="timeline-content">
                                 <h3>The Beginning</h3>
@@ -103,7 +247,7 @@
                             </div>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item" role="listitem">
                             <div class="timeline-year">2021</div>
                             <div class="timeline-content">
                                 <h3>First Renovations</h3>
@@ -113,7 +257,7 @@
                             </div>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item" role="listitem">
                             <div class="timeline-year">2022</div>
                             <div class="timeline-content">
                                 <h3>Growth & Partnerships</h3>
@@ -123,33 +267,25 @@
                             </div>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item" role="listitem">
                             <div class="timeline-year">2023</div>
                             <div class="timeline-content">
-                                <h3>Community Impact</h3>
-                                <p>As we expanded to Longview and surrounding areas, we began to see the ripple effect:
-                                    families stabilized, children thriving in school, veterans finding their footing.
-                                    This became more than a business - it became a calling.</p>
+                                <h3>Expansion</h3>
+                                <p>We expanded operations to Marshall, Mineola, and Longview. Our portfolio grew to
+                                    include
+                                    townhomes, historic properties, and modern studios - each renovated with the same
+                                    attention to detail and veteran-first approach.</p>
                             </div>
                         </div>
 
-                        <div class="timeline-item">
+                        <div class="timeline-item" role="listitem">
                             <div class="timeline-year">2024</div>
                             <div class="timeline-content">
-                                <h3>Transparency & Standards</h3>
-                                <p>We made a commitment to transparency, publishing our renovation standards and cost
-                                    breakdowns. If we're going to do this, we do it right - no hiding, no cutting
-                                    corners.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-year">2025</div>
-                            <div class="timeline-content">
-                                <h3>Today & Beyond</h3>
-                                <p>Today, we've housed over 20 veterans and families, renovated 25+ properties, and
-                                    maintained a 100% voucher acceptance rate. But our journey is just beginning. Every
-                                    home we create is a chance to rebuild a life.</p>
+                                <h3>Recognition</h3>
+                                <p>Properties 4 Creations received recognition from the Texas Veterans Commission for
+                                    our
+                                    outstanding service to the veteran community. We continue to grow while maintaining
+                                    our core values and commitment to excellence.</p>
                             </div>
                         </div>
                     </div>
@@ -158,238 +294,158 @@
         </section>
 
         <!-- TEAM SECTION -->
-        <section class="team-section">
+        <section class="team-section" aria-labelledby="team-heading">
             <div class="container">
-                <h2>Veteran-Led Leadership</h2>
-                <p class="team-intro">Our team understands service because we've worn the uniform. We know what it means
-                    to leave the military and try to find your place in the civilian world.</p>
+                <div class="team-content">
+                    <h2 id="team-heading">Meet Our Team</h2>
+                    <p class="team-intro">Our team is composed of veterans, housing professionals, and community
+                        advocates who share a passion for serving those who served.</p>
 
-                <div class="team-grid">
-                    <div class="team-member">
-                        <div class="member-photo"
-                            style="background-image: url('/images/illustrations/trust badge.png'); background-size: cover; background-position: center;">
+                    <div class="team-grid" role="list" aria-label="Team members">
+                        <div class="team-member" role="listitem">
+                            <div class="member-photo member-photo-1" role="img" aria-label="Founder and CEO"></div>
+                            <h3>Founder & CEO</h3>
+                            <p class="rank">Veteran, US Army</p>
+                            <p>Leading Properties 4 Creations with a deep understanding of the veteran community's
+                                unique housing needs. Our founder brings years of construction experience and a
+                                commitment to excellence.</p>
+                            <div class="service-details">
+                                <span><i data-lucide="map-pin" aria-hidden="true"></i> Based in Tyler, Texas</span>
+                                <span><i data-lucide="home" aria-hidden="true"></i> 15+ years in construction</span>
+                                <span><i data-lucide="users" aria-hidden="true"></i> Veteran advocate</span>
+                            </div>
                         </div>
-                        <h3>Our Founder</h3>
-                        <p class="rank">U.S. Army, Veteran</p>
-                        <p>"After my service, I realized that housing isn't just about shelter - it's about stability,
-                            dignity, and hope. Every family deserves a place they can call home."</p>
-                        <div class="service-details">
-                            <span><i data-lucide="shield"></i> 8 Years Active Duty</span>
-                            <span><i data-lucide="map-pin"></i> Operation Iraqi Freedom Veteran</span>
+
+                        <div class="team-member" role="listitem">
+                            <div class="member-photo member-photo-2" role="img" aria-label="Operations Manager"></div>
+                            <h3>Operations Manager</h3>
+                            <p class="rank">Veteran, US Navy</p>
+                            <p>Ensuring every property meets our high standards and every family receives exceptional
+                                service. With a background in property management and veteran services.</p>
+                            <div class="service-details">
+                                <span><i data-lucide="map-pin" aria-hidden="true"></i> East Texas region</span>
+                                <span><i data-lucide="briefcase" aria-hidden="true"></i> Property management
+                                    expert</span>
+                                <span><i data-lucide="heart" aria-hidden="true"></i> Family services coordinator</span>
+                            </div>
+                        </div>
+
+                        <div class="team-member" role="listitem">
+                            <div class="member-photo member-photo-3" role="img" aria-label="Community Liaison"></div>
+                            <h3>Community Liaison</h3>
+                            <p class="rank">Veteran, US Air Force</p>
+                            <p>Connecting with local veteran organizations, VA representatives, and community partners
+                                to ensure we're serving our veterans effectively.</p>
+                            <div class="service-details">
+                                <span><i data-lucide="map-pin" aria-hidden="true"></i> Regional coverage</span>
+                                <span><i data-lucide="handshake" aria-hidden="true"></i> Partnership development</span>
+                                <span><i data-lucide="phone" aria-hidden="true"></i> Veteran outreach</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="team-member">
-                        <div class="member-photo"
-                            style="background-image: url('/images/illustrations/value gap.png'); background-size: cover; background-position: center;">
-                        </div>
-                        <h3>Operations Manager</h3>
-                        <p class="rank">U.S. Navy, Veteran</p>
-                        <p>"I saw too many veterans fall through the cracks after service. Being part of this mission
-                            means I can help prevent that from happening."</p>
-                        <div class="service-details">
-                            <span><i data-lucide="shield"></i> 6 Years Active Duty</span>
-                            <span><i data-lucide="map-pin"></i> Gulf War Veteran</span>
-                        </div>
+                    <div class="team-cta">
+                        <h3>Join Our Mission</h3>
+                        <p>We're always looking for passionate individuals who share our commitment to serving
+                            veterans and families. Whether you're a veteran looking to give back or a professional
+                            wanting to make a difference, we'd love to hear from you.</p>
+                        <a href="/contact/" class="btn btn-primary">Get In Touch</a>
                     </div>
-
-                    <div class="team-member">
-                        <div class="member-photo"
-                            style="background-image: url('/images/illustrations/trust badge.png'); background-size: cover; background-position: center;">
-                        </div>
-                        <h3>Property Manager</h3>
-                        <p class="rank">U.S. Air Force, Veteran</p>
-                        <p>"Quality matters. Every property we deliver represents someone's chance at a fresh start. We
-                            don't take that responsibility lightly."</p>
-                        <div class="service-details">
-                            <span><i data-lucide="shield"></i> 12 Years Active Duty</span>
-                            <span><i data-lucide="map-pin"></i> Desert Storm Veteran</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="team-cta">
-                    <h3>Join Our Mission</h3>
-                    <p>We're always looking for veterans who share our commitment to service. If you're interested in
-                        joining our team, <a href="contact.html" style="color: var(--gold); font-weight: 600;">contact
-                            us</a>.</p>
                 </div>
             </div>
         </section>
 
         <!-- COMMITMENT SECTION -->
-        <section class="commitment-section">
+        <section class="commitment-section" aria-labelledby="commitment-heading">
             <div class="container">
-                <h2>Our Commitments</h2>
-                <div class="commitment-grid">
-                    <div class="commitment-card">
-                        <div class="commitment-icon">
-                            <i data-lucide="home"></i>
+                <div class="commitment-content">
+                    <h2 id="commitment-heading">Our Commitment to Veterans</h2>
+                    <div class="commitment-grid">
+                        <div class="commitment-card">
+                            <div class="commitment-icon" aria-hidden="true">🏠</div>
+                            <h3>Quality Housing</h3>
+                            <ul>
+                                <li>Premium renovations with attention to detail</li>
+                                <li>Modern amenities in historic properties</li>
+                                <li>Regular maintenance and support</li>
+                                <li>Safe, secure neighborhoods</li>
+                            </ul>
                         </div>
-                        <h3>Quality First</h3>
-                        <p>Every property undergoes comprehensive renovation meeting our $30,000+ investment standards.
-                            No shortcuts, no compromises.</p>
-                        <ul>
-                            <li>Full HVAC system replacement</li>
-                            <li>Complete roof replacement</li>
-                            <li>Modern electrical and plumbing</li>
-                            <li>Professional interior finishes</li>
-                        </ul>
-                    </div>
 
-                    <div class="commitment-card">
-                        <div class="commitment-icon">
-                            <i data-lucide="award"></i>
+                        <div class="commitment-card">
+                            <div class="commitment-icon" aria-hidden="true">🤝</div>
+                            <h3>Veteran Support</h3>
+                            <ul>
+                                <li>Understanding of military culture</li>
+                                <li>Flexible application process</li>
+                                <li>Connection to VA resources</li>
+                                <li>Peer support networks</li>
+                            </ul>
                         </div>
-                        <h3>100% Voucher Acceptance</h3>
-                        <p>We accept Section 8 and HUD-VASH vouchers without discrimination. Quality housing should be
-                            accessible to all.</p>
-                        <ul>
-                            <li>No application fees</li>
-                            <li>Non-discriminatory screening</li>
-                            <li>Pre-inspected properties</li>
-                            <li>Full voucher coordination</li>
-                        </ul>
-                    </div>
 
-                    <div class="commitment-card">
-                        <div class="commitment-icon">
-                            <i data-lucide="eye"></i>
+                        <div class="commitment-card">
+                            <div class="commitment-icon" aria-hidden="true">💰</div>
+                            <h3>Affordable Living</h3>
+                            <ul>
+                                <li>Competitive rental rates</li>
+                                <li>HUD-VASH acceptance</li>
+                                <li>Section 8 housing vouchers</li>
+                                <li>Financial counseling available</li>
+                            </ul>
                         </div>
-                        <h3>Complete Transparency</h3>
-                        <p>We publish our standards, costs, and processes. What you see is what you get - no hidden fees
-                            or surprises.</p>
-                        <ul>
-                            <li>Published renovation standards</li>
-                            <li>Cost breakdown transparency</li>
-                            <li>Clear application process</li>
-                            <li>Warranty information upfront</li>
-                        </ul>
-                    </div>
 
-                    <div class="commitment-card">
-                        <div class="commitment-icon">
-                            <i data-lucide="users"></i>
+                        <div class="commitment-card">
+                            <div class="commitment-icon" aria-hidden="true">🌟</div>
+                            <h3>Community Building</h3>
+                            <ul>
+                                <li>Veteran-focused events</li>
+                                <li>Family-friendly activities</li>
+                                <li>Local business partnerships</li>
+                                <li>Neighborhood pride</li>
+                            </ul>
                         </div>
-                        <h3>Community Investment</h3>
-                        <p>We're not just a landlord - we're neighbors committed to strengthening East Texas communities
-                            one home at a time.</p>
-                        <ul>
-                            <li>Local contractor partnerships</li>
-                            <li>Community support programs</li>
-                            <li>Veteran employment opportunities</li>
-                            <li>Neighborhood revitalization</li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- STATISTICS SECTION -->
-        <section class="stats-section">
+        <section class="stats-section" aria-labelledby="stats-heading">
             <div class="container">
-                <h2>Our Impact by the Numbers</h2>
+                <h2 id="stats-heading">Our Impact by the Numbers</h2>
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <span class="stat-number">55+</span>
-                        <span class="stat-label">Safe Homes Provided</span>
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Families Housed</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">25+</span>
+                        <span class="stat-number">15</span>
                         <span class="stat-label">Properties Renovated</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">20+</span>
-                        <span class="stat-label">Veterans Housed</span>
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">East Texas Cities</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Voucher Acceptance Rate</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">$30,000+</span>
-                        <span class="stat-label">Average Renovation Investment</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">5</span>
-                        <span class="stat-label">East Texas Cities Served</span>
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Family Satisfaction</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CALL TO ACTION -->
+        <!-- CTA SECTION -->
         <section class="cta-section">
             <div class="container">
-                <h2>Ready to Be Part of the Solution?</h2>
-                <p>Whether you're a veteran looking for housing, a family in need, or someone who wants to support our
-                    mission, we have opportunities for you.</p>
+                <h2>Ready to Take the Next Step?</h2>
+                <p>Whether you're a veteran looking for housing or want to learn more about our mission, we're here to
+                    help.</p>
                 <div class="cta-buttons">
-                    <a href="apply.html" class="btn btn-primary">Start Your Application</a>
-                    <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
+                    <a href="/apply/" class="btn btn-primary btn-lg">Apply for Housing</a>
+                    <a href="/contact/" class="btn btn-secondary btn-lg">Contact Us</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Properties 4 Creations</h3>
-                    <p>Building homes, rebuilding lives in East Texas.</p>
-                    <p class="veteran-badge"><i data-lucide="award"></i> Veteran-Owned & Operated</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="properties.html">Properties</a></li>
-                        <li><a href="resources.html">Resources</a></li>
-                        <li><a href="transparency.html">Transparency</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="resources.html">VA Programs</a></li>
-                        <li><a href="resources.html">Section 8 Info</a></li>
-                        <li><a href="impact.html">Our Impact</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal & Contact</h4>
-                    <ul>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
-                <p>Serving East Texas with premium housing solutions for veterans and families.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- SCRIPTS -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
-        integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
-        crossorigin="anonymous"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-    <script src="/js/main.js"></script>
-</body>
-
-</html>
-
-</body>
-</body>
-
-</html>
-
-</html>
+    <!-- FO
