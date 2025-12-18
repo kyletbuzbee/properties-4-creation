@@ -13,6 +13,193 @@
     <meta name="msapplication-TileColor" content="#0B1120">
     <meta name="description"
         content="The page you're looking for doesn't exist. Return to Properties 4 Creations for veteran housing in East Texas.">
+    <style>
+        /* 404 Page Specific Styles */
+        .error-page {
+            margin-top: 60px;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-color: var(--beige);
+            padding: 4rem 1rem;
+        }
+
+        .error-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .error-icon i {
+            font-size: 8rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+        }
+
+        .error-title {
+            font-family: 'Merriweather', serif;
+            font-size: 4rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .error-subtitle {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .popular-links {
+            margin-top: 3rem;
+        }
+
+        .popular-links h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .popular-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .link-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
+        }
+
+        .link-card h4 {
+            font-family: 'Merriweather', serif;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-card p {
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .link-card a {
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .link-card a:hover {
+            color: var(--navy);
+        }
+
+        .search-alternative {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+        }
+
+        .search-alternative h3 {
+            font-family: 'Merriweather', serif;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        .search-alternative p {
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .veteran-badge-section {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .veteran-badge-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .error-title {
+                font-size: 3rem;
+            }
+
+            .error-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .error-message {
+                font-size: 1.1rem;
+            }
+
+            .popular-links-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -45,91 +232,100 @@
 
     <main id="main">
         <!-- 404 ERROR SECTION -->
-        <section class="error-page"
-            style="margin-top: 60px; min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; background-color: var(--beige);">
+        <section class="error-page" role="alert" aria-labelledby="error-title">
             <div class="container">
                 <div class="error-content">
-                    <div class="error-icon">
-                        <i data-lucide="home-x" style="font-size: 8rem; color: var(--gold); margin-bottom: 2rem;"></i>
+                    <div class="error-icon" aria-hidden="true">
+                        <i data-lucide="home-x"></i>
                     </div>
 
-                    <h1
-                        style="font-family: 'Merriweather', serif; font-size: 4rem; color: var(--navy); margin-bottom: 1rem;">
-                        404</h1>
-                    <h2
-                        style="font-family: 'Merriweather', serif; font-size: 2rem; color: var(--navy); margin-bottom: 1rem;">
-                        Page Not Found</h2>
+                    <h1 id="error-title" class="error-title">
+                        404
+                    </h1>
+                    <h2 class="error-subtitle">
+                        Page Not Found
+                    </h2>
 
-                    <p
-                        style="font-size: 1.2rem; color: var(--dark-gray); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <p class="error-message">
                         The page you're looking for doesn't exist or has been moved. But don't worry - we can
                         help you find your way home.
                     </p>
 
-                    <div class="error-actions"
-                        style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
-                        <a href="index.html" class="btn btn-primary">Go to Homepage</a>
-                        <a href="properties.html" class="btn btn-secondary">Browse Properties</a>
-                        <a href="contact.html" class="btn btn-secondary">Contact Us</a>
+                    <div class="error-actions" role="navigation" aria-label="Quick actions">
+                        <a href="index.html" class="btn btn-primary" role="button">Go to Homepage</a>
+                        <a href="properties.html" class="btn btn-secondary" role="button">Browse Properties</a>
+                        <a href="contact.html" class="btn btn-secondary" role="button">Contact Us</a>
                     </div>
 
                     <!-- Popular Links -->
-                    <div class="popular-links" style="margin-top: 3rem;">
-                        <h3 style="font-family: 'Merriweather', serif; color: var(--navy); margin-bottom: 1.5rem;">
-                            Popular Pages</h3>
-                        <div
-                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; max-width: 800px; margin: 0 auto;">
-                            <div class="link-card"
-                                style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);">
-                                <h4><i data-lucide="home"></i> Available Properties</h4>
+                    <div class="popular-links">
+                        <h3>Popular Pages</h3>
+                        <div class="popular-links-grid">
+                            <div class="link-card">
+                                <h4>
+                                    <i data-lucide="home" aria-hidden="true"></i>
+                                    Available Properties
+                                </h4>
                                 <p>Browse our premium, renovated homes ready for occupancy.</p>
-                                <a href="properties.html"
-                                    style="color: var(--gold); font-weight: 600; text-decoration: none;">View
-                                    Properties →</a>
+                                <a href="properties.html" aria-label="View available properties">
+                                    View Properties
+                                    <i data-lucide="arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
 
-                            <div class="link-card"
-                                style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);">
-                                <h4><i data-lucide="file-text"></i> Apply for Housing</h4>
+                            <div class="link-card">
+                                <h4>
+                                    <i data-lucide="file-text" aria-hidden="true"></i>
+                                    Apply for Housing
+                                </h4>
                                 <p>Start your application for Section 8 or HUD-VASH housing.</p>
-                                <a href="apply.html"
-                                    style="color: var(--gold); font-weight: 600; text-decoration: none;">Start
-                                    Application →</a>
+                                <a href="apply.html" aria-label="Start housing application">
+                                    Start Application
+                                    <i data-lucide="arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
 
-                            <div class="link-card"
-                                style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);">
-                                <h4><i data-lucide="phone"></i> Get in Touch</h4>
+                            <div class="link-card">
+                                <h4>
+                                    <i data-lucide="phone" aria-hidden="true"></i>
+                                    Get in Touch
+                                </h4>
                                 <p>Contact our veteran team for personalized assistance.</p>
-                                <a href="contact.html"
-                                    style="color: var(--gold); font-weight: 600; text-decoration: none;">Contact
-                                    Us →</a>
+                                <a href="contact.html" aria-label="Contact our team">
+                                    Contact Us
+                                    <i data-lucide="arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
 
-                            <div class="link-card"
-                                style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);">
-                                <h4><i data-lucide="shield"></i> Our Standards</h4>
+                            <div class="link-card">
+                                <h4>
+                                    <i data-lucide="shield" aria-hidden="true"></i>
+                                    Our Standards
+                                </h4>
                                 <p>See our renovation quality and transparency standards.</p>
-                                <a href="transparency.html"
-                                    style="color: var(--gold); font-weight: 600; text-decoration: none;">Learn
-                                    More →</a>
+                                <a href="transparency.html" aria-label="Learn about our standards">
+                                    Learn More
+                                    <i data-lucide="arrow-right" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
 
                     <!-- Search Alternative -->
-                    <div class="search-alternative"
-                        style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);">
-                        <h3 style="font-family: 'Merriweather', serif; color: var(--navy); margin-bottom: 1rem;">
-                            Looking for something specific?</h3>
-                        <p style="margin-bottom: 1.5rem;">Our team can help you find the right housing solution.
+                    <div class="search-alternative" role="complementary">
+                        <h3>Looking for something specific?</h3>
+                        <p>Our team can help you find the right housing solution.
                             Call us or send us a message.</p>
-                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                            <a href="tel:+19035551234" class="btn btn-primary">
-                                <i data-lucide="phone"></i> (903) 555-1234
+                        <div class="contact-actions">
+                            <a href="tel:+19035551234" class="btn btn-primary"
+                                aria-label="Call Properties 4 Creations at (903) 555-1234">
+                                <i data-lucide="phone" aria-hidden="true"></i>
+                                (903) 555-1234
                             </a>
-                            <a href="mailto:info@properties4creations.com" class="btn btn-secondary">
-                                <i data-lucide="mail"></i> Send Email
+                            <a href="mailto:info@properties4creations.com" class="btn btn-secondary"
+                                aria-label="Send email to Properties 4 Creations">
+                                <i data-lucide="mail" aria-hidden="true"></i>
+                                Send Email
                             </a>
                         </div>
                     </div>
@@ -138,13 +334,12 @@
         </section>
 
         <!-- VETERAN BADGE SECTION -->
-        <section class="trust-section">
+        <section class="veteran-badge-section">
             <div class="container">
-                <div style="text-align: center;">
-                    <p class="veteran-badge" style="display: inline-flex; align-items: center; gap: 0.5rem; margin: 0;">
-                        <i data-lucide="award"></i> Veteran-Owned & Operated | Building Homes, Rebuilding Lives
-                    </p>
-                </div>
+                <p class="veteran-badge-inline">
+                    <i data-lucide="award" aria-hidden="true"></i>
+                    Veteran-Owned & Operated | Building Homes, Rebuilding Lives
+                </p>
             </div>
         </section>
     </main>
@@ -156,7 +351,10 @@
                 <div class="footer-section">
                     <h3>Properties 4 Creations</h3>
                     <p>Building homes, rebuilding lives in East Texas.</p>
-                    <p class="veteran-badge"><i data-lucide="award"></i> Veteran-Owned & Operated</p>
+                    <p class="veteran-badge">
+                        <i data-lucide="award" aria-hidden="true"></i>
+                        Veteran-Owned & Operated
+                    </p>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
@@ -202,22 +400,8 @@
     <script src="/js/main.js"></script>
 
     <script>
-        // 404 PAGE ENHANCEMENTS
+        // 404 PAGE ANALYTICS
         document.addEventListener('DOMContentLoaded', function () {
-            // Add hover effects to link cards
-            const linkCards = document.querySelectorAll('.link-card');
-            linkCards.forEach(card => {
-                card.addEventListener('mouseenter', function () {
-                    this.style.transform = 'translateY(-5px)';
-                    this.style.boxShadow = '0 8px 20px rgba(11, 17, 32, 0.15)';
-                });
-
-                card.addEventListener('mouseleave', function () {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 2px 8px rgba(11, 17, 32, 0.1)';
-                });
-            });
-
             // Track 404 errors (if analytics is set up)
             if (window.gtag) {
                 gtag('event', 'page_not_found', {
