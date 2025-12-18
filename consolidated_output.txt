@@ -23731,7 +23731,8 @@ MODIFIED: 2025-12-16 02:05:19
 
 
     <main id="main-content">
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- PROPERTIES HEADER -->
       <section
@@ -23876,14 +23877,16 @@ MODIFIED: 2025-12-16 02:05:19
                     <img src=""/images/before-after-comparison/projects-before-kitchen.webp" alt="Before renovation" class="slider-before">
                     <img src=""/images/before-after-comparison/projects-after-kitchen.webp" alt="After renovation" class="slider-after">
                     <div class="slider-handle"></div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 </div>
                 <div class="property-tags">
                   <span class="tag">Section 8 Ready</span>
                   <span class="tag">Newly Renovated</span>
                   <span class="tag">HVAC New</span>
                 </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
                   <a href="tyler-ranch-home.html" class="btn btn-secondary"
@@ -24084,7 +24087,8 @@ MODIFIED: 2025-12-16 02:05:19
                             </div>
                         </div>
                     </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 </div>
               </div>
             </div>
@@ -25695,7 +25699,8 @@ MODIFIED: 2025-12-16 02:05:19
     </header>
 
     <main id="main-content">
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- HOMEPAGE SECTION -->
       <section
@@ -25745,7 +25750,8 @@ MODIFIED: 2025-12-16 02:05:19
                 </div>
             </div>
         </section>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- IMPACT SNAPSHOT -->
       <section class="impact-snapshot" aria-label="Our impact in numbers">
@@ -26193,7 +26199,8 @@ MODIFIED: 2025-12-16 02:05:19
                 </p>
               </div>
             </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
 
             <div class="faq-item">
@@ -26214,7 +26221,8 @@ MODIFIED: 2025-12-16 02:05:19
                 <div class="properties-grid" id="properties-grid">
                     <!-- Property cards will be dynamically populated with real images from "/images//properties/ -->
                 </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
             </div>
 
             <div class="faq-item">
@@ -26642,7 +26650,8 @@ MODIFIED: 2025-12-16 02:05:19
         },
       ];
 
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       // POPULATE PROPERTIES GRID
       const propertiesGrid = document.getElementById("properties-grid");
@@ -26715,7 +26724,8 @@ MODIFIED: 2025-12-16 02:05:19
             const card = document.createElement('div');
             card.className = 'property-card';
             card.innerHTML = `
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 <div class="property-image" style="background-image: url('${prop.image}'); background-size: cover; background-position: center;" alt="${prop.name}"></div>
                 <div class="property-content">
                     <h3 class="property-title">${prop.name}</h3>
@@ -27763,14 +27773,16 @@ self.addEventListener("push", (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       icon: "/images/icons/icon-192x192.png",
       badge: "/images/icons/icon-72x72.png",
 =======
       icon: '"/images/icons/icon-192x192.png',
       badge: '"/images/icons/icon-72x72.png',
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
       vibrate: [100, 50, 100],
       data: data.data,
       actions: data.actions || [],
@@ -29845,7 +29857,8 @@ FILE: implementation-plan.md
 SIZE: 971 bytes
 MODIFIED: 2025-12-16 00:01:26
 ================================================================================
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
 # GitHub Actions Lock File Fix - Task List
 
@@ -30229,7 +30242,8 @@ npm run dev
 ---
 
 *Generated December 15, 2025 at 9:07 PM CST*
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
 
 --------------------------------------------------------------------------------
@@ -60949,7 +60963,8 @@ MODIFIED: 2025-12-15 23:54:44
     </header>
 
     <main id="main-content">
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- HOMEPAGE SECTION -->
       <section
@@ -60999,7 +61014,8 @@ MODIFIED: 2025-12-15 23:54:44
                 </div>
             </div>
         </section>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- IMPACT SNAPSHOT -->
       <section class="impact-snapshot" aria-label="Our impact in numbers">
@@ -61447,7 +61463,8 @@ MODIFIED: 2025-12-15 23:54:44
                 </p>
               </div>
             </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
 
             <div class="faq-item">
@@ -61468,7 +61485,8 @@ MODIFIED: 2025-12-15 23:54:44
                 <div class="properties-grid" id="properties-grid">
                     <!-- Property cards will be dynamically populated with real images from "/images//properties/ -->
                 </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
             </div>
 
             <div class="faq-item">
@@ -61896,7 +61914,8 @@ MODIFIED: 2025-12-15 23:54:44
         },
       ];
 
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       // POPULATE PROPERTIES GRID
       const propertiesGrid = document.getElementById("properties-grid");
@@ -61969,7 +61988,8 @@ MODIFIED: 2025-12-15 23:54:44
             const card = document.createElement('div');
             card.className = 'property-card';
             card.innerHTML = `
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 <div class="property-image" style="background-image: url('${prop.image}'); background-size: cover; background-position: center;" alt="${prop.name}"></div>
                 <div class="property-content">
                     <h3 class="property-title">${prop.name}</h3>
@@ -62222,7 +62242,8 @@ description: "Browse our premium, renovated homes ready for veteran and family o
     {% include "header.html" %}
 
     <main id="main-content">
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       <!-- PROPERTIES HEADER -->
       <section
@@ -62367,14 +62388,16 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     <img src=""/images/before-after-comparison/projects-before-kitchen.webp" alt="Before renovation" class="slider-before">
                     <img src=""/images/before-after-comparison/projects-after-kitchen.webp" alt="After renovation" class="slider-after">
                     <div class="slider-handle"></div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 </div>
                 <div class="property-tags">
                   <span class="tag">Section 8 Ready</span>
                   <span class="tag">Newly Renovated</span>
                   <span class="tag">HVAC New</span>
                 </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
                   <a href="tyler-ranch-home.html" class="btn btn-secondary"
@@ -62575,7 +62598,8 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                             </div>
                         </div>
                     </div>
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
                 </div>
               </div>
             </div>
@@ -63756,14 +63780,16 @@ self.addEventListener("push", (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
 
       icon: "/images/icons/icon-192x192.png",
       badge: "/images/icons/icon-72x72.png",
 =======
       icon: '"/images/icons/icon-192x192.png',
       badge: '"/images/icons/icon-72x72.png',
->>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+</body>
+</html>
       vibrate: [100, 50, 100],
       data: data.data,
       actions: data.actions || [],
