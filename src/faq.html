@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
         integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
         crossorigin="anonymous">
-    <meta name="theme-color" content="#0B1120">
+    <meta name="msapplication-TileColor" content="#0B1120">
     <meta name="description"
         content="Frequently asked questions about Properties 4 Creations veteran housing, Section 8, and HUD-VASH programs in East Texas.">
 </head>
@@ -45,8 +45,7 @@
 
     <main id="main">
         <!-- FAQ HEADER -->
-        <section class="page-banner"
-            style="background-image: url('/images/banners/hero-home-banner.webp'); background-size: cover; background-position: center;">
+        <section class="page-banner" aria-label="Frequently Asked Questions about our veteran housing services">
             <div class="container">
                 <h1>Frequently Asked Questions</h1>
                 <p>Answers to common questions about our veteran housing services</p>
@@ -54,11 +53,12 @@
         </section>
 
         <!-- FAQ SECTION -->
-        <section class="faq-section">
+        <section class="faq-section faq-enhanced">
             <div class="container">
-                <div class="accordion faq-container" id="faq-accordion">
+                <div class="faq-container" id="faq-accordion">
                     <div class="accordion__item faq-item">
-                        <button class="accordion__button faq-question" type="button">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-1">
                             <span>How do I apply for housing with Properties 4 Creations?</span>
                             <span class="accordion__icon" aria-hidden="true">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -67,10 +67,10 @@
                                 </svg>
                             </span>
                         </button>
-                        <div class="accordion__panel faq-answer">
+                        <div class="accordion__panel faq-answer" id="faq-1">
                             <p>You can start your application by clicking the "Apply Now" button on any page or visiting
-                                our <a href="apply.html" style="color: var(--gold); font-weight: 600;">application
-                                    page</a>. The process involves:</p>
+                                our <a href="apply.html" class="gold-link">application page</a>. The process involves:
+                            </p>
                             <ol>
                                 <li>Completing our online application form with your personal information</li>
                                 <li>Providing details about your housing voucher and income</li>
@@ -82,12 +82,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-2">
                             <span>Do you accept Section 8 Housing Choice Vouchers?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-2">
                             <p><strong>Yes, we accept 100% of Section 8 Housing Choice Vouchers.</strong> We are
                                 committed to helping voucher holders find quality housing without discrimination. Here's
                                 what you need to know:</p>
@@ -99,16 +105,22 @@
                                 <li>Transparent process with clear communication at every step</li>
                             </ul>
                             <p>If you have questions about voucher acceptance, <a href="contact.html"
-                                    style="color: var(--gold); font-weight: 600;">contact us directly</a>.</p>
+                                    class="gold-link">contact us directly</a>.</p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-3">
                             <span>What about HUD-VASH for veterans?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-3">
                             <p><strong>We are fully HUD-VASH approved</strong> and actively partner with the VA to house
                                 veterans. As a veteran-owned company, we understand the unique needs of our fellow
                                 service members.</p>
@@ -124,12 +136,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-4">
                             <span>What areas do you serve in East Texas?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-4">
                             <p>We serve communities across East Texas, focusing on areas with strong veteran populations
                                 and good access to services:</p>
                             <ul>
@@ -148,12 +166,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-5">
                             <span>What makes Properties 4 Creations different from other landlords?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="00 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-5">
                             <p><strong>We're veteran-owned and operated</strong>, which means we bring a unique
                                 understanding to housing for veterans and families. Here's what sets us apart:</p>
                             <ul>
@@ -174,12 +198,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-6">
                             <span>Are all your properties recently renovated?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-6">
                             <p><strong>Yes, every property undergoes comprehensive renovation</strong> before becoming
                                 available. Our renovation process includes:</p>
                             <h4>Core Systems (12-month warranties)</h4>
@@ -197,18 +227,23 @@
                                 <li>Modern bathrooms with new fixtures</li>
                                 <li>Fresh fixtures and lighting</li>
                             </ul>
-                            <p>See our complete <a href="transparency.html"
-                                    style="color: var(--gold); font-weight: 600;">renovation standards</a> for full
-                                details.</p>
+                            <p>See our complete <a href="transparency.html" class="gold-link">renovation standards</a>
+                                for full details.</p>
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-7">
                             <span>How long does the application process take?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-7">
                             <p>The timeline varies based on your voucher status and property availability:</p>
                             <h4>For Applicants with Active Vouchers</h4>
                             <ul>
@@ -228,12 +263,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-8">
                             <span>What if I don't have a housing voucher yet?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-8">
                             <p><strong>We can help guide you through the voucher process.</strong> Here's how we assist
                                 applicants without vouchers:</p>
                             <h4>Section 8 Vouchers</h4>
@@ -254,12 +295,18 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-9">
                             <span>What are your income requirements?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
+                            <span class="accordion__icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9" />
+                                </svg>
+                            </span>
+                        </button>
+                        <div class="accordion__panel faq-answer" id="faq-9">
                             <p>Income requirements vary by program and are set by the housing authorities, but
                                 generally:</p>
                             <h4>Section 8 Housing Choice Vouchers</h4>
@@ -278,219 +325,6 @@
                         </div>
                     </div>
 
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>Do you accommodate families with children?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p><strong>Absolutely. We welcome families of all sizes.</strong> Our properties include:
-                            </p>
-                            <ul>
-                                <li>2, 3, and 4-bedroom homes for larger families</li>
-                                <li>Properties near quality schools and family services</li>
-                                <li>Safe neighborhoods with family amenities</li>
-                                <li>Yard space and family-friendly layouts</li>
-                                <li>Proximity to pediatric healthcare and family services</li>
-                            </ul>
-                            <p>We understand the importance of stable housing for children's development and academic
-                                success.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What if I have a disability and need accessibility features?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p><strong>We provide reasonable accommodations and accessibility modifications.</strong>
-                                Our accessibility commitment includes:</p>
-                            <h4>Existing Features</h4>
-                            <ul>
-                                <li>Wide doorways in common areas</li>
-                                <li>Ground-floor units available</li>
-                                <li>Step-free entrances where possible</li>
-                                <li>Accessible bathroom features</li>
-                            </ul>
-                            <h4>Available Modifications</h4>
-                            <ul>
-                                <li>Ramp installations</li>
-                                <li>Grab bar additions</li>
-                                <li>Accessible shower conversions</li>
-                                <li>Visual alert systems</li>
-                                <li>Other reasonable modifications as needed</li>
-                            </ul>
-                            <p>Contact us to discuss your specific accessibility needs. We work with each applicant
-                                individually.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>Can I bring my service animal or pet?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p><strong>We accommodate service animals and have pet-friendly policies.</strong></p>
-                            <h4>Service Animals</h4>
-                            <ul>
-                                <li>Always welcome, no restrictions</li>
-                                <li>Must meet ADA requirements</li>
-                                <li>No additional fees for service animals</li>
-                                <li>Reasonable accommodations for training needs</li>
-                            </ul>
-                            <h4>Pets</h4>
-                            <ul>
-                                <li>Many properties are pet-friendly</li>
-                                <li>Breed and size restrictions may apply</li>
-                                <li>Pet deposits and fees may apply</li>
-                                <li>Additional screening for pet compatibility</li>
-                            </ul>
-                            <p>Contact us about specific pet policies for individual properties.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>What happens after I move in?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Our relationship doesn't end at move-in. We provide ongoing support:</p>
-                            <h4>First 30 Days</h4>
-                            <ul>
-                                <li>Check-in call to ensure everything is working properly</li>
-                                <li>Warranty support for any issues</li>
-                                <li>Community integration assistance</li>
-                                <li>VA or housing authority coordination as needed</li>
-                            </ul>
-                            <h4>Ongoing Support</h4>
-                            <ul>
-                                <li>Maintenance support through our preferred vendors</li>
-                                <li>Annual property inspections as required by programs</li>
-                                <li>Renewal assistance for voucher holders</li>
-                                <li>Emergency contact availability</li>
-                                <li>Community building events and veteran support groups</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <span>How can I contact Properties 4 Creations?</span>
-                            <i data-lucide="chevron-down" class="faq-icon"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>We're here to help! Contact us through:</p>
-                            <div
-                                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
-                                <div
-                                    style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--gold);">
-                                    <h5><i data-lucide="phone"></i> Phone</h5>
-                                    <p><a href="tel:+19035551234" style="color: var(--gold); font-weight: 600;">(903)
-                                            555-1234</a></p>
-                                    <p>Mon-Fri: 9AM-5PM<br>Sat: 10AM-2PM</p>
-                                </div>
-                                <div
-                                    style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--gold);">
-                                    <h5><i data-lucide="mail"></i> Email</h5>
-                                    <p><a href="mailto:info@properties4creations.com"
-                                            style="color: var(--gold); font-weight: 600;">info@properties4creations.com</a>
-                                    </p>
-                                    <p>Response within 24 hours</p>
-                                </div>
-                                <div
-                                    style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--gold);">
-                                    <h5><i data-lucide="map-pin"></i> Service Area</h5>
-                                    <p>Tyler & Longview<br>East Texas</p>
-                                    <p>In-person meetings by appointment</p>
-                                </div>
-                            </div>
-                            <p>For urgent housing emergencies, call our main number and select the emergency option.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STILL HAVE QUESTIONS -->
-        <section class="cta-section">
-            <div class="container">
-                <h2>Still Have Questions?</h2>
-                <p>Our veteran team is here to help. Get in touch for personalized assistance.</p>
-                <div class="cta-buttons">
-                    <a href="contact.html" class="btn btn-primary">Contact Us</a>
-                    <a href="apply.html" class="btn btn-secondary">Start Application</a>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Properties 4 Creations</h3>
-                    <p>Building homes, rebuilding lives in East Texas.</p>
-                    <p class="veteran-badge"><i data-lucide="award"></i> Veteran-Owned & Operated</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="properties.html">Properties</a></li>
-                        <li><a href="resources.html">Resources</a></li>
-                        <li><a href="transparency.html">Transparency</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="resources.html">VA Programs</a></li>
-                        <li><a href="resources.html">Section 8 Info</a></li>
-                        <li><a href="impact.html">Our Impact</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal & Contact</h4>
-                    <ul>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
-                <p>Serving East Texas with premium housing solutions for veterans and families.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- SCRIPTS -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
-        integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
-        crossorigin="anonymous"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-</body>
-</body>
-
-</html>
-
-</html>
-<script src="/js/main.js"></script>
-</body>
-
-</html>
-=======
-</body>
-</body>
-
-</html>
-
-</html>
+                    <div class="accordion__item faq-item">
+                        <button class="accordion__button faq-question" type="button" aria-expanded="false"
+                            aria-controls="faq-10">

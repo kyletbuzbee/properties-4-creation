@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Properties 4 Creations</title>
     <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
         integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
         crossorigin="anonymous">
-    <meta name="theme-color" content="#0B1120">
+    <meta name="msapplication-TileColor" content="#0B1120">
     <meta name="description"
         content="Get in touch with Properties 4 Creations for veteran housing assistance in East Texas. Contact us about voucher programs and available properties.">
 </head>
@@ -45,8 +46,7 @@
 
     <main id="main">
         <!-- CONTACT HEADER -->
-        <section class="page-banner"
-            style="background-image: url('/images/banners/hero-contact-banner.webp'); background-size: cover; background-position: center;">
+        <section class="page-banner bg-contact-banner">
             <div class="container">
                 <h1>Contact Properties 4 Creations</h1>
                 <p>We're here to help with your housing needs in East Texas</p>
@@ -65,13 +65,14 @@
                         <div class="contact-details">
                             <div class="contact-detail">
                                 <h4><i data-lucide="phone"></i> Phone</h4>
-                                <p><a href="tel:+19035551234">(903) 555-1234</a></p>
+                                <p><a href="tel:+19035551234" class="phone-link">(903) 555-1234</a></p>
                                 <p>Mon-Fri: 9:00 AM - 5:00 PM</p>
                                 <p>Saturday: 10:00 AM - 2:00 PM</p>
                             </div>
                             <div class="contact-detail">
                                 <h4><i data-lucide="mail"></i> Email</h4>
-                                <p><a href="mailto:info@properties4creations.com">info@properties4creations.com</a></p>
+                                <p><a href="mailto:info@properties4creations.com"
+                                        class="gold-link">info@properties4creations.com</a></p>
                                 <p>We respond within 24 hours</p>
                             </div>
                             <div class="contact-detail">
@@ -89,7 +90,7 @@
 
                     <div class="contact-form-wrapper">
                         <h3>Send us a Message</h3>
-                        <div id="contact-success" class="success-message" style="display: none;">
+                        <div id="contact-success" class="success-message">
                             ✓ Message sent successfully! We'll get back to you within 24 hours.
                         </div>
                         <form id="contact-form" name="contact-form">
@@ -135,7 +136,8 @@
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="agree-contact-privacy" name="agreeContactPrivacy"
                                         required>
-                                    <label for="agree-contact-privacy" style="margin: 0;">I agree to the Privacy Policy
+                                    <label for="agree-contact-privacy" class="form-label-reset">I agree to the Privacy
+                                        Policy
                                         and understand my information will be used to help with housing assistance
                                         *</label>
                                 </div>
@@ -202,12 +204,5 @@
     </script>
     <script src="/js/main.js"></script>
 </body>
-
-</html>
-=======
-</body>
-</body>
-
-</html>
 
 </html>
