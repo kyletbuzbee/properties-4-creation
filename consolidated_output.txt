@@ -23731,7 +23731,8 @@ MODIFIED: 2025-12-16 02:05:19
 
 
     <main id="main-content">
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       <!-- PROPERTIES HEADER -->
       <section
         class="properties-header"
@@ -23882,7 +23883,8 @@ MODIFIED: 2025-12-16 02:05:19
                   <span class="tag">Newly Renovated</span>
                   <span class="tag">HVAC New</span>
                 </div>
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
                   <a href="tyler-ranch-home.html" class="btn btn-secondary"
                     >View Details</a
@@ -25693,7 +25695,8 @@ MODIFIED: 2025-12-16 02:05:19
     </header>
 
     <main id="main-content">
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       <!-- HOMEPAGE SECTION -->
       <section
         id="home"
@@ -26190,7 +26193,8 @@ MODIFIED: 2025-12-16 02:05:19
                 </p>
               </div>
             </div>
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
 
             <div class="faq-item">
               <div class="faq-question">
@@ -26638,7 +26642,8 @@ MODIFIED: 2025-12-16 02:05:19
         },
       ];
 
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       // POPULATE PROPERTIES GRID
       const propertiesGrid = document.getElementById("properties-grid");
       propertiesData.forEach((prop) => {
@@ -27758,7 +27763,8 @@ self.addEventListener("push", (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       icon: "/images/icons/icon-192x192.png",
       badge: "/images/icons/icon-72x72.png",
 =======
@@ -29839,7 +29845,8 @@ FILE: implementation-plan.md
 SIZE: 971 bytes
 MODIFIED: 2025-12-16 00:01:26
 ================================================================================
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
 # GitHub Actions Lock File Fix - Task List
 
 <!-- Edit this markdown file to update your focus chain list -->
@@ -60942,7 +60949,8 @@ MODIFIED: 2025-12-15 23:54:44
     </header>
 
     <main id="main-content">
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       <!-- HOMEPAGE SECTION -->
       <section
         id="home"
@@ -61439,7 +61447,8 @@ MODIFIED: 2025-12-15 23:54:44
                 </p>
               </div>
             </div>
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
 
             <div class="faq-item">
               <div class="faq-question">
@@ -61887,7 +61896,8 @@ MODIFIED: 2025-12-15 23:54:44
         },
       ];
 
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       // POPULATE PROPERTIES GRID
       const propertiesGrid = document.getElementById("properties-grid");
       propertiesData.forEach((prop) => {
@@ -62212,7 +62222,8 @@ description: "Browse our premium, renovated homes ready for veteran and family o
     {% include "header.html" %}
 
     <main id="main-content">
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       <!-- PROPERTIES HEADER -->
       <section
         class="properties-header"
@@ -62363,7 +62374,8 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                   <span class="tag">Newly Renovated</span>
                   <span class="tag">HVAC New</span>
                 </div>
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
                 <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
                   <a href="tyler-ranch-home.html" class="btn btn-secondary"
                     >View Details</a
@@ -63744,7 +63756,8 @@ self.addEventListener("push", (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
-<<<<<<< HEAD
+>>>>>>> 6af3669f28d73f2a14e5f079df1e2dcef8707d0e
+
       icon: "/images/icons/icon-192x192.png",
       badge: "/images/icons/icon-72x72.png",
 =======
