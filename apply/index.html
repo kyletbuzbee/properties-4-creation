@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply Now - Properties 4 Creations</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css" integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu" crossorigin="anonymous">
-    <meta name="theme-color" content="#0B1120">
-    <meta name="description" content="Start your application for veteran housing in East Texas. Properties 4 Creations accepts Section 8 and HUD-VASH vouchers.">
+    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
+        integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
+        crossorigin="anonymous">
+    <meta name="msapplication-TileColor" content="#0B1120">
+    <meta name="description"
+        content="Start your application for veteran housing in East Texas. Properties 4 Creations accepts Section 8 and HUD-VASH vouchers.">
 </head>
+
 <body>
     <!-- Skip Link -->
     <a href="#main" class="skip-link">Skip to main content</a>
@@ -40,7 +45,8 @@
 
     <main id="main">
         <!-- APPLICATION HEADER -->
-        <section class="page-banner" style="background-image: url('/images/banners/hero-home-banner.webp'); background-size: cover; background-position: center;">
+        <section class="page-banner"
+            style="background-image: url('/images/banners/hero-home-banner.webp'); background-size: cover; background-position: center;">
             <div class="container">
                 <h1>Start Your Application</h1>
                 <p>Your next chapter starts here. We accept Section 8 and HUD-VASH vouchers.</p>
@@ -52,7 +58,8 @@
             <div class="container">
                 <div class="form-wrapper">
                     <h1>Application for Housing</h1>
-                    <p>Please complete this form to begin your housing application. We'll review your information and contact you within 24-48 hours.</p>
+                    <p>Please complete this form to begin your housing application. We'll review your information and
+                        contact you within 24-48 hours.</p>
 
                     <div id="success-message" class="success-message" style="display: none;">
                         ✓ Your application has been submitted successfully! We'll be in touch within 24-48 hours.
@@ -78,7 +85,8 @@
                             <div class="form-group">
                                 <label for="phone">Primary Phone Number *</label>
                                 <input type="tel" id="phone" name="phone" required pattern="[0-9\-\+\(\)\s]+">
-                                <span class="error-message">Valid phone number is required (numbers, spaces, dashes, parentheses only)</span>
+                                <span class="error-message">Valid phone number is required (numbers, spaces, dashes,
+                                    parentheses only)</span>
                             </div>
 
                             <div class="form-group">
@@ -143,7 +151,8 @@
                             <legend>Household Information</legend>
 
                             <div class="form-group">
-                                <label for="household-size">Total Number of People in Household (including yourself) *</label>
+                                <label for="household-size">Total Number of People in Household (including yourself)
+                                    *</label>
                                 <select id="household-size" name="householdSize" required>
                                     <option value="">-- Select size --</option>
                                     <option value="1">1 Person</option>
@@ -171,9 +180,11 @@
 
                             <div class="form-group">
                                 <label for="monthly-income">Monthly Gross Income *</label>
-                                <input type="number" id="monthly-income" name="monthlyIncome" required min="0" placeholder="$">
+                                <input type="number" id="monthly-income" name="monthlyIncome" required min="0"
+                                    placeholder="$">
                                 <span class="error-message">Monthly income is required</span>
-                                <small>We use this to verify voucher eligibility and determine appropriate housing</small>
+                                <small>We use this to verify voucher eligibility and determine appropriate
+                                    housing</small>
                             </div>
 
                             <div class="form-group">
@@ -195,18 +206,21 @@
 
                             <div class="form-group">
                                 <label for="housing-preferences">Housing Preferences</label>
-                                <textarea id="housing-preferences" name="housingPreferences" rows="3" placeholder="e.g., ground floor, accessible features, pet-friendly, specific locations, etc."></textarea>
+                                <textarea id="housing-preferences" name="housingPreferences" rows="3"
+                                    placeholder="e.g., ground floor, accessible features, pet-friendly, specific locations, etc."></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="special-needs">Accessibility or Special Needs</label>
-                                <textarea id="special-needs" name="specialNeeds" rows="3" placeholder="e.g., mobility assistance, medical equipment, therapy animals, etc."></textarea>
+                                <textarea id="special-needs" name="specialNeeds" rows="3"
+                                    placeholder="e.g., mobility assistance, medical equipment, therapy animals, etc."></textarea>
                                 <small>We maintain strict confidentiality for medical information</small>
                             </div>
 
                             <div class="form-group">
                                 <label for="additional-info">Additional Information</label>
-                                <textarea id="additional-info" name="additionalInfo" rows="3" placeholder="Any other information that might help us serve you better..."></textarea>
+                                <textarea id="additional-info" name="additionalInfo" rows="3"
+                                    placeholder="Any other information that might help us serve you better..."></textarea>
                             </div>
                         </fieldset>
 
@@ -217,7 +231,9 @@
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="income-verification" name="incomeVerification" required>
-                                    <label for="income-verification" style="margin: 0;">I authorize Properties 4 Creations to verify the information provided, including income and voucher status *</label>
+                                    <label for="income-verification" style="margin: 0;">I authorize Properties 4
+                                        Creations to verify the information provided, including income and voucher
+                                        status *</label>
                                 </div>
                                 <span class="error-message">Authorization is required</span>
                             </div>
@@ -225,7 +241,8 @@
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="background-check" name="backgroundCheck" required>
-                                    <label for="background-check" style="margin: 0;">I understand that a background check may be conducted as part of the leasing process *</label>
+                                    <label for="background-check" style="margin: 0;">I understand that a background
+                                        check may be conducted as part of the leasing process *</label>
                                 </div>
                                 <span class="error-message">Understanding is required</span>
                             </div>
@@ -233,7 +250,9 @@
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="fair-housing" name="fairHousing" required>
-                                    <label for="fair-housing" style="margin: 0;">I understand that all properties are available on a first-come, first-served basis and comply with Fair Housing Laws *</label>
+                                    <label for="fair-housing" style="margin: 0;">I understand that all properties are
+                                        available on a first-come, first-served basis and comply with Fair Housing Laws
+                                        *</label>
                                 </div>
                                 <span class="error-message">Fair Housing understanding is required</span>
                             </div>
@@ -241,7 +260,8 @@
                             <div class="form-group">
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="privacy-consent" name="privacyConsent" required>
-                                    <label for="privacy-consent" style="margin: 0;">I have read and agree to the Privacy Policy and understand how my information will be used *</label>
+                                    <label for="privacy-consent" style="margin: 0;">I have read and agree to the Privacy
+                                        Policy and understand how my information will be used *</label>
                                 </div>
                                 <span class="error-message">Privacy Policy agreement is required</span>
                             </div>
@@ -250,8 +270,10 @@
                         <button type="submit" class="submit-btn">Submit Application</button>
 
                         <p class="legal-notice">
-                            <small>This application is confidential and will only be used for housing assistance purposes.
-                            You can withdraw this application at any time. We comply with all Fair Housing laws and do not discriminate.</small>
+                            <small>This application is confidential and will only be used for housing assistance
+                                purposes.
+                                You can withdraw this application at any time. We comply with all Fair Housing laws and
+                                do not discriminate.</small>
                         </p>
                     </form>
                 </div>
@@ -328,7 +350,9 @@
     </footer>
 
     <!-- SCRIPTS -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
+        integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
+        crossorigin="anonymous"></script>
     <script>
         lucide.createIcons();
     </script>
@@ -336,14 +360,14 @@
 
     <script>
         // APPLICATION FORM JAVASCRIPT
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('application-form');
             const successMessage = document.getElementById('success-message');
             const applicantType = document.getElementById('applicant-type');
             const militaryGroup = document.getElementById('military-service-group');
 
             // Show/hide military service field based on applicant type
-            applicantType.addEventListener('change', function() {
+            applicantType.addEventListener('change', function () {
                 if (this.value === 'veteran' || this.value === 'spouse') {
                     militaryGroup.style.display = 'block';
                     document.getElementById('military-service').required = true;
@@ -353,7 +377,7 @@
                 }
             });
 
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
                 let isValid = true;
@@ -396,4 +420,5 @@
         });
     </script>
 </body>
+
 </html>
