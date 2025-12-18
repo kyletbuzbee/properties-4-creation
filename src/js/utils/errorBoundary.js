@@ -118,7 +118,9 @@ export class ErrorBoundary {
       }
     } catch (reportingError) {
       // Fallback error handling if reporting itself fails
+      // eslint-disable-next-line no-console
       console.error('ErrorBoundary: Failed to handle error:', reportingError);
+      // eslint-disable-next-line no-console
       console.error('Original error:', error);
     } finally {
       this.isReportingError = false;
@@ -188,10 +190,15 @@ User Agent: ${error.userAgent}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     `.trim();
 
+    // eslint-disable-next-line no-console
     console.groupCollapsed(logMessage);
+    // eslint-disable-next-line no-console
     console.error('Stack Trace:', error.stack);
+    // eslint-disable-next-line no-console
     console.error('Full Error Object:', error);
+    // eslint-disable-next-line no-console
     console.error('Context:', context);
+    // eslint-disable-next-line no-console
     console.groupEnd();
   }
 
@@ -228,6 +235,7 @@ User Agent: ${error.userAgent}
         await this.reportToCustomEndpoint(error, context);
       }
     } catch (reportingError) {
+      // eslint-disable-next-line no-console
       console.warn(
         'ErrorBoundary: Failed to report to monitoring service:',
         reportingError
@@ -259,6 +267,7 @@ User Agent: ${error.userAgent}
       });
     } catch (fetchError) {
       // Silent fail for custom endpoint
+      // eslint-disable-next-line no-console
       console.warn(
         'ErrorBoundary: Failed to report to custom endpoint:',
         fetchError

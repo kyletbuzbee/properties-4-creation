@@ -1,11 +1,12 @@
 /**
  * Test Setup File
  * Properties 4 Creations
- * 
- * Global test configuration and utilities
+ *
+ * Global test configuration and utilities for Vitest v4
  */
 
-// Mock DOM environment for testing
+// Vitest globals are available automatically, no need to import hooks
+import { vi } from 'vitest';
 import { JSDOM } from 'jsdom';
 
 // Create a DOM environment for testing
@@ -34,25 +35,32 @@ const dom = new JSDOM(`
   resources: 'usable'
 });
 
+// Set up global DOM objects
 global.window = dom.window;
 global.document = dom.window.document;
-global.n.navigator;
-globalavigator = dom.window.localStorage = {
-  getItem: () => null,
-  setItem: () => {},
-  removeItem: () => {},
-  clear: () => {}
+
+// Properly set up navigator (fix for Vitest v4)
+Object.defineProperty(global, 'navigator', {
+  value: dom.window.navigator,
+  writable: true
+});
+
+global.localStorage = {
+  getItem: vi.fn(() => null),
+  setItem: vi.fn(() => {}),
+  removeItem: vi.fn(() => {}),
+  clear: vi.fn(() => {})
 };
 
 global.sessionStorage = {
-  getItem: () => null,
-  setItem: () => {},
-  removeItem: () => {},
-  clear: () => {}
+  getItem: vi.fn(() => null),
+  setItem: vi.fn(() => {}),
+  removeItem: vi.fn(() => {}),
+  clear: vi.fn(() => {})
 };
 
 // Mock fetch for API calls
-global.fetch = jest.fn(() =>
+global.fetch = vi.fn(() =>
   Promise.resolve({
     ok: true,
     json: () => Promise.resolve({}),
@@ -60,22 +68,26 @@ global.fetch = jest.fn(() =>
   })
 );
 
-// Mock console methods to reduce noise in tests
+// Mock console methods to reduce noise in tests (optional - remove if you want console output)
+const originalConsole = { ...console };
 global.console = {
   ...console,
-  log: jest.fn(),
-  warn: jest.fn(),
-  error: jest.fn()
+  log: vi.fn(),
+  warn: vi.fn(),
+  error: vi.fn(),
+  // Keep these for debugging
+  groupCollapsed: originalConsole.groupCollapsed,
+  groupEnd: originalConsole.groupEnd
 };
 
 // Clean up after each test
 afterEach(() => {
   // Clear all mocks
-  jest.clearAllMocks();
-  
+  vi.clearAllMocks();
+
   // Reset DOM
   document.body.innerHTML = dom.window.document.body.innerHTML;
-  
+
   // Clear localStorage
   localStorage.clear();
   sessionStorage.clear();
