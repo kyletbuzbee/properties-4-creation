@@ -214,7 +214,7 @@
     });
   }
 
-    // Initialize all header features
+  // Initialize all header features
   function initHeaderFeatures () {
     initializeMobileMenu();
     initializeStickyHeader();

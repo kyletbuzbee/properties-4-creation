@@ -2,1844 +2,1843 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Properties 4 Creations - Veteran Housing Solutions East Texas</title>
-    <link rel='manifest' href='manifest.json' />
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css'
-        integrity='sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU'
-        crossorigin='anonymous' />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap');
-
-        :root {
-            --navy: #0b1120;
-            --gold: #c28e5a;
-            --beige: #f5f5f0;
-            --dark-gray: #2a2a2a;
-            --light-gray: #f0f0f0;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--beige);
-            color: var(--navy);
-            line-height: 1.6;
-        }
-
-        /* HEADER & NAVIGATION */
-        .header-glass {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(11, 17, 32, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(194, 142, 90, 0.1);
-        }
-
-        .navbar {
-            padding: 1rem 0;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand h1 {
-            font-family: 'Merriweather', serif;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 5px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-menu a:hover {
-            color: var(--gold);
-        }
-
-        .nav-menu a.active {
-            color: var(--gold);
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 0.25rem;
-        }
-
-        .cta-link {
-            background-color: var(--gold);
-            color: var(--navy) !important;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition:
-                transform 0.3s,
-                box-shadow 0.3s;
-        }
-
-        .cta-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(194, 142, 90, 0.3);
-        }
-
-        /* SKIP LINK */
-        .skip-link {
-            position: absolute;
-            top: -40px;
-            left: 0;
-            background: var(--gold);
-            color: var(--navy);
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            z-index: 100;
-            font-weight: 600;
-        }
-
-        .skip-link:focus {
-            top: 0;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            margin-top: 60px;
-            background:
-                linear-gradient(135deg,
-                    rgba(11, 17, 32, 0.8) 0%,
-                    rgba(11, 17, 32, 0.6) 100%),
-                url('data:image/svg+xml,<svg xmlns=' http: //www.w3.org/2000/svg' viewBox='0 0 1200 600'><rect fill='%230B1120' width='1200' height='600'/></svg>');
-                    background-size: cover;
-                    background-position: center;
-                    color: white;
-                    padding: 8rem 2rem;
-                    text-align: center;
-                    position: relative;
-                    min-height: 500px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-            }
-
-            .hero-content {
-                position: relative;
-                z-index: 2;
-                max-width: 800px;
-            }
-
-            .hero h2 {
-                font-family: 'Merriweather', serif;
-                font-size: 3rem;
-                font-weight: 700;
-                margin-bottom: 1rem;
-                line-height: 1.2;
-            }
-
-            .hero-subtitle {
-                font-size: 1.25rem;
-                margin-bottom: 0.5rem;
-                opacity: 0.95;
-            }
-
-            .hero-tagline {
-                font-size: 1rem;
-                opacity: 0.85;
-                margin-bottom: 2rem;
-                font-weight: 500;
-            }
-
-            .hero-ctas {
-                display: flex;
-                gap: 1rem;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-
-            /* BUTTONS */
-            .btn {
-                padding: 0.75rem 1.5rem;
-                border: none;
-                border-radius: 5px;
-                font-weight: 600;
-                cursor: pointer;
-                text-decoration: none;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s;
-                font-family: 'Inter', sans-serif;
-                font-size: 1rem;
-            }
-
-            .btn-primary {
-                background-color: var(--gold);
-                color: var(--navy);
-            }
-
-            .btn-primary:hover {
-                background-color: #d99a6a;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(194, 142, 90, 0.4);
-            }
-
-            .btn-secondary {
-                background-color: transparent;
-                color: white;
-                border: 2px solid var(--gold);
-            }
-
-            .btn-secondary:hover {
-                background-color: var(--gold);
-                color: var(--navy);
-                transform: translateY(-2px);
-            }
-
-            .btn-lg {
-                padding: 1rem 2rem;
-                font-size: 1.1rem;
-            }
-
-            .btn:focus-visible {
-                outline: 2px solid var(--gold);
-                outline-offset: 2px;
-            }
-
-            /* CONTAINER */
-            .container {
-                max-width: 1200px;
-                margin: 0 auto;
-                padding: 0 2rem;
-            }
-
-            /* IMPACT SNAPSHOT */
-            .impact-snapshot {
-                padding: 4rem 2rem;
-                background-color: var(--beige);
-            }
-
-            .impact-snapshot h2 {
-                font-family: 'Merriweather', serif;
-                text-align: center;
-                font-size: 2rem;
-                margin-bottom: 3rem;
-                color: var(--navy);
-            }
-
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 2rem;
-                margin-bottom: 2rem;
-            }
-
-            .stat-card {
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                text-align: center;
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-                transition: transform 0.3s,
-                box-shadow 0.3s;
-                border-top: 4px solid var(--gold);
-            }
-
-            .stat-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
-            }
-
-            .stat-number {
-                display: block;
-                font-family: 'Merriweather', serif;
-                font-size: 2.5rem;
-                font-weight: 700;
-                color: var(--gold);
-                margin-bottom: 0.5rem;
-            }
-
-            .stat-label {
-                display: block;
-                font-size: 0.95rem;
-                color: var(--navy);
-                font-weight: 600;
-            }
-
-            /* MAP SECTION */
-            .map-section {
-                padding: 4rem 2rem;
-                background-color: white;
-            }
-
-            .map-section h2 {
-                font-family: 'Merriweather', serif;
-                font-size: 2rem;
-                margin-bottom: 1rem;
-                color: var(--navy);
-            }
-
-            .map-section > .container > p {
-                margin-bottom: 2rem;
-                color: var(--dark-gray);
-                font-size: 1rem;
-            }
-
-            .leaflet-map {
-                height: 400px;
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 4px 12px rgba(11, 17, 32, 0.15);
-                margin-top: 2rem;
-            }
-
-            /* TRUST SECTION */
-            .trust-section {
-                padding: 4rem 2rem;
-                background-color: var(--beige);
-            }
-
-            .trust-section h2 {
-                font-family: 'Merriweather', serif;
-                text-align: center;
-                font-size: 2rem;
-                margin-bottom: 3rem;
-                color: var(--navy);
-            }
-
-            .trust-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 2rem;
-            }
-
-            .trust-card {
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                text-align: center;
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-                transition: all 0.3s;
-            }
-
-            .trust-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
-                border-top: 4px solid var(--gold);
-            }
-
-            .trust-icon {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-            }
-
-            .trust-card h3 {
-                font-family: 'Merriweather', serif;
-                font-size: 1.25rem;
-                margin-bottom: 0.75rem;
-                color: var(--navy);
-            }
-
-            .trust-card p {
-                color: var(--dark-gray);
-                font-size: 0.95rem;
-                line-height: 1.6;
-            }
-
-            /* CTA SECTION */
-            .cta-section {
-                padding: 4rem 2rem;
-                background: linear-gradient(135deg,
-                    var(--navy) 0%,
-                    rgba(11, 17, 32, 0.9) 100%);
-                color: white;
-                text-align: center;
-            }
-
-            .cta-section h2 {
-                font-family: 'Merriweather', serif;
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
-
-            .cta-section p {
-                font-size: 1.1rem;
-                margin-bottom: 2rem;
-                opacity: 0.95;
-            }
-
-            /* FOOTER */
-            .footer {
-                background-color: var(--navy);
-                color: white;
-                padding: 3rem 2rem 1rem;
-            }
-
-            .footer-content {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 2rem;
-                margin-bottom: 2rem;
-            }
-
-            .footer-section h3,
-            .footer-section h4 {
-                font-family: 'Merriweather', serif;
-                margin-bottom: 1rem;
-                color: var(--gold);
-            }
-
-            .footer-section a {
-                color: white;
-                text-decoration: none;
-                transition: color 0.3s;
-                display: block;
-                margin-bottom: 0.5rem;
-                font-size: 0.95rem;
-            }
-
-            .footer-section a:hover {
-                color: var(--gold);
-            }
-
-            .veteran-badge {
-                margin-top: 1rem;
-                padding: 0.75rem;
-                background: rgba(194, 142, 90, 0.2);
-                border-radius: 5px;
-                font-weight: 600;
-            }
-
-            .footer-bottom {
-                border-top: 1px solid rgba(194, 142, 90, 0.2);
-                padding-top: 2rem;
-                text-align: center;
-                font-size: 0.9rem;
-                opacity: 0.9;
-            }
-
-            /* PROPERTIES PAGE STYLES */
-            .properties-header {
-                padding: 3rem 2rem;
-                background-color: white;
-                margin-top: 60px;
-            }
-
-            .properties-header h1 {
-                font-family: 'Merriweather', serif;
-                font-size: 2.5rem;
-                color: var(--navy);
-                margin-bottom: 0.5rem;
-            }
-
-            .properties-header p {
-                color: var(--dark-gray);
-                font-size: 1.1rem;
-            }
-
-            .properties-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2rem;
-                padding: 2rem 2rem;
-            }
-
-            .property-card {
-                background: white;
-                border-radius: 10px;
-                overflow: hidden;
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-                transition: all 0.3s;
-                cursor: pointer;
-            }
-
-            .property-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
-            }
-
-            .property-image {
-                width: 100%;
-                height: 250px;
-                background: linear-gradient(135deg,
-                    rgba(11, 17, 32, 0.7),
-                    rgba(194, 142, 90, 0.7)),
-                url('') center/cover;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 1rem;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .property-content {
-                padding: 1.5rem;
-            }
-
-            .property-title {
-                font-family: 'Merriweather', serif;
-                font-size: 1.5rem;
-                color: var(--navy);
-                margin-bottom: 0.5rem;
-            }
-
-            .property-details {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-                margin: 1rem 0;
-                padding: 1rem 0;
-                border-top: 1px solid var(--light-gray);
-                border-bottom: 1px solid var(--light-gray);
-            }
-
-            .detail-item {
-                text-align: center;
-            }
-
-            .detail-label {
-                font-size: 0.8rem;
-                color: var(--dark-gray);
-                text-transform: uppercase;
-                font-weight: 600;
-            }
-
-            .detail-value {
-                font-size: 1.25rem;
-                font-weight: 700;
-                color: var(--gold);
-            }
-
-            .property-tags {
-                display: flex;
-                gap: 0.5rem;
-                margin: 1rem 0;
-                flex-wrap: wrap;
-            }
-
-            .tag {
-                background-color: rgba(194, 142, 90, 0.15);
-                color: var(--navy);
-                padding: 0.25rem 0.75rem;
-                border-radius: 20px;
-                font-size: 0.8rem;
-                font-weight: 600;
-            }
-
-            .property-btn {
-                width: 100%;
-                margin-top: 1rem;
-            }
-
-            /* RESOURCES PAGE */
-            .resources-container {
-                margin-top: 60px;
-                padding: 3rem 2rem;
-            }
-
-            .resources-header {
-                text-align: center;
-                margin-bottom: 3rem;
-            }
-
-            .resources-header h1 {
-                font-family: 'Merriweather', serif;
-                font-size: 2.5rem;
-                color: var(--navy);
-                margin-bottom: 1rem;
-            }
-
-            .program-card {
-                background: white;
-                padding: 2rem;
-                margin-bottom: 2rem;
-                border-left: 4px solid var(--gold);
-                border-radius: 5px;
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-            }
-
-            .program-card h3 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 1rem;
-                font-size: 1.5rem;
-            }
-
-            .program-card ul {
-                margin-left: 1.5rem;
-            }
-
-            .program-card li {
-                margin-bottom: 0.75rem;
-                color: var(--dark-gray);
-            }
-
-            .eligibility-checklist {
-                background: rgba(194, 142, 90, 0.1);
-                padding: 2rem;
-                border-radius: 10px;
-                margin-top: 2rem;
-            }
-
-            .checklist-item {
-                display: flex;
-                align-items: center;
-                margin-bottom: 1rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid rgba(194, 142, 90, 0.2);
-            }
-
-            .checklist-item:last-child {
-                border-bottom: none;
-            }
-
-            .checkbox {
-                width: 20px;
-                height: 20px;
-                border: 2px solid var(--gold);
-                border-radius: 3px;
-                margin-right: 1rem;
-                cursor: pointer;
-                flex-shrink: 0;
-            }
-
-            /* TRANSPARENCY PAGE */
-            .transparency-container {
-                margin-top: 60px;
-                padding: 3rem 2rem;
-            }
-
-            .quality-standards {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 2rem;
-                margin-top: 2rem;
-            }
-
-            .standard-card {
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-                border-top: 4px solid var(--gold);
-            }
-
-            .standard-card h3 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 1rem;
-            }
-
-            .checklist {
-                list-style: none;
-            }
-
-            .checklist li {
-                padding: 0.5rem 0;
-                padding-left: 1.5rem;
-                position: relative;
-                color: var(--dark-gray);
-            }
-
-            .checklist li::before {
-                content: '✓';
-                position: absolute;
-                left: 0;
-                color: var(--gold);
-                font-weight: bold;
-            }
-
-            /* IMPACT PAGE */
-            .impact-container {
-                margin-top: 60px;
-            }
-
-            .impact-hero {
-                background: linear-gradient(135deg,
-                    var(--navy) 0%,
-                    rgba(11, 17, 32, 0.9) 100%);
-                color: white;
-                padding: 4rem 2rem;
-                text-align: center;
-            }
-
-            .impact-hero h1 {
-                font-family: 'Merriweather', serif;
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
-            }
-
-            .impact-stats {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 2rem;
-                padding: 3rem 2rem;
-                background: var(--beige);
-            }
-
-            .impact-stat {
-                text-align: center;
-            }
-
-            .impact-stat-number {
-                font-family: 'Merriweather', serif;
-                font-size: 3rem;
-                color: var(--gold);
-                font-weight: 700;
-            }
-
-            .impact-stat-label {
-                color: var(--navy);
-                font-weight: 600;
-                margin-top: 0.5rem;
-            }
-
-            .impact-stories {
-                padding: 3rem 2rem;
-                background: white;
-            }
-
-            .story-card {
-                background: var(--beige);
-                padding: 2rem;
-                margin-bottom: 2rem;
-                border-radius: 10px;
-                border-left: 4px solid var(--gold);
-            }
-
-            .story-card h4 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 0.5rem;
-            }
-
-            .story-card p {
-                color: var(--dark-gray);
-                line-height: 1.8;
-            }
-
-            /* FORM STYLES */
-            .form-container {
-                margin-top: 60px;
-                padding: 3rem 2rem;
-                background: var(--beige);
-                min-height: 100vh;
-            }
-
-            .form-wrapper {
-                max-width: 600px;
-                margin: 0 auto;
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                box-shadow: 0 4px 12px rgba(11, 17, 32, 0.1);
-            }
-
-            .form-wrapper h1 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 1.5rem;
-                font-size: 2rem;
-            }
-
-            .form-group {
-                margin-bottom: 1.5rem;
-            }
-
-            .form-group label {
-                display: block;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-                color: var(--navy);
-                font-size: 0.95rem;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                width: 100%;
-                padding: 0.75rem;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-                font-family: 'Inter', sans-serif;
-                font-size: 1rem;
-                transition: border-color 0.3s,
-                box-shadow 0.3s;
-            }
-
-            .form-group input:focus,
-            .form-group select:focus,
-            .form-group textarea:focus {
-                outline: none;
-                border-color: var(--gold);
-                box-shadow: 0 0 0 3px rgba(194, 142, 90, 0.2);
-            }
-
-            .form-group textarea {
-                resize: vertical;
-                min-height: 120px;
-            }
-
-            .form-group.error input,
-            .form-group.error select,
-            .form-group.error textarea {
-                border-color: #d9534f;
-            }
-
-            .error-message {
-                color: #d9534f;
-                font-size: 0.85rem;
-                margin-top: 0.25rem;
-                display: none;
-            }
-
-            .form-group.error .error-message {
-                display: block;
-            }
-
-            .form-group input[type='checkbox'],
-            .form-group input[type='radio'] {
-                width: auto;
-                margin-right: 0.5rem;
-            }
-
-            .checkbox-group {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-            }
-
-            .submit-btn {
-                width: 100%;
-                padding: 1rem;
-                background-color: var(--gold);
-                color: var(--navy);
-                border: none;
-                border-radius: 5px;
-                font-weight: 700;
-                font-size: 1rem;
-                cursor: pointer;
-                transition: all 0.3s;
-            }
-
-            .submit-btn:hover {
-                background-color: #d99a6a;
-                transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(194, 142, 90, 0.4);
-            }
-
-            .submit-btn:focus-visible {
-                outline: 2px solid var(--navy);
-                outline-offset: 2px;
-            }
-
-            .success-message {
-                background-color: #dff0d8;
-                color: #3c763d;
-                padding: 1rem;
-                border-radius: 5px;
-                margin-bottom: 1.5rem;
-                display: none;
-            }
-
-            .success-message.show {
-                display: block;
-            }
-
-            /* FAQ STYLES */
-            .faq-section {
-                padding: 4rem 2rem;
-                background-color: white;
-            }
-
-            .faq-container {
-                max-width: 800px;
-                margin: 0 auto;
-            }
-
-            .faq-section h2 {
-                font-family: 'Merriweather', serif;
-                text-align: center;
-                font-size: 2rem;
-                margin-bottom: 3rem;
-                color: var(--navy);
-            }
-
-            .faq-item {
-                margin-bottom: 1.5rem;
-                border: 1px solid var(--light-gray);
-                border-radius: 5px;
-                overflow: hidden;
-            }
-
-            .faq-question {
-                background-color: var(--beige);
-                padding: 1.5rem;
-                cursor: pointer;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-weight: 600;
-                color: var(--navy);
-                transition: background-color 0.3s;
-            }
-
-            .faq-question:hover {
-                background-color: rgba(194, 142, 90, 0.1);
-            }
-
-            .faq-icon {
-                font-size: 1.5rem;
-                transition: transform 0.3s;
-            }
-
-            .faq-item.active .faq-icon {
-                transform: rotate(180deg);
-            }
-
-            .faq-answer {
-                padding: 0;
-                background-color: white;
-                max-height: 0;
-                overflow: hidden;
-                transition: all 0.3s;
-            }
-
-            .faq-item.active .faq-answer {
-                padding: 1.5rem;
-                max-height: 500px;
-            }
-
-            .faq-answer p {
-                color: var(--dark-gray);
-                line-height: 1.8;
-            }
-
-            /* CONTACT SECTION */
-            .contact-section {
-                padding: 4rem 2rem;
-                background-color: var(--beige);
-            }
-
-            .contact-section h2 {
-                font-family: 'Merriweather', serif;
-                font-size: 2rem;
-                color: var(--navy);
-                margin-bottom: 1rem;
-            }
-
-            .contact-wrapper {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 3rem;
-                margin-top: 2rem;
-            }
-
-            .contact-info p {
-                color: var(--dark-gray);
-                margin-bottom: 2rem;
-                font-size: 1rem;
-            }
-
-            .contact-details {
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .contact-detail {
-                background: white;
-                padding: 1.5rem;
-                border-radius: 8px;
-                border-left: 4px solid var(--gold);
-                box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
-            }
-
-            .contact-detail h4 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 0.5rem;
-                font-size: 1.1rem;
-            }
-
-            .contact-detail p {
-                margin: 0;
-                color: var(--dark-gray);
-            }
-
-            .contact-detail a {
-                color: var(--gold);
-                text-decoration: none;
-                font-weight: 600;
-                transition: color 0.3s;
-            }
-
-            .contact-detail a:hover {
-                color: var(--navy);
-            }
-
-            .contact-form-wrapper {
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                box-shadow: 0 4px 12px rgba(11, 17, 32, 0.1);
-            }
-
-            .contact-form-wrapper h3 {
-                font-family: 'Merriweather', serif;
-                color: var(--navy);
-                margin-bottom: 1.5rem;
-                font-size: 1.5rem;
-            }
-
-            /* RESPONSIVE */
-            @media (max-width: 768px) {
-                .menu-toggle {
-                    display: flex;
-                }
-
-                .nav-menu {
-                    position: fixed;
-                    left: -100%;
-                    top: 60px;
-                    flex-direction: column;
-                    background-color: var(--navy);
-                    width: 100%;
-                    text-align: center;
-                    transition: 0.3s;
-                    padding: 2rem 0;
-                    gap: 1rem;
-                }
-
-                .nav-menu.active {
-                    left: 0;
-                }
-
-                .hero h2 {
-                    font-size: 2rem;
-                }
-
-                .hero-subtitle {
-                    font-size: 1rem;
-                }
-
-                .hero-ctas {
-                    flex-direction: column;
-                }
-
-                .hero {
-                    padding: 4rem 1rem;
-                    margin-top: 50px;
-                }
-
-                .stats-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1rem;
-                }
-
-                .stat-number {
-                    font-size: 2rem;
-                }
-
-                .trust-grid {
-                    grid-template-columns: 1fr;
-                }
-
-                .properties-grid {
-                    grid-template-columns: 1fr;
-                    gap: 1.5rem;
-                    padding: 1.5rem;
-                }
-
-                .property-details {
-                    grid-template-columns: repeat(3, 1fr);
-                }
-
-                .properties-header h1 {
-                    font-size: 1.75rem;
-                }
-
-                .resources-container,
-                .transparency-container {
-                    padding: 1.5rem 1rem;
-                }
-
-                .program-card,
-                .standard-card {
-                    padding: 1.5rem;
-                }
-
-                .quality-standards {
-                    grid-template-columns: 1fr;
-                }
-
-                .faq-container {
-                    padding: 0 1rem;
-                }
-
-                .impact-stats {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: 1.5rem;
-                }
-
-                .form-wrapper {
-                    padding: 1.5rem;
-                }
-
-                .contact-wrapper {
-                    grid-template-columns: 1fr;
-                    gap: 2rem;
-                }
-
-                .contact-form-wrapper {
-                    padding: 1.5rem;
-                }
-            }
-    </style>
-    <meta name='msapplication-TileColor' content='#0B1120' />
-    <meta name='description'
-        content='Providing premium, renovated housing for veterans and families in East Texas. 100% Voucher Acceptance for Section 8 & HUD-VASH programs.' />
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <title>Properties 4 Creations - Veteran Housing Solutions East Texas</title>
+  <link rel='manifest' href='manifest.json' />
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css'
+    integrity='sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU'
+    crossorigin='anonymous' />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --navy: #0b1120;
+      --gold: #c28e5a;
+      --beige: #f5f5f0;
+      --dark-gray: #2a2a2a;
+      --light-gray: #f0f0f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--beige);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* HEADER & NAVIGATION */
+    .header-glass {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(11, 17, 32, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(194, 142, 90, 0.1);
+    }
+
+    .navbar {
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand h1 {
+      font-family: 'Merriweather', serif;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+      margin: 5px 0;
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-menu a:hover {
+      color: var(--gold);
+    }
+
+    .nav-menu a.active {
+      color: var(--gold);
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: 0.25rem;
+    }
+
+    .cta-link {
+      background-color: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+    }
+
+    .cta-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(194, 142, 90, 0.3);
+    }
+
+    /* SKIP LINK */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      z-index: 100;
+      font-weight: 600;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      margin-top: 60px;
+      background:
+        linear-gradient(135deg,
+          rgba(11, 17, 32, 0.8) 0%,
+          rgba(11, 17, 32, 0.6) 100%),
+        url('data:image/svg+xml,<svg xmlns=') https: //www.w3.org/2000/svg' viewBox='0 0 1200 600'><rect fill='%230B1120' width='1200' height='600'/></svg>');
+        background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 8rem 2rem;
+      text-align: center;
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.95;
+    }
+
+    .hero-tagline {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background-color: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background-color: #d99a6a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(194, 142, 90, 0.4);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: white;
+      border: 2px solid var(--gold);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--gold);
+      color: var(--navy);
+      transform: translateY(-2px);
+    }
+
+    .btn-lg {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* IMPACT SNAPSHOT */
+    .impact-snapshot {
+      padding: 4rem 2rem;
+      background-color: var(--beige);
+    }
+
+    .impact-snapshot h2 {
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: var(--navy);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+      transition: transform 0.3s,
+        box-shadow 0.3s;
+      border-top: 4px solid var(--gold);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
+    }
+
+    .stat-number {
+      display: block;
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.95rem;
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    /* MAP SECTION */
+    .map-section {
+      padding: 4rem 2rem;
+      background-color: white;
+    }
+
+    .map-section h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--navy);
+    }
+
+    .map-section>.container>p {
+      margin-bottom: 2rem;
+      color: var(--dark-gray);
+      font-size: 1rem;
+    }
+
+    .leaflet-map {
+      height: 400px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(11, 17, 32, 0.15);
+      margin-top: 2rem;
+    }
+
+    /* TRUST SECTION */
+    .trust-section {
+      padding: 4rem 2rem;
+      background-color: var(--beige);
+    }
+
+    .trust-section h2 {
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: var(--navy);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .trust-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+      transition: all 0.3s;
+    }
+
+    .trust-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
+      border-top: 4px solid var(--gold);
+    }
+
+    .trust-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .trust-card h3 {
+      font-family: 'Merriweather', serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--navy);
+    }
+
+    .trust-card p {
+      color: var(--dark-gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg,
+          var(--navy) 0%,
+          rgba(11, 17, 32, 0.9) 100%);
+      color: white;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    /* FOOTER */
+    .footer {
+      background-color: var(--navy);
+      color: white;
+      padding: 3rem 2rem 1rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3,
+    .footer-section h4 {
+      font-family: 'Merriweather', serif;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+
+    .footer-section a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-section a:hover {
+      color: var(--gold);
+    }
+
+    .veteran-badge {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(194, 142, 90, 0.2);
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(194, 142, 90, 0.2);
+      padding-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* PROPERTIES PAGE STYLES */
+    .properties-header {
+      padding: 3rem 2rem;
+      background-color: white;
+      margin-top: 60px;
+    }
+
+    .properties-header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .properties-header p {
+      color: var(--dark-gray);
+      font-size: 1.1rem;
+    }
+
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 2rem;
+    }
+
+    .property-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .property-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(11, 17, 32, 0.15);
+    }
+
+    .property-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg,
+          rgba(11, 17, 32, 0.7),
+          rgba(194, 142, 90, 0.7)),
+        url('') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-content {
+      padding: 1.5rem;
+    }
+
+    .property-title {
+      font-family: 'Merriweather', serif;
+      font-size: 1.5rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .property-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+      padding: 1rem 0;
+      border-top: 1px solid var(--light-gray);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .detail-item {
+      text-align: center;
+    }
+
+    .detail-label {
+      font-size: 0.8rem;
+      color: var(--dark-gray);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .property-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background-color: rgba(194, 142, 90, 0.15);
+      color: var(--navy);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .property-btn {
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    /* RESOURCES PAGE */
+    .resources-container {
+      margin-top: 60px;
+      padding: 3rem 2rem;
+    }
+
+    .resources-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .resources-header h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .program-card {
+      background: white;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+    }
+
+    .program-card h3 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .program-card ul {
+      margin-left: 1.5rem;
+    }
+
+    .program-card li {
+      margin-bottom: 0.75rem;
+      color: var(--dark-gray);
+    }
+
+    .eligibility-checklist {
+      background: rgba(194, 142, 90, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 2rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(194, 142, 90, 0.2);
+    }
+
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gold);
+      border-radius: 3px;
+      margin-right: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* TRANSPARENCY PAGE */
+    .transparency-container {
+      margin-top: 60px;
+      padding: 3rem 2rem;
+    }
+
+    .quality-standards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .standard-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+      border-top: 4px solid var(--gold);
+    }
+
+    .standard-card h3 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--dark-gray);
+    }
+
+    .checklist li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    /* IMPACT PAGE */
+    .impact-container {
+      margin-top: 60px;
+    }
+
+    .impact-hero {
+      background: linear-gradient(135deg,
+          var(--navy) 0%,
+          rgba(11, 17, 32, 0.9) 100%);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .impact-hero h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .impact-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 3rem 2rem;
+      background: var(--beige);
+    }
+
+    .impact-stat {
+      text-align: center;
+    }
+
+    .impact-stat-number {
+      font-family: 'Merriweather', serif;
+      font-size: 3rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .impact-stat-label {
+      color: var(--navy);
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    .impact-stories {
+      padding: 3rem 2rem;
+      background: white;
+    }
+
+    .story-card {
+      background: var(--beige);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      border-left: 4px solid var(--gold);
+    }
+
+    .story-card h4 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+
+    .story-card p {
+      color: var(--dark-gray);
+      line-height: 1.8;
+    }
+
+    /* FORM STYLES */
+    .form-container {
+      margin-top: 60px;
+      padding: 3rem 2rem;
+      background: var(--beige);
+      min-height: 100vh;
+    }
+
+    .form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(11, 17, 32, 0.1);
+    }
+
+    .form-wrapper h1 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s,
+        box-shadow 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(194, 142, 90, 0.2);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+      border-color: #d9534f;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .form-group.error .error-message {
+      display: block;
+    }
+
+    .form-group input[type='checkbox'],
+    .form-group input[type='radio'] {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 5px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #d99a6a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(194, 142, 90, 0.4);
+    }
+
+    .submit-btn:focus-visible {
+      outline: 2px solid var(--navy);
+      outline-offset: 2px;
+    }
+
+    .success-message {
+      background-color: #dff0d8;
+      color: #3c763d;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1.5rem;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    /* FAQ STYLES */
+    .faq-section {
+      padding: 4rem 2rem;
+      background-color: white;
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-section h2 {
+      font-family: 'Merriweather', serif;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: var(--navy);
+    }
+
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--light-gray);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      background-color: var(--beige);
+      padding: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      color: var(--navy);
+      transition: background-color 0.3s;
+    }
+
+    .faq-question:hover {
+      background-color: rgba(194, 142, 90, 0.1);
+    }
+
+    .faq-icon {
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--dark-gray);
+      line-height: 1.8;
+    }
+
+    /* CONTACT SECTION */
+    .contact-section {
+      padding: 4rem 2rem;
+      background-color: var(--beige);
+    }
+
+    .contact-section h2 {
+      font-family: 'Merriweather', serif;
+      font-size: 2rem;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .contact-info p {
+      color: var(--dark-gray);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .contact-detail {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 2px 8px rgba(11, 17, 32, 0.1);
+    }
+
+    .contact-detail h4 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-detail p {
+      margin: 0;
+      color: var(--dark-gray);
+    }
+
+    .contact-detail a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .contact-detail a:hover {
+      color: var(--navy);
+    }
+
+    .contact-form-wrapper {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(11, 17, 32, 0.1);
+    }
+
+    .contact-form-wrapper h3 {
+      font-family: 'Merriweather', serif;
+      color: var(--navy);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 60px;
+        flex-direction: column;
+        background-color: var(--navy);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+        gap: 1rem;
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .hero h2 {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+      }
+
+      .hero {
+        padding: 4rem 1rem;
+        margin-top: 50px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .properties-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .property-details {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .properties-header h1 {
+        font-size: 1.75rem;
+      }
+
+      .resources-container,
+      .transparency-container {
+        padding: 1.5rem 1rem;
+      }
+
+      .program-card,
+      .standard-card {
+        padding: 1.5rem;
+      }
+
+      .quality-standards {
+        grid-template-columns: 1fr;
+      }
+
+      .faq-container {
+        padding: 0 1rem;
+      }
+
+      .impact-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+
+      .form-wrapper {
+        padding: 1.5rem;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .contact-form-wrapper {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+  <meta name='msapplication-TileColor' content='#0B1120' />
+  <meta name='description'
+    content='Providing premium, renovated housing for veterans and families in East Texas. 100% Voucher Acceptance for Section 8 & HUD-VASH programs.' />
 </head>
 
 <body>
-    <!-- Skip Link -->
-    <a href='#main-content' class='skip-link'>Skip to main content</a>
+  <!-- Skip Link -->
+  <a href='#main-content' class='skip-link'>Skip to main content</a>
 
-    <!-- HEADER -->
-    {% include 'nav.html' %}
+  <!-- HEADER -->
+  {% include 'nav.html' %}
 
-    <main id='main-content'>
-        <!-- HOMEPAGE SECTION -->
-        <section id='home' class='hero' style="
+  <main id='main-content'>
+    <!-- HOMEPAGE SECTION -->
+    <section id='home' class='hero' style="
           background-image: url(&quot;https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&h=600&fit=crop&quot;);
           background-size: cover;
           background-position: center;
         " aria-label='Welcome to Properties 4 Creations'>
-            <div class='hero-content'>
-                <h2>Building Homes, Rebuilding Lives</h2>
-                <p class='hero-subtitle'>
-                    Premium, renovated housing for veterans and families in East Texas
-                </p>
-                <p class='hero-tagline'>
-                    Veteran-Owned & Operated | 100% Section 8 & HUD-VASH Acceptance
-                </p>
-                <div class='hero-ctas'>
-                    <button class='btn btn-primary js-scroll-to' data-target='properties'>
-                        Browse Available Homes
-                    </button>
-                    <button class='btn btn-secondary js-scroll-to' data-target='get-started'>
-                        Start Your Application
-                    </button>
-                </div>
+      <div class='hero-content'>
+        <h2>Building Homes, Rebuilding Lives</h2>
+        <p class='hero-subtitle'>
+          Premium, renovated housing for veterans and families in East Texas
+        </p>
+        <p class='hero-tagline'>
+          Veteran-Owned & Operated | 100% Section 8 & HUD-VASH Acceptance
+        </p>
+        <div class='hero-ctas'>
+          <button class='btn btn-primary js-scroll-to' data-target='properties'>
+            Browse Available Homes
+          </button>
+          <button class='btn btn-secondary js-scroll-to' data-target='get-started'>
+            Start Your Application
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT SNAPSHOT -->
+    <section class='impact-snapshot' aria-label='Our impact in numbers'>
+      <div class='container'>
+        <h2>Real Results for Real Families</h2>
+        <div class='stats-grid'>
+          <div class='stat-card'>
+            <span class='stat-number'>55+</span>
+            <span class='stat-label'>Safe Homes</span>
+          </div>
+          <div class='stat-card'>
+            <span class='stat-number'>25+</span>
+            <span class='stat-label'>Properties Renovated</span>
+          </div>
+          <div class='stat-card'>
+            <span class='stat-number'>20+</span>
+            <span class='stat-label'>Veterans Housed</span>
+          </div>
+          <div class='stat-card'>
+            <span class='stat-number'>100%</span>
+            <span class='stat-label'>Voucher Acceptance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP SECTION -->
+    <section class='map-section' aria-label='Our service area in East Texas'>
+      <div class='container'>
+        <h2>Service Area</h2>
+        <p>
+          Serving communities across East Texas, from Tyler to Longview and
+          beyond.
+        </p>
+        <div id='map' class='leaflet-map'></div>
+      </div>
+    </section>
+
+    <!-- TRUST SECTION -->
+    <section class='trust-section' aria-label='Why choose Properties 4 Creations'>
+      <div class='container'>
+        <h2>Why Choose Properties 4 Creations?</h2>
+        <div class='trust-grid'>
+          <div class='trust-card'>
+            <div class='trust-icon'>🏠</div>
+            <h3>Premium Renovations</h3>
+            <p>
+              Every home meets our rigorous renovation standards: new HVAC,
+              roofing, electrical, and plumbing systems.
+            </p>
+          </div>
+          <div class='trust-card'>
+            <div class='trust-icon'>🎖️</div>
+            <h3>Veteran-Led</h3>
+            <p>
+              Founded and operated by veterans, for veterans. We understand
+              your needs and are committed to your success.
+            </p>
+          </div>
+          <div class='trust-card'>
+            <div class='trust-icon'>✓</div>
+            <h3>100% Voucher Acceptance</h3>
+            <p>
+              We accept Section 8, HUD-VASH, and other housing vouchers. No
+              discrimination.
+            </p>
+          </div>
+          <div class='trust-card'>
+            <div class='trust-icon'>📋</div>
+            <h3>Transparent Process</h3>
+            <p>
+              Clear, honest communication every step of the way. See our full
+              renovation standards and quality commitments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROPERTIES SECTION -->
+    <section id='properties' class='properties-section' aria-label='Available properties'>
+      <div class='properties-header'>
+        <div class='container'>
+          <h1>Available Properties</h1>
+          <p>
+            Browse our premium, renovated homes ready for veteran and family
+            occupancy.
+          </p>
+        </div>
+      </div>
+      <div class='container'>
+        <div class='properties-grid' id='properties-grid'>
+          <!-- Property cards will be dynamically populated with real images from "/images/properties/ -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RESOURCES SECTION -->
+    <section id='resources' class='resources-section'>
+      <div class='resources-container container'>
+        <div class='resources-header'>
+          <h1>Housing Resources</h1>
+          <p>
+            Learn about programs and requirements to help you find your home.
+          </p>
+        </div>
+
+        <div class='program-card'>
+          <h3>🎖️ HUD-VASH (Veterans Affairs Supportive Housing)</h3>
+          <p>
+            A collaborative program between the VA and HUD providing rental
+            assistance and supportive services to homeless veterans and their
+            families.
+          </p>
+          <ul>
+            <li>
+              <strong>Eligibility:</strong> Must be a veteran with a housing
+              crisis due to homelessness or at-risk homelessness
+            </li>
+            <li>
+              <strong>Income Requirement:</strong> Income at or below 50% of
+              Area Median Income (AMI)
+            </li>
+            <li>
+              <strong>Our Role:</strong> We accept HUD-VASH vouchers and
+              provide quality housing without discrimination
+            </li>
+            <li>
+              <strong>Process:</strong> Veterans are referred by the VA after
+              receiving a voucher
+            </li>
+          </ul>
+        </div>
+
+        <div class='program-card'>
+          <h3>🏠 Section 8 Housing Choice Vouchers</h3>
+          <p>
+            The most common rental assistance program for very low-income
+            families, elderly, and disabled persons.
+          </p>
+          <ul>
+            <li>
+              <strong>Eligibility:</strong> Income at or below 50% of Area
+              Median Income (AMI)
+            </li>
+            <li>
+              <strong>East Texas Example:</strong> For a single person in
+              Longview/Tyler, max income ≈ $19,750/year
+            </li>
+            <li>
+              <strong>Our Acceptance:</strong> 100% Section 8 acceptance - we
+              welcome voucher holders
+            </li>
+            <li>
+              <strong>Timeline:</strong> Waitlists vary by housing authority;
+              some are currently closed
+            </li>
+          </ul>
+
+          <div class='eligibility-checklist'>
+            <h4>Section 8 Eligibility Checklist:</h4>
+            <div class='checklist-item'>
+              <div class='checkbox'></div>
+              <label>Income at or below 50% of Area Median Income</label>
             </div>
-        </section>
-
-        <!-- IMPACT SNAPSHOT -->
-        <section class='impact-snapshot' aria-label='Our impact in numbers'>
-            <div class='container'>
-                <h2>Real Results for Real Families</h2>
-                <div class='stats-grid'>
-                    <div class='stat-card'>
-                        <span class='stat-number'>55+</span>
-                        <span class='stat-label'>Safe Homes</span>
-                    </div>
-                    <div class='stat-card'>
-                        <span class='stat-number'>25+</span>
-                        <span class='stat-label'>Properties Renovated</span>
-                    </div>
-                    <div class='stat-card'>
-                        <span class='stat-number'>20+</span>
-                        <span class='stat-label'>Veterans Housed</span>
-                    </div>
-                    <div class='stat-card'>
-                        <span class='stat-number'>100%</span>
-                        <span class='stat-label'>Voucher Acceptance</span>
-                    </div>
-                </div>
+            <div class='checklist-item'>
+              <div class='checkbox'></div>
+              <label>U.S. Citizen or eligible immigrant</label>
             </div>
-        </section>
-
-        <!-- MAP SECTION -->
-        <section class='map-section' aria-label='Our service area in East Texas'>
-            <div class='container'>
-                <h2>Service Area</h2>
-                <p>
-                    Serving communities across East Texas, from Tyler to Longview and
-                    beyond.
-                </p>
-                <div id='map' class='leaflet-map'></div>
+            <div class='checklist-item'>
+              <div class='checkbox'></div>
+              <label>Valid Social Security number</label>
             </div>
-        </section>
-
-        <!-- TRUST SECTION -->
-        <section class='trust-section' aria-label='Why choose Properties 4 Creations'>
-            <div class='container'>
-                <h2>Why Choose Properties 4 Creations?</h2>
-                <div class='trust-grid'>
-                    <div class='trust-card'>
-                        <div class='trust-icon'>🏠</div>
-                        <h3>Premium Renovations</h3>
-                        <p>
-                            Every home meets our rigorous renovation standards: new HVAC,
-                            roofing, electrical, and plumbing systems.
-                        </p>
-                    </div>
-                    <div class='trust-card'>
-                        <div class='trust-icon'>🎖️</div>
-                        <h3>Veteran-Led</h3>
-                        <p>
-                            Founded and operated by veterans, for veterans. We understand
-                            your needs and are committed to your success.
-                        </p>
-                    </div>
-                    <div class='trust-card'>
-                        <div class='trust-icon'>✓</div>
-                        <h3>100% Voucher Acceptance</h3>
-                        <p>
-                            We accept Section 8, HUD-VASH, and other housing vouchers. No
-                            discrimination.
-                        </p>
-                    </div>
-                    <div class='trust-card'>
-                        <div class='trust-icon'>📋</div>
-                        <h3>Transparent Process</h3>
-                        <p>
-                            Clear, honest communication every step of the way. See our full
-                            renovation standards and quality commitments.
-                        </p>
-                    </div>
-                </div>
+            <div class='checklist-item'>
+              <div class='checkbox'></div>
+              <label>No recent evictions for cause (typically last 3 years)</label>
             </div>
-        </section>
-
-        <!-- PROPERTIES SECTION -->
-        <section id='properties' class='properties-section' aria-label='Available properties'>
-            <div class='properties-header'>
-                <div class='container'>
-                    <h1>Available Properties</h1>
-                    <p>
-                        Browse our premium, renovated homes ready for veteran and family
-                        occupancy.
-                    </p>
-                </div>
+            <div class='checklist-item'>
+              <div class='checkbox'></div>
+              <label>No drug-related criminal history (varies by authority)</label>
             </div>
-            <div class='container'>
-                <div class='properties-grid' id='properties-grid'>
-                    <!-- Property cards will be dynamically populated with real images from "/images/properties/ -->
-                </div>
-            </div>
-        </section>
+          </div>
+        </div>
 
-        <!-- RESOURCES SECTION -->
-        <section id='resources' class='resources-section'>
-            <div class='resources-container container'>
-                <div class='resources-header'>
-                    <h1>Housing Resources</h1>
-                    <p>
-                        Learn about programs and requirements to help you find your home.
-                    </p>
-                </div>
+        <div class='program-card'>
+          <h3>🏦 VA Home Loans</h3>
+          <p>
+            A zero-down-payment mortgage program exclusively for eligible
+            veterans, active duty service members, and surviving spouses.
+          </p>
+          <ul>
+            <li>
+              <strong>Benefits:</strong> No down payment required, no PMI,
+              competitive interest rates
+            </li>
+            <li>
+              <strong>Texas VA Loans:</strong> Up to $806,000 or more
+              depending on county
+            </li>
+            <li>
+              <strong>Eligibility:</strong> Honorable discharge, active duty
+              90+ days (or reserves/guard 6+ years)
+            </li>
+            <li>
+              <strong>Our Support:</strong> We provide financing resources and
+              can guide veteran homebuyers
+            </li>
+          </ul>
+        </div>
 
-                <div class='program-card'>
-                    <h3>🎖️ HUD-VASH (Veterans Affairs Supportive Housing)</h3>
-                    <p>
-                        A collaborative program between the VA and HUD providing rental
-                        assistance and supportive services to homeless veterans and their
-                        families.
-                    </p>
-                    <ul>
-                        <li>
-                            <strong>Eligibility:</strong> Must be a veteran with a housing
-                            crisis due to homelessness or at-risk homelessness
-                        </li>
-                        <li>
-                            <strong>Income Requirement:</strong> Income at or below 50% of
-                            Area Median Income (AMI)
-                        </li>
-                        <li>
-                            <strong>Our Role:</strong> We accept HUD-VASH vouchers and
-                            provide quality housing without discrimination
-                        </li>
-                        <li>
-                            <strong>Process:</strong> Veterans are referred by the VA after
-                            receiving a voucher
-                        </li>
-                    </ul>
-                </div>
+        <div class='program-card'>
+          <h3>📊 SSVF (Supportive Services for Veteran Families)</h3>
+          <p>
+            Case management and financial assistance for veterans and families
+            at risk of homelessness or experiencing homelessness.
+          </p>
+          <ul>
+            <li>
+              <strong>Services:</strong> Emergency financial assistance,
+              rental assistance, case management
+            </li>
+            <li>
+              <strong>Coverage:</strong> Available through VA partners in East
+              Texas
+            </li>
+            <li>
+              <strong>Access:</strong> Contact your local VA office for
+              eligibility and enrollment
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-                <div class='program-card'>
-                    <h3>🏠 Section 8 Housing Choice Vouchers</h3>
-                    <p>
-                        The most common rental assistance program for very low-income
-                        families, elderly, and disabled persons.
-                    </p>
-                    <ul>
-                        <li>
-                            <strong>Eligibility:</strong> Income at or below 50% of Area
-                            Median Income (AMI)
-                        </li>
-                        <li>
-                            <strong>East Texas Example:</strong> For a single person in
-                            Longview/Tyler, max income ≈ $19,750/year
-                        </li>
-                        <li>
-                            <strong>Our Acceptance:</strong> 100% Section 8 acceptance - we
-                            welcome voucher holders
-                        </li>
-                        <li>
-                            <strong>Timeline:</strong> Waitlists vary by housing authority;
-                            some are currently closed
-                        </li>
-                    </ul>
+    <!-- TRANSPARENCY SECTION -->
+    <section id='transparency' class='transparency-section'>
+      <div class='transparency-container container'>
+        <div class='resources-header'>
+          <h1>Our Commitment to Quality</h1>
+          <p>
+            Every home is renovated to our rigorous standards, ensuring
+            safety, durability, and comfort for your family.
+          </p>
+        </div>
 
-                    <div class='eligibility-checklist'>
-                        <h4>Section 8 Eligibility Checklist:</h4>
-                        <div class='checklist-item'>
-                            <div class='checkbox'></div>
-                            <label>Income at or below 50% of Area Median Income</label>
-                        </div>
-                        <div class='checklist-item'>
-                            <div class='checkbox'></div>
-                            <label>U.S. Citizen or eligible immigrant</label>
-                        </div>
-                        <div class='checklist-item'>
-                            <div class='checkbox'></div>
-                            <label>Valid Social Security number</label>
-                        </div>
-                        <div class='checklist-item'>
-                            <div class='checkbox'></div>
-                            <label>No recent evictions for cause (typically last 3 years)</label>
-                        </div>
-                        <div class='checklist-item'>
-                            <div class='checkbox'></div>
-                            <label>No drug-related criminal history (varies by authority)</label>
-                        </div>
-                    </div>
-                </div>
+        <div class='quality-standards'>
+          <div class='standard-card'>
+            <h3>🔧 HVAC System</h3>
+            <ul class='checklist'>
+              <li>Fully inspected and certified</li>
+              <li>New or recently serviced</li>
+              <li>Meets all safety codes</li>
+              <li>12-month warranty on parts & labor</li>
+            </ul>
+          </div>
 
-                <div class='program-card'>
-                    <h3>🏦 VA Home Loans</h3>
-                    <p>
-                        A zero-down-payment mortgage program exclusively for eligible
-                        veterans, active duty service members, and surviving spouses.
-                    </p>
-                    <ul>
-                        <li>
-                            <strong>Benefits:</strong> No down payment required, no PMI,
-                            competitive interest rates
-                        </li>
-                        <li>
-                            <strong>Texas VA Loans:</strong> Up to $806,000 or more
-                            depending on county
-                        </li>
-                        <li>
-                            <strong>Eligibility:</strong> Honorable discharge, active duty
-                            90+ days (or reserves/guard 6+ years)
-                        </li>
-                        <li>
-                            <strong>Our Support:</strong> We provide financing resources and
-                            can guide veteran homebuyers
-                        </li>
-                    </ul>
-                </div>
+          <div class='standard-card'>
+            <h3>🏘️ Roof System</h3>
+            <ul class='checklist'>
+              <li>Complete replacement with warranty</li>
+              <li>Professional installation</li>
+              <li>10-year warranty</li>
+              <li>Inspected for leaks and integrity</li>
+            </ul>
+          </div>
 
-                <div class='program-card'>
-                    <h3>📊 SSVF (Supportive Services for Veteran Families)</h3>
-                    <p>
-                        Case management and financial assistance for veterans and families
-                        at risk of homelessness or experiencing homelessness.
-                    </p>
-                    <ul>
-                        <li>
-                            <strong>Services:</strong> Emergency financial assistance,
-                            rental assistance, case management
-                        </li>
-                        <li>
-                            <strong>Coverage:</strong> Available through VA partners in East
-                            Texas
-                        </li>
-                        <li>
-                            <strong>Access:</strong> Contact your local VA office for
-                            eligibility and enrollment
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+          <div class='standard-card'>
+            <h3>💧 Plumbing System</h3>
+            <ul class='checklist'>
+              <li>Copper pipes and modern fixtures</li>
+              <li>Full system inspection</li>
+              <li>Water pressure tested</li>
+              <li>No leaks or blockages</li>
+            </ul>
+          </div>
 
-        <!-- TRANSPARENCY SECTION -->
-        <section id='transparency' class='transparency-section'>
-            <div class='transparency-container container'>
-                <div class='resources-header'>
-                    <h1>Our Commitment to Quality</h1>
-                    <p>
-                        Every home is renovated to our rigorous standards, ensuring
-                        safety, durability, and comfort for your family.
-                    </p>
-                </div>
+          <div class='standard-card'>
+            <h3>⚡ Electrical System</h3>
+            <ul class='checklist'>
+              <li>Modern safety standards</li>
+              <li>Full panel inspection</li>
+              <li>GFCI outlets where required</li>
+              <li>Certified electrician installation</li>
+            </ul>
+          </div>
 
-                <div class='quality-standards'>
-                    <div class='standard-card'>
-                        <h3>🔧 HVAC System</h3>
-                        <ul class='checklist'>
-                            <li>Fully inspected and certified</li>
-                            <li>New or recently serviced</li>
-                            <li>Meets all safety codes</li>
-                            <li>12-month warranty on parts & labor</li>
-                        </ul>
-                    </div>
+          <div class='standard-card'>
+            <h3>🪟 Windows & Doors</h3>
+            <ul class='checklist'>
+              <li>All operational and sealed</li>
+              <li>Weatherstripping applied</li>
+              <li>Locks functioning properly</li>
+              <li>Energy-efficient upgrade options</li>
+            </ul>
+          </div>
 
-                    <div class='standard-card'>
-                        <h3>🏘️ Roof System</h3>
-                        <ul class='checklist'>
-                            <li>Complete replacement with warranty</li>
-                            <li>Professional installation</li>
-                            <li>10-year warranty</li>
-                            <li>Inspected for leaks and integrity</li>
-                        </ul>
-                    </div>
+          <div class='standard-card'>
+            <h3>🧹 Interior Finishes</h3>
+            <ul class='checklist'>
+              <li>Fresh paint throughout</li>
+              <li>Flooring repaired or replaced</li>
+              <li>Kitchen appliances included</li>
+              <li>Deep cleaned and sanitized</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                    <div class='standard-card'>
-                        <h3>💧 Plumbing System</h3>
-                        <ul class='checklist'>
-                            <li>Copper pipes and modern fixtures</li>
-                            <li>Full system inspection</li>
-                            <li>Water pressure tested</li>
-                            <li>No leaks or blockages</li>
-                        </ul>
-                    </div>
+    <!-- IMPACT SECTION -->
+    <section id='impact' class='impact-section'>
+      <div class='impact-container'>
+        <div class='impact-hero'>
+          <h1>Our Community Impact</h1>
+          <p>Real families. Real homes. Real change in East Texas.</p>
+        </div>
 
-                    <div class='standard-card'>
-                        <h3>⚡ Electrical System</h3>
-                        <ul class='checklist'>
-                            <li>Modern safety standards</li>
-                            <li>Full panel inspection</li>
-                            <li>GFCI outlets where required</li>
-                            <li>Certified electrician installation</li>
-                        </ul>
-                    </div>
+        <div class='impact-stats'>
+          <div class='impact-stat'>
+            <div class='impact-stat-number'>55+</div>
+            <div class='impact-stat-label'>Safe Homes Provided</div>
+          </div>
+          <div class='impact-stat'>
+            <div class='impact-stat-number'>20+</div>
+            <div class='impact-stat-label'>Veterans Housed</div>
+          </div>
+          <div class='impact-stat'>
+            <div class='impact-stat-number'>25+</div>
+            <div class='impact-stat-label'>Renovations Completed</div>
+          </div>
+          <div class='impact-stat'>
+            <div class='impact-stat-number'>100%</div>
+            <div class='impact-stat-label'>Section 8 Excellence</div>
+          </div>
+        </div>
 
-                    <div class='standard-card'>
-                        <h3>🪟 Windows & Doors</h3>
-                        <ul class='checklist'>
-                            <li>All operational and sealed</li>
-                            <li>Weatherstripping applied</li>
-                            <li>Locks functioning properly</li>
-                            <li>Energy-efficient upgrade options</li>
-                        </ul>
-                    </div>
-
-                    <div class='standard-card'>
-                        <h3>🧹 Interior Finishes</h3>
-                        <ul class='checklist'>
-                            <li>Fresh paint throughout</li>
-                            <li>Flooring repaired or replaced</li>
-                            <li>Kitchen appliances included</li>
-                            <li>Deep cleaned and sanitized</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- IMPACT SECTION -->
-        <section id='impact' class='impact-section'>
-            <div class='impact-container'>
-                <div class='impact-hero'>
-                    <h1>Our Community Impact</h1>
-                    <p>Real families. Real homes. Real change in East Texas.</p>
-                </div>
-
-                <div class='impact-stats'>
-                    <div class='impact-stat'>
-                        <div class='impact-stat-number'>55+</div>
-                        <div class='impact-stat-label'>Safe Homes Provided</div>
-                    </div>
-                    <div class='impact-stat'>
-                        <div class='impact-stat-number'>20+</div>
-                        <div class='impact-stat-label'>Veterans Housed</div>
-                    </div>
-                    <div class='impact-stat'>
-                        <div class='impact-stat-number'>25+</div>
-                        <div class='impact-stat-label'>Renovations Completed</div>
-                    </div>
-                    <div class='impact-stat'>
-                        <div class='impact-stat-number'>100%</div>
-                        <div class='impact-stat-label'>Section 8 Excellence</div>
-                    </div>
-                </div>
-
-                <div class='impact-stories'>
-                    <div class='container'>
-                        <h2 style="
+        <div class='impact-stories'>
+          <div class='container'>
+            <h2 style="
                   text-align: center;
                   margin-bottom: 2rem;
                   font-family: &quot;Merriweather&quot;, serif;
                   color: var(--navy);
                 ">
-                            Stories of Hope
-                        </h2>
+              Stories of Hope
+            </h2>
 
-                        <div class='story-card'>
-                            <h4>James M. - Veteran, Tyler TX</h4>
-                            <p>
-                                "After my service, finding stable housing was a challenge.
-                                Properties 4 Creations connected me with a beautiful,
-                                renovated home. The entire process was transparent and
-                                respectful. I'm proud to be home."
-                            </p>
-                        </div>
-
-                        <div class='story-card'>
-                            <h4>Rodriguez Family - HUD-VASH Recipient, Longview TX</h4>
-                            <p>
-                                "We went from unstable housing to a safe, modern home for our
-                                two children. The quality renovations and respectful staff
-                                made all the difference. This is our foundation for a brighter
-                                future."
-                            </p>
-                        </div>
-
-                        <div class='story-card'>
-                            <h4>Sarah W. - Section 8 Participant, Tyler TX</h4>
-                            <p>
-                                "No other landlord accepted my Section 8 voucher. Properties 4
-                                Creations welcomed us without judgment. Our apartment is
-                                beautiful and we feel safe and valued."
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class='story-card'>
+              <h4>James M. - Veteran, Tyler TX</h4>
+              <p>
+                "After my service, finding stable housing was a challenge.
+                Properties 4 Creations connected me with a beautiful,
+                renovated home. The entire process was transparent and
+                respectful. I'm proud to be home."
+              </p>
             </div>
-        </section>
 
-        <!-- FAQ SECTION -->
-        <section id='faq' class='faq-section' aria-label='Frequently asked questions'>
-            <div class='container'>
-                <h2>Frequently Asked Questions</h2>
-                <div class='faq-container'>
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>How do I apply for a property?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                Click the 'Apply Now' button at the top of the page to start
-                                your application. You'll fill out a simple form with your
-                                personal information, voucher type, and household details.
-                                We'll review your application and contact you within 24-48
-                                hours.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>Do you accept Section 8 vouchers?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                Yes, we accept 100% Section 8 Housing Choice Vouchers. We
-                                welcome all eligible applicants with active vouchers from any
-                                housing authority. There is no discrimination, and we make the
-                                process simple and respectful.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>What about HUD-VASH for veterans?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                We are HUD-VASH approved and actively work with the VA to
-                                house veterans. If you have a HUD-VASH voucher or are
-                                interested in the program, we can help guide you through the
-                                process and match you with an appropriate property.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>What areas do you serve?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                We serve East Texas communities including Tyler, Longview, and
-                                surrounding areas. Our properties are strategically located to
-                                provide access to employment, schools, healthcare, and public
-                                transportation.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>Are all homes recently renovated?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                Yes! Every property in our portfolio meets our rigorous
-                                renovation standards. We guarantee new or recently serviced
-                                HVAC, roofing, electrical, plumbing, and interior finishes.
-                                All work is inspected and warrantied.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>What is your company background?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                Properties 4 Creations is veteran-owned and operated. We were
-                                founded with a mission to provide safe, dignified housing for
-                                veterans and families in East Texas while rebuilding
-                                communities one home at a time.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>How long does the application process take?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                Most applications are reviewed within 24-48 hours. Once we
-                                review your information, we'll contact you directly to discuss
-                                available properties, answer questions, and move forward with
-                                scheduling a viewing if you're a good fit.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class='faq-item'>
-                        <div class='faq-question'>
-                            <span>Do you work with families without vouchers?</span>
-                            <span class='faq-icon'>▼</span>
-                        </div>
-                        <div class='faq-answer'>
-                            <p>
-                                We primarily work with Section 8, HUD-VASH, and SSVF voucher
-                                holders. If you don't have a voucher yet, we can provide
-                                guidance on how to apply and point you toward local housing
-                                authorities and resources.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class='story-card'>
+              <h4>Rodriguez Family - HUD-VASH Recipient, Longview TX</h4>
+              <p>
+                "We went from unstable housing to a safe, modern home for our
+                two children. The quality renovations and respectful staff
+                made all the difference. This is our foundation for a brighter
+                future."
+              </p>
             </div>
-        </section>
 
-        <!-- GET STARTED SECTION -->
-        <section id='get-started' class='form-container' aria-label='Application form'>
-            <div class='form-wrapper'>
-                <h1>Start Your Application</h1>
-                <div class='success-message' id='success-message'>
-                    ✓ Your application has been submitted successfully! We'll be in
-                    touch within 24-48 hours.
-                </div>
-                <form id='application-form' name='application'>
-                    <div class='form-group'>
-                        <label for='full-name'>Full Name *</label>
-                        <input type='text' id='full-name' name='fullName' required />
-                        <span class='error-message'>Full name is required</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='email'>Email Address *</label>
-                        <input type='email' id='email' name='email' required />
-                        <span class='error-message'>Valid email is required</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='phone'>Phone Number *</label>
-                        <input type='tel' id='phone' name='phone' required pattern='[0-9\-\+\(\)\s]+' />
-                        <span class='error-message'>Valid phone number is required</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='applicant-type'>Are you applying as? *</label>
-                        <select id='applicant-type' name='applicantType' required>
-                            <option value=''>-- Select an option --</option>
-                            <option value='veteran'>Veteran</option>
-                            <option value='family'>Family</option>
-                            <option value='general'>Other</option>
-                        </select>
-                        <span class='error-message'>Please select an option</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='voucher-type'>What voucher do you hold? *</label>
-                        <select id='voucher-type' name='voucherType' required>
-                            <option value=''>-- Select an option --</option>
-                            <option value='section8'>
-                                Section 8 Housing Choice Voucher
-                            </option>
-                            <option value='hudvash'>HUD-VASH (Veterans)</option>
-                            <option value='ssvf'>SSVF (Supportive Services)</option>
-                            <option value='other'>Other</option>
-                            <option value='none'>No voucher yet</option>
-                        </select>
-                        <span class='error-message'>Please select a voucher type</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='household-size'>Household Size *</label>
-                        <input type='number' id='household-size' name='householdSize' min='1' required />
-                        <span class='error-message'>Household size is required</span>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for='message'>Tell us about yourself or any special needs:</label>
-                        <textarea id='message' name='message'
-                            placeholder='Optional - Help us understand your situation better...'></textarea>
-                    </div>
-
-                    <div class='form-group'>
-                        <div class='checkbox-group'>
-                            <input type='checkbox' id='agree-privacy' name='agreePrivacy' required />
-                            <label for='agree-privacy' style='margin: 0'>I agree to the Privacy Policy and Fair Housing
-                                practices
-                                *</label>
-                        </div>
-                        <span class='error-message'>You must agree to continue</span>
-                    </div>
-
-                    <button type='submit' class='submit-btn'>Submit Application</button>
-                </form>
+            <div class='story-card'>
+              <h4>Sarah W. - Section 8 Participant, Tyler TX</h4>
+              <p>
+                "No other landlord accepted my Section 8 voucher. Properties 4
+                Creations welcomed us without judgment. Our apartment is
+                beautiful and we feel safe and valued."
+              </p>
             </div>
-        </section>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- CONTACT SECTION -->
-        <section id='contact' class='contact-section'>
-            <div class='container'>
-                <div class='contact-wrapper'>
-                    <div class='contact-info'>
-                        <h2>Get in Touch</h2>
-                        <p>
-                            Have questions? We're here to help. Reach out to our team for
-                            more information about available properties or the application
-                            process.
-                        </p>
+    <!-- FAQ SECTION -->
+    <section id='faq' class='faq-section' aria-label='Frequently asked questions'>
+      <div class='container'>
+        <h2>Frequently Asked Questions</h2>
+        <div class='faq-container'>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>How do I apply for a property?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                Click the 'Apply Now' button at the top of the page to start
+                your application. You'll fill out a simple form with your
+                personal information, voucher type, and household details.
+                We'll review your application and contact you within 24-48
+                hours.
+              </p>
+            </div>
+          </div>
 
-                        <div class='contact-details'>
-                            <div class='contact-detail'>
-                                <h4>📍 Location</h4>
-                                <p>Serving Tyler & Longview, East Texas</p>
-                            </div>
-                            <div class='contact-detail'>
-                                <h4>📞 Phone</h4>
-                                <p><a href='tel:+19035551234'>(903) 555-1234</a></p>
-                            </div>
-                            <div class='contact-detail'>
-                                <h4>✉️ Email</h4>
-                                <p>
-                                    <a href='mailto:info@properties4creations.com'>info@properties4creations.com</a>
-                                </p>
-                            </div>
-                            <div class='contact-detail'>
-                                <h4>🕐 Hours</h4>
-                                <p>Mon-Fri: 9am-5pm CST<br />Sat: 10am-2pm</p>
-                            </div>
-                        </div>
-                    </div>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>Do you accept Section 8 vouchers?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                Yes, we accept 100% Section 8 Housing Choice Vouchers. We
+                welcome all eligible applicants with active vouchers from any
+                housing authority. There is no discrimination, and we make the
+                process simple and respectful.
+              </p>
+            </div>
+          </div>
 
-                    <div class='contact-form-wrapper'>
-                        <h3>Send us a Message</h3>
-                        <form id='contact-form' name='contact'>
-                            <div class='form-group'>
-                                <label for='contact-name'>Full Name *</label>
-                                <input type='text' id='contact-name' name='contactName' required />
-                                <span class='error-message'>Full name is required</span>
-                            </div>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>What about HUD-VASH for veterans?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                We are HUD-VASH approved and actively work with the VA to
+                house veterans. If you have a HUD-VASH voucher or are
+                interested in the program, we can help guide you through the
+                process and match you with an appropriate property.
+              </p>
+            </div>
+          </div>
 
-                            <div class='form-group'>
-                                <label for='contact-email'>Email Address *</label>
-                                <input type='email' id='contact-email' name='contactEmail' required />
-                                <span class='error-message'>Valid email is required</span>
-                            </div>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>What areas do you serve?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                We serve East Texas communities including Tyler, Longview, and
+                surrounding areas. Our properties are strategically located to
+                provide access to employment, schools, healthcare, and public
+                transportation.
+              </p>
+            </div>
+          </div>
 
-                            <div class='form-group'>
-                                <label for='contact-subject'>Subject *</label>
-                                <input type='text' id='contact-subject' name='contactSubject' required />
-                                <span class='error-message'>Subject is required</span>
-                            </div>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>Are all homes recently renovated?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                Yes! Every property in our portfolio meets our rigorous
+                renovation standards. We guarantee new or recently serviced
+                HVAC, roofing, electrical, plumbing, and interior finishes.
+                All work is inspected and warrantied.
+              </p>
+            </div>
+          </div>
 
-                            <div class='form-group'>
-                                <label for='contact-message'>Message *</label>
-                                <textarea id='contact-message' name='contactMessage' required
-                                    placeholder='Your message...'></textarea>
-                                <span class='error-message'>Message is required</span>
-                            </div>
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>What is your company background?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                Properties 4 Creations is veteran-owned and operated. We were
+                founded with a mission to provide safe, dignified housing for
+                veterans and families in East Texas while rebuilding
+                communities one home at a time.
+              </p>
+            </div>
+          </div>
 
-                            <button type='submit' class='submit-btn'>Send Message</button>
-                            <div class='contact-success-message' id='contact-success' style="
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>How long does the application process take?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                Most applications are reviewed within 24-48 hours. Once we
+                review your information, we'll contact you directly to discuss
+                available properties, answer questions, and move forward with
+                scheduling a viewing if you're a good fit.
+              </p>
+            </div>
+          </div>
+
+          <div class='faq-item'>
+            <div class='faq-question'>
+              <span>Do you work with families without vouchers?</span>
+              <span class='faq-icon'>▼</span>
+            </div>
+            <div class='faq-answer'>
+              <p>
+                We primarily work with Section 8, HUD-VASH, and SSVF voucher
+                holders. If you don't have a voucher yet, we can provide
+                guidance on how to apply and point you toward local housing
+                authorities and resources.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GET STARTED SECTION -->
+    <section id='get-started' class='form-container' aria-label='Application form'>
+      <div class='form-wrapper'>
+        <h1>Start Your Application</h1>
+        <div class='success-message' id='success-message'>
+          ✓ Your application has been submitted successfully! We'll be in
+          touch within 24-48 hours.
+        </div>
+        <form id='application-form' name='application'>
+          <div class='form-group'>
+            <label for='full-name'>Full Name *</label>
+            <input type='text' id='full-name' name='fullName' required />
+            <span class='error-message'>Full name is required</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='email'>Email Address *</label>
+            <input type='email' id='email' name='email' required />
+            <span class='error-message'>Valid email is required</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='phone'>Phone Number *</label>
+            <input type='tel' id='phone' name='phone' required pattern='[0-9\-\+\(\)\s]+' />
+            <span class='error-message'>Valid phone number is required</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='applicant-type'>Are you applying as? *</label>
+            <select id='applicant-type' name='applicantType' required>
+              <option value=''>-- Select an option --</option>
+              <option value='veteran'>Veteran</option>
+              <option value='family'>Family</option>
+              <option value='general'>Other</option>
+            </select>
+            <span class='error-message'>Please select an option</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='voucher-type'>What voucher do you hold? *</label>
+            <select id='voucher-type' name='voucherType' required>
+              <option value=''>-- Select an option --</option>
+              <option value='section8'>
+                Section 8 Housing Choice Voucher
+              </option>
+              <option value='hudvash'>HUD-VASH (Veterans)</option>
+              <option value='ssvf'>SSVF (Supportive Services)</option>
+              <option value='other'>Other</option>
+              <option value='none'>No voucher yet</option>
+            </select>
+            <span class='error-message'>Please select a voucher type</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='household-size'>Household Size *</label>
+            <input type='number' id='household-size' name='householdSize' min='1' required />
+            <span class='error-message'>Household size is required</span>
+          </div>
+
+          <div class='form-group'>
+            <label for='message'>Tell us about yourself or any special needs:</label>
+            <textarea id='message' name='message'
+              placeholder='Optional - Help us understand your situation better...'></textarea>
+          </div>
+
+          <div class='form-group'>
+            <div class='checkbox-group'>
+              <input type='checkbox' id='agree-privacy' name='agreePrivacy' required />
+              <label for='agree-privacy' style='margin: 0'>I agree to the Privacy Policy and Fair Housing
+                practices
+                *</label>
+            </div>
+            <span class='error-message'>You must agree to continue</span>
+          </div>
+
+          <button type='submit' class='submit-btn'>Submit Application</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id='contact' class='contact-section'>
+      <div class='container'>
+        <div class='contact-wrapper'>
+          <div class='contact-info'>
+            <h2>Get in Touch</h2>
+            <p>
+              Have questions? We're here to help. Reach out to our team for
+              more information about available properties or the application
+              process.
+            </p>
+
+            <div class='contact-details'>
+              <div class='contact-detail'>
+                <h4>📍 Location</h4>
+                <p>Serving Tyler & Longview, East Texas</p>
+              </div>
+              <div class='contact-detail'>
+                <h4>📞 Phone</h4>
+                <p><a href='tel:+19035551234'>(903) 555-1234</a></p>
+              </div>
+              <div class='contact-detail'>
+                <h4>✉️ Email</h4>
+                <p>
+                  <a href='mailto:info@properties4creations.com'>info@properties4creations.com</a>
+                </p>
+              </div>
+              <div class='contact-detail'>
+                <h4>🕐 Hours</h4>
+                <p>Mon-Fri: 9am-5pm CST<br />Sat: 10am-2pm</p>
+              </div>
+            </div>
+          </div>
+
+          <div class='contact-form-wrapper'>
+            <h3>Send us a Message</h3>
+            <form id='contact-form' name='contact'>
+              <div class='form-group'>
+                <label for='contact-name'>Full Name *</label>
+                <input type='text' id='contact-name' name='contactName' required />
+                <span class='error-message'>Full name is required</span>
+              </div>
+
+              <div class='form-group'>
+                <label for='contact-email'>Email Address *</label>
+                <input type='email' id='contact-email' name='contactEmail' required />
+                <span class='error-message'>Valid email is required</span>
+              </div>
+
+              <div class='form-group'>
+                <label for='contact-subject'>Subject *</label>
+                <input type='text' id='contact-subject' name='contactSubject' required />
+                <span class='error-message'>Subject is required</span>
+              </div>
+
+              <div class='form-group'>
+                <label for='contact-message'>Message *</label>
+                <textarea id='contact-message' name='contactMessage' required placeholder='Your message...'></textarea>
+                <span class='error-message'>Message is required</span>
+              </div>
+
+              <button type='submit' class='submit-btn'>Send Message</button>
+              <div class='contact-success-message' id='contact-success' style="
                     display: none;
                     margin-top: 1rem;
                     padding: 1rem;
@@ -1847,123 +1846,123 @@
                     color: #3c763d;
                     border-radius: 5px;
                   ">
-                                ✓ Message sent successfully! We'll get back to you soon.
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
+                ✓ Message sent successfully! We'll get back to you soon.
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- CTA SECTION -->
-        <section class='cta-section'>
-            <div class='container'>
-                <h2>Ready to Find Your Home?</h2>
-                <p>
-                    Browse our available properties or start your application today.
-                </p>
-                <button class='btn btn-primary btn-lg js-scroll-to' data-target='get-started'>
-                    Get Started
-                </button>
-            </div>
-        </section>
-    </main>
+    <!-- CTA SECTION -->
+    <section class='cta-section'>
+      <div class='container'>
+        <h2>Ready to Find Your Home?</h2>
+        <p>
+          Browse our available properties or start your application today.
+        </p>
+        <button class='btn btn-primary btn-lg js-scroll-to' data-target='get-started'>
+          Get Started
+        </button>
+      </div>
+    </section>
+  </main>
 
-    <!-- FOOTER -->
-    {% include 'footer.html' %}
+  <!-- FOOTER -->
+  {% include 'footer.html' %}
 
-    <!-- PWA Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('sw.js')
-                .catch((err) => console.log('SW registration failed:', err));
-        }
-    </script>
+  <!-- PWA Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('sw.js')
+        .catch((err) => console.log('SW registration failed:', err));
+    }
+  </script>
 
-    <!-- SCRIPTS -->
-    <script defer>
-        // MOBILE MENU TOGGLE
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
+  <!-- SCRIPTS -->
+  <script defer>
+    // MOBILE MENU TOGGLE
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
 
-        navLinks.forEach((link) => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-            });
-        });
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        menuToggle.classList.remove('active');
+      });
+    });
 
-        // PROPERTIES DATA WITH REAL IMAGES
-        const propertiesData = [
-            {
-                name: 'Tyler Ranch Home',
-                bedrooms: 3,
-                bathrooms: 2,
-                price: 'Section 8 Ready',
-                tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
-                location: 'Tyler, TX',
-                image: '"/images/properties/properties-tyler-ranch-home.webp',
-            },
-            {
-                name: 'Longview Victorian',
-                bedrooms: 4,
-                bathrooms: 2.5,
-                price: 'HUD-VASH Ready',
-                tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
-                location: 'Longview, TX',
-                image: '"/images/properties/properties-longview-victorian.webp',
-            },
-            {
-                name: 'Marshall Farmhouse',
-                bedrooms: 3,
-                bathrooms: 1.5,
-                price: 'Section 8 Ready',
-                tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
-                location: 'Marshall, TX',
-                image: '"/images/properties/properties-marshall-farmhouse.webp',
-            },
-            {
-                name: 'Kemp Townhome',
-                bedrooms: 2,
-                bathrooms: 1,
-                price: 'Section 8/HUD-VASH',
-                tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
-                location: 'Kemp, TX',
-                image: '"/images/properties/properties-kemp-townhome.webp',
-            },
-            {
-                name: 'Jefferson Riverfront',
-                bedrooms: 3,
-                bathrooms: 2,
-                price: 'HUD-VASH Ready',
-                tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
-                location: 'Jefferson, TX',
-                image: '"/images/properties/properties-jefferson-river-front.webp',
-            },
-            {
-                name: 'Mineola Studio',
-                bedrooms: 1,
-                bathrooms: 1,
-                price: 'Section 8 Ready',
-                tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
-                location: 'Mineola, TX',
-                image: '"/images/properties/properties-mineola-studio.webp',
-            },
-        ];
+    // PROPERTIES DATA WITH REAL IMAGES
+    const propertiesData = [
+      {
+        name: 'Tyler Ranch Home',
+        bedrooms: 3,
+        bathrooms: 2,
+        price: 'Section 8 Ready',
+        tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
+        location: 'Tyler, TX',
+        image: '"/images/properties/properties-tyler-ranch-home.webp',
+      },
+      {
+        name: 'Longview Victorian',
+        bedrooms: 4,
+        bathrooms: 2.5,
+        price: 'HUD-VASH Ready',
+        tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
+        location: 'Longview, TX',
+        image: '"/images/properties/properties-longview-victorian.webp',
+      },
+      {
+        name: 'Marshall Farmhouse',
+        bedrooms: 3,
+        bathrooms: 1.5,
+        price: 'Section 8 Ready',
+        tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
+        location: 'Marshall, TX',
+        image: '"/images/properties/properties-marshall-farmhouse.webp',
+      },
+      {
+        name: 'Kemp Townhome',
+        bedrooms: 2,
+        bathrooms: 1,
+        price: 'Section 8/HUD-VASH',
+        tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
+        location: 'Kemp, TX',
+        image: '"/images/properties/properties-kemp-townhome.webp',
+      },
+      {
+        name: 'Jefferson Riverfront',
+        bedrooms: 3,
+        bathrooms: 2,
+        price: 'HUD-VASH Ready',
+        tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
+        location: 'Jefferson, TX',
+        image: '"/images/properties/properties-jefferson-river-front.webp',
+      },
+      {
+        name: 'Mineola Studio',
+        bedrooms: 1,
+        bathrooms: 1,
+        price: 'Section 8 Ready',
+        tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
+        location: 'Mineola, TX',
+        image: '"/images/properties/properties-mineola-studio.webp',
+      },
+    ];
 
-        // POPULATE PROPERTIES GRID
-        const propertiesGrid = document.getElementById('properties-grid');
-        propertiesData.forEach((prop) => {
-            const card = document.createElement('div');
-            card.className = 'property-card';
-            card.innerHTML = `
+    // POPULATE PROPERTIES GRID
+    const propertiesGrid = document.getElementById('properties-grid');
+    propertiesData.forEach((prop) => {
+      const card = document.createElement('div');
+      card.className = 'property-card';
+      card.innerHTML = `
                 <div class='property-image' style='background-image: url('${prop.image}'); background-size: cover; background-position: center;' alt='${prop.name}'></div>
                 <div class='property-content'>
                     <h3 class='property-title'>${prop.name}</h3>
@@ -1988,201 +1987,201 @@
                     <button class='btn btn-primary property-btn js-scroll-to' data-target='get-started'>Apply for This Home</button>
                 </div>
             `;
-            propertiesGrid.appendChild(card);
+      propertiesGrid.appendChild(card);
+    });
+
+    // FAQ TOGGLE
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach((item) => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        faqItems.forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
         });
+        item.classList.toggle('active');
+      });
+    });
 
-        // FAQ TOGGLE
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach((item) => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                faqItems.forEach((otherItem) => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                item.classList.toggle('active');
-            });
-        });
+    // FORM VALIDATION
+    const form = document.getElementById('application-form');
+    const successMessage = document.getElementById('success-message');
 
-        // FORM VALIDATION
-        const form = document.getElementById('application-form');
-        const successMessage = document.getElementById('success-message');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+      let isValid = true;
+      const formGroups = form.querySelectorAll('.form-group');
 
-            let isValid = true;
-            const formGroups = form.querySelectorAll('.form-group');
+      formGroups.forEach((group) => {
+        const input = group.querySelector('input, select, textarea');
+        if (!input) return;
 
-            formGroups.forEach((group) => {
-                const input = group.querySelector('input, select, textarea');
-                if (!input) return;
+        group.classList.remove('error');
 
-                group.classList.remove('error');
+        if (input.required && !input.value.trim()) {
+          group.classList.add('error');
+          isValid = false;
+        } else if (
+          input.type === 'email' &&
+          input.value &&
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
+        ) {
+          group.classList.add('error');
+          isValid = false;
+        } else if (
+          input.id === 'phone' &&
+          input.value &&
+          !/^[0-9\-\+\(\)\s]+$/.test(input.value)
+        ) {
+          group.classList.add('error');
+          isValid = false;
+        } else if (input.type === 'checkbox' && !input.checked) {
+          group.classList.add('error');
+          isValid = false;
+        }
+      });
 
-                if (input.required && !input.value.trim()) {
-                    group.classList.add('error');
-                    isValid = false;
-                } else if (
-                    input.type === 'email' &&
-                    input.value &&
-                    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
-                ) {
-                    group.classList.add('error');
-                    isValid = false;
-                } else if (
-                    input.id === 'phone' &&
-                    input.value &&
-                    !/^[0-9\-\+\(\)\s]+$/.test(input.value)
-                ) {
-                    group.classList.add('error');
-                    isValid = false;
-                } else if (input.type === 'checkbox' && !input.checked) {
-                    group.classList.add('error');
-                    isValid = false;
-                }
-            });
-
-            if (isValid) {
-                // Track GA4 event
-                if (window.gtag) {
-                    const applicantType =
-                        document.getElementById('applicant-type').value;
-                    gtag('event', 'generate_lead', {
-                        applicant_type: applicantType,
-                        value: applicantType === 'veteran' ? 800 : 600,
-                    });
-                }
-
-                successMessage.classList.add('show');
-                form.style.display = 'none';
-
-                console.log('Form submitted:', new FormData(form));
-
-                setTimeout(() => {
-                    form.reset();
-                    form.style.display = 'block';
-                    successMessage.classList.remove('show');
-                }, 3000);
-            }
-        });
-
-        // MAP INITIALIZATION
-        if (document.getElementById('map')) {
-            const script = document.createElement('script');
-            script.src =
-                'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
-            script.onload = () => {
-                const map = L.map('map').setView([32.35, -95.3], 10);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '© OpenStreetMap contributors',
-                    maxZoom: 19,
-                }).addTo(map);
-
-                L.marker([32.351, -95.301], {
-                    title: 'Tyler Properties',
-                })
-                    .addTo(map)
-                    .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
-
-                L.marker([32.5, -94.74], {
-                    title: 'Longview Properties',
-                })
-                    .addTo(map)
-                    .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
-            };
-            document.head.appendChild(script);
+      if (isValid) {
+        // Track GA4 event
+        if (window.gtag) {
+          const applicantType =
+            document.getElementById('applicant-type').value;
+          gtag('event', 'generate_lead', {
+            applicant_type: applicantType,
+            value: applicantType === 'veteran' ? 800 : 600,
+          });
         }
 
-        // GA4 TRACKING
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', 'G-XXXXX');
+        successMessage.classList.add('show');
+        form.style.display = 'none';
 
-        // TRACK PROPERTY VIEWS
-        document.querySelectorAll('.property-card').forEach((card) => {
-            card.addEventListener('click', () => {
-                if (window.gtag) {
-                    gtag('event', 'property_view', {
-                        property_name: card.querySelector('.property-title').textContent,
-                    });
-                }
-            });
+        console.log('Form submitted:', new FormData(form));
+
+        setTimeout(() => {
+          form.reset();
+          form.style.display = 'block';
+          successMessage.classList.remove('show');
+        }, 3000);
+      }
+    });
+
+    // MAP INITIALIZATION
+    if (document.getElementById('map')) {
+      const script = document.createElement('script');
+      script.src =
+        'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+      script.onload = () => {
+        const map = L.map('map').setView([32.35, -95.3], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 19,
+        }).addTo(map);
+
+        L.marker([32.351, -95.301], {
+          title: 'Tyler Properties',
+        })
+          .addTo(map)
+          .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
+
+        L.marker([32.5, -94.74], {
+          title: 'Longview Properties',
+        })
+          .addTo(map)
+          .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
+      };
+      document.head.appendChild(script);
+    }
+
+    // GA4 TRACKING
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXX');
+
+    // TRACK PROPERTY VIEWS
+    document.querySelectorAll('.property-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        if (window.gtag) {
+          gtag('event', 'property_view', {
+            property_name: card.querySelector('.property-title').textContent,
+          });
+        }
+      });
+    });
+
+    // CONTACT FORM HANDLING
+    const contactForm = document.getElementById('contact-form');
+    const contactSuccess = document.getElementById('contact-success');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        let isValid = true;
+        const contactFormGroups = contactForm.querySelectorAll('.form-group');
+
+        contactFormGroups.forEach((group) => {
+          const input = group.querySelector('input, textarea');
+          if (!input) return;
+
+          group.classList.remove('error');
+
+          if (input.required && !input.value.trim()) {
+            group.classList.add('error');
+            isValid = false;
+          } else if (
+            input.type === 'email' &&
+            input.value &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
+          ) {
+            group.classList.add('error');
+            isValid = false;
+          }
         });
 
-        // CONTACT FORM HANDLING
-        const contactForm = document.getElementById('contact-form');
-        const contactSuccess = document.getElementById('contact-success');
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                let isValid = true;
-                const contactFormGroups = contactForm.querySelectorAll('.form-group');
-
-                contactFormGroups.forEach((group) => {
-                    const input = group.querySelector('input, textarea');
-                    if (!input) return;
-
-                    group.classList.remove('error');
-
-                    if (input.required && !input.value.trim()) {
-                        group.classList.add('error');
-                        isValid = false;
-                    } else if (
-                        input.type === 'email' &&
-                        input.value &&
-                        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
-                    ) {
-                        group.classList.add('error');
-                        isValid = false;
-                    }
-                });
-
-                if (isValid) {
-                    if (window.gtag) {
-                        gtag('event', 'contact_inquiry', {
-                            subject: document.getElementById('contact-subject').value,
-                        });
-                    }
-
-                    contactSuccess.style.display = 'block';
-                    contactForm.style.display = 'none';
-
-                    console.log('Contact form submitted:', new FormData(contactForm));
-
-                    setTimeout(() => {
-                        contactForm.reset();
-                        contactForm.style.display = 'block';
-                        contactSuccess.style.display = 'none';
-                    }, 3000);
-                }
+        if (isValid) {
+          if (window.gtag) {
+            gtag('event', 'contact_inquiry', {
+              subject: document.getElementById('contact-subject').value,
             });
-        }
+          }
 
-        // ACCESSIBILITY ENHANCEMENTS
-        const skipLink = document.querySelector('.skip-link');
-        if (!skipLink) {
-            const newSkipLink = document.createElement('a');
-            newSkipLink.href = '#main-content';
-            newSkipLink.textContent = 'Skip to main content';
-            newSkipLink.className = 'skip-link';
-            document.body.prepend(newSkipLink);
-        }
+          contactSuccess.style.display = 'block';
+          contactForm.style.display = 'none';
 
-        // Alt text checker
-        console.log('Checking alt text...');
-        document.querySelectorAll('img').forEach((img) => {
-            if (!img.alt) {
-                console.warn('Image missing alt text:', img.src);
-            }
-        });
-    </script>
+          console.log('Contact form submitted:', new FormData(contactForm));
+
+          setTimeout(() => {
+            contactForm.reset();
+            contactForm.style.display = 'block';
+            contactSuccess.style.display = 'none';
+          }, 3000);
+        }
+      });
+    }
+
+    // ACCESSIBILITY ENHANCEMENTS
+    const skipLink = document.querySelector('.skip-link');
+    if (!skipLink) {
+      const newSkipLink = document.createElement('a');
+      newSkipLink.href = '#main-content';
+      newSkipLink.textContent = 'Skip to main content';
+      newSkipLink.className = 'skip-link';
+      document.body.prepend(newSkipLink);
+    }
+
+    // Alt text checker
+    console.log('Checking alt text...');
+    document.querySelectorAll('img').forEach((img) => {
+      if (!img.alt) {
+        console.warn('Image missing alt text:', img.src);
+      }
+    });
+  </script>
 </body>
 
 </html>

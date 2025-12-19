@@ -112,7 +112,7 @@
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
       // Return focus to trigger element
-      const trigger = document.querySelector('[data-modal='' + modal.id + '']');
+      const trigger = document.querySelector(`[data-modal='${modal.id}']`);
       if (trigger) {
         trigger.focus();
       }

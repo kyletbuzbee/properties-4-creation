@@ -321,17 +321,17 @@ User Agent: ${error.userAgent}
     const canRetry = this.retryCount < this.options.maxRetries && !isCritical;
 
     return `
-      <div class='error-boundary' role='alert' aria-live='assertive'>
-        <div class='error-boundary__content'>
-          <div class='error-boundary__icon' aria-hidden='true'>
+      <div class="error-boundary" role="alert" aria-live="assertive">
+        <div class="error-boundary__content">
+          <div class="error-boundary__icon" aria-hidden="true">
             ${isCritical ? '⚠️' : '🔧'}
           </div>
           
-          <h2 class='error-boundary__title'>
+          <h2 class="error-boundary__title">
             ${isCritical ? 'System Error' : 'Something went wrong'}
           </h2>
           
-          <p class='error-boundary__message'>
+          <p class="error-boundary__message">
             ${
   isCritical
     ? 'We\'re experiencing technical difficulties. Please try refreshing the page.'
@@ -339,14 +339,14 @@ User Agent: ${error.userAgent}
 }
           </p>
           
-          <div class='error-boundary__actions'>
+          <div class="error-boundary__actions">
             ${
   canRetry
     ? `
               <button 
-                type='button' 
-                class='btn btn-primary error-boundary__retry'
-                onclick='window.ErrorBoundaryInstance?.retry()'
+                type="button" 
+                class="btn btn-primary error-boundary__retry"
+                onclick="window.ErrorBoundaryInstance?.retry()"
               >
                 Try Again
               </button>
@@ -355,23 +355,23 @@ User Agent: ${error.userAgent}
 }
             
             <button 
-              type='button' 
-              class='btn btn-secondary error-boundary__refresh'
-              onclick='location.reload()'
+              type="button" 
+              class="btn btn-secondary error-boundary__refresh"
+              onclick="location.reload()"
             >
               Refresh Page
             </button>
             
             <button 
-              type='button' 
-              class='btn btn-link error-boundary__details'
-              onclick='window.ErrorBoundaryInstance?.showDetails()'
+              type="button" 
+              class="btn btn-link error-boundary__details"
+              onclick="window.ErrorBoundaryInstance?.showDetails()"
             >
               Show Details
             </button>
           </div>
           
-          <div class='error-boundary__details-content' style='display: none;' id='error-details'>
+          <div class="error-boundary__details-content" style="display: none;" id="error-details">
             <p><strong>Error ID:</strong> ${error.errorId}</p>
             <p><strong>Time:</strong> ${error.timestamp}</p>
             <p><strong>Error Count:</strong> ${this.errorCount}</p>
@@ -404,7 +404,7 @@ User Agent: ${error.userAgent}
 
     // Focus management for accessibility
     const firstFocusable = container.querySelector(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     if (firstFocusable) {
       firstFocusable.focus();
@@ -551,7 +551,7 @@ User Agent: ${error.userAgent}
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display =
-        detailsElement.style.display === 'none' ? "block": 'none';
+        detailsElement.style.display === 'none' ? "block" : 'none';
     }
   }
 
@@ -622,49 +622,12 @@ export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
     fallbackUI: () => {
       return `
-        <div class='error-boundary' role='alert'>
-          <div class='error-boundary__content'>
-            <div class='error-boundary__icon' aria-hidden='true'>🏠</div>
-            <h2 class='error-boundary__title'>Properties 4 Creations</h2>
-            <p class='error-boundary__message'>
+        <div class="error-boundary" role="alert">
+          <div class="error-boundary__content">
+            <div class="error-boundary__icon" aria-hidden="true">🏠</div>
+            <h2 class="error-boundary__title">Properties 4 Creations</h2>
+            <p class="error-boundary__message">
               We're experiencing technical difficulties with our housing services. 
               Please try refreshing the page or contact support if the problem persists.
             </p>
-            <div class='error-boundary__actions'>
-              <button 
-                type='button' 
-                class='btn btn-primary'
-                onclick='window.ErrorBoundaryInstance?.retry()'
-              >
-                Try Again
-              </button>
-              <button 
-                type='button' 
-                class='btn btn-secondary'
-                onclick='location.reload()'
-              >
-                Refresh Page
-              </button>
-              <a href='/contact.html' class='btn btn-link'>
-                Contact Support
-              </a>
-            </div>
-          </div>
-        </div>
-      `;
-    },
-    enableLogging: true,
-    enableMonitoring: true,
-    enableRetry: true,
-    maxRetries: 2
-  });
-}
-
-// Export for global access
-if (typeof window !== 'undefined') {
-  window.ErrorBoundary = ErrorBoundary;
-  window.createGlobalErrorBoundary = createGlobalErrorBoundary;
-  window.createPropertiesErrorBoundary = createPropertiesErrorBoundary;
-}
-
-export default ErrorBoundary;
+            <div class

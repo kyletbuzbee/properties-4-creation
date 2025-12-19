@@ -102,7 +102,7 @@ class ButtonUtils {
   setupLoadingStates () {
     document.addEventListener('submit', (e) => {
       const form = e.target;
-      const submitBtn = form.querySelector('button[type='submit']');
+      const submitBtn = form.querySelector('button[type="submit"]');
 
       if (submitBtn && !submitBtn.classList.contains('no-loading')) {
         ButtonUtils.setLoading(submitBtn, 'Submitting...');
@@ -152,7 +152,7 @@ class ButtonUtils {
       .then(() => {
         if (button) {
           const originalText = button.innerHTML;
-          button.innerHTML = '<i data-lucide='check' class='icon'></i> Copied!';
+          button.innerHTML = '<i data-lucide="check" class="icon"></i> Copied!';
           button.classList.add('btn-success');
 
           setTimeout(() => {

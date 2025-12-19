@@ -185,7 +185,7 @@ export class AriaLiveRegions {
    * @param {string} message - Status message
    */
   announceFormStatus (status, message) {
-    const priority = status === 'error' ? "assertive": 'polite';
+    const priority = status === 'error' ? 'assertive': 'polite';
     this.announce(message, priority);
   }
 

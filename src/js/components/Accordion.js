@@ -246,28 +246,28 @@ export class Accordion {
     const { key } = e;
 
     switch (key) {
-    case "Enter":
+    case 'Enter':
     case ' ':
       e.preventDefault();
       this.toggle(index);
       break;
 
-    case "ArrowDown":
+    case 'ArrowDown':
       e.preventDefault();
       this.focusNext(index);
       break;
 
-    case "ArrowUp":
+    case 'ArrowUp':
       e.preventDefault();
       this.focusPrevious(index);
       break;
 
-    case "Home":
+    case 'Home':
       e.preventDefault();
       this.focusFirst();
       break;
 
-    case "End":
+    case 'End':
       e.preventDefault();
       this.focusLast();
       break;

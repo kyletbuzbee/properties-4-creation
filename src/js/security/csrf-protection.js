@@ -49,7 +49,7 @@ export class CSRFProtection {
     }
 
     // Check if CSRF token already exists
-    const existingToken = form.querySelector('input[name='csrf_token']');
+    const existingToken = form.querySelector('input[name="csrf_token"]');
     if (existingToken) {
       existingToken.value = this.getToken();
       return;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add CSRF validation on form submission
     form.addEventListener('submit', (e) => {
-      const csrfToken = form.querySelector('input[name='csrf_token']');
+      const csrfToken = form.querySelector('input[name="csrf_token"]');
       if (!csrfToken || !window.csrfProtection.validateToken(csrfToken.value)) {
         e.preventDefault();
         // CSRF token validation failed
