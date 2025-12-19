@@ -131,7 +131,6 @@ export class ErrorHandler {
       // Error logged silently
     }
 
-
     // Store in error log
     this.logError(error);
 
@@ -300,7 +299,6 @@ export class ErrorHandler {
     } catch (e) {
       // Silently fail - don't create infinite error loop
       // Failed to report error to server - silently continue
-
     }
   }
 

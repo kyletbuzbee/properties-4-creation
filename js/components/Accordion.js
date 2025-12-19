@@ -17,7 +17,6 @@ export class Accordion {
         ? document.querySelector(containerSelector)
         : containerSelector;
 
-
     this.options = {
       allowMultiple: false,
       defaultOpen: [], // Array of indices to open by default
@@ -25,7 +24,6 @@ export class Accordion {
       onToggle: null,
       ...options
     };
-
 
     this.items = [];
     this.init();
@@ -45,16 +43,13 @@ export class Accordion {
       '.accordion__item, .faq-item'
     );
 
-
-    accordionItems.forEach ((item, index) => {
-
+    accordionItems.forEach((item, index) => {
       const button = item.querySelector(
         '.accordion__button, .accordion__header, .faq-question'
       );
       const panel = item.querySelector(
         '.accordion__panel, .accordion__content, .faq-answer'
       );
-
 
       if (!button || !panel) return;
 
@@ -101,7 +96,6 @@ export class Accordion {
         this.open(index, false);
       }
     });
-
   }
 
   /**
@@ -383,7 +377,6 @@ export function initAccordions (selector = '.accordion', options = {}) {
   return Array.from(containers).map(
     (container) => new Accordion(container, options)
   );
-
 }
 
 // Export for global access if needed

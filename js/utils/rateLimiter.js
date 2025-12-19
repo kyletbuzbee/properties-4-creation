@@ -82,7 +82,6 @@ export class RateLimiter {
         }
       } catch (error) {
         // Failed to get identifier - silently continue
-
       }
     }
 
@@ -270,7 +269,6 @@ export class RateLimiter {
     });
 
     // Cleaned up expired entries
-
   }
 
   /**

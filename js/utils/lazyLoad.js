@@ -113,7 +113,6 @@ export class LazyLoader {
     preloadImg.onerror = () => {
       img.classList.add('lazy-error');
       // Failed to load image - silently handle error
-
     };
 
     // Start loading
