@@ -1,381 +1,406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply Now - Properties 4 Creations</title>
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
-        integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
-        crossorigin="anonymous">
-    <meta name="msapplication-TileColor" content="#0B1120">
-    <meta name="description"
-        content="Start your application for veteran housing in East Texas. Properties 4 Creations accepts Section 8 and HUD-VASH vouchers.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply Now - Properties 4 Creations</title>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
+    integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
+    crossorigin="anonymous" />
+  <meta name="msapplication-TileColor" content="#0B1120" />
+  <meta name="description"
+    content="Start your application for veteran housing in East Texas. Properties 4 Creations accepts Section 8 and HUD-VASH vouchers." />
 </head>
 
 <body>
-    <!-- Skip Link -->
-    <a href="#main" class="skip-link">Skip to main content</a>
+  <!-- Skip Link -->
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-    <!-- HEADER -->
-    {% include "nav.html" %}
+  <!-- HEADER -->
+  {% include "nav.html" %}
 
-    <main id="main">
-        <!-- APPLICATION HEADER -->
-        <section class="page-banner bg-home-banner">
-            <div class="container">
-                <h1>Start Your Application</h1>
-                <p>Your next chapter starts here. We accept Section 8 and HUD-VASH vouchers.</p>
-            </div>
-        </section>
+  <main id="main">
+    <!-- APPLICATION HEADER -->
+    <section class="page-banner bg-home-banner">
+      <div class="container">
+        <h1>Start Your Application</h1>
+        <p>
+          Your next chapter starts here. We accept Section 8 and HUD-VASH
+          vouchers.
+        </p>
+      </div>
+    </section>
 
-        <!-- APPLICATION FORM -->
-        <section class="form-container">
-            <div class="container">
-                <div class="form-wrapper">
-                    <h1>Application for Housing</h1>
-                    <p>Please complete this form to begin your housing application. We'll review your information and
-                        contact you within 24-48 hours.</p>
+    <!-- APPLICATION FORM -->
+    <section class="form-container">
+      <div class="container">
+        <div class="form-wrapper">
+          <h1>Application for Housing</h1>
+          <p>
+            Please complete this form to begin your housing application. We'll
+            review your information and contact you within 24-48 hours.
+          </p>
 
-                    <div id="success-message" class="success-message">
-                        ✓ Your application has been submitted successfully! We'll be in touch within 24-48 hours.
-                    </div>
+          <div id="success-message" class="success-message">
+            ✓ Your application has been submitted successfully! We'll be in
+            touch within 24-48 hours.
+          </div>
 
-                    <form id="application-form" name="application-form">
-                        <!-- Personal Information -->
-                        <fieldset>
-                            <legend>Personal Information</legend>
+          <form id="application-form" name="application-form">
+            <!-- Personal Information -->
+            <fieldset>
+              <legend>Personal Information</legend>
 
-                            <div class="form-group">
-                                <label for="full-name">Full Legal Name *</label>
-                                <input type="text" id="full-name" name="fullName" required>
-                                <span class="error-message">Full name is required</span>
-                            </div>
+              <div class="form-group">
+                <label for="full-name">Full Legal Name *</label>
+                <input type="text" id="full-name" name="fullName" required />
+                <span class="error-message">Full name is required</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" required>
-                                <span class="error-message">Valid email address is required</span>
-                            </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required />
+                <span class="error-message">Valid email address is required</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="phone">Primary Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required pattern="[0-9\-\+\(\)\s]+">
-                                <span class="error-message">Valid phone number is required (numbers, spaces, dashes,
-                                    parentheses only)</span>
-                            </div>
+              <div class="form-group">
+                <label for="phone">Primary Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required pattern="[0-9\-\+\(\)\s]+" />
+                <span class="error-message">Valid phone number is required (numbers, spaces, dashes,
+                  parentheses only)</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="date-of-birth">Date of Birth *</label>
-                                <input type="date" id="date-of-birth" name="dateOfBirth" required>
-                                <span class="error-message">Date of birth is required</span>
-                            </div>
-                        </fieldset>
+              <div class="form-group">
+                <label for="date-of-birth">Date of Birth *</label>
+                <input type="date" id="date-of-birth" name="dateOfBirth" required />
+                <span class="error-message">Date of birth is required</span>
+              </div>
+            </fieldset>
 
-                        <!-- Application Type & Voucher Information -->
-                        <fieldset>
-                            <legend>Housing Assistance</legend>
+            <!-- Application Type & Voucher Information -->
+            <fieldset>
+              <legend>Housing Assistance</legend>
 
-                            <div class="form-group">
-                                <label for="applicant-type">How are you applying? *</label>
-                                <select id="applicant-type" name="applicantType" required>
-                                    <option value="">-- Select an option --</option>
-                                    <option value="veteran">Veteran</option>
-                                    <option value="spouse">Spouse/Surviving Spouse of Veteran</option>
-                                    <option value="family">Family Member</option>
-                                    <option value="general">General Applicant</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <span class="error-message">Please select how you are applying</span>
-                            </div>
+              <div class="form-group">
+                <label for="applicant-type">How are you applying? *</label>
+                <select id="applicant-type" name="applicantType" required>
+                  <option value="">-- Select an option --</option>
+                  <option value="veteran">Veteran</option>
+                  <option value="spouse">
+                    Spouse/Surviving Spouse of Veteran
+                  </option>
+                  <option value="family">Family Member</option>
+                  <option value="general">General Applicant</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="error-message">Please select how you are applying</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="voucher-type">What voucher or housing assistance do you hold? *</label>
-                                <select id="voucher-type" name="voucherType" required>
-                                    <option value="">-- Select an option --</option>
-                                    <option value="hudvash">HUD-VASH (HUD-VA Supportive Housing)</option>
-                                    <option value="section8">Section 8 Housing Choice Voucher</option>
-                                    <option value="ssvf">SSVF (Supportive Services for Veteran Families)</option>
-                                    <option value="rapid_rehousing">Rapid Re-housing</option>
-                                    <option value="family_unification">Family Unification Program (FUP)</option>
-                                    <option value="other_voucher">Other Voucher Program</option>
-                                    <option value="no_voucher">No voucher yet - need guidance</option>
-                                </select>
-                                <span class="error-message">Please select your housing assistance type</span>
-                            </div>
+              <div class="form-group">
+                <label for="voucher-type">What voucher or housing assistance do you hold? *</label>
+                <select id="voucher-type" name="voucherType" required>
+                  <option value="">-- Select an option --</option>
+                  <option value="hudvash">
+                    HUD-VASH (HUD-VA Supportive Housing)
+                  </option>
+                  <option value="section8">
+                    Section 8 Housing Choice Voucher
+                  </option>
+                  <option value="ssvf">
+                    SSVF (Supportive Services for Veteran Families)
+                  </option>
+                  <option value="rapid_rehousing">Rapid Re-housing</option>
+                  <option value="family_unification">
+                    Family Unification Program (FUP)
+                  </option>
+                  <option value="other_voucher">Other Voucher Program</option>
+                  <option value="no_voucher">
+                    No voucher yet - need guidance
+                  </option>
+                </select>
+                <span class="error-message">Please select your housing assistance type</span>
+              </div>
 
-                            <div class="form-group" id="military-service-group">
-                                <label for="military-service">Military Service (for Veterans) *</label>
-                                <select id="military-service" name="militaryService">
-                                    <option value="">-- Select branch --</option>
-                                    <option value="army">U.S. Army</option>
-                                    <option value="navy">U.S. Navy</option>
-                                    <option value="air_force">U.S. Air Force</option>
-                                    <option value="marines">U.S. Marine Corps</option>
-                                    <option value="coast_guard">U.S. Coast Guard</option>
-                                    <option value="space_force">U.S. Space Force</option>
-                                    <option value="national_guard">National Guard</option>
-                                    <option value="reserves">Reserves</option>
-                                    <option value="other_active">Other Active Duty</option>
-                                    <option value="not_applicable">Not Applicable</option>
-                                </select>
-                            </div>
-                        </fieldset>
+              <div class="form-group" id="military-service-group">
+                <label for="military-service">Military Service (for Veterans) *</label>
+                <select id="military-service" name="militaryService">
+                  <option value="">-- Select branch --</option>
+                  <option value="army">U.S. Army</option>
+                  <option value="navy">U.S. Navy</option>
+                  <option value="air_force">U.S. Air Force</option>
+                  <option value="marines">U.S. Marine Corps</option>
+                  <option value="coast_guard">U.S. Coast Guard</option>
+                  <option value="space_force">U.S. Space Force</option>
+                  <option value="national_guard">National Guard</option>
+                  <option value="reserves">Reserves</option>
+                  <option value="other_active">Other Active Duty</option>
+                  <option value="not_applicable">Not Applicable</option>
+                </select>
+              </div>
+            </fieldset>
 
-                        <!-- Household Information -->
-                        <fieldset>
-                            <legend>Household Information</legend>
+            <!-- Household Information -->
+            <fieldset>
+              <legend>Household Information</legend>
 
-                            <div class="form-group">
-                                <label for="household-size">Total Number of People in Household (including yourself)
-                                    *</label>
-                                <select id="household-size" name="householdSize" required>
-                                    <option value="">-- Select size --</option>
-                                    <option value="1">1 Person</option>
-                                    <option value="2">2 People</option>
-                                    <option value="3">3 People</option>
-                                    <option value="4">4 People</option>
-                                    <option value="5">5 People</option>
-                                    <option value="6">6+ People</option>
-                                </select>
-                                <span class="error-message">Household size is required</span>
-                            </div>
+              <div class="form-group">
+                <label for="household-size">Total Number of People in Household (including yourself)
+                  *</label>
+                <select id="household-size" name="householdSize" required>
+                  <option value="">-- Select size --</option>
+                  <option value="1">1 Person</option>
+                  <option value="2">2 People</option>
+                  <option value="3">3 People</option>
+                  <option value="4">4 People</option>
+                  <option value="5">5 People</option>
+                  <option value="6">6+ People</option>
+                </select>
+                <span class="error-message">Household size is required</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="preferred-bedrooms">Preferred Number of Bedrooms *</label>
-                                <select id="preferred-bedrooms" name="preferredBedrooms" required>
-                                    <option value="">-- Select bedrooms --</option>
-                                    <option value="studio">Studio/Efficiency (0 bedrooms)</option>
-                                    <option value="1">1 Bedroom</option>
-                                    <option value="2">2 Bedrooms</option>
-                                    <option value="3">3 Bedrooms</option>
-                                    <option value="4">4+ Bedrooms</option>
-                                </select>
-                                <span class="error-message">Please select preferred bedrooms</span>
-                            </div>
+              <div class="form-group">
+                <label for="preferred-bedrooms">Preferred Number of Bedrooms *</label>
+                <select id="preferred-bedrooms" name="preferredBedrooms" required>
+                  <option value="">-- Select bedrooms --</option>
+                  <option value="studio">
+                    Studio/Efficiency (0 bedrooms)
+                  </option>
+                  <option value="1">1 Bedroom</option>
+                  <option value="2">2 Bedrooms</option>
+                  <option value="3">3 Bedrooms</option>
+                  <option value="4">4+ Bedrooms</option>
+                </select>
+                <span class="error-message">Please select preferred bedrooms</span>
+              </div>
 
-                            <div class="form-group">
-                                <label for="monthly-income">Monthly Gross Income *</label>
-                                <input type="number" id="monthly-income" name="monthlyIncome" required min="0"
-                                    placeholder="$">
-                                <span class="error-message">Monthly income is required</span>
-                                <small>We use this to verify voucher eligibility and determine appropriate
-                                    housing</small>
-                            </div>
+              <div class="form-group">
+                <label for="monthly-income">Monthly Gross Income *</label>
+                <input type="number" id="monthly-income" name="monthlyIncome" required min="0" placeholder="$" />
+                <span class="error-message">Monthly income is required</span>
+                <small>We use this to verify voucher eligibility and determine
+                  appropriate housing</small>
+              </div>
 
-                            <div class="form-group">
-                                <label for="move-in-date">Preferred Move-in Date</label>
-                                <select id="move-in-date" name="moveInDate">
-                                    <option value="">-- Select timeframe --</option>
-                                    <option value="asap">As soon as possible</option>
-                                    <option value="within_30">Within 30 days</option>
-                                    <option value="within_60">Within 60 days</option>
-                                    <option value="within_90">Within 90 days</option>
-                                    <option value="future">More than 90 days</option>
-                                </select>
-                            </div>
-                        </fieldset>
+              <div class="form-group">
+                <label for="move-in-date">Preferred Move-in Date</label>
+                <select id="move-in-date" name="moveInDate">
+                  <option value="">-- Select timeframe --</option>
+                  <option value="asap">As soon as possible</option>
+                  <option value="within_30">Within 30 days</option>
+                  <option value="within_60">Within 60 days</option>
+                  <option value="within_90">Within 90 days</option>
+                  <option value="future">More than 90 days</option>
+                </select>
+              </div>
+            </fieldset>
 
-                        <!-- Special Needs & Preferences -->
-                        <fieldset>
-                            <legend>Special Needs & Preferences</legend>
+            <!-- Special Needs & Preferences -->
+            <fieldset>
+              <legend>Special Needs & Preferences</legend>
 
-                            <div class="form-group">
-                                <label for="housing-preferences">Housing Preferences</label>
-                                <textarea id="housing-preferences" name="housingPreferences" rows="3"
-                                    placeholder="e.g., ground floor, accessible features, pet-friendly, specific locations, etc."></textarea>
-                            </div>
+              <div class="form-group">
+                <label for="housing-preferences">Housing Preferences</label>
+                <textarea id="housing-preferences" name="housingPreferences" rows="3"
+                  placeholder="e.g., ground floor, accessible features, pet-friendly, specific locations, etc."></textarea>
+              </div>
 
-                            <div class="form-group">
-                                <label for="special-needs">Accessibility or Special Needs</label>
-                                <textarea id="special-needs" name="specialNeeds" rows="3"
-                                    placeholder="e.g., mobility assistance, medical equipment, therapy animals, etc."></textarea>
-                                <small>We maintain strict confidentiality for medical information</small>
-                            </div>
+              <div class="form-group">
+                <label for="special-needs">Accessibility or Special Needs</label>
+                <textarea id="special-needs" name="specialNeeds" rows="3"
+                  placeholder="e.g., mobility assistance, medical equipment, therapy animals, etc."></textarea>
+                <small>We maintain strict confidentiality for medical
+                  information</small>
+              </div>
 
-                            <div class="form-group">
-                                <label for="additional-info">Additional Information</label>
-                                <textarea id="additional-info" name="additionalInfo" rows="3"
-                                    placeholder="Any other information that might help us serve you better..."></textarea>
-                            </div>
-                        </fieldset>
+              <div class="form-group">
+                <label for="additional-info">Additional Information</label>
+                <textarea id="additional-info" name="additionalInfo" rows="3"
+                  placeholder="Any other information that might help us serve you better..."></textarea>
+              </div>
+            </fieldset>
 
-                        <!-- Verification & Consent -->
-                        <fieldset>
-                            <legend>Verification & Consent</legend>
+            <!-- Verification & Consent -->
+            <fieldset>
+              <legend>Verification & Consent</legend>
 
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="income-verification" name="incomeVerification" required>
-                                    <label for="income-verification" class="form-label-reset">I authorize Properties 4
-                                        Creations to verify the information provided, including income and voucher
-                                        status *</label>
-                                </div>
-                                <span class="error-message">Authorization is required</span>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="background-check" name="backgroundCheck" required>
-                                    <label for="background-check" class="form-label-reset">I understand that a
-                                        background
-                                        check may be conducted as part of the leasing process *</label>
-                                </div>
-                                <span class="error-message">Understanding is required</span>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="fair-housing" name="fairHousing" required>
-                                    <label for="fair-housing" class="form-label-reset">I understand that all properties
-                                        are
-                                        available on a first-come, first-served basis and comply with Fair Housing Laws
-                                        *</label>
-                                </div>
-                                <span class="error-message">Fair Housing understanding is required</span>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="privacy-consent" name="privacyConsent" required>
-                                    <label for="privacy-consent" class="form-label-reset">I have read and agree to the
-                                        Privacy
-                                        Policy and understand how my information will be used *</label>
-                                </div>
-                                <span class="error-message">Privacy Policy agreement is required</span>
-                            </div>
-                        </fieldset>
-
-                        <button type="submit" class="submit-btn">Submit Application</button>
-
-                        <p class="legal-notice">
-                            <small>This application is confidential and will only be used for housing assistance
-                                purposes.
-                                You can withdraw this application at any time. We comply with all Fair Housing laws and
-                                do not discriminate.</small>
-                        </p>
-                    </form>
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="income-verification" name="incomeVerification" required />
+                  <label for="income-verification" class="form-label-reset">I authorize Properties 4 Creations to verify
+                    the
+                    information provided, including income and voucher status
+                    *</label>
                 </div>
-            </div>
-        </section>
+                <span class="error-message">Authorization is required</span>
+              </div>
 
-        <!-- GUIDANCE SECTION -->
-        <section class="impact-snapshot">
-            <div class="container">
-                <h2>Application Process Overview</h2>
-                <div class="process-steps">
-                    <div class="process-step">
-                        <h3>1. Submit Application</h3>
-                        <p>Complete the form above. We'll review within 24-48 hours.</p>
-                    </div>
-                    <div class="process-step">
-                        <h3>2. Document Review</h3>
-                        <p>We'll verify your voucher and income information.</p>
-                    </div>
-                    <div class="process-step">
-                        <h3>3. Property Matching</h3>
-                        <p>If approved, we'll show you properties that fit your needs.</p>
-                    </div>
-                    <div class="process-step">
-                        <h3>4. Lease Signing</h3>
-                        <p>Complete leasing paperwork and move into your new home.</p>
-                    </div>
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="background-check" name="backgroundCheck" required />
+                  <label for="background-check" class="form-label-reset">I understand that a background check may be
+                    conducted as
+                    part of the leasing process *</label>
                 </div>
-            </div>
-        </section>
-    </main>
+                <span class="error-message">Understanding is required</span>
+              </div>
 
-    <!-- FOOTER -->
-    {% include "footer.html" %}
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="fair-housing" name="fairHousing" required />
+                  <label for="fair-housing" class="form-label-reset">I understand that all properties are available on a
+                    first-come, first-served basis and comply with Fair
+                    Housing Laws *</label>
+                </div>
+                <span class="error-message">Fair Housing understanding is required</span>
+              </div>
 
-    <!-- SCRIPTS -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
-        integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
-        crossorigin="anonymous"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-    <script src="/js/main.js"></script>
+              <div class="form-group">
+                <div class="checkbox-group">
+                  <input type="checkbox" id="privacy-consent" name="privacyConsent" required />
+                  <label for="privacy-consent" class="form-label-reset">I have read and agree to the Privacy Policy and
+                    understand how my information will be used *</label>
+                </div>
+                <span class="error-message">Privacy Policy agreement is required</span>
+              </div>
+            </fieldset>
 
-    <script>
-        // APPLICATION FORM JAVASCRIPT
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.getElementById('application-form');
-            const successMessage = document.getElementById('success-message');
-            const applicantType = document.getElementById('applicant-type');
-            const militaryGroup = document.getElementById('military-service-group');
+            <button type="submit" class="submit-btn">
+              Submit Application
+            </button>
 
-            // Hide success message by default
-            successMessage.style.display = 'none';
+            <p class="legal-notice">
+              <small>This application is confidential and will only be used for
+                housing assistance purposes. You can withdraw this application
+                at any time. We comply with all Fair Housing laws and do not
+                discriminate.</small>
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
 
-            // Show/hide military service field based on applicant type
-            applicantType.addEventListener('change', function () {
-                if (this.value === 'veteran' || this.value === 'spouse') {
-                    militaryGroup.style.display = 'block';
-                    document.getElementById('military-service').required = true;
-                } else {
-                    militaryGroup.style.display = 'none';
-                    document.getElementById('military-service').required = false;
-                }
-            });
+    <!-- GUIDANCE SECTION -->
+    <section class="impact-snapshot">
+      <div class="container">
+        <h2>Application Process Overview</h2>
+        <div class="process-steps">
+          <div class="process-step">
+            <h3>1. Submit Application</h3>
+            <p>Complete the form above. We'll review within 24-48 hours.</p>
+          </div>
+          <div class="process-step">
+            <h3>2. Document Review</h3>
+            <p>We'll verify your voucher and income information.</p>
+          </div>
+          <div class="process-step">
+            <h3>3. Property Matching</h3>
+            <p>If approved, we'll show you properties that fit your needs.</p>
+          </div>
+          <div class="process-step">
+            <h3>4. Lease Signing</h3>
+            <p>Complete leasing paperwork and move into your new home.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
+  <!-- FOOTER -->
+  {% include "footer.html" %}
 
-                let isValid = true;
-                const formGroups = form.querySelectorAll('.form-group');
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
+    integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
+    crossorigin="anonymous"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="/js/main.js"></script>
 
-                formGroups.forEach(group => {
-                    const input = group.querySelector('input, select, textarea');
-                    const errorMessage = group.querySelector('.error-message');
+  <script>
+    // APPLICATION FORM JAVASCRIPT
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("application-form");
+      const successMessage = document.getElementById("success-message");
+      const applicantType = document.getElementById("applicant-type");
+      const militaryGroup = document.getElementById("military-service-group");
 
-                    if (input && input.hasAttribute('required') && !input.value.trim()) {
-                        isValid = false;
-                        errorMessage.style.display = 'block';
-                        input.classList.add('error');
-                    } else {
-                        errorMessage.style.display = 'none';
-                        input.classList.remove('error');
-                    }
+      // Hide success message by default
+      successMessage.style.display = "none";
 
-                    // Email validation
-                    if (input && input.type === 'email' && input.value) {
-                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailRegex.test(input.value)) {
-                            isValid = false;
-                            errorMessage.textContent = 'Please enter a valid email address';
-                            errorMessage.style.display = 'block';
-                            input.classList.add('error');
-                        }
-                    }
+      // Show/hide military service field based on applicant type
+      applicantType.addEventListener("change", function () {
+        if (this.value === "veteran" || this.value === "spouse") {
+          militaryGroup.style.display = "block";
+          document.getElementById("military-service").required = true;
+        } else {
+          militaryGroup.style.display = "none";
+          document.getElementById("military-service").required = false;
+        }
+      });
 
-                    // Phone validation
-                    if (input && input.type === 'tel' && input.value) {
-                        const phoneRegex = /^[0-9\-\+\(\)\s]+$/;
-                        if (!phoneRegex.test(input.value)) {
-                            isValid = false;
-                            errorMessage.textContent = 'Please enter a valid phone number';
-                            errorMessage.style.display = 'block';
-                            input.classList.add('error');
-                        }
-                    }
-                });
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-                if (isValid) {
-                    // Here you would typically send the form data to a server
-                    // For now, we'll just show the success message
-                    successMessage.style.display = 'block';
-                    form.reset();
+        let isValid = true;
+        const formGroups = form.querySelectorAll(".form-group");
 
-                    // Scroll to success message
-                    successMessage.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+        formGroups.forEach((group) => {
+          const input = group.querySelector("input, select, textarea");
+          const errorMessage = group.querySelector(".error-message");
+
+          if (
+            input &&
+            input.hasAttribute("required") &&
+            !input.value.trim()
+          ) {
+            isValid = false;
+            errorMessage.style.display = "block";
+            input.classList.add("error");
+          } else {
+            errorMessage.style.display = "none";
+            input.classList.remove("error");
+          }
+
+          // Email validation
+          if (input && input.type === "email" && input.value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+              isValid = false;
+              errorMessage.textContent = "Please enter a valid email address";
+              errorMessage.style.display = "block";
+              input.classList.add("error");
+            }
+          }
+
+          // Phone validation
+          if (input && input.type === "tel" && input.value) {
+            const phoneRegex = /^[0-9\-\+\(\)\s]+$/;
+            if (!phoneRegex.test(input.value)) {
+              isValid = false;
+              errorMessage.textContent = "Please enter a valid phone number";
+              errorMessage.style.display = "block";
+              input.classList.add("error");
+            }
+          }
         });
-    </script>
+
+        if (isValid) {
+          // Here you would typically send the form data to a server
+          // For now, we'll just show the success message
+          successMessage.style.display = "block";
+          form.reset();
+
+          // Scroll to success message
+          successMessage.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

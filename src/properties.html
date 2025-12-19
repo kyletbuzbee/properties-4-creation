@@ -5,104 +5,87 @@ description: "Browse our premium, renovated homes ready for veteran and family o
 
 <!doctype html>
 <html lang="en">
-  <head>
-    {% include "meta.html" %}
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
-      integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
-  <body>
-    <!-- Skip Link -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    {% include "header.html" %}
+<head>
+  {% include "meta.html" %}
+  <link rel="stylesheet" href="https://unpkg.com/lucide@latest/dist/umd/lucide.css"
+    integrity="sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
 
-    <main id="main-content">
-      <!-- PROPERTIES HEADER -->
-      <section
-        class="properties-header"
-        style="
+<body>
+  <!-- Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  {% include "header.html" %}
+
+  <main id="main-content">
+    <!-- PROPERTIES HEADER -->
+    <section class="properties-header" style="
           background-image: url(&quot;/images/banners/hero-projects-banner.webp&quot;);
           background-size: cover;
           background-position: center;
-        "
-      >
-        <div class="container">
-          <h1>Available Properties</h1>
-          <p>
-            Browse our premium, renovated homes ready for veteran and family
-            occupancy.
-          </p>
-        </div>
-      </section>
+        ">
+      <div class="container">
+        <h1>Available Properties</h1>
+        <p>
+          Browse our premium, renovated homes ready for veteran and family
+          occupancy.
+        </p>
+      </div>
+    </section>
 
-      <!-- COMPARISON SLIDER -->
-      <section class="comparison-slider">
-        <div class="container">
-          <h2>Before & After Renovations</h2>
-          <p>See the transformation our properties undergo.</p>
-          <div class="slider-container">
-            <img
-              src="/images/before-after-comparison/projects-before-kitchen.webp"
-              alt="Before renovation"
-              class="slider-before"
-            />
-            <img
-              src="/images/before-after-comparison/projects-after-kitchen.webp"
-              alt="After renovation"
-              class="slider-after"
-            />
-            <div class="slider-handle"></div>
-          </div>
+    <!-- COMPARISON SLIDER -->
+    <section class="comparison-slider">
+      <div class="container">
+        <h2>Before & After Renovations</h2>
+        <p>See the transformation our properties undergo.</p>
+        <div class="slider-container">
+          <img src="/images/before-after-comparison/projects-before-kitchen.webp" alt="Before renovation"
+            class="slider-before" />
+          <img src="/images/before-after-comparison/projects-after-kitchen.webp" alt="After renovation"
+            class="slider-after" />
+          <div class="slider-handle"></div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- FILTER SECTION -->
-      <section class="filter-section">
-        <div class="container">
-          <div class="filter-controls">
-            <select id="bedroom-filter">
-              <option value="">All Bedrooms</option>
-              <option value="1">1 Bedroom</option>
-              <option value="2">2 Bedrooms</option>
-              <option value="3">3 Bedrooms</option>
-              <option value="4">4+ Bedrooms</option>
-            </select>
-            <select id="location-filter">
-              <option value="">All Locations</option>
-              <option value="Tyler">Tyler</option>
-              <option value="Longview">Longview</option>
-              <option value="Marshall">Marshall</option>
-              <option value="Kemp">Kemp</option>
-              <option value="Jefferson">Jefferson</option>
-              <option value="Mineola">Mineola</option>
-            </select>
-            <input
-              type="text"
-              id="search-filter"
-              placeholder="Search properties..."
-            />
-            <button id="filter-btn" class="btn btn-primary">Filter</button>
-          </div>
+    <!-- FILTER SECTION -->
+    <section class="filter-section">
+      <div class="container">
+        <div class="filter-controls">
+          <select id="bedroom-filter">
+            <option value="">All Bedrooms</option>
+            <option value="1">1 Bedroom</option>
+            <option value="2">2 Bedrooms</option>
+            <option value="3">3 Bedrooms</option>
+            <option value="4">4+ Bedrooms</option>
+          </select>
+          <select id="location-filter">
+            <option value="">All Locations</option>
+            <option value="Tyler">Tyler</option>
+            <option value="Longview">Longview</option>
+            <option value="Marshall">Marshall</option>
+            <option value="Kemp">Kemp</option>
+            <option value="Jefferson">Jefferson</option>
+            <option value="Mineola">Mineola</option>
+          </select>
+          <input type="text" id="search-filter" placeholder="Search properties..." />
+          <button id="filter-btn" class="btn btn-primary">Filter</button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- PROPERTIES GRID -->
-      <section class="properties-section">
-        <div class="container">
-          <div class="properties-grid" id="properties-grid">
-            <!-- Property cards will be populated by JavaScript -->
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-tyler-ranch-home.webp"
-                alt="Tyler Ranch Home exterior - renovated 3BR ranch with modern updates"
-                loading="lazy"
-                class="property-image"
-                style="
+    <!-- PROPERTIES GRID -->
+    <section class="properties-section">
+      <div class="container">
+        <div class="properties-grid" id="properties-grid">
+          <!-- Property cards will be populated by JavaScript -->
+          <div class="property-card">
+            <img src="/images/properties/properties-tyler-ranch-home.webp"
+              alt="Tyler Ranch Home exterior - renovated 3BR ranch with modern updates" loading="lazy"
+              class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-tyler-ranch-home.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -116,59 +99,48 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-tyler-ranch-home.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Tyler Ranch Home</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Tyler Ranch Home</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Tyler, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">3</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">2</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      Section 8 Ready
-                    </div>
-                  </div>
+                  ">
+                <i data-lucide="map-pin"></i> Tyler, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">3</div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">Section 8 Ready</span>
-                  <span class="tag">Newly Renovated</span>
-                  <span class="tag">HVAC New</span>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">2</div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a href="tyler-ranch-home.html" class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    Section 8 Ready
+                  </div>
                 </div>
               </div>
+              <div class="property-tags">
+                <span class="tag">Section 8 Ready</span>
+                <span class="tag">Newly Renovated</span>
+                <span class="tag">HVAC New</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="tyler-ranch-home.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+              </div>
             </div>
+          </div>
 
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-longview-victorian.webp"
-                alt="Longview Victorian home - historic Queen Anne architecture with modern restorations"
-                loading="lazy"
-                class="property-image"
-                style="
+          <div class="property-card">
+            <img src="/images/properties/properties-longview-victorian.webp"
+              alt="Longview Victorian home - historic Queen Anne architecture with modern restorations" loading="lazy"
+              class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-longview-victorian.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -182,59 +154,48 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-longview-victorian.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Longview Victorian</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Longview Victorian</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Longview, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">4</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">2.5</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      HUD-VASH Ready
-                    </div>
-                  </div>
+                  ">
+                <i data-lucide="map-pin"></i> Longview, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">4</div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">HUD-VASH Approved</span>
-                  <span class="tag">Historic Home</span>
-                  <span class="tag">New Roof</span>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">2.5</div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a href="longview-victorian.html" class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    HUD-VASH Ready
+                  </div>
                 </div>
               </div>
+              <div class="property-tags">
+                <span class="tag">HUD-VASH Approved</span>
+                <span class="tag">Historic Home</span>
+                <span class="tag">New Roof</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="longview-victorian.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+              </div>
             </div>
+          </div>
 
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-jefferson-river-front.webp"
-                alt="Jefferson Riverfront apartment - ADA accessible waterfront living with modern amenities"
-                loading="lazy"
-                class="property-image"
-                style="
+          <div class="property-card">
+            <img src="/images/properties/properties-jefferson-river-front.webp"
+              alt="Jefferson Riverfront apartment - ADA accessible waterfront living with modern amenities"
+              loading="lazy" class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-jefferson-river-front.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -248,59 +209,48 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-jefferson-river-front.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Jefferson Riverfront</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Jefferson Riverfront</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Jefferson, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">2</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">1</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      Section 8 Ready
-                    </div>
-                  </div>
+                  ">
+                <i data-lucide="map-pin"></i> Jefferson, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">2</div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">ADA Accessible</span>
-                  <span class="tag">Waterfront</span>
-                  <span class="tag">Section 8 Ready</span>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">1</div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a href="jefferson-riverfront.html" class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    Section 8 Ready
+                  </div>
                 </div>
               </div>
+              <div class="property-tags">
+                <span class="tag">ADA Accessible</span>
+                <span class="tag">Waterfront</span>
+                <span class="tag">Section 8 Ready</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="jefferson-riverfront.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+              </div>
             </div>
+          </div>
 
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-kemp-townhome.webp"
-                alt="Kemp Townhome - maintenance-free living in quiet community with modern updates"
-                loading="lazy"
-                class="property-image"
-                style="
+          <div class="property-card">
+            <img src="/images/properties/properties-kemp-townhome.webp"
+              alt="Kemp Townhome - maintenance-free living in quiet community with modern updates" loading="lazy"
+              class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-kemp-townhome.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -314,59 +264,48 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-kemp-townhome.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Kemp Townhome</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Kemp Townhome</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Kemp, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">1</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">1</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      Section 8/HUD-VASH
-                    </div>
-                  </div>
+                  ">
+                <i data-lucide="map-pin"></i> Kemp, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">1</div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">Both Programs</span>
-                  <span class="tag">Modern Build</span>
-                  <span class="tag">Energy Efficient</span>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">1</div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a href="kemp-townhome.html" class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    Section 8/HUD-VASH
+                  </div>
                 </div>
               </div>
+              <div class="property-tags">
+                <span class="tag">Both Programs</span>
+                <span class="tag">Modern Build</span>
+                <span class="tag">Energy Efficient</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="kemp-townhome.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+              </div>
             </div>
+          </div>
 
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-marshall-farmhouse.webp"
-                alt="Marshall Historic Farmhouse - restored East Texas heritage home with modern amenities"
-                loading="lazy"
-                class="property-image"
-                style="
+          <div class="property-card">
+            <img src="/images/properties/properties-marshall-farmhouse.webp"
+              alt="Marshall Historic Farmhouse - restored East Texas heritage home with modern amenities" loading="lazy"
+              class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-marshall-farmhouse.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -380,61 +319,48 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-marshall-farmhouse.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Marshall Historic Farm</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Marshall Historic Farm</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Marshall, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">4</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">2</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      Section 8 Ready
-                    </div>
-                  </div>
+                  ">
+                <i data-lucide="map-pin"></i> Marshall, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">4</div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">Section 8 Ready</span>
-                  <span class="tag">Family Friendly</span>
-                  <span class="tag">Yard Space</span>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">2</div>
                 </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a
-                    href="marshall-historic-farm.html"
-                    class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    Section 8 Ready
+                  </div>
                 </div>
               </div>
+              <div class="property-tags">
+                <span class="tag">Section 8 Ready</span>
+                <span class="tag">Family Friendly</span>
+                <span class="tag">Yard Space</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="marshall-historic-farm.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
+              </div>
             </div>
+          </div>
 
-            <div class="property-card">
-              <img
-                src="/images/properties/properties-mineola-studio.webp"
-                alt="Mineola Modern Studio - efficient apartment with modern amenities and affordable pricing"
-                loading="lazy"
-                class="property-image"
-                style="
+          <div class="property-card">
+            <img src="/images/properties/properties-mineola-studio.webp"
+              alt="Mineola Modern Studio - efficient apartment with modern amenities and affordable pricing"
+              loading="lazy" class="property-image" style="
                   background-image: url(&quot;/images/properties/properties-mineola-studio.webp&quot;);
                   background-size: cover;
                   background-position: center;
@@ -448,67 +374,58 @@ description: "Browse our premium, renovated homes ready for veteran and family o
                     ),
                     url(&quot;/images/properties/properties-mineola-studio.webp&quot;)
                       center/cover;
-                "
-              />
-              <div class="property-content">
-                <h3 class="property-title">Mineola Studio</h3>
-                <p
-                  style="
+                " />
+            <div class="property-content">
+              <h3 class="property-title">Mineola Studio</h3>
+              <p style="
                     color: var(--dark-gray);
                     font-size: 0.9rem;
                     margin-bottom: 1rem;
-                  "
-                >
-                  <i data-lucide="map-pin"></i> Mineola, TX
-                </p>
-                <div class="property-details">
-                  <div class="detail-item">
-                    <div class="detail-label">Beds</div>
-                    <div class="detail-value">0</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Baths</div>
-                    <div class="detail-value">1</div>
-                  </div>
-                  <div class="detail-item">
-                    <div class="detail-label">Status</div>
-                    <div
-                      class="detail-value"
-                      style="font-size: 0.8rem; color: var(--gold)"
-                    >
-                      Section 8 Ready
-                    </div>
+                  ">
+                <i data-lucide="map-pin"></i> Mineola, TX
+              </p>
+              <div class="property-details">
+                <div class="detail-item">
+                  <div class="detail-label">Beds</div>
+                  <div class="detail-value">0</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Baths</div>
+                  <div class="detail-value">1</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value" style="font-size: 0.8rem; color: var(--gold)">
+                    Section 8 Ready
                   </div>
                 </div>
-                <div class="property-tags">
-                  <span class="tag">Section 8 Ready</span>
-                  <span class="tag">Affordable</span>
-                  <span class="tag">Modern Amenities</span>
-                </div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
-                  <a href="mineola-modern-studio.html" class="btn btn-secondary"
-                    >View Details</a
-                  >
-                  <a href="apply.html" class="btn btn-primary">Apply Now</a>
-                </div>
+              </div>
+              <div class="property-tags">
+                <span class="tag">Section 8 Ready</span>
+                <span class="tag">Affordable</span>
+                <span class="tag">Modern Amenities</span>
+              </div>
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem">
+                <a href="mineola-modern-studio.html" class="btn btn-secondary">View Details</a>
+                <a href="apply.html" class="btn btn-primary">Apply Now</a>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+  </main>
 
-    {% include "footer.html" %}
+  {% include "footer.html" %}
 
-    <!-- SCRIPTS -->
-    <script
-      src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
-      integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      lucide.createIcons();
-    </script>
-    <script src="/js/main.js"></script>
-  </body>
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
+    integrity="sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB"
+    crossorigin="anonymous"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+
 </html>
