@@ -12,14 +12,14 @@
  */
 
 export class Modal {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       closeOnBackdrop: true,
       closeOnEscape: true,
       trapFocus: true,
       onOpen: null,
       onClose: null,
-      ...options,
+      ...options
     };
 
     this.activeModal = null;
@@ -33,12 +33,12 @@ export class Modal {
   /**
    * Initialize modal triggers
    */
-  init() {
+  init () {
     // Find all modal triggers
-    const triggers = document.querySelectorAll("[data-modal-trigger]");
+    const triggers = document.querySelectorAll('[data-modal-trigger]');
 
     triggers.forEach((trigger) => {
-      trigger.addEventListener("click", (e) => {
+      trigger.addEventListener('click', (e) => {
         e.preventDefault();
         const modalId = trigger.dataset.modalTrigger || trigger.dataset.modal;
         this.open(modalId);
@@ -46,9 +46,9 @@ export class Modal {
     });
 
     // Find all close buttons within modals
-    const closeButtons = document.querySelectorAll("[data-modal-close]");
+    const closeButtons = document.querySelectorAll('[data-modal-close]');
     closeButtons.forEach((btn) => {
-      btn.addEventListener("click", () => this.close());
+      btn.addEventListener('click', () => this.close());
     });
   }
 
@@ -56,7 +56,7 @@ export class Modal {
    * Open a modal by ID
    * @param {string} modalId - The ID of the modal to open
    */
-  open(modalId) {
+  open (modalId) {
     const modal = document.getElementById(modalId);
     if (!modal) {
       // Modal: Element with ID not found - silently ignore
@@ -68,22 +68,22 @@ export class Modal {
     this.activeModal = modal;
 
     // Show modal
-    modal.classList.add("modal--active");
-    modal.setAttribute("aria-hidden", "false");
-    modal.setAttribute("aria-modal", "true");
-    modal.setAttribute("role", "dialog");
+    modal.classList.add('modal--active');
+    modal.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('role', 'dialog');
 
     // Prevent body scroll
-    document.body.style.overflow = "hidden";
-    document.body.classList.add("modal-open");
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
 
     // Add event listeners
     if (this.options.closeOnEscape) {
-      document.addEventListener("keydown", this.boundHandleKeydown);
+      document.addEventListener('keydown', this.boundHandleKeydown);
     }
 
     if (this.options.closeOnBackdrop) {
-      modal.addEventListener("click", this.boundHandleBackdropClick);
+      modal.addEventListener('click', this.boundHandleBackdropClick);
     }
 
     // Focus first focusable element or modal itself
@@ -102,34 +102,34 @@ export class Modal {
     }
 
     // Callback
-    if (typeof this.options.onOpen === "function") {
+    if (typeof this.options.onOpen === 'function') {
       this.options.onOpen(modal);
     }
 
     // Announce to screen readers
-    this.announceToScreenReader("Dialog opened");
+    this.announceToScreenReader('Dialog opened');
   }
 
   /**
    * Close the active modal
    */
-  close() {
+  close () {
     if (!this.activeModal) return;
 
     const modal = this.activeModal;
 
     // Hide modal
-    modal.classList.remove("modal--active");
-    modal.setAttribute("aria-hidden", "true");
-    modal.removeAttribute("aria-modal");
+    modal.classList.remove('modal--active');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.removeAttribute('aria-modal');
 
     // Restore body scroll
-    document.body.style.overflow = "";
-    document.body.classList.remove("modal-open");
+    document.body.style.overflow = '';
+    document.body.classList.remove('modal-open');
 
     // Remove event listeners
-    document.removeEventListener("keydown", this.boundHandleKeydown);
-    modal.removeEventListener("click", this.boundHandleBackdropClick);
+    document.removeEventListener('keydown', this.boundHandleKeydown);
+    modal.removeEventListener('click', this.boundHandleBackdropClick);
 
     // Restore focus
     if (this.focusedElementBeforeModal) {
@@ -137,12 +137,12 @@ export class Modal {
     }
 
     // Callback
-    if (typeof this.options.onClose === "function") {
+    if (typeof this.options.onClose === 'function') {
       this.options.onClose(modal);
     }
 
     // Announce to screen readers
-    this.announceToScreenReader("Dialog closed");
+    this.announceToScreenReader('Dialog closed');
 
     this.activeModal = null;
     this.focusedElementBeforeModal = null;
@@ -152,7 +152,7 @@ export class Modal {
    * Toggle modal open/close
    * @param {string} modalId - The ID of the modal to toggle
    */
-  toggle(modalId) {
+  toggle (modalId) {
     if (this.activeModal && this.activeModal.id === modalId) {
       this.close();
     } else {
@@ -164,8 +164,8 @@ export class Modal {
    * Handle keydown events
    * @param {KeyboardEvent} e - Keyboard event
    */
-  handleKeydown(e) {
-    if (e.key === "Escape" && this.options.closeOnEscape) {
+  handleKeydown (e) {
+    if (e.key === 'Escape' && this.options.closeOnEscape) {
       e.preventDefault();
       this.close();
     }
@@ -175,7 +175,7 @@ export class Modal {
    * Handle backdrop click
    * @param {MouseEvent} e - Mouse event
    */
-  handleBackdropClick(e) {
+  handleBackdropClick (e) {
     // Only close if clicking the backdrop (modal element itself), not content
     if (e.target === this.activeModal) {
       this.close();
@@ -186,7 +186,7 @@ export class Modal {
    * Setup focus trap within modal
    * @param {HTMLElement} modal - Modal element
    */
-  setupFocusTrap(modal) {
+  setupFocusTrap (modal) {
     const focusableElements = this.getFocusableElements(modal);
 
     if (focusableElements.length === 0) return;
@@ -195,7 +195,7 @@ export class Modal {
     const lastFocusable = focusableElements[focusableElements.length - 1];
 
     const handleTabKey = (e) => {
-      if (e.key !== "Tab") return;
+      if (e.key !== 'Tab') return;
 
       if (e.shiftKey) {
         // Shift + Tab
@@ -212,7 +212,7 @@ export class Modal {
       }
     };
 
-    modal.addEventListener("keydown", handleTabKey);
+    modal.addEventListener('keydown', handleTabKey);
 
     // Store handler for cleanup
     modal._focusTrapHandler = handleTabKey;
@@ -223,16 +223,16 @@ export class Modal {
    * @param {HTMLElement} container - Container element
    * @returns {NodeList} Focusable elements
    */
-  getFocusableElements(container) {
+  getFocusableElements (container) {
     const focusableSelectors = [
-      "button:not([disabled])",
-      "a[href]",
+      'button:not([disabled])',
+      'a[href]',
       'input:not([disabled]):not([type="hidden"])',
-      "select:not([disabled])",
-      "textarea:not([disabled])",
+      'select:not([disabled])',
+      'textarea:not([disabled])',
       '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]',
-    ].join(", ");
+      '[contenteditable="true"]'
+    ].join(', ');
 
     return container.querySelectorAll(focusableSelectors);
   }
@@ -242,7 +242,7 @@ export class Modal {
    * @param {HTMLElement} container - Container element
    * @returns {HTMLElement|null} First focusable element
    */
-  getFirstFocusableElement(container) {
+  getFirstFocusableElement (container) {
     const focusableElements = this.getFocusableElements(container);
     return focusableElements.length > 0 ? focusableElements[0] : null;
   }
@@ -251,11 +251,11 @@ export class Modal {
    * Announce message to screen readers
    * @param {string} message - Message to announce
    */
-  announceToScreenReader(message) {
-    const announcement = document.createElement("div");
-    announcement.setAttribute("role", "status");
-    announcement.setAttribute("aria-live", "polite");
-    announcement.className = "sr-only";
+  announceToScreenReader (message) {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
     announcement.textContent = message;
     document.body.appendChild(announcement);
 
@@ -269,21 +269,21 @@ export class Modal {
    * @param {Object} config - Modal configuration
    * @returns {HTMLElement} Created modal element
    */
-  static create(config = {}) {
+  static create (config = {}) {
     const {
       id = `modal-${Date.now()}`,
-      title = "",
-      content = "",
-      footer = "",
-      size = "medium", // small, medium, large, full
-      closable = true,
+      title = '',
+      content = '',
+      footer = '',
+      size = 'medium', // small, medium, large, full
+      closable = true
     } = config;
 
-    const modal = document.createElement("div");
+    const modal = document.createElement('div');
     modal.id = id;
     modal.className = `modal modal--${size}`;
-    modal.setAttribute("aria-hidden", "true");
-    modal.setAttribute("aria-labelledby", `${id}-title`);
+    modal.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-labelledby', `${id}-title`);
     modal.tabIndex = -1;
 
     modal.innerHTML = `
@@ -291,13 +291,13 @@ export class Modal {
       <div class="modal__dialog" role="document">
         <div class="modal__content">
           ${
-            title
-              ? `
+  title
+    ? `
             <header class="modal__header">
               <h2 class="modal__title" id="${id}-title">${title}</h2>
               ${
-                closable
-                  ? `
+  closable
+    ? `
                 <button type="button" 
                         class="modal__close" 
                         data-modal-close
@@ -307,24 +307,24 @@ export class Modal {
                   </svg>
                 </button>
               `
-                  : ""
-              }
+    : ''
+}
             </header>
           `
-              : ""
-          }
+    : ''
+}
           <div class="modal__body">
             ${content}
           </div>
           ${
-            footer
-              ? `
+  footer
+    ? `
             <footer class="modal__footer">
               ${footer}
             </footer>
           `
-              : ""
-          }
+    : ''
+}
         </div>
       </div>
     `;
@@ -337,12 +337,12 @@ export class Modal {
    * Destroy modal and clean up
    * @param {string} modalId - ID of modal to destroy
    */
-  static destroy(modalId) {
+  static destroy (modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
       // Remove focus trap handler if exists
       if (modal._focusTrapHandler) {
-        modal.removeEventListener("keydown", modal._focusTrapHandler);
+        modal.removeEventListener('keydown', modal._focusTrapHandler);
       }
       modal.remove();
     }
@@ -352,7 +352,7 @@ export class Modal {
    * Check if any modal is currently open
    * @returns {boolean} True if a modal is open
    */
-  isOpen() {
+  isOpen () {
     return this.activeModal !== null;
   }
 
@@ -360,7 +360,7 @@ export class Modal {
    * Get the currently active modal
    * @returns {HTMLElement|null} Active modal element
    */
-  getActiveModal() {
+  getActiveModal () {
     return this.activeModal;
   }
 }
@@ -373,7 +373,7 @@ let modalInstance = null;
  * @param {Object} options - Modal options
  * @returns {Modal} Modal instance
  */
-export function getModalInstance(options = {}) {
+export function getModalInstance (options = {}) {
   if (!modalInstance) {
     modalInstance = new Modal(options);
   }
@@ -381,7 +381,7 @@ export function getModalInstance(options = {}) {
 }
 
 // Export for global access if needed
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   window.Modal = Modal;
   window.getModalInstance = getModalInstance;
 }

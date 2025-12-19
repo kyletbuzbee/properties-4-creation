@@ -11,7 +11,7 @@
  */
 
 export class PropertyFilter {
-  constructor(properties, containerSelector) {
+  constructor (properties, containerSelector) {
     this.allProperties = properties || [];
     this.filteredProperties = [...this.allProperties];
     this.container = document.querySelector(containerSelector);
@@ -20,7 +20,7 @@ export class PropertyFilter {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: "",
+      search: ''
     };
     this.debounceTimeout = null;
     this.debounceDelay = 300;
@@ -29,7 +29,7 @@ export class PropertyFilter {
   /**
    * Initialize the filter system
    */
-  init() {
+  init () {
     if (!this.container) {
       // PropertyFilter: Container not found - silently ignore
       return;
@@ -44,11 +44,11 @@ export class PropertyFilter {
   /**
    * Create the filter UI elements
    */
-  createFilterUI() {
-    this.filterBar = document.createElement("div");
-    this.filterBar.className = "filter-bar";
-    this.filterBar.setAttribute("role", "search");
-    this.filterBar.setAttribute("aria-label", "Property filters");
+  createFilterUI () {
+    this.filterBar = document.createElement('div');
+    this.filterBar.className = 'filter-bar';
+    this.filterBar.setAttribute('role', 'search');
+    this.filterBar.setAttribute('aria-label', 'Property filters');
 
     this.filterBar.innerHTML = `
       <div class="filter-controls">
@@ -122,17 +122,17 @@ export class PropertyFilter {
       </div>
     `;
 
-    this.container.insertAdjacentElement("beforebegin", this.filterBar);
+    this.container.insertAdjacentElement('beforebegin', this.filterBar);
   }
 
   /**
    * Attach event listeners to filter controls
    */
-  attachEventListeners() {
+  attachEventListeners () {
     // Debounced search input
-    const searchInput = document.getElementById("property-search");
+    const searchInput = document.getElementById('property-search');
     if (searchInput) {
-      searchInput.addEventListener("input", (e) => {
+      searchInput.addEventListener('input', (e) => {
         clearTimeout(this.debounceTimeout);
         this.debounceTimeout = setTimeout(() => {
           this.filters.search = e.target.value.toLowerCase().trim();
@@ -141,19 +141,19 @@ export class PropertyFilter {
       });
 
       // Clear search on Escape
-      searchInput.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          searchInput.value = "";
-          this.filters.search = "";
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          searchInput.value = '';
+          this.filters.search = '';
           this.applyFilters();
         }
       });
     }
 
     // Bedroom filter
-    const bedroomSelect = document.getElementById("filter-bedrooms");
+    const bedroomSelect = document.getElementById('filter-bedrooms');
     if (bedroomSelect) {
-      bedroomSelect.addEventListener("change", (e) => {
+      bedroomSelect.addEventListener('change', (e) => {
         this.filters.bedrooms = e.target.value
           ? parseInt(e.target.value, 10)
           : null;
@@ -162,9 +162,9 @@ export class PropertyFilter {
     }
 
     // Bathroom filter
-    const bathroomSelect = document.getElementById("filter-bathrooms");
+    const bathroomSelect = document.getElementById('filter-bathrooms');
     if (bathroomSelect) {
-      bathroomSelect.addEventListener("change", (e) => {
+      bathroomSelect.addEventListener('change', (e) => {
         this.filters.bathrooms = e.target.value
           ? parseInt(e.target.value, 10)
           : null;
@@ -173,10 +173,10 @@ export class PropertyFilter {
     }
 
     // Tag filters (event delegation)
-    const tagContainer = this.filterBar.querySelector(".filter-tags");
+    const tagContainer = this.filterBar.querySelector('.filter-tags');
     if (tagContainer) {
-      tagContainer.addEventListener("click", (e) => {
-        const tagButton = e.target.closest(".tag-filter");
+      tagContainer.addEventListener('click', (e) => {
+        const tagButton = e.target.closest('.tag-filter');
         if (!tagButton) return;
 
         const tag = tagButton.dataset.tag;
@@ -184,12 +184,12 @@ export class PropertyFilter {
 
         if (index > -1) {
           this.filters.tags.splice(index, 1);
-          tagButton.classList.remove("active");
-          tagButton.setAttribute("aria-pressed", "false");
+          tagButton.classList.remove('active');
+          tagButton.setAttribute('aria-pressed', 'false');
         } else {
           this.filters.tags.push(tag);
-          tagButton.classList.add("active");
-          tagButton.setAttribute("aria-pressed", "true");
+          tagButton.classList.add('active');
+          tagButton.setAttribute('aria-pressed', 'true');
         }
 
         this.applyFilters();
@@ -197,9 +197,9 @@ export class PropertyFilter {
     }
 
     // Reset button
-    const resetButton = document.getElementById("reset-filters");
+    const resetButton = document.getElementById('reset-filters');
     if (resetButton) {
-      resetButton.addEventListener("click", () => {
+      resetButton.addEventListener('click', () => {
         this.resetFilters();
       });
     }
@@ -208,12 +208,12 @@ export class PropertyFilter {
   /**
    * Apply all active filters to the property list
    */
-  applyFilters() {
+  applyFilters () {
     this.filteredProperties = this.allProperties.filter((prop) => {
       // Search filter
       if (this.filters.search) {
         const searchable =
-          `${prop.name || ""} ${prop.address || ""} ${prop.city || ""} ${prop.description || ""}`.toLowerCase();
+          `${prop.name || ''} ${prop.address || ''} ${prop.city || ''} ${prop.description || ''}`.toLowerCase();
         if (!searchable.includes(this.filters.search)) {
           return false;
         }
@@ -239,7 +239,7 @@ export class PropertyFilter {
       if (this.filters.tags.length > 0) {
         const propTags = prop.tags || [];
         const hasAllTags = this.filters.tags.every((tag) =>
-          propTags.includes(tag),
+          propTags.includes(tag)
         );
         if (!hasAllTags) {
           return false;
@@ -256,29 +256,29 @@ export class PropertyFilter {
   /**
    * Reset all filters to default state
    */
-  resetFilters() {
+  resetFilters () {
     // Reset filter state
     this.filters = {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: "",
+      search: ''
     };
 
     // Reset UI elements
-    const searchInput = document.getElementById("property-search");
-    if (searchInput) searchInput.value = "";
+    const searchInput = document.getElementById('property-search');
+    if (searchInput) searchInput.value = '';
 
-    const bedroomSelect = document.getElementById("filter-bedrooms");
-    if (bedroomSelect) bedroomSelect.value = "";
+    const bedroomSelect = document.getElementById('filter-bedrooms');
+    if (bedroomSelect) bedroomSelect.value = '';
 
-    const bathroomSelect = document.getElementById("filter-bathrooms");
-    if (bathroomSelect) bathroomSelect.value = "";
+    const bathroomSelect = document.getElementById('filter-bathrooms');
+    if (bathroomSelect) bathroomSelect.value = '';
 
     // Reset tag buttons
-    document.querySelectorAll(".tag-filter").forEach((btn) => {
-      btn.classList.remove("active");
-      btn.setAttribute("aria-pressed", "false");
+    document.querySelectorAll('.tag-filter').forEach((btn) => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
     });
 
     // Reset filtered properties
@@ -287,16 +287,16 @@ export class PropertyFilter {
     this.updateResultsCount();
 
     // Announce reset to screen readers
-    this.announceToScreenReader("Filters reset. Showing all properties.");
+    this.announceToScreenReader('Filters reset. Showing all properties.');
   }
 
   /**
    * Render the filtered property cards
    */
-  render() {
+  render () {
     if (!this.container) return;
 
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
 
     if (this.filteredProperties.length === 0) {
       this.container.innerHTML = `
@@ -317,9 +317,9 @@ export class PropertyFilter {
       `;
 
       // Add reset handler for no results button
-      const noResultsReset = document.getElementById("no-results-reset");
+      const noResultsReset = document.getElementById('no-results-reset');
       if (noResultsReset) {
-        noResultsReset.addEventListener("click", () => this.resetFilters());
+        noResultsReset.addEventListener('click', () => this.resetFilters());
       }
       return;
     }
@@ -337,18 +337,18 @@ export class PropertyFilter {
    * @param {number} index - Card index for animation delay
    * @returns {HTMLElement} Property card element
    */
-  createPropertyCard(prop, index) {
-    const card = document.createElement("article");
-    card.className = "property-card";
+  createPropertyCard (prop, index) {
+    const card = document.createElement('article');
+    card.className = 'property-card';
     card.style.animationDelay = `${index * 50}ms`;
-    card.setAttribute("data-property-id", prop.id || prop.slug);
+    card.setAttribute('data-property-id', prop.id || prop.slug);
 
     const tagsHtml = (prop.tags || [])
       .map(
         (tag) =>
-          `<span class="property-card__tag">${this.escapeHtml(tag)}</span>`,
+          `<span class="property-card__tag">${this.escapeHtml(tag)}</span>`
       )
-      .join("");
+      .join('');
 
     card.innerHTML = `
       <div class="property-card__image-container">
@@ -357,7 +357,7 @@ export class PropertyFilter {
              loading="lazy" 
              decoding="async"
              class="property-card__image">
-        ${prop.featured ? '<span class="property-card__badge">Featured</span>' : ""}
+        ${prop.featured ? '<span class="property-card__badge">Featured</span>' : ''}
       </div>
       <div class="property-card__content">
         <h3 class="property-card__title">${this.escapeHtml(prop.name)}</h3>
@@ -366,23 +366,23 @@ export class PropertyFilter {
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
             <circle cx="12" cy="10" r="3"/>
           </svg>
-          ${this.escapeHtml(prop.address || "")}${prop.city ? `, ${this.escapeHtml(prop.city)}` : ""}
+          ${this.escapeHtml(prop.address || '')}${prop.city ? `, ${this.escapeHtml(prop.city)}` : ''}
         </p>
         <ul class="property-card__features" aria-label="Property features">
           <li>
             <strong>${prop.bedrooms || 0}</strong> 
-            Bed${(prop.bedrooms || 0) !== 1 ? "s" : ""}
+            Bed${(prop.bedrooms || 0) !== 1 ? 's' : ''}
           </li>
           <li>
             <strong>${prop.bathrooms || 0}</strong> 
-            Bath${(prop.bathrooms || 0) !== 1 ? "s" : ""}
+            Bath${(prop.bathrooms || 0) !== 1 ? 's' : ''}
           </li>
           <li>
             <strong>${(prop.sqft || 0).toLocaleString()}</strong> 
             sqft
           </li>
         </ul>
-        ${tagsHtml ? `<div class="property-card__tags">${tagsHtml}</div>` : ""}
+        ${tagsHtml ? `<div class="property-card__tags">${tagsHtml}</div>` : ''}
         <div class="property-card__actions">
           <a href="./${this.escapeHtml(prop.slug || prop.id)}.html" 
              class="btn btn-primary btn-sm">
@@ -398,9 +398,9 @@ export class PropertyFilter {
   /**
    * Update the results count display
    */
-  updateResultsCount() {
-    const countElement = document.getElementById("results-count");
-    const labelElement = document.getElementById("results-label");
+  updateResultsCount () {
+    const countElement = document.getElementById('results-count');
+    const labelElement = document.getElementById('results-label');
 
     if (countElement) {
       countElement.textContent = this.filteredProperties.length;
@@ -409,8 +409,8 @@ export class PropertyFilter {
     if (labelElement) {
       labelElement.textContent =
         this.filteredProperties.length === 1
-          ? "property found"
-          : "properties found";
+          ? 'property found'
+          : 'properties found';
     }
   }
 
@@ -418,11 +418,11 @@ export class PropertyFilter {
    * Announce message to screen readers
    * @param {string} message - Message to announce
    */
-  announceToScreenReader(message) {
-    const announcement = document.createElement("div");
-    announcement.setAttribute("role", "status");
-    announcement.setAttribute("aria-live", "polite");
-    announcement.className = "sr-only";
+  announceToScreenReader (message) {
+    const announcement = document.createElement('div');
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.className = 'sr-only';
     announcement.textContent = message;
     document.body.appendChild(announcement);
 
@@ -436,9 +436,9 @@ export class PropertyFilter {
    * @param {string} text - Text to escape
    * @returns {string} Escaped text
    */
-  escapeHtml(text) {
-    if (typeof text !== "string") return "";
-    const div = document.createElement("div");
+  escapeHtml (text) {
+    if (typeof text !== 'string') return '';
+    const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
@@ -447,7 +447,7 @@ export class PropertyFilter {
    * Update properties data (for dynamic loading)
    * @param {Array} properties - New properties array
    */
-  updateProperties(properties) {
+  updateProperties (properties) {
     this.allProperties = properties || [];
     this.applyFilters();
   }
@@ -456,7 +456,7 @@ export class PropertyFilter {
    * Get current filter state
    * @returns {Object} Current filters
    */
-  getFilters() {
+  getFilters () {
     return { ...this.filters };
   }
 
@@ -464,7 +464,7 @@ export class PropertyFilter {
    * Set filters programmatically
    * @param {Object} filters - Filters to apply
    */
-  setFilters(filters) {
+  setFilters (filters) {
     this.filters = { ...this.filters, ...filters };
     this.applyFilters();
   }
@@ -472,7 +472,7 @@ export class PropertyFilter {
   /**
    * Destroy the filter instance and clean up
    */
-  destroy() {
+  destroy () {
     if (this.filterBar) {
       this.filterBar.remove();
     }
@@ -481,7 +481,7 @@ export class PropertyFilter {
 }
 
 // Export for global access if needed
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   window.PropertyFilter = PropertyFilter;
 }
 
