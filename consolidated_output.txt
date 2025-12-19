@@ -1835,7 +1835,7 @@ MODIFIED: 2025-12-16 02:05:08
  * Properties 4 Creations - Veteran Housing Platform
  */
 
-module.exports = function(eleventyConfig) {
+module.exports = function  (eleventyConfig) {
   // Passthrough copy for static assets
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -4796,7 +4796,7 @@ MODIFIED: 2025-12-16 02:05:08
  * Properties 4 Creations - Veteran Housing Platform
  */
 
-module.exports = function(eleventyConfig) {
+module.exports = function  (eleventyConfig) {
   // Passthrough copy for static assets
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
@@ -6723,12 +6723,12 @@ class SingleFileConverter:
         self.skipped_files = []
         self.error_files = []
         self.stats = {
-            'total_files': 0,
-            'converted': 0,
-            'skipped': 0,
-            'errors': 0,
-            'total_chars': 0,
-            'total_lines': 0
+            "total_files": 0,
+            "converted": 0,
+            "skipped": 0,
+            "errors": 0,
+            "total_chars": 0,
+            "total_lines": 0
         }
         
     def should_convert_file(self, file_path):
@@ -6788,7 +6788,7 @@ class SingleFileConverter:
             separator.append("-" * 80)
             
         separator.append(f"FILE: {relative_path}")
-        separator.append(f"SIZE: {file_path.stat().st_size:,} bytes")
+        separator.append(f"SIZE: {file_path.stat().st_size:} bytes")
         separator.append(f"MODIFIED: {datetime.fromtimestamp(file_path.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}")
         separator.append("=" * 80)
         
@@ -6834,7 +6834,7 @@ class SingleFileConverter:
         except Exception as e:
             self.stats['errors'] += 1
             error_msg = f"error: {str(e)}"
-            self.error_files.append({'file': str(file_path), 'error': error_msg})
+            self.error_files.append({"file": str(file_path), "error": error_msg})
             return False, error_msg
             
     def process_files(self):
@@ -6914,8 +6914,8 @@ class SingleFileConverter:
         report_lines.append(f"Files converted: {self.stats['converted']}")
         report_lines.append(f"Files skipped: {self.stats['skipped']}")
         report_lines.append(f"Errors: {self.stats['errors']}")
-        report_lines.append(f"Total characters: {self.stats['total_chars']:,}")
-        report_lines.append(f"Total lines: {self.stats['total_lines']:,}")
+        report_lines.append(f"Total characters: {self.stats['total_chars']:}")
+        report_lines.append(f"Total lines: {self.stats['total_lines']:}")
         report_lines.append("")
         
         # Skipped files
@@ -6970,8 +6970,8 @@ class SingleFileConverter:
             print(f"   * Files converted: {self.stats['converted']}")
             print(f"   * Files skipped: {self.stats['skipped']}")
             print(f"   * Errors: {self.stats['errors']}")
-            print(f"   * Total characters: {self.stats['total_chars']:,}")
-            print(f"   * Total lines: {self.stats['total_lines']:,}")
+            print(f"   * Total characters: {self.stats['total_chars']:}")
+            print(f"   * Total lines: {self.stats['total_lines']:}")
             print(f"\n[FILE] Single output file: {self.output_file}")
             print(f"[SUMMARY] Report: {summary_path}")
             
@@ -16251,7 +16251,7 @@ FILE: docs\js\accessibility-enhanced.min.js
 SIZE: 3,643 bytes
 MODIFIED: 2025-12-15 04:13:31
 ================================================================================
-!function(){"use strict";function e(){document.addEventListener("keydown",function(e){if("Escape"===e.key){const e=document.querySelector(".modal.active");e&&function(e){e.classList.remove("active"),e.setAttribute("aria-hidden","true");const t=document.querySelector('[data-modal="'+e.id+'"]');t&&t.focus()}(e)}})}function t(){const e=document.querySelectorAll("img");let t=0;e.forEach(e=>{e.alt&&""!==e.alt.trim()||(console.warn("Accessibility Warning: Image missing alt text:",e.src),t++,"localhost"!==window.location.hostname&&"127.0.0.1"!==window.location.hostname||(e.style.outline="3px solid #ff6b6b",e.style.outlineOffset="2px"))}),t>0&&console.warn(`Accessibility: ${t} images missing alt text.`)}function n(){document.querySelectorAll("form").forEach(e=>{e.querySelectorAll("input, select, textarea").forEach(t=>{if(!t.getAttribute("aria-label")&&!t.getAttribute("aria-labelledby")){!e.querySelector(`label[for="${t.id}"]`)&&t.id&&console.warn("Form accessibility: Input may be missing label:",t.id)}t.addEventListener("invalid",function(){const e=t.closest(".form-group");if(e){e.classList.add("error");const n=e.querySelector(".error-message");n&&t.id&&(t.setAttribute("aria-describedby",n.id||`error-${t.id}`),n.id=n.id||`error-${t.id}`)}}),t.addEventListener("input",function(){const e=t.closest(".form-group");e&&e.classList.contains("error")&&(e.classList.remove("error"),t.removeAttribute("aria-describedby"))})})})}function i(){!function(){const e=document.querySelector(".skip-link"),t=document.getElementById("main");e&&t&&(e.href="#main",e.addEventListener("click",function(e){e.preventDefault(),t.focus(),t.setAttribute("tabindex","-1")}))}(),document.addEventListener("keydown",function(e){const t=e.target;if(t.classList.contains("property-card")&&("Enter"===e.key||" "===e.key)){e.preventDefault();const n=t.querySelector("a");n&&n.click()}!t.classList.contains("cta-link")||"Enter"!==e.key&&" "!==e.key||(e.preventDefault(),window.location.href=t.href)}),function(){if(!document.getElementById("filter-status")){const e=document.createElement("div");e.id="filter-status",e.setAttribute("aria-live","polite"),e.setAttribute("aria-atomic","true"),e.className="sr-only",document.body.appendChild(e)}if(!document.getElementById("form-status")){const e=document.createElement("div");e.id="form-status",e.setAttribute("aria-live","assertive"),e.setAttribute("aria-atomic","true"),e.className="sr-only",document.body.appendChild(e)}}(),function(){if(!document.getElementById("sr-styles")){const e=document.createElement("style");e.id="sr-styles",e.textContent="\n                .sr-only {\n                    position: absolute;\n                    width: 1px;\n                    height: 1px;\n                    padding: 0;\n                    margin: -1px;\n                    overflow: hidden;\n                    clip: rect(0, 0, 0, 0);\n                    white-space: nowrap;\n                    border: 0;\n                }\n            ",document.head.appendChild(e)}}(),e(),t(),n(),function(){const e=document.querySelector("nav");e&&!e.getAttribute("aria-label")&&e.setAttribute("aria-label","Main navigation");const t=document.querySelector(".footer-section ul");t&&!t.getAttribute("aria-label")&&t.setAttribute("aria-label","Footer links")}();const i=document.getElementById("form-status");i&&(i.textContent="Accessibility enhancements loaded",setTimeout(()=>{i.textContent=""},1e3)),console.log("Accessibility enhancements initialized")}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",i):i(),window.AccessibilityEnhancer={validateAltText:t,enhanceFormAccessibility:n}}();
+!function  (){"use strict";function e(){document.addEventListener("keydown",function  (e){if("Escape"===e.key){const e=document.querySelector(".modal.active");e&&function  (e){e.classList.remove("active"),e.setAttribute("aria-hidden","true");const t=document.querySelector('[data-modal="'+e.id+'"]');t&&t.focus()}(e)}})}function t(){const e=document.querySelectorAll("img");let t=0;e.forEach(e=>{e.alt&&""!==e.alt.trim()||(console.warn("Accessibility Warning: Image missing alt text:",e.src),t++,"localhost"!==window.location.hostname&&"127.0.0.1"!==window.location.hostname||(e.style.outline="3px solid #ff6b6b",e.style.outlineOffset="2px"))}),t>0&&console.warn(`Accessibility: ${t} images missing alt text.`)}function n(){document.querySelectorAll("form").forEach(e=>{e.querySelectorAll("input, select, textarea").forEach(t=>{if(!t.getAttribute("aria-label")&&!t.getAttribute("aria-labelledby")){!e.querySelector(`label[for="${t.id}"]`)&&t.id&&console.warn("Form accessibility: Input may be missing label:",t.id)}t.addEventListener("invalid",function  (){const e=t.closest(".form-group");if(e){e.classList.add("error");const n=e.querySelector(".error-message");n&&t.id&&(t.setAttribute("aria-describedby",n.id||`error-${t.id}`),n.id=n.id||`error-${t.id}`)}}),t.addEventListener("input",function  (){const e=t.closest(".form-group");e&&e.classList.contains("error")&&(e.classList.remove("error"),t.removeAttribute("aria-describedby"))})})})}function i(){!function  (){const e=document.querySelector(".skip-link"),t=document.getElementById("main");e&&t&&(e.href="#main",e.addEventListener("click",function  (e){e.preventDefault(),t.focus(),t.setAttribute("tabindex","-1")}))}(),document.addEventListener("keydown",function  (e){const t=e.target;if(t.classList.contains("property-card")&&("Enter"===e.key||" "===e.key)){e.preventDefault();const n=t.querySelector("a");n&&n.click()}!t.classList.contains("cta-link")||"Enter"!==e.key&&" "!==e.key||(e.preventDefault(),window.location.href=t.href)}),function  (){if(!document.getElementById("filter-status")){const e=document.createElement("div");e.id="filter-status",e.setAttribute("aria-live","polite"),e.setAttribute("aria-atomic","true"),e.className="sr-only",document.body.appendChild(e)}if(!document.getElementById("form-status")){const e=document.createElement("div");e.id="form-status",e.setAttribute("aria-live","assertive"),e.setAttribute("aria-atomic","true"),e.className="sr-only",document.body.appendChild(e)}}(),function  (){if(!document.getElementById("sr-styles")){const e=document.createElement("style");e.id="sr-styles",e.textContent="\n                .sr-only {\n                    position: absolute;\n                    width: 1px;\n                    height: 1px;\n                    padding: 0;\n                    margin: -1px;\n                    overflow: hidden;\n                    clip: rect(0, 0, 0, 0);\n                    white-space: nowrap;\n                    border: 0;\n                }\n            ",document.head.appendChild(e)}}(),e(),t(),n(),function  (){const e=document.querySelector("nav");e&&!e.getAttribute("aria-label")&&e.setAttribute("aria-label","Main navigation");const t=document.querySelector(".footer-section ul");t&&!t.getAttribute("aria-label")&&t.setAttribute("aria-label","Footer links")}();const i=document.getElementById("form-status");i&&(i.textContent="Accessibility enhancements loaded",setTimeout(()=>{i.textContent=""},1e3)),console.log("Accessibility enhancements initialized")}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",i):i(),window.AccessibilityEnhancer={validateAltText:t,enhanceFormAccessibility:n}}();
 
 --------------------------------------------------------------------------------
 FILE: docs\js\button-utilities.js
@@ -16743,28 +16743,28 @@ export class Accordion {
     const { key } = e;
 
     switch (key) {
-    case 'Enter':
+    case "Enter":
     case ' ':
       e.preventDefault();
       this.toggle(index);
       break;
 
-    case 'ArrowDown':
+    case "ArrowDown":
       e.preventDefault();
       this.focusNext(index);
       break;
 
-    case 'ArrowUp':
+    case "ArrowUp":
       e.preventDefault();
       this.focusPrevious(index);
       break;
 
-    case 'Home':
+    case "Home":
       e.preventDefault();
       this.focusFirst();
       break;
 
-    case 'End':
+    case "End":
       e.preventDefault();
       this.focusLast();
       break;
@@ -18319,11 +18319,11 @@ export class PropertyFilter {
         <ul class="property-card__features" aria-label="Property features">
           <li>
             <strong>${prop.bedrooms || 0}</strong> 
-            Bed${(prop.bedrooms || 0) !== 1 ? 's' : ''}
+            Bed${(prop.bedrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${prop.bathrooms || 0}</strong> 
-            Bath${(prop.bathrooms || 0) !== 1 ? 's' : ''}
+            Bath${(prop.bathrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${(prop.sqft || 0).toLocaleString()}</strong> 
@@ -19416,7 +19416,7 @@ FILE: docs\js\ui-header.min.js
 SIZE: 3,464 bytes
 MODIFIED: 2025-12-15 04:13:30
 ================================================================================
-!function(){"use strict";function e(){const e=document.querySelector(".menu-toggle"),n=document.getElementById("nav-menu"),o=document.querySelectorAll(".nav-link");function i(){n.classList.remove("active"),e.classList.remove("active"),e.setAttribute("aria-expanded","false"),n.setAttribute("aria-hidden","true")}e&&n&&(e.addEventListener("click",function(o){o.stopPropagation(),function(){n.classList.toggle("active"),e.classList.toggle("active");const o=n.classList.contains("active");e.setAttribute("aria-expanded",o),n.setAttribute("aria-hidden",!o);t(o?"Navigation menu opened":"Navigation menu closed")}()}),o.forEach(e=>{e.addEventListener("click",i)}),document.addEventListener("click",function(t){n.contains(t.target)||e.contains(t.target)||i()}),document.addEventListener("keydown",function(e){"Escape"===e.key&&n.classList.contains("active")&&i()}))}function t(e){const t=document.createElement("div");t.setAttribute("aria-live","polite"),t.setAttribute("aria-atomic","true"),t.style.position="absolute",t.style.left="-10000px",t.style.width="1px",t.style.height="1px",t.style.overflow="hidden",document.body.appendChild(t),t.textContent=e,setTimeout(()=>{document.body.removeChild(t)},1e3)}function n(){e(),function(){const e=document.querySelector(".header-glass");let t=window.scrollY;e&&window.addEventListener("scroll",function(){const n=window.scrollY;n>50?e.classList.add("scrolled"):e.classList.remove("scrolled"),e.style.transform=n>t&&n>100?"translateY(-100%)":"translateY(0)",t=n},{passive:!0})}(),function(){const e=window.location.pathname;document.querySelectorAll(".nav-link").forEach(t=>{const n=t.getAttribute("href");n===e||"/"===e&&"index.html"===n||"/index.html"===e&&"index.html"===n?(t.classList.add("active"),t.setAttribute("aria-current","page")):(t.classList.remove("active"),t.removeAttribute("aria-current"))})}(),document.querySelectorAll(".cta-link").forEach(e=>{e.addEventListener("click",function(t){console.log("CTA clicked:",e.textContent.trim(),e.href)}),e.getAttribute("href").startsWith("#")&&e.addEventListener("click",function(t){t.preventDefault();const n=e.getAttribute("href").substring(1),o=document.getElementById(n);o&&(o.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,null,"#"+n))})}),function(){const e=document.querySelector(".search-toggle");e&&e.addEventListener("click",function(e){e.preventDefault(),console.log("Search toggle clicked - feature not yet implemented")})}(),function(){const e=document.querySelector(".nav-brand a")||document.querySelector(".nav-brand h1");if(e&&"A"!==e.tagName){const t=document.createElement("a");t.href="index.html",t.setAttribute("aria-label","Properties 4 Creations homepage"),e.parentNode.insertBefore(t,e),t.appendChild(e)}else e&&"A"===e.tagName&&e.setAttribute("aria-label","Properties 4 Creations homepage")}(),["https://unpkg.com/lucide@latest/dist/umd/lucide.css","public/css/style.css"].forEach(e=>{const t=document.querySelector(`link[href="${e}"]`);t&&!t.hasAttribute("rel")&&(t.setAttribute("rel","preload"),t.setAttribute("as","style"))}),console.log("Header UI features initialized"),t("Navigation features loaded successfully")}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n(),window.HeaderUI={toggleMobileMenu:function(){const e=document.querySelector(".menu-toggle");e&&e.click()},scrollToSection:function(e){const t=document.getElementById(e);t&&t.scrollIntoView({behavior:"smooth"})}}}();
+!function  (){"use strict";function e(){const e=document.querySelector(".menu-toggle"),n=document.getElementById("nav-menu"),o=document.querySelectorAll(".nav-link");function i(){n.classList.remove("active"),e.classList.remove("active"),e.setAttribute("aria-expanded","false"),n.setAttribute("aria-hidden","true")}e&&n&&(e.addEventListener("click",function  (o){o.stopPropagation(),function  (){n.classList.toggle("active"),e.classList.toggle("active");const o=n.classList.contains("active");e.setAttribute("aria-expanded",o),n.setAttribute("aria-hidden",!o);t(o?"Navigation menu opened":"Navigation menu closed")}()}),o.forEach(e=>{e.addEventListener("click",i)}),document.addEventListener("click",function  (t){n.contains(t.target)||e.contains(t.target)||i()}),document.addEventListener("keydown",function  (e){"Escape"===e.key&&n.classList.contains("active")&&i()}))}function t(e){const t=document.createElement("div");t.setAttribute("aria-live","polite"),t.setAttribute("aria-atomic","true"),t.style.position="absolute",t.style.left="-10000px",t.style.width="1px",t.style.height="1px",t.style.overflow="hidden",document.body.appendChild(t),t.textContent=e,setTimeout(()=>{document.body.removeChild(t)},1e3)}function n(){e(),function  (){const e=document.querySelector(".header-glass");let t=window.scrollY;e&&window.addEventListener("scroll",function  (){const n=window.scrollY;n>50?e.classList.add("scrolled"):e.classList.remove("scrolled"),e.style.transform=n>t&&n>100?"translateY(-100%)":"translateY(0)",t=n},{passive:!0})}(),function  (){const e=window.location.pathname;document.querySelectorAll(".nav-link").forEach(t=>{const n=t.getAttribute("href");n===e||"/"===e&&"index.html"===n||"/index.html"===e&&"index.html"===n?(t.classList.add("active"),t.setAttribute("aria-current","page")):(t.classList.remove("active"),t.removeAttribute("aria-current"))})}(),document.querySelectorAll(".cta-link").forEach(e=>{e.addEventListener("click",function  (t){console.log("CTA clicked:",e.textContent.trim(),e.href)}),e.getAttribute("href").startsWith("#")&&e.addEventListener("click",function  (t){t.preventDefault();const n=e.getAttribute("href").substring(1),o=document.getElementById(n);o&&(o.scrollIntoView({behavior:"smooth",block:"start"}),history.pushState(null,null,"#"+n))})}),function  (){const e=document.querySelector(".search-toggle");e&&e.addEventListener("click",function  (e){e.preventDefault(),console.log("Search toggle clicked - feature not yet implemented")})}(),function  (){const e=document.querySelector(".nav-brand a")||document.querySelector(".nav-brand h1");if(e&&"A"!==e.tagName){const t=document.createElement("a");t.href="index.html",t.setAttribute("aria-label","Properties 4 Creations homepage"),e.parentNode.insertBefore(t,e),t.appendChild(e)}else e&&"A"===e.tagName&&e.setAttribute("aria-label","Properties 4 Creations homepage")}(),["https://unpkg.com/lucide@latest/dist/umd/lucide.css","public/css/style.css"].forEach(e=>{const t=document.querySelector(`link[href="${e}"]`);t&&!t.hasAttribute("rel")&&(t.setAttribute("rel","preload"),t.setAttribute("as","style"))}),console.log("Header UI features initialized"),t("Navigation features loaded successfully")}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",n):n(),window.HeaderUI={toggleMobileMenu:function  (){const e=document.querySelector(".menu-toggle");e&&e.click()},scrollToSection:function  (e){const t=document.getElementById(e);t&&t.scrollIntoView({behavior:"smooth"})}}}();
 
 --------------------------------------------------------------------------------
 FILE: docs\js\utils\ariaLiveRegions.js
@@ -19610,7 +19610,7 @@ export class AriaLiveRegions {
    * @param {string} message - Status message
    */
   announceFormStatus (status, message) {
-    const priority = status === 'error' ? 'assertive' : 'polite';
+    const priority = status === 'error' ? "assertive": 'polite';
     this.announce(message, priority);
   }
 
@@ -20000,10 +20000,10 @@ export class ErrorBoundary {
 
     // Add additional context for different error types
     switch (context.type) {
-    case 'unhandledRejection':
+    case "unhandledRejection":
       enhanced.promise = context.promise;
       break;
-    case 'runtime':
+    case "runtime":
       enhanced.source = context.source;
       enhanced.lineno = context.lineno;
       enhanced.colno = context.colno;
@@ -20393,7 +20393,7 @@ User Agent: ${error.userAgent}
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display =
-        detailsElement.style.display === 'none' ? 'block' : 'none';
+        detailsElement.style.display === 'none' ? "block": 'none';
     }
   }
 
@@ -42976,7 +42976,7 @@ class SecurityValidator {
           }
         });
 
-        this.logTest('SRI Hash Coverage', validHashes > 0 ? 'PASS' : 'FAIL', 
+        this.logTest('SRI Hash Coverage', validHashes > 0 ? "PASS": 'FAIL', 
           `${validHashes} valid SRI hashes found`);
 
       } else {
@@ -52896,28 +52896,28 @@ export class Accordion {
     const { key } = e;
 
     switch (key) {
-    case 'Enter':
+    case "Enter":
     case ' ':
       e.preventDefault();
       this.toggle(index);
       break;
 
-    case 'ArrowDown':
+    case "ArrowDown":
       e.preventDefault();
       this.focusNext(index);
       break;
 
-    case 'ArrowUp':
+    case "ArrowUp":
       e.preventDefault();
       this.focusPrevious(index);
       break;
 
-    case 'Home':
+    case "Home":
       e.preventDefault();
       this.focusFirst();
       break;
 
-    case 'End':
+    case "End":
       e.preventDefault();
       this.focusLast();
       break;
@@ -54472,11 +54472,11 @@ export class PropertyFilter {
         <ul class="property-card__features" aria-label="Property features">
           <li>
             <strong>${prop.bedrooms || 0}</strong> 
-            Bed${(prop.bedrooms || 0) !== 1 ? 's' : ''}
+            Bed${(prop.bedrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${prop.bathrooms || 0}</strong> 
-            Bath${(prop.bathrooms || 0) !== 1 ? 's' : ''}
+            Bath${(prop.bathrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${(prop.sqft || 0).toLocaleString()}</strong> 
@@ -55749,7 +55749,7 @@ export class AriaLiveRegions {
    * @param {string} message - Status message
    */
   announceFormStatus (status, message) {
-    const priority = status === 'error' ? 'assertive' : 'polite';
+    const priority = status === 'error' ? "assertive": 'polite';
     this.announce(message, priority);
   }
 
@@ -56139,10 +56139,10 @@ export class ErrorBoundary {
 
     // Add additional context for different error types
     switch (context.type) {
-    case 'unhandledRejection':
+    case "unhandledRejection":
       enhanced.promise = context.promise;
       break;
-    case 'runtime':
+    case "runtime":
       enhanced.source = context.source;
       enhanced.lineno = context.lineno;
       enhanced.colno = context.colno;
@@ -56532,7 +56532,7 @@ User Agent: ${error.userAgent}
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display =
-        detailsElement.style.display === 'none' ? 'block' : 'none';
+        detailsElement.style.display === 'none' ? "block": 'none';
     }
   }
 
@@ -67368,7 +67368,7 @@ describe('FormValidator Integration Tests', () => {
         it('should work with older browser APIs', () => {
             // Mock older browser environment
             const originalAddEventListener = EventTarget.prototype.addEventListener;
-            EventTarget.prototype.addEventListener = function(type, listener, options) {
+            EventTarget.prototype.addEventListener = function  (type, listener, options) {
                 // Simulate older browser without options parameter
                 return originalAddEventListener.call(this, type, listener);
             };
@@ -67405,7 +67405,7 @@ describe('FormValidator Integration Tests', () => {
                 expect.objectContaining({
                     method: 'POST',
                     headers: expect.objectContaining({
-                        'Authorization': 'Bearer test-api-key'
+                        "Authorization": 'Bearer test-api-key'
                     })
                 })
             );

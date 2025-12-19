@@ -116,7 +116,7 @@ class SecurityValidator {
           }
         });
 
-        this.logTest('SRI Hash Coverage', validHashes > 0 ? 'PASS' : 'FAIL', 
+        this.logTest('SRI Hash Coverage', validHashes > 0 ? "PASS": 'FAIL', 
           `${validHashes} valid SRI hashes found`);
 
       } else {
@@ -166,7 +166,7 @@ class SecurityValidator {
         
         // Check for unsafe innerHTML usage
         const unsafePatterns = [
-          /innerHTML\s*=\s*["'][^"']*["']/g,
+          /innerHTML\s*=\s*[''][^'']*["']/g,
           /innerHTML\s*\+=/g
         ];
 

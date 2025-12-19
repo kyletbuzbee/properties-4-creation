@@ -7,18 +7,18 @@
 
 // Import components and utilities
 import { PropertyFilter } from './features/PropertyFilter.js';
-import { Modal, getModalInstance } from './components/Modal.js';
-import { Accordion, initAccordions } from './components/Accordion.js';
+import { getModalInstance } from './components/Modal.js';
+import { initAccordions } from './components/Accordion.js';
 import { FormValidator } from './features/FormValidator.js';
 import { initErrorHandler } from './utils/errorHandler.js';
 import { createPropertiesErrorBoundary } from './utils/errorBoundary.js';
 import { LazyLoader } from './utils/lazyLoad.js';
 
 // Initialize error boundary first (before other components)
-const errorBoundary = createPropertiesErrorBoundary();
+createPropertiesErrorBoundary();
 
 // Initialize global error handler
-const errorHandler = initErrorHandler();
+initErrorHandler();
 
 // MOBILE MENU TOGGLE
 const menuToggle = document.querySelector('.menu-toggle');
@@ -287,26 +287,26 @@ if (filterBtn) {
   });
 }
 
+// Sanitize input function (moved to program root)
+function sanitizeInput (input) {
+  // Use DOMPurify if available, otherwise basic sanitization
+  if (window.DOMPurify) {
+    return window.DOMPurify.sanitize(input, {
+      ALLOWED_TAGS: [],
+      ALLOWED_ATTR: []
+    });
+  }
+  // Basic fallback sanitization
+  return input
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]*>/g, '')
+    .trim();
+}
+
 // FORM VALIDATION WITH INPUT SANITIZATION
 const form = document.getElementById('application-form');
 if (form) {
   const successMessage = document.getElementById('success-message');
-
-  // Sanitize input function
-  function sanitizeInput (input) {
-    // Use DOMPurify if available, otherwise basic sanitization
-    if (window.DOMPurify) {
-      return DOMPurify.sanitize(input, {
-        ALLOWED_TAGS: [],
-        ALLOWED_ATTR: []
-      });
-    }
-    // Basic fallback sanitization
-    return input
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-      .replace(/<[^>]*>/g, '')
-      .trim();
-  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();

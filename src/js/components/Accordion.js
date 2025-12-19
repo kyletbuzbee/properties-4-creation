@@ -76,8 +76,8 @@ export class Accordion {
         icon.className = 'accordion__icon';
         icon.setAttribute('aria-hidden', 'true');
         icon.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"/>
+          <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+            <polyline points='6 9 12 15 18 9'/>
           </svg>
         `;
         button.appendChild(icon);
@@ -246,28 +246,28 @@ export class Accordion {
     const { key } = e;
 
     switch (key) {
-    case 'Enter':
+    case "Enter":
     case ' ':
       e.preventDefault();
       this.toggle(index);
       break;
 
-    case 'ArrowDown':
+    case "ArrowDown":
       e.preventDefault();
       this.focusNext(index);
       break;
 
-    case 'ArrowUp':
+    case "ArrowUp":
       e.preventDefault();
       this.focusPrevious(index);
       break;
 
-    case 'Home':
+    case "Home":
       e.preventDefault();
       this.focusFirst();
       break;
 
-    case 'End':
+    case "End":
       e.preventDefault();
       this.focusLast();
       break;

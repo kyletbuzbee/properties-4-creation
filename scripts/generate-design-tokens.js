@@ -145,7 +145,7 @@ function generateDarkMode() {
    Dark Mode Overrides
    ======================================== */
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-primary-navy: #1a2332;
   --color-primary-beige: #1F2937;
   --color-neutral-white: #111827;
@@ -158,7 +158,7 @@ function generateDarkMode() {
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --color-primary-navy: #1a2332;
     --color-primary-beige: #1F2937;
     --color-neutral-white: #111827;

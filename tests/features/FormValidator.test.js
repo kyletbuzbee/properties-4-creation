@@ -4,32 +4,32 @@ import { JSDOM } from 'jsdom';
 // Setup DOM environment
 const dom = new JSDOM(`
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
     <title>Test Form</title>
 </head>
 <body>
-    <form id="test-form" novalidate>
-        <input type="email" id="email" name="email" aria-label="Email Address">
-        <input type="text" id="name" name="name" aria-label="Full Name">
-        <input type="tel" id="phone" name="phone" aria-label="Phone Number">
-        <input type="text" id="zip" name="zip" aria-label="ZIP Code">
-        <textarea id="message" name="message" aria-label="Message"></textarea>
-        <button type="submit" id="submit-btn">Submit</button>
-        <div class="error-messages" aria-live="polite"></div>
+    <form id='test-form' novalidate>
+        <input type='email' id='email' name='email' aria-label='Email Address'>
+        <input type='text' id='name' name='name' aria-label='Full Name'>
+        <input type='tel' id='phone' name='phone' aria-label='Phone Number'>
+        <input type='text' id='zip' name='zip' aria-label='ZIP Code'>
+        <textarea id='message' name='message' aria-label='Message'></textarea>
+        <button type='submit' id='submit-btn'>Submit</button>
+        <div class='error-messages' aria-live='polite'></div>
     </form>
-    <form id="contact-form">
-        <input type="email" id="contact-email" name="email" required>
-        <input type="text" id="contact-name" name="name" required>
-        <button type="submit">Send</button>
-        <div class="error-container" aria-live="assertive"></div>
+    <form id='contact-form'>
+        <input type='email' id='contact-email' name='email' required>
+        <input type='text' id='contact-name' name='name' required>
+        <button type='submit'>Send</button>
+        <div class='error-container' aria-live='assertive'></div>
     </form>
 </body>
 </html>
 `, { 
     url: 'http://localhost',
     pretendToBeVisual: true,
-    runScripts: "dangerously"
+    runScripts: 'dangerously'
 });
 
 global.window = dom.window;
@@ -76,20 +76,20 @@ describe('FormValidator Integration Tests', () => {
     beforeEach(() => {
         // Reset DOM state
         document.body.innerHTML = `
-            <form id="test-form" novalidate>
-                <input type="email" id="email" name="email" aria-label="Email Address">
-                <input type="text" id="name" name="name" aria-label="Full Name">
-                <input type="tel" id="phone" name="phone" aria-label="Phone Number">
-                <input type="text" id="zip" name="zip" aria-label="ZIP Code">
-                <textarea id="message" name="message" aria-label="Message"></textarea>
-                <button type="submit" id="submit-btn">Submit</button>
-                <div class="error-messages" aria-live="polite"></div>
+            <form id='test-form' novalidate>
+                <input type='email' id='email' name='email' aria-label='Email Address'>
+                <input type='text' id='name' name='name' aria-label='Full Name'>
+                <input type='tel' id='phone' name='phone' aria-label='Phone Number'>
+                <input type='text' id='zip' name='zip' aria-label='ZIP Code'>
+                <textarea id='message' name='message' aria-label='Message'></textarea>
+                <button type='submit' id='submit-btn'>Submit</button>
+                <div class='error-messages' aria-live='polite'></div>
             </form>
-            <form id="contact-form">
-                <input type="email" id="contact-email" name="email" required>
-                <input type="text" id="contact-name" name="name" required>
-                <button type="submit">Send</button>
-                <div class="error-container" aria-live="assertive"></div>
+            <form id='contact-form'>
+                <input type='email' id='contact-email' name='email' required>
+                <input type='text' id='contact-name' name='name' required>
+                <button type='submit'>Send</button>
+                <div class='error-container' aria-live='assertive'></div>
             </form>
         `;
 
@@ -386,7 +386,7 @@ describe('FormValidator Integration Tests', () => {
         });
 
         it('should sanitize input values', () => {
-            const maliciousInput = '<script>alert("xss")</script>test@example.com';
+            const maliciousInput = '<script>alert('xss')</script>test@example.com';
             emailInput.value = maliciousInput;
             
             formValidator.validateField('email');
@@ -461,10 +461,10 @@ describe('FormValidator Integration Tests', () => {
 
         it('should sanitize malicious input before validation', () => {
             const maliciousScripts = [
-                '<script>alert("xss")</script>',
-                'javascript:alert("xss")',
-                '<img src="x" onerror="alert(\'xss\')">',
-                '\'><script>alert("xss")</script>'
+                '<script>alert('xss')</script>',
+                'javascript:alert('xss')',
+                '<img src='x' onerror='alert(\'xss\')'>',
+                '\'><script>alert('xss')</script>'
             ];
 
             maliciousScripts.forEach(script => {
@@ -480,7 +480,7 @@ describe('FormValidator Integration Tests', () => {
         });
 
         it('should sanitize error messages displayed to user', () => {
-            const maliciousMessage = '<script>alert("xss")</script>Invalid input';
+            const maliciousMessage = '<script>alert('xss')</script>Invalid input';
             
             // Mock the showFieldError method to test sanitization
             const originalShowFieldError = formValidator.showFieldError;
@@ -495,7 +495,7 @@ describe('FormValidator Integration Tests', () => {
         });
 
         it('should handle textarea content safely', () => {
-            const maliciousContent = '<script>alert("xss")</script>Message content';
+            const maliciousContent = '<script>alert('xss')</script>Message content';
             messageInput.value = maliciousContent;
             
             formValidator.validateField('message');
@@ -890,7 +890,7 @@ describe('FormValidator Integration Tests', () => {
         it('should handle CSRF token integration', async () => {
             const csrfToken = 'test-csrf-token';
             document.head.insertAdjacentHTML('beforeend', 
-                `<meta name="csrf-token" content="${csrfToken}">`
+                `<meta name='csrf-token' content='${csrfToken}'>`
             );
             
             vi.spyOn(formValidator, 'validateForm').mockReturnValue(true);
@@ -1067,7 +1067,7 @@ describe('FormValidator Integration Tests', () => {
         it('should work with older browser APIs', () => {
             // Mock older browser environment
             const originalAddEventListener = EventTarget.prototype.addEventListener;
-            EventTarget.prototype.addEventListener = function(type, listener, options) {
+            EventTarget.prototype.addEventListener = function  (type, listener, options) {
                 // Simulate older browser without options parameter
                 return originalAddEventListener.call(this, type, listener);
             };
@@ -1104,7 +1104,7 @@ describe('FormValidator Integration Tests', () => {
                 expect.objectContaining({
                     method: 'POST',
                     headers: expect.objectContaining({
-                        'Authorization': 'Bearer test-api-key'
+                        "Authorization": 'Bearer test-api-key'
                     })
                 })
             );

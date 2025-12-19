@@ -162,13 +162,13 @@ export class LazyLoader {
 
 /**
  * Initialize lazy loading for native lazy loading support
- * Adds loading="lazy" support check and polyfill
+ * Adds loading='lazy' support check and polyfill
  */
 export function initNativeLazyLoading () {
   // Check for native lazy loading support
   if ('loading' in HTMLImageElement.prototype) {
     // Native lazy loading is supported
-    const images = document.querySelectorAll('img[loading="lazy"]');
+    const images = document.querySelectorAll('img[loading='lazy']');
     images.forEach((img) => {
       // Ensure src is set for native lazy loading
       if (img.dataset.src && !img.src) {
@@ -178,7 +178,7 @@ export function initNativeLazyLoading () {
   } else {
     // Fall back to IntersectionObserver
     const lazyLoader = new LazyLoader({
-      selector: 'img[loading="lazy"]'
+      selector: 'img[loading='lazy']'
     });
     return lazyLoader;
   }
@@ -211,18 +211,18 @@ export function createResponsiveImage (options) {
   return `
     <picture>
       <source 
-        srcset="${srcset}"
-        sizes="${sizesAttr}"
-        type="image/webp">
+        srcset='${srcset}'
+        sizes='${sizesAttr}'
+        type='image/webp'>
       <img 
-        src="${basePath}-${defaultSize}w.webp"
-        data-src="${basePath}-${defaultSize}w.webp"
-        data-srcset="${srcset}"
-        data-sizes="${sizesAttr}"
-        alt="${alt}"
-        loading="lazy"
-        decoding="async"
-        class="lazy ${className}">
+        src='${basePath}-${defaultSize}w.webp'
+        data-src='${basePath}-${defaultSize}w.webp'
+        data-srcset='${srcset}'
+        data-sizes='${sizesAttr}'
+        alt='${alt}'
+        loading='lazy'
+        decoding='async'
+        class='lazy ${className}'>
     </picture>
   `.trim();
 }

@@ -51,73 +51,73 @@ export class PropertyFilter {
     this.filterBar.setAttribute('aria-label', 'Property filters');
 
     this.filterBar.innerHTML = `
-      <div class="filter-controls">
-        <div class="filter-group filter-group--search">
-          <label for="property-search" class="filter-label">Search Properties</label>
-          <input type="search" 
-                 id="property-search" 
-                 class="filter-input"
-                 placeholder="Search by name or location..."
-                 aria-label="Search properties by name or location"
-                 autocomplete="off">
+      <div class='filter-controls'>
+        <div class='filter-group filter-group--search'>
+          <label for='property-search' class='filter-label'>Search Properties</label>
+          <input type='search' 
+                 id='property-search' 
+                 class='filter-input'
+                 placeholder='Search by name or location...'
+                 aria-label='Search properties by name or location'
+                 autocomplete='off'>
         </div>
         
-        <div class="filter-group">
-          <label for="filter-bedrooms" class="filter-label">Bedrooms</label>
-          <select id="filter-bedrooms" class="filter-select" aria-label="Filter by number of bedrooms">
-            <option value="">Any Bedrooms</option>
-            <option value="1">1+ Bedroom</option>
-            <option value="2">2+ Bedrooms</option>
-            <option value="3">3+ Bedrooms</option>
-            <option value="4">4+ Bedrooms</option>
+        <div class='filter-group'>
+          <label for='filter-bedrooms' class='filter-label'>Bedrooms</label>
+          <select id='filter-bedrooms' class='filter-select' aria-label='Filter by number of bedrooms'>
+            <option value=''>Any Bedrooms</option>
+            <option value='1'>1+ Bedroom</option>
+            <option value='2'>2+ Bedrooms</option>
+            <option value='3'>3+ Bedrooms</option>
+            <option value='4'>4+ Bedrooms</option>
           </select>
         </div>
         
-        <div class="filter-group">
-          <label for="filter-bathrooms" class="filter-label">Bathrooms</label>
-          <select id="filter-bathrooms" class="filter-select" aria-label="Filter by number of bathrooms">
-            <option value="">Any Bathrooms</option>
-            <option value="1">1+ Bathroom</option>
-            <option value="2">2+ Bathrooms</option>
-            <option value="3">3+ Bathrooms</option>
+        <div class='filter-group'>
+          <label for='filter-bathrooms' class='filter-label'>Bathrooms</label>
+          <select id='filter-bathrooms' class='filter-select' aria-label='Filter by number of bathrooms'>
+            <option value=''>Any Bathrooms</option>
+            <option value='1'>1+ Bathroom</option>
+            <option value='2'>2+ Bathrooms</option>
+            <option value='3'>3+ Bathrooms</option>
           </select>
         </div>
         
-        <div class="filter-group filter-group--tags">
-          <span class="filter-label" id="tag-filter-label">Programs</span>
-          <div class="filter-tags" role="group" aria-labelledby="tag-filter-label">
-            <button type="button" 
-                    class="tag-filter" 
-                    data-tag="Section 8"
-                    aria-pressed="false">
+        <div class='filter-group filter-group--tags'>
+          <span class='filter-label' id='tag-filter-label'>Programs</span>
+          <div class='filter-tags' role='group' aria-labelledby='tag-filter-label'>
+            <button type='button' 
+                    class='tag-filter' 
+                    data-tag='Section 8'
+                    aria-pressed='false'>
               Section 8
             </button>
-            <button type="button" 
-                    class="tag-filter" 
-                    data-tag="HUD-VASH"
-                    aria-pressed="false">
+            <button type='button' 
+                    class='tag-filter' 
+                    data-tag='HUD-VASH'
+                    aria-pressed='false'>
               HUD-VASH
             </button>
-            <button type="button" 
-                    class="tag-filter" 
-                    data-tag="Pet Friendly"
-                    aria-pressed="false">
+            <button type='button' 
+                    class='tag-filter' 
+                    data-tag='Pet Friendly'
+                    aria-pressed='false'>
               Pet Friendly
             </button>
           </div>
         </div>
         
-        <div class="filter-group filter-group--actions">
-          <button type="button" id="reset-filters" class="btn btn-secondary btn-sm">
-            <span aria-hidden="true">✕</span> Reset Filters
+        <div class='filter-group filter-group--actions'>
+          <button type='button' id='reset-filters' class='btn btn-secondary btn-sm'>
+            <span aria-hidden='true'>✕</span> Reset Filters
           </button>
         </div>
       </div>
       
-      <div class="filter-results" aria-live="polite" aria-atomic="true">
-        <span class="results-count">
-          <strong id="results-count">${this.allProperties.length}</strong> 
-          <span id="results-label">properties found</span>
+      <div class='filter-results' aria-live='polite' aria-atomic='true'>
+        <span class='results-count'>
+          <strong id='results-count'>${this.allProperties.length}</strong> 
+          <span id='results-label'>properties found</span>
         </span>
       </div>
     `;
@@ -300,17 +300,17 @@ export class PropertyFilter {
 
     if (this.filteredProperties.length === 0) {
       this.container.innerHTML = `
-        <div class="no-results" role="status">
-          <div class="no-results__icon" aria-hidden="true">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="m21 21-4.35-4.35"/>
-              <path d="M8 11h6"/>
+        <div class='no-results' role='status'>
+          <div class='no-results__icon' aria-hidden='true'>
+            <svg width='64' height='64' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5'>
+              <circle cx='11' cy='11' r='8'/>
+              <path d='m21 21-4.35-4.35'/>
+              <path d='M8 11h6'/>
             </svg>
           </div>
-          <h3 class="no-results__title">No Properties Found</h3>
-          <p class="no-results__message">No properties match your current filters. Try adjusting your search criteria.</p>
-          <button type="button" class="btn btn-primary" id="no-results-reset">
+          <h3 class='no-results__title'>No Properties Found</h3>
+          <p class='no-results__message'>No properties match your current filters. Try adjusting your search criteria.</p>
+          <button type='button' class='btn btn-primary' id='no-results-reset'>
             Reset Filters
           </button>
         </div>
@@ -346,46 +346,46 @@ export class PropertyFilter {
     const tagsHtml = (prop.tags || [])
       .map(
         (tag) =>
-          `<span class="property-card__tag">${this.escapeHtml(tag)}</span>`
+          `<span class='property-card__tag'>${this.escapeHtml(tag)}</span>`
       )
       .join('');
 
     card.innerHTML = `
-      <div class="property-card__image-container">
-        <img src="${this.escapeHtml(prop.image || '"/images/properties/placeholder.webp')}" 
-             alt="${this.escapeHtml(prop.name)}" 
-             loading="lazy" 
-             decoding="async"
-             class="property-card__image">
-        ${prop.featured ? '<span class="property-card__badge">Featured</span>' : ''}
+      <div class='property-card__image-container'>
+        <img src='${this.escapeHtml(prop.image || ''/images/properties/placeholder.webp')}" 
+             alt='${this.escapeHtml(prop.name)}' 
+             loading='lazy' 
+             decoding='async'
+             class='property-card__image'>
+        ${prop.featured ? '<span class='property-card__badge'>Featured</span>' : ''}
       </div>
-      <div class="property-card__content">
-        <h3 class="property-card__title">${this.escapeHtml(prop.name)}</h3>
-        <p class="property-card__address">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
+      <div class='property-card__content'>
+        <h3 class='property-card__title'>${this.escapeHtml(prop.name)}</h3>
+        <p class='property-card__address'>
+          <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' aria-hidden='true'>
+            <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/>
+            <circle cx='12' cy='10' r='3'/>
           </svg>
           ${this.escapeHtml(prop.address || '')}${prop.city ? `, ${this.escapeHtml(prop.city)}` : ''}
         </p>
-        <ul class="property-card__features" aria-label="Property features">
+        <ul class='property-card__features' aria-label='Property features'>
           <li>
             <strong>${prop.bedrooms || 0}</strong> 
-            Bed${(prop.bedrooms || 0) !== 1 ? 's' : ''}
+            Bed${(prop.bedrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${prop.bathrooms || 0}</strong> 
-            Bath${(prop.bathrooms || 0) !== 1 ? 's' : ''}
+            Bath${(prop.bathrooms || 0) !== 1 ? "s": ''}
           </li>
           <li>
             <strong>${(prop.sqft || 0).toLocaleString()}</strong> 
             sqft
           </li>
         </ul>
-        ${tagsHtml ? `<div class="property-card__tags">${tagsHtml}</div>` : ''}
-        <div class="property-card__actions">
-          <a href="./${this.escapeHtml(prop.slug || prop.id)}.html" 
-             class="btn btn-primary btn-sm">
+        ${tagsHtml ? `<div class='property-card__tags'>${tagsHtml}</div>` : ''}
+        <div class='property-card__actions'>
+          <a href='./${this.escapeHtml(prop.slug || prop.id)}.html' 
+             class='btn btn-primary btn-sm'>
             View Details
           </a>
         </div>

@@ -9,8 +9,8 @@
   --color-primary-beige: #f5f1e8;
 
   /* Typography */
-  --font-family-primary: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-family-heading: "Merriweather", Georgia, serif;
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-heading: 'Merriweather', Georgia, serif;
 
   /* Spacing */
   --spacing-xs: 0.25rem;

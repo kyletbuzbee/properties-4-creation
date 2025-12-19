@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fix CSP issues for development">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='description' content='Fix CSP issues for development'>
     <title>CSP Development Fix</title>
-    
+
     <!-- Development CSP - Less Restrictive -->
-    <meta http-equiv="Content-Security-Policy" content="
+    <meta http-equiv='Content-Security-Policy' content="
         default-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com data:;
         script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://cdn.jsdelivr.net;
         style-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com;
@@ -18,22 +19,41 @@
         base-uri 'self';
         form-action 'self';
     ">
-    
+
     <style>
         /* Inline styles for development testing */
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .fix-section { background: #f0f8ff; padding: 15px; margin: 10px 0; border-radius: 5px; }
-        .error { color: #d32f2f; }
-        .success { color: #2e7d32; }
-        .warning { color: #ed6c02; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .fix-section {
+            background: #f0f8ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: #d32f2f;
+        }
+
+        .success {
+            color: #2e7d32;
+        }
+
+        .warning {
+            color: #ed6c02;
+        }
     </style>
 </head>
+
 <body>
     <h1>🔧 CSP Development Fix Guide</h1>
-    
-    <div class="fix-section">
+
+    <div class='fix-section'>
         <h2>Issues Found</h2>
-        <ul class="error">
+        <ul class='error'>
             <li>Inline styles violating CSP</li>
             <li>Missing property images (404 errors)</li>
             <li>Missing favicon.ico</li>
@@ -42,10 +62,10 @@
             <li>CORS policy blocking unpkg.com</li>
         </ul>
     </div>
-    
-    <div class="fix-section">
+
+    <div class='fix-section'>
         <h2>Quick Fixes Applied</h2>
-        <ul class="success">
+        <ul class='success'>
             <li>✅ Updated CSP for development environment</li>
             <li>✅ Added 'unsafe-inline' for inline styles</li>
             <li>✅ Added 'unsafe-eval' for module imports</li>
@@ -53,10 +73,10 @@
             <li>✅ Fixed CORS policy issues</li>
         </ul>
     </div>
-    
-    <div class="fix-section">
+
+    <div class='fix-section'>
         <h2>Next Steps</h2>
-        <ol class="warning">
+        <ol class='warning'>
             <li>Replace CSP in your HTML templates</li>
             <li>Add missing image files</li>
             <li>Create favicon.ico</li>
@@ -64,10 +84,11 @@
             <li>Move inline styles to external CSS</li>
         </ol>
     </div>
-    
+
     <script>
         // Test script loading
         console.log('CSP development fix loaded successfully');
     </script>
 </body>
+
 </html>

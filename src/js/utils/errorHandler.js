@@ -1,4 +1,4 @@
-/**
+v/**
  * ErrorHandler - Global Error Handling Utility
  * Properties 4 Creations
  *
@@ -195,19 +195,19 @@ export class ErrorHandler {
     const toast = document.createElement('div');
     toast.className = 'toast toast--error';
     toast.innerHTML = `
-      <div class="toast__icon" aria-hidden="true">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
+      <div class='toast__icon' aria-hidden='true'>
+        <svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+          <circle cx='12' cy='12' r='10'/>
+          <line x1='12' y1='8' x2='12' y2='12'/>
+          <line x1='12' y1='16' x2='12.01' y2='16'/>
         </svg>
       </div>
-      <div class="toast__content">
-        <p class="toast__message">${this.escapeHtml(message)}</p>
+      <div class='toast__content'>
+        <p class='toast__message'>${this.escapeHtml(message)}</p>
       </div>
-      <button class="toast__close" aria-label="Dismiss notification">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 6L6 18M6 6l12 12"/>
+      <button class='toast__close' aria-label='Dismiss notification'>
+        <svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'>
+          <path d='M18 6L6 18M6 6l12 12'/>
         </svg>
       </button>
     `;

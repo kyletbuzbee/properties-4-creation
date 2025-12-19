@@ -4,78 +4,78 @@ import { JSDOM } from 'jsdom';
 // Setup DOM environment
 const dom = new JSDOM(`
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
     <title>Component Integration Test</title>
 </head>
 <body>
     <header>
-        <nav aria-label="Main navigation">
+        <nav aria-label='Main navigation'>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/properties">Properties</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href='/'>Home</a></li>
+                <li><a href='/properties'>Properties</a></li>
+                <li><a href='/contact'>Contact</a></li>
             </ul>
         </nav>
     </header>
     
-    <main id="main">
-        <section class="property-filter">
+    <main id='main'>
+        <section class='property-filter'>
             <h2>Find Your Home</h2>
-            <form id="property-search-form">
-                <input type="text" id="search-location" placeholder="Location">
-                <select id="property-type">
-                    <option value="">All Types</option>
-                    <option value="ranch">Ranch</option>
-                    <option value="victorian">Victorian</option>
-                    <option value="townhome">Townhome</option>
+            <form id='property-search-form'>
+                <input type='text' id='search-location' placeholder='Location'>
+                <select id='property-type'>
+                    <option value=''>All Types</option>
+                    <option value='ranch'>Ranch</option>
+                    <option value='victorian'>Victorian</option>
+                    <option value='townhome'>Townhome</option>
                 </select>
-                <button type="submit">Search Properties</button>
+                <button type='submit'>Search Properties</button>
             </form>
-            <div id="filter-results" aria-live="polite"></div>
+            <div id='filter-results' aria-live='polite'></div>
         </section>
         
-        <section class="property-listings">
-            <div class="property-card" data-property-id="1">
+        <section class='property-listings'>
+            <div class='property-card' data-property-id='1'>
                 <h3>Tyler Ranch Home</h3>
-                <p class="location">Tyler, TX</p>
-                <button class="view-details-btn" data-property-id="1">View Details</button>
+                <p class='location'>Tyler, TX</p>
+                <button class='view-details-btn' data-property-id='1'>View Details</button>
             </div>
-            <div class="property-card" data-property-id="2">
+            <div class='property-card' data-property-id='2'>
                 <h3>Longview Victorian</h3>
-                <p class="location">Longview, TX</p>
-                <button class="view-details-btn" data-property-id="2">View Details</button>
+                <p class='location'>Longview, TX</p>
+                <button class='view-details-btn' data-property-id='2'>View Details</button>
             </div>
         </section>
         
-        <section class="contact-form-section">
+        <section class='contact-form-section'>
             <h2>Get Started Today</h2>
-            <form id="contact-form">
-                <input type="email" id="contact-email" name="email" required>
-                <input type="text" id="contact-name" name="name" required>
-                <textarea id="contact-message" name="message" required></textarea>
-                <button type="submit">Send Message</button>
-                <div class="form-status" aria-live="polite"></div>
+            <form id='contact-form'>
+                <input type='email' id='contact-email' name='email' required>
+                <input type='text' id='contact-name' name='name' required>
+                <textarea id='contact-message' name='message' required></textarea>
+                <button type='submit'>Send Message</button>
+                <div class='form-status' aria-live='polite'></div>
             </form>
         </section>
     </main>
     
-    <div id="modal-overlay" class="modal-overlay" style="display: none;">
-        <div class="modal-content" role="dialog" aria-labelledby="modal-title">
-            <h2 id="modal-title">Property Details</h2>
-            <div id="modal-body"></div>
-            <button id="modal-close" aria-label="Close modal">×</button>
+    <div id='modal-overlay' class='modal-overlay' style='display: none;'>
+        <div class='modal-content' role='dialog' aria-labelledby='modal-title'>
+            <h2 id='modal-title'>Property Details</h2>
+            <div id='modal-body'></div>
+            <button id='modal-close' aria-label='Close modal'>×</button>
         </div>
     </div>
     
-    <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style="position: absolute; left: -10000px;"></div>
-    <div id="aria-live-alerts" aria-live="assertive" aria-atomic="true" style="position: absolute; left: -10000px;"></div>
+    <div id='aria-live-announcer' aria-live='polite' aria-atomic='true' style='position: absolute; left: -10000px;'></div>
+    <div id='aria-live-alerts' aria-live='assertive' aria-atomic='true' style='position: absolute; left: -10000px;'></div>
 </body>
 </html>
 `, { 
     url: 'http://localhost',
     pretendToBeVisual: true,
-    runScripts: "dangerously"
+    runScripts: 'dangerously'
 });
 
 global.window = dom.window;
@@ -129,66 +129,66 @@ describe('Component Integration Tests', () => {
         // Reset DOM state
         document.body.innerHTML = `
             <header>
-                <nav aria-label="Main navigation">
+                <nav aria-label='Main navigation'>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/properties">Properties</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href='/'>Home</a></li>
+                        <li><a href='/properties'>Properties</a></li>
+                        <li><a href='/contact'>Contact</a></li>
                     </ul>
                 </nav>
             </header>
             
-            <main id="main">
-                <section class="property-filter">
+            <main id='main'>
+                <section class='property-filter'>
                     <h2>Find Your Home</h2>
-                    <form id="property-search-form">
-                        <input type="text" id="search-location" placeholder="Location">
-                        <select id="property-type">
-                            <option value="">All Types</option>
-                            <option value="ranch">Ranch</option>
-                            <option value="victorian">Victorian</option>
-                            <option value="townhome">Townhome</option>
+                    <form id='property-search-form'>
+                        <input type='text' id='search-location' placeholder='Location'>
+                        <select id='property-type'>
+                            <option value=''>All Types</option>
+                            <option value='ranch'>Ranch</option>
+                            <option value='victorian'>Victorian</option>
+                            <option value='townhome'>Townhome</option>
                         </select>
-                        <button type="submit">Search Properties</button>
+                        <button type='submit'>Search Properties</button>
                     </form>
-                    <div id="filter-results" aria-live="polite"></div>
+                    <div id='filter-results' aria-live='polite'></div>
                 </section>
                 
-                <section class="property-listings">
-                    <div class="property-card" data-property-id="1">
+                <section class='property-listings'>
+                    <div class='property-card' data-property-id='1'>
                         <h3>Tyler Ranch Home</h3>
-                        <p class="location">Tyler, TX</p>
-                        <button class="view-details-btn" data-property-id="1">View Details</button>
+                        <p class='location'>Tyler, TX</p>
+                        <button class='view-details-btn' data-property-id='1'>View Details</button>
                     </div>
-                    <div class="property-card" data-property-id="2">
+                    <div class='property-card' data-property-id='2'>
                         <h3>Longview Victorian</h3>
-                        <p class="location">Longview, TX</p>
-                        <button class="view-details-btn" data-property-id="2">View Details</button>
+                        <p class='location'>Longview, TX</p>
+                        <button class='view-details-btn' data-property-id='2'>View Details</button>
                     </div>
                 </section>
                 
-                <section class="contact-form-section">
+                <section class='contact-form-section'>
                     <h2>Get Started Today</h2>
-                    <form id="contact-form">
-                        <input type="email" id="contact-email" name="email" required>
-                        <input type="text" id="contact-name" name="name" required>
-                        <textarea id="contact-message" name="message" required></textarea>
-                        <button type="submit">Send Message</button>
-                        <div class="form-status" aria-live="polite"></div>
+                    <form id='contact-form'>
+                        <input type='email' id='contact-email' name='email' required>
+                        <input type='text' id='contact-name' name='name' required>
+                        <textarea id='contact-message' name='message' required></textarea>
+                        <button type='submit'>Send Message</button>
+                        <div class='form-status' aria-live='polite'></div>
                     </form>
                 </section>
             </main>
             
-            <div id="modal-overlay" class="modal-overlay" style="display: none;">
-                <div class="modal-content" role="dialog" aria-labelledby="modal-title">
-                    <h2 id="modal-title">Property Details</h2>
-                    <div id="modal-body"></div>
-                    <button id="modal-close" aria-label="Close modal">×</button>
+            <div id='modal-overlay' class='modal-overlay' style='display: none;'>
+                <div class='modal-content' role='dialog' aria-labelledby='modal-title'>
+                    <h2 id='modal-title'>Property Details</h2>
+                    <div id='modal-body'></div>
+                    <button id='modal-close' aria-label='Close modal'>×</button>
                 </div>
             </div>
             
-            <div id="aria-live-announcer" aria-live="polite" aria-atomic="true" style="position: absolute; left: -10000px;"></div>
-            <div id="aria-live-alerts" aria-live="assertive" aria-atomic="true" style="position: absolute; left: -10000px;"></div>
+            <div id='aria-live-announcer' aria-live='polite' aria-atomic='true' style='position: absolute; left: -10000px;'></div>
+            <div id='aria-live-alerts' aria-live='assertive' aria-atomic='true' style='position: absolute; left: -10000px;'></div>
         `;
 
         // Get elements

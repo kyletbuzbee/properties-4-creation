@@ -13,7 +13,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
   test.describe('Homepage Navigation & Accessibility', () => {
     test('should load homepage with proper accessibility features', async ({ page }) => {
       // Check main navigation
-      await expect(page.locator('nav[aria-label="Main navigation"]')).toBeVisible();
+      await expect(page.locator('nav[aria-label='Main navigation']')).toBeVisible();
       
       // Check skip link functionality
       await page.keyboard.press('Tab');
@@ -88,7 +88,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       const searchForm = page.locator('form').filter({ hasText: /search/i });
       if (await searchForm.isVisible()) {
         // Fill search form
-        const locationInput = page.locator('input[placeholder*="location" i], input[id*="location"], input[name*="location"]');
+        const locationInput = page.locator('input[placeholder*='location' i], input[id*='location'], input[name*='location']');
         if (await locationInput.isVisible()) {
           await locationInput.fill('Tyler');
         }
@@ -99,7 +99,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
         }
         
         // Submit search
-        await page.locator('button[type="submit"]').click();
+        await page.locator('button[type='submit']').click();
         await page.waitForLoadState('networkidle');
         
         // Check for search results
@@ -111,7 +111,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/properties');
       await page.waitForLoadState('networkidle');
       
-      const typeFilter = page.locator('select[name="type"], select[id*="type"]');
+      const typeFilter = page.locator('select[name='type'], select[id*='type']');
       if (await typeFilter.isVisible()) {
         await typeFilter.selectOption('ranch');
         await page.waitForTimeout(1000);
@@ -128,10 +128,10 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.waitForLoadState('networkidle');
       
       // Look for ARIA live region
-      const liveRegion = page.locator('[aria-live="polite"], [aria-live="assertive"]');
+      const liveRegion = page.locator('[aria-live='polite'], [aria-live='assertive']');
       
       // Perform search
-      const searchInput = page.locator('input[type="text"]').first();
+      const searchInput = page.locator('input[type='text']').first();
       if (await searchInput.isVisible()) {
         await searchInput.fill('Longview');
         await page.waitForTimeout(1000);
@@ -150,7 +150,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/properties');
       await page.waitForLoadState('networkidle');
       
-      // Look for "View Details" buttons
+      // Look for 'View Details' buttons
       const viewDetailsButtons = page.locator('button').filter({ hasText: /view details/i });
       const buttonCount = await viewDetailsButtons.count();
       
@@ -160,19 +160,19 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
         await page.waitForTimeout(1000);
         
         // Check if modal opened
-        const modal = page.locator('.modal, .modal-overlay, [role="dialog"]');
+        const modal = page.locator('.modal, .modal-overlay, [role='dialog']');
         if (await modal.isVisible()) {
           await expect(modal).toBeVisible();
           
           // Check modal accessibility
-          const modalDialog = page.locator('[role="dialog"]');
+          const modalDialog = page.locator('[role='dialog']');
           if (await modalDialog.isVisible()) {
             const ariaLabelledby = await modalDialog.getAttribute('aria-labelledby');
             expect(ariaLabelledby).toBeTruthy();
           }
           
           // Close modal
-          const closeButton = page.locator('button[aria-label*="close" i], button[aria-label*="dismiss" i]');
+          const closeButton = page.locator('button[aria-label*='close' i], button[aria-label*='dismiss' i]');
           if (await closeButton.isVisible()) {
             await closeButton.click();
             await page.waitForTimeout(500);
@@ -191,7 +191,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
         await viewDetailsButtons.first().click();
         await page.waitForTimeout(1000);
         
-        const modal = page.locator('.modal, [role="dialog"]');
+        const modal = page.locator('.modal, [role='dialog']');
         if (await modal.isVisible()) {
           // Test Escape key to close modal
           await page.keyboard.press('Escape');
@@ -210,10 +210,10 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.waitForLoadState('networkidle');
       
       // Fill contact form
-      const emailInput = page.locator('input[type="email"]').first();
-      const nameInput = page.locator('input[type="text"]').first();
+      const emailInput = page.locator('input[type='email']').first();
+      const nameInput = page.locator('input[type='text']').first();
       const messageTextarea = page.locator('textarea').first();
-      const submitButton = page.locator('button[type="submit"]').first();
+      const submitButton = page.locator('button[type='submit']').first();
       
       if (await emailInput.isVisible() && await nameInput.isVisible()) {
         await emailInput.fill('test@example.com');
@@ -238,8 +238,8 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/contact');
       await page.waitForLoadState('networkidle');
       
-      const emailInput = page.locator('input[type="email"]').first();
-      const submitButton = page.locator('button[type="submit"]').first();
+      const emailInput = page.locator('input[type='email']').first();
+      const submitButton = page.locator('button[type='submit']').first();
       
       if (await emailInput.isVisible()) {
         // Try to submit with invalid email
@@ -258,10 +258,10 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/contact');
       await page.waitForLoadState('networkidle');
       
-      const emailInput = page.locator('input[type="email"]').first();
-      const nameInput = page.locator('input[type="text"]').first();
+      const emailInput = page.locator('input[type='email']').first();
+      const nameInput = page.locator('input[type='text']').first();
       const messageTextarea = page.locator('textarea').first();
-      const submitButton = page.locator('button[type="submit"]').first();
+      const submitButton = page.locator('button[type='submit']').first();
       
       if (await emailInput.isVisible()) {
         // Fill form
@@ -286,8 +286,8 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/contact');
       await page.waitForLoadState('networkidle');
       
-      const emailInput = page.locator('input[type="email"]').first();
-      const submitButton = page.locator('button[type="submit"]').first();
+      const emailInput = page.locator('input[type='email']').first();
+      const submitButton = page.locator('button[type='submit']').first();
       
       if (await emailInput.isVisible()) {
         // Fill invalid email and submit
@@ -296,7 +296,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
         await page.waitForTimeout(2000);
         
         // Check for ARIA live region announcements
-        const liveRegions = page.locator('[aria-live="polite"], [aria-live="assertive"]');
+        const liveRegions = page.locator('[aria-live='polite'], [aria-live='assertive']');
         const liveRegionCount = await liveRegions.count();
         
         expect(liveRegionCount).toBeGreaterThan(0);
@@ -321,7 +321,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.waitForLoadState('networkidle');
       
       // Check mobile navigation
-      const mobileMenuButton = page.locator('button[aria-label*="menu" i], .mobile-menu-toggle');
+      const mobileMenuButton = page.locator('button[aria-label*='menu' i], .mobile-menu-toggle');
       if (await mobileMenuButton.isVisible()) {
         await mobileMenuButton.click();
         await page.waitForTimeout(1000);
@@ -334,7 +334,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/properties');
       await page.waitForLoadState('networkidle');
       
-      const searchInput = page.locator('input[type="text"]').first();
+      const searchInput = page.locator('input[type='text']').first();
       if (await searchInput.isVisible()) {
         await searchInput.fill('Tyler');
         await page.waitForTimeout(1000);
@@ -357,7 +357,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
         await page.waitForTimeout(1000);
         
         // Check if modal opened on tap
-        const modal = page.locator('.modal, [role="dialog"]');
+        const modal = page.locator('.modal, [role='dialog']');
         if (await modal.isVisible()) {
           await expect(modal).toBeVisible();
         }
@@ -410,8 +410,8 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/contact');
       await page.waitForLoadState('networkidle');
       
-      const emailInput = page.locator('input[type="email"]').first();
-      const submitButton = page.locator('button[type="submit"]').first();
+      const emailInput = page.locator('input[type='email']').first();
+      const submitButton = page.locator('button[type='submit']').first();
       
       if (await emailInput.isVisible()) {
         await emailInput.fill('test@example.com');
@@ -440,7 +440,7 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       expect(hasJavaScript).toBe(true);
       
       // Test CSS loading
-      const stylesheets = await page.locator('link[rel="stylesheet"]').count();
+      const stylesheets = await page.locator('link[rel='stylesheet']').count();
       expect(stylesheets).toBeGreaterThan(0);
     });
   });
@@ -450,10 +450,10 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.goto('/contact');
       await page.waitForLoadState('networkidle');
       
-      const nameInput = page.locator('input[type="text"]').first();
+      const nameInput = page.locator('input[type='text']').first();
       if (await nameInput.isVisible()) {
         // Try to inject XSS
-        await nameInput.fill('<script>alert("xss")</script>Test User');
+        await nameInput.fill('<script>alert('xss')</script>Test User');
         await page.waitForTimeout(1000);
         
         // Check that script was not executed
@@ -469,8 +469,8 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.waitForLoadState('networkidle');
       
       // Check for CSRF token
-      const csrfToken = await page.locator('meta[name="csrf-token"]').getAttribute('content');
-      const hiddenCsrfInput = page.locator('input[name="_token"], input[name="csrf_token"]');
+      const csrfToken = await page.locator('meta[name='csrf-token']').getAttribute('content');
+      const hiddenCsrfInput = page.locator('input[name='_token'], input[name='csrf_token']');
       
       // Should have CSRF protection in place
       expect(csrfToken || await hiddenCsrfInput.isVisible()).toBeTruthy();
@@ -494,11 +494,11 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       }
       
       // Check for proper form labels
-      const inputs = await page.locator('input[required], input[type="email"], input[type="text"]').all();
+      const inputs = await page.locator('input[required], input[type='email'], input[type='text']').all();
       for (const input of inputs) {
         const label = await input.getAttribute('aria-label') || 
                      await input.getAttribute('placeholder') ||
-                     await page.locator(`label[for="${await input.getAttribute('id')}"]`).textContent();
+                     await page.locator(`label[for='${await input.getAttribute('id')}']`).textContent();
         expect(label).toBeTruthy();
       }
     });
@@ -508,11 +508,11 @@ test.describe('Critical User Flows - Properties 4 Creations', () => {
       await page.waitForLoadState('networkidle');
       
       // Check for ARIA landmarks
-      await expect(page.locator('main[role="main"], main#main')).toBeVisible();
-      await expect(page.locator('nav[role="navigation"], nav[aria-label]')).toBeVisible();
+      await expect(page.locator('main[role='main'], main#main')).toBeVisible();
+      await expect(page.locator('nav[role='navigation'], nav[aria-label]')).toBeVisible();
       
       // Check for live regions
-      const liveRegions = page.locator('[aria-live="polite"], [aria-live="assertive"]');
+      const liveRegions = page.locator('[aria-live='polite'], [aria-live='assertive']');
       const liveRegionCount = await liveRegions.count();
       expect(liveRegionCount).toBeGreaterThan(0);
       

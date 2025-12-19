@@ -183,6 +183,6 @@ export function cleanUserInput (input) {
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<iframe\b[^<]*(?:(?!<\/iframe>)<[^<]*)*<\/iframe>/gi, '')
     .replace(/javascript:/gi, '')
-    .replace(/on\w+="[^"]*"/gi, '')
+    .replace(/on\w+='[^']*"/gi, '')
     .trim();
 }

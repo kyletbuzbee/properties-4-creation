@@ -150,7 +150,7 @@ async function main() {
   console.log(`✅ Processed ${processedImages}/${totalImages} images`);
   console.log('\nNext steps:');
   console.log('1. Update HTML files to use responsive <picture> elements');
-  console.log('2. Add loading="lazy" to images below the fold');
+  console.log('2. Add loading='lazy' to images below the fold');
   console.log('3. Use placeholder images for progressive loading');
 }
 

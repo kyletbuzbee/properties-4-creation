@@ -6,9 +6,9 @@
 - **Org:** Properties 4 Creations.
 
 ## 2. Technical Logic (Preventing Drift)
-- **Anchored Context:** Every response MUST start with: "STEP: [Current Task Name] | FILE: [Target File Name] | PROGRESS: [X/Y]".
+- **Anchored Context:** Every response MUST start with: 'STEP: [Current Task Name] | FILE: [Target File Name] | PROGRESS: [X/Y]'.
 - **Chunked Operations:** If a file (like `index.html` or a CSS bundle) exceeds 300 lines, do NOT use `write_to_file` for the entire content. Use `replace_lines` to modify only specific blocks.
-- **Stateless Approach:** Prioritize Nunjucks filters and global data files (`src/_data/`) over client-side JavaScript to ensure the site remains "Lightning Fast".
+- **Stateless Approach:** Prioritize Nunjucks filters and global data files (`src/_data/`) over client-side JavaScript to ensure the site remains 'Lightning Fast'.
 
 ## 3. Mandatory Verification Loop
 - **Pre-Edit:** Before editing, use `read_file` to verify the existing structure of the file and its dependencies.
@@ -18,4 +18,4 @@
 ## 4. Brand & UI Standards
 - **Accessibility:** All veteran-facing pages must pass WCAG 2.1 AA standards. Ensure `<img>` tags have descriptive alt text and contrast is high.
 - **Localization:** Content and SEO metadata must prioritize the East Texas region.
-- **Identity:** Use colors and design patterns consistent with a "reliable and supportive" aesthetic for Properties 4 Creations.
+- **Identity:** Use colors and design patterns consistent with a 'reliable and supportive' aesthetic for Properties 4 Creations.

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
   --navy: #0b1120;
@@ -35,7 +35,7 @@ html {
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--beige);
   color: var(--navy);
   line-height: 1.6;
@@ -67,7 +67,7 @@ body {
 }
 
 .nav-brand h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: white;
   font-size: 1.5rem;
   font-weight: 700;
@@ -130,7 +130,7 @@ body {
 }
 
 .brand-text {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: white;
   font-size: 1.25rem;
   font-weight: 700;
@@ -195,7 +195,7 @@ body {
       rgba(11, 17, 32, 0.8) 0%,
       rgba(11, 17, 32, 0.6) 100%
     ),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230B1120" width="1200" height="600"/></svg>');
+    url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'><rect fill='%230B1120' width='1200' height='600'/></svg>');
   background-size: cover;
   background-position: center;
   color: white;
@@ -215,7 +215,7 @@ body {
 }
 
 .hero h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -254,7 +254,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: var(--btn-transition);
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -306,7 +306,7 @@ body {
 }
 
 .impact-snapshot h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   text-align: center;
   font-size: 2rem;
   margin-bottom: 3rem;
@@ -339,7 +339,7 @@ body {
 
 .stat-number {
   display: block;
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--gold);
@@ -360,7 +360,7 @@ body {
 }
 
 .map-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   margin-bottom: 1rem;
   color: var(--navy);
@@ -387,7 +387,7 @@ body {
 }
 
 .trust-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   text-align: center;
   font-size: 2rem;
   margin-bottom: 3rem;
@@ -421,7 +421,7 @@ body {
 }
 
 .trust-card h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
   color: var(--navy);
@@ -446,7 +446,7 @@ body {
 }
 
 .cta-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -473,7 +473,7 @@ body {
 
 .footer-section h3,
 .footer-section h4 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   margin-bottom: 1rem;
   color: var(--gold);
 }
@@ -515,7 +515,7 @@ body {
 }
 
 .properties-header h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2.5rem;
   color: var(--navy);
   margin-bottom: 0.5rem;
@@ -552,7 +552,7 @@ body {
   height: 250px;
   background:
     linear-gradient(135deg, rgba(11, 17, 32, 0.7), rgba(194, 142, 90, 0.7)),
-    url("") center/cover;
+    url('') center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,7 +567,7 @@ body {
 }
 
 .property-title {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 1.5rem;
   color: var(--navy);
   margin-bottom: 0.5rem;
@@ -633,7 +633,7 @@ body {
 }
 
 .resources-header h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2.5rem;
   color: var(--navy);
   margin-bottom: 1rem;
@@ -649,7 +649,7 @@ body {
 }
 
 .program-card h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
   font-size: 1.5rem;
@@ -715,7 +715,7 @@ body {
 }
 
 .standard-card h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
 }
@@ -732,7 +732,7 @@ body {
 }
 
 .checklist li::before {
-  content: "✓";
+  content: '✓';
   position: absolute;
   left: 0;
   color: var(--gold);
@@ -756,7 +756,7 @@ body {
 }
 
 .impact-hero h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
@@ -774,7 +774,7 @@ body {
 }
 
 .impact-stat-number {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 3rem;
   color: var(--gold);
   font-weight: 700;
@@ -800,7 +800,7 @@ body {
 }
 
 .story-card h4 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 0.5rem;
 }
@@ -828,7 +828,7 @@ body {
 }
 
 .form-wrapper h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1.5rem;
   font-size: 2rem;
@@ -853,7 +853,7 @@ body {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1rem;
   transition:
     border-color 0.3s,
@@ -890,8 +890,8 @@ body {
   display: block;
 }
 
-.form-group input[type="checkbox"],
-.form-group input[type="radio"] {
+.form-group input[type='checkbox'],
+.form-group input[type='radio'] {
   width: auto;
   margin-right: 0.5rem;
 }
@@ -938,7 +938,7 @@ body {
 }
 
 .faq-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   text-align: center;
   font-size: 2rem;
   margin-bottom: 3rem;
@@ -1002,7 +1002,7 @@ body {
 }
 
 .contact-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   color: var(--navy);
   margin-bottom: 1rem;
@@ -1036,7 +1036,7 @@ body {
 }
 
 .contact-detail h4 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
@@ -1066,7 +1066,7 @@ body {
 }
 
 .contact-form-wrapper h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
@@ -1223,7 +1223,7 @@ body {
 }
 
 .slider-handle::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1292,7 +1292,7 @@ body {
   padding: 0.5rem;
   border: 1px solid var(--light-gray);
   border-radius: 5px;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .filter-controls button {
@@ -1330,7 +1330,7 @@ body {
 }
 
 .page-banner h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 3rem;
   margin-bottom: 1rem;
   color: white;
@@ -1353,14 +1353,14 @@ body {
 }
 
 .error-page h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 4rem;
   color: var(--navy);
   margin-bottom: 1rem;
 }
 
 .error-page h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   color: var(--navy);
   margin-bottom: 1rem;
@@ -1386,7 +1386,7 @@ body {
 }
 
 .popular-links h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1.5rem;
 }
@@ -1435,21 +1435,21 @@ body {
 }
 
 .thank-you-section h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 3rem;
   color: var(--navy);
   margin-bottom: 1rem;
 }
 
 .thank-you-section h2 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 2rem;
   color: var(--navy);
   margin-bottom: 1rem;
 }
 
 .thank-you-section h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1.5rem;
   text-align: center;
@@ -1513,7 +1513,7 @@ body {
 }
 
 .contact-info h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
 }
@@ -1523,7 +1523,7 @@ body {
 }
 
 .helpful-links h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1.5rem;
 }
@@ -1537,7 +1537,7 @@ body {
 }
 
 .search-alternative h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
 }
@@ -1554,23 +1554,23 @@ body {
 
 /* Individual Property Hero Backgrounds */
 .longview-hero {
-  background-image: url("/images/properties/properties-longview-victorian.webp");
+  background-image: url('/images/properties/properties-longview-victorian.webp');
 }
 
 .jefferson-hero {
-  background-image: url("/images/properties/properties-jefferson-river-front.webp");
+  background-image: url('/images/properties/properties-jefferson-river-front.webp');
 }
 
 .kemp-hero {
-  background-image: url("/images/properties/properties-kemp-townhome.webp");
+  background-image: url('/images/properties/properties-kemp-townhome.webp');
 }
 
 .marshall-hero {
-  background-image: url("/images/properties/properties-marshall-farmhouse.webp");
+  background-image: url('/images/properties/properties-marshall-farmhouse.webp');
 }
 
 .mineola-hero {
-  background-image: url("/images/properties/properties-mineola-studio.webp");
+  background-image: url('/images/properties/properties-mineola-studio.webp');
 }
 
 .property-detail-hero .container {
@@ -1579,7 +1579,7 @@ body {
 }
 
 .property-detail-hero h1 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 3rem;
   margin-bottom: 1rem;
   color: white;
@@ -1605,7 +1605,7 @@ body {
 }
 
 .location-details h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
 }
@@ -1655,7 +1655,7 @@ body {
 }
 
 .team-member h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 0.5rem;
 }
@@ -1699,7 +1699,7 @@ body {
 }
 
 .process-step h3 {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   color: var(--navy);
   margin-bottom: 1rem;
 }

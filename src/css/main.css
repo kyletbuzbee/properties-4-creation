@@ -11,20 +11,20 @@
    ======================================== */
 
 /* Design Tokens (CSS Custom Properties) */
-@import "base/design-tokens.css";
+@import 'base/design-tokens.css';
 
 /* ========================================
    Components
    ======================================== */
 
 /* Buttons */
-@import "components/buttons.css";
+@import 'components/buttons.css';
 
 /* Cards */
-@import "components/cards.css";
+@import 'components/cards.css';
 
 /* Forms */
-@import "components/forms.css";
+@import 'components/forms.css';
 
 /* ========================================
    Existing Styles (Legacy)
@@ -431,7 +431,7 @@
   }
 
   a[href]::after {
-    content: " (" attr(href) ")";
+    content: ' (' attr(href) ')';
     font-size: 0.8em;
   }
 

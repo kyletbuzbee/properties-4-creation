@@ -98,7 +98,7 @@ Content Security Policy Headers​
 
 xml
 <!-- src/_includes/partials/security-headers.html -->
-<meta http-equiv="Content-Security-Policy" 
+<meta http-equiv='Content-Security-Policy' 
       content="default-src 'self'; 
                script-src 'self' https://unpkg.com https://www.googletagmanager.com; 
                style-src 'self' https://fonts.googleapis.com;">
@@ -110,16 +110,16 @@ xml
 
 xml
 <!-- CURRENT (docs/index.html) - VULNERABLE -->
-<meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+<meta http-equiv='Content-Security-Policy' content='script-src 'self''>
 <script>
   // Inline script without nonce - blocked by CSP
   console.log('This will fail with strict CSP');
 </script>
 
 <!-- RECOMMENDED FIX -->
-<meta http-equiv="Content-Security-Policy" 
-      content="script-src 'self' 'nonce-{{ cspNonce }}'">
-<script nonce="{{ cspNonce }}">
+<meta http-equiv='Content-Security-Policy' 
+      content='script-src 'self' 'nonce-{{ cspNonce }}''>
+<script nonce='{{ cspNonce }}'>
   // Now allowed
 </script>
 2. No Rate Limiting for Form Submissions
@@ -190,7 +190,7 @@ export class Modal {
 
   trapFocus(element) {
     const focusableElements = element.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])'
     );
     // Excellent focus trapping for accessibility
   }
@@ -204,7 +204,7 @@ Lazy Loading Implementation​
 javascript
 // src/js/utils/lazyLoad.js
 export class LazyLoader {
-  constructor(selector = 'img[loading="lazy"]') {
+  constructor(selector = 'img[loading='lazy']') {
     this.images = document.querySelectorAll(selector);
     this.observer = null;
     this.init();
@@ -289,7 +289,7 @@ searchInput.addEventListener('input', (e) => {
 // RECOMMENDED: Utility function
 function debounce(func, wait) {
   let timeout;
-  return function executedFunction(...args) {
+  return function executedfunction  (...args) {
     const later = () => {
       clearTimeout(timeout);
       func(...args);
@@ -427,9 +427,9 @@ V. HTML Structure & Accessibility
 Semantic HTML
 
 xml
-<article class="property-card" role="listitem" itemscope itemtype="https://schema.org/RealEstateListing">
-  <h3 class="property-card__title">Tyler Ranch Home</h3>
-  <ul class="property-card__features" aria-label="Property features">
+<article class='property-card' role='listitem' itemscope itemtype='https://schema.org/RealEstateListing'>
+  <h3 class='property-card__title'>Tyler Ranch Home</h3>
+  <ul class='property-card__features' aria-label='Property features'>
     <li><strong>3</strong> Beds</li>
   </ul>
 </article>
@@ -440,7 +440,7 @@ xml
 Skip Links
 
 xml
-<a href="#main-content" class="skip-link">Skip to main content</a>
+<a href='#main-content' class='skip-link'>Skip to main content</a>
 ✅ Good: Keyboard navigation support
 
 ⚠️ Accessibility Issues
@@ -448,8 +448,8 @@ xml
 
 xml
 <!-- CURRENT - No focus restoration after modal close -->
-<div class="modal" id="inquiry-modal">
-  <button class="modal__close">Close</button>
+<div class='modal' id='inquiry-modal'>
+  <button class='modal__close'>Close</button>
 </div>
 
 <!-- RECOMMENDED: JavaScript focus restoration in Modal.js -->
@@ -462,22 +462,22 @@ close() {
 
 xml
 <!-- CURRENT - Generic alt text -->
-<img src="tyler-ranch.webp" alt="Property image">
+<img src='tyler-ranch.webp' alt='Property image'>
 
 <!-- RECOMMENDED - Descriptive alt text -->
-<img src="tyler-ranch.webp" 
-     alt="Front view of 3-bedroom Tyler Ranch Home with white siding, red brick base, and landscaped front yard">
+<img src='tyler-ranch.webp' 
+     alt='Front view of 3-bedroom Tyler Ranch Home with white siding, red brick base, and landscaped front yard'>
 3. Missing ARIA Live Regions
 
 xml
 <!-- CURRENT - No announcement for filter results -->
-<div class="results-count">
-  <span id="results-count">12</span> properties found
+<div class='results-count'>
+  <span id='results-count'>12</span> properties found
 </div>
 
 <!-- RECOMMENDED -->
-<div class="results-count" aria-live="polite" aria-atomic="true">
-  <span id="results-count">12</span> properties found
+<div class='results-count' aria-live='polite' aria-atomic='true'>
+  <span id='results-count'>12</span> properties found
 </div>
 VI. Build System & Tooling
 ✅ Build System Strengths
@@ -485,14 +485,14 @@ Eleventy Configuration​
 
 javascript
 // .eleventy.js - GOOD CONFIGURATION
-module.exports = function(eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("src/css");
-  eleventyConfig.addPassthroughCopy("src/js");
-  eleventyConfig.addWatchTarget("src/css/");
+module.exports = function  (eleventyConfig) {
+  eleventyConfig.addPassthroughCopy('src/css');
+  eleventyConfig.addPassthroughCopy('src/js');
+  eleventyConfig.addWatchTarget('src/css/');
   
   return {
-    dir: { input: "src", output: "docs" },
-    htmlTemplateEngine: "njk"
+    dir: { input: 'src', output: 'docs' },
+    htmlTemplateEngine: 'njk'
   };
 };
 ✅ Good: Clear input/output separation
@@ -503,10 +503,10 @@ ESLint Configuration​
 json
 {
   "rules": {
-    "no-console": "warn",
-    "no-unused-vars": "error",
-    "no-var": "error",
-    "prefer-const": "error"
+    'no-console': 'warn',
+    'no-unused-vars': 'error',
+    'no-var': 'error',
+    'prefer-const': 'error'
   }
 }
 ✅ Good: Modern JavaScript enforcement
@@ -519,15 +519,15 @@ json
 // package.json - INCOMPLETE
 {
   "scripts": {
-    "build": "eleventy",
-    "build:prod": "eleventy" // Same as dev build!
+    "build": 'eleventy',
+    'build:prod': 'eleventy' // Same as dev build!
   }
 }
 
 // RECOMMENDED
 {
   "scripts": {
-    "build:prod": "NODE_ENV=production eleventy && npm run minify && npm run critical-css"
+    'build:prod': 'NODE_ENV=production eleventy && npm run minify && npm run critical-css'
   }
 }
 2. No Bundle Analyzer
@@ -541,8 +541,8 @@ json
 // RECOMMENDATION: Add to package.json
 {
   "scripts": {
-    "audit": "npm audit fix",
-    "audit:check": "npm audit --audit-level=moderate"
+    "audit": 'npm audit fix',
+    'audit:check': 'npm audit --audit-level=moderate'
   }
 }
 VII. Performance Analysis
@@ -577,17 +577,17 @@ self.addEventListener('fetch', (event) => {
 
 xml
 <!-- RECOMMENDED: Add to <head> -->
-<link rel="preload" href="/css/critical.css" as="style">
-<link rel="preload" href="/js/main.js" as="script">
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel='preload' href='/css/critical.css' as='style'>
+<link rel='preload' href='/js/main.js' as='script'>
+<link rel='dns-prefetch' href='https://fonts.googleapis.com'>
 2. Blocking JavaScript
 
 xml
 <!-- CURRENT - Blocks rendering -->
-<script src="/js/main.js"></script>
+<script src='/js/main.js'></script>
 
 <!-- RECOMMENDED -->
-<script src="/js/main.js" defer></script>
+<script src='/js/main.js' defer></script>
 3. Large Video Files
 
 hero-properties-banner.mp4 - No size limit mentioned
@@ -608,9 +608,9 @@ import { escapeHtml } from '../src/js/utils/sanitizer.js';
 
 describe('sanitizer', () => {
   it('should escape HTML entities', () => {
-    const input = '<script>alert("XSS")</script>';
+    const input = '<script>alert('XSS')</script>';
     const output = escapeHtml(input);
-    expect(output).toBe('&lt;script&gt;alert("XSS")&lt;/script&gt;');
+    expect(output).toBe('&lt;script&gt;alert('XSS')&lt;/script&gt;');
   });
 });
 No Integration Tests
@@ -895,10 +895,10 @@ export class ErrorBoundary {
 
 // Initialize in main.js
 const errorBoundary = new ErrorBoundary((error) => `
-  <div class="error-boundary" role="alert">
+  <div class='error-boundary' role='alert'>
     <h2>Something went wrong</h2>
     <p>We're experiencing technical difficulties. Please refresh the page.</p>
-    <button onclick="location.reload()" class="btn btn-primary">Refresh Page</button>
+    <button onclick='location.reload()' class='btn btn-primary'>Refresh Page</button>
   </div>
 `);
 3. Add Unit Tests
@@ -910,12 +910,12 @@ import { escapeHtml, sanitizeFormData } from '../../src/js/utils/sanitizer.js';
 
 describe('escapeHtml', () => {
   it('should escape script tags', () => {
-    const malicious = '<script>alert("XSS")</script>';
-    expect(escapeHtml(malicious)).toBe('&lt;script&gt;alert("XSS")&lt;/script&gt;');
+    const malicious = '<script>alert('XSS')</script>';
+    expect(escapeHtml(malicious)).toBe('&lt;script&gt;alert('XSS')&lt;/script&gt;');
   });
 
   it('should escape quotes and special chars', () => {
-    const input = 'Test "quotes" & <symbols>';
+    const input = 'Test 'quotes' & <symbols>';
     expect(escapeHtml(input)).toContain('&lt;');
     expect(escapeHtml(input)).toContain('&gt;');
   });
@@ -1263,17 +1263,17 @@ css
 Semantic HTML Structure​
 
 xml
-<article class="property-card" 
-         role="listitem" 
-         itemscope itemtype="https://schema.org/RealEstateListing">
-  <div class="property-card__image-container">
-    <img src="tyler-ranch.webp" 
-         alt="Front view of 3-bedroom Tyler Ranch Home with white siding"
-         loading="lazy">
+<article class='property-card' 
+         role='listitem' 
+         itemscope itemtype='https://schema.org/RealEstateListing'>
+  <div class='property-card__image-container'>
+    <img src='tyler-ranch.webp' 
+         alt='Front view of 3-bedroom Tyler Ranch Home with white siding'
+         loading='lazy'>
   </div>
-  <div class="property-card__content">
-    <h3 class="property-card__title">Tyler Ranch Home</h3>
-    <ul class="property-card__features" aria-label="Property features">
+  <div class='property-card__content'>
+    <h3 class='property-card__title'>Tyler Ranch Home</h3>
+    <ul class='property-card__features' aria-label='Property features'>
       <li><strong>3</strong> Beds</li>
     </ul>
   </div>
@@ -1387,7 +1387,7 @@ css
   transform: translateY(0);
 }
 
-/* RECOMMENDED - Add tactile "press" effect */
+/* RECOMMENDED - Add tactile 'press' effect */
 .btn:active {
   transform: translateY(0) scale(0.98);
   box-shadow: var(--shadow-sm);
@@ -1432,10 +1432,10 @@ async handleSubmit() {
 
 xml
 <!-- CURRENT - No transition between pages -->
-<a href="/properties">Browse Properties</a>
+<a href='/properties'>Browse Properties</a>
 
 <!-- RECOMMENDED - Add view transitions (Chrome 111+) -->
-<meta name="view-transition" content="same-origin">
+<meta name='view-transition' content='same-origin'>
 
 <style>
 @view-transition {
@@ -1451,13 +1451,13 @@ xml
 
 xml
 <!-- CURRENT - Blank screen while loading -->
-<div id="property-list"></div>
+<div id='property-list'></div>
 
 <!-- RECOMMENDED - Skeleton screens -->
-<div id="property-list" class="skeleton-loading">
-  <div class="property-card-skeleton"></div>
-  <div class="property-card-skeleton"></div>
-  <div class="property-card-skeleton"></div>
+<div id='property-list' class='skeleton-loading'>
+  <div class='property-card-skeleton'></div>
+  <div class='property-card-skeleton'></div>
+  <div class='property-card-skeleton'></div>
 </div>
 
 <style>
@@ -1515,7 +1515,7 @@ javascript
 export class Modal {
   trapFocus(element) {
     const focusableElements = element.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])'
     );
     const firstFocusable = focusableElements[0];
     const lastFocusable = focusableElements[focusableElements.length - 1];
@@ -1571,60 +1571,60 @@ searchInput.addEventListener('input', (e) => {
 
 xml
 <!-- CURRENT - Browser can't autofill -->
-<input type="email" id="contact-email" name="contactEmail" required>
+<input type='email' id='contact-email' name='contactEmail' required>
 
 <!-- RECOMMENDED - Enable autofill -->
 <input 
-  type="email" 
-  id="contact-email" 
-  name="email" 
-  autocomplete="email"
+  type='email' 
+  id='contact-email' 
+  name='email' 
+  autocomplete='email'
   required
-  aria-describedby="email-hint">
-<span id="email-hint">We'll never share your email</span>
+  aria-describedby='email-hint'>
+<span id='email-hint'>We'll never share your email</span>
 3. No Inline Validation Feedback
 
 xml
 <!-- CURRENT - Error only shown on submit -->
-<div class="form-group">
-  <label for="contact-name">Full Name</label>
-  <input type="text" id="contact-name" required>
-  <span class="error-message">Full name is required</span>
+<div class='form-group'>
+  <label for='contact-name'>Full Name</label>
+  <input type='text' id='contact-name' required>
+  <span class='error-message'>Full name is required</span>
 </div>
 
 <!-- RECOMMENDED - Real-time validation with icons -->
-<div class="form-group" data-validation-state="idle">
-  <label for="contact-name">
+<div class='form-group' data-validation-state='idle'>
+  <label for='contact-name'>
     Full Name
-    <span class="required-indicator" aria-label="required">*</span>
+    <span class='required-indicator' aria-label='required'>*</span>
   </label>
-  <div class="input-wrapper">
+  <div class='input-wrapper'>
     <input 
-      type="text" 
-      id="contact-name" 
+      type='text' 
+      id='contact-name' 
       required
-      aria-invalid="false"
-      aria-describedby="name-error">
-    <span class="validation-icon" aria-hidden="true"></span>
+      aria-invalid='false'
+      aria-describedby='name-error'>
+    <span class='validation-icon' aria-hidden='true'></span>
   </div>
-  <span id="name-error" class="error-message" role="alert"></span>
+  <span id='name-error' class='error-message' role='alert'></span>
 </div>
 
 <style>
 /* Success state */
-[data-validation-state="valid"] .input-wrapper {
+[data-validation-state='valid'] .input-wrapper {
   border-color: var(--color-semantic-success);
 }
-[data-validation-state="valid"] .validation-icon::after {
+[data-validation-state='valid'] .validation-icon::after {
   content: '✓';
   color: var(--color-semantic-success);
 }
 
 /* Error state */
-[data-validation-state="invalid"] .input-wrapper {
+[data-validation-state='invalid'] .input-wrapper {
   border-color: var(--color-semantic-error);
 }
-[data-validation-state="invalid"] .validation-icon::after {
+[data-validation-state='invalid'] .validation-icon::after {
   content: '⚠';
   color: var(--color-semantic-error);
 }
@@ -1713,25 +1713,25 @@ css
 
 xml
 <!-- CURRENT - All sections look the same -->
-<section class="properties-section">...</section>
-<section class="impact-section">...</section>
-<section class="testimonials-section">...</section>
+<section class='properties-section'>...</section>
+<section class='impact-section'>...</section>
+<section class='testimonials-section'>...</section>
 
 <!-- RECOMMENDED - Visual rhythm through alternating backgrounds -->
-<section class="properties-section bg-white">...</section>
-<section class="impact-section bg-beige">...</section>
-<section class="testimonials-section bg-navy-dark">...</section>
+<section class='properties-section bg-white'>...</section>
+<section class='impact-section bg-beige'>...</section>
+<section class='testimonials-section bg-navy-dark'>...</section>
 3. Missing Icon System
 
 xml
 <!-- CURRENT - Mixed icon sources -->
-<i data-lucide="home"></i>          <!-- Lucide Icons -->
-<img src="icons/001-house.png">     <!-- PNG icons -->
+<i data-lucide='home'></i>          <!-- Lucide Icons -->
+<img src='icons/001-house.png'>     <!-- PNG icons -->
 <svg>...</svg>                       <!-- Inline SVG -->
 
 <!-- RECOMMENDATION: Single icon system with sprite -->
 <!-- Use Lucide Icons consistently throughout -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src='https://unpkg.com/lucide@latest/dist/umd/lucide.js'></script>
 <script>
   lucide.createIcons();
 </script>
@@ -1749,7 +1749,7 @@ css
   }
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-bg: var(--color-primary-navy);
   --color-text: var(--color-neutral-gray-100);
 }
@@ -1777,12 +1777,12 @@ export default {
 };
 
 export const Primary = () => `
-  <button class="btn btn-primary">Apply Now</button>
+  <button class='btn btn-primary'>Apply Now</button>
 `;
 
 export const WithIcon = () => `
-  <button class="btn btn-primary">
-    <i data-lucide="home"></i>
+  <button class='btn btn-primary'>
+    <i data-lucide='home'></i>
     Browse Properties
   </button>
 `;
@@ -1815,16 +1815,16 @@ css
 
 /**
  * VALID: Primary button in hero section
- * <section class="hero">
- *   <button class="btn btn-primary btn-lg">Get Started</button>
+ * <section class='hero'>
+ *   <button class='btn btn-primary btn-lg'>Get Started</button>
  * </section>
  */
 
 /**
  * INVALID: Primary button on beige background (low contrast)
- * <section class="bg-beige">
- *   <button class="btn btn-primary">...</button> <!-- DON'T DO THIS -->
- *   <button class="btn btn-secondary">...</button> <!-- DO THIS -->
+ * <section class='bg-beige'>
+ *   <button class='btn btn-primary'>...</button> <!-- DON'T DO THIS -->
+ *   <button class='btn btn-secondary'>...</button> <!-- DO THIS -->
  * </section>
  */
 Advanced Interaction Patterns
@@ -1880,15 +1880,15 @@ function handleSwipe() {
 
 xml
 <!-- RECOMMENDATION: Accordion for long FAQ sections -->
-<div class="faq-item">
+<div class='faq-item'>
   <button 
-    class="faq-question" 
-    aria-expanded="false"
-    aria-controls="faq-answer-1">
+    class='faq-question' 
+    aria-expanded='false'
+    aria-controls='faq-answer-1'>
     <span>How do I apply for housing?</span>
-    <i data-lucide="chevron-down" aria-hidden="true"></i>
+    <i data-lucide='chevron-down' aria-hidden='true'></i>
   </button>
-  <div id="faq-answer-1" class="faq-answer" hidden>
+  <div id='faq-answer-1' class='faq-answer' hidden>
     <p>You can start your application by...</p>
   </div>
 </div>
@@ -1935,7 +1935,7 @@ Priority	Issue	Category	Impact	Effort
 🟢 P2	Missing design decision records	Documentation	Inconsistency over time	8h
 🟢 P2	No dark mode support	UX	User preference	12h
 🟢 P2	No gesture support for mobile	UX	Mobile experience	6h
-🟢 P2	Weak microinteraction polish	UX	Feels "cheap"	10h
+🟢 P2	Weak microinteraction polish	UX	Feels 'cheap'	10h
 Total P2 Effort: 60 hours (~1.5 weeks)
 
 VIII. DETAILED IMPROVEMENT CHECKLIST
@@ -1995,7 +1995,7 @@ User Interactivity
 
  Implement progressive disclosure for long content (components/Accordion.js)
 
- Add "copy to clipboard" functionality for addresses (utility in main.js)
+ Add 'copy to clipboard' functionality for addresses (utility in main.js)
 
  Create form autosave functionality (FormValidator.js)
 

@@ -1,27 +1,27 @@
 [
   {
-    "url": "https://unpkg.com/lucide@latest/dist/umd/lucide.css",
-    "integrity": "GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu",
-    "crossorigin": "anonymous"
+    "url": 'https://unpkg.com/lucide@latest/dist/umd/lucide.css',
+    "integrity": 'GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu',
+    "crossorigin": 'anonymous'
   },
   {
-    "url": "https://unpkg.com/lucide@latest/dist/umd/lucide.js",
-    "integrity": "XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB",
-    "crossorigin": "anonymous"
+    "url": 'https://unpkg.com/lucide@latest/dist/umd/lucide.js',
+    "integrity": 'XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB',
+    "crossorigin": 'anonymous'
   },
   {
-    "url": "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css",
-    "integrity": "b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU",
-    "crossorigin": "anonymous"
+    "url": 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css',
+    "integrity": 'b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU',
+    "crossorigin": 'anonymous'
   },
   {
-    "url": "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js",
-    "integrity": "cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH",
-    "crossorigin": "anonymous"
+    "url": 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js',
+    "integrity": 'cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH',
+    "crossorigin": 'anonymous'
   },
   {
-    "url": "https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap",
-    "integrity": "sNFXdv59aeHBf0mjmt2WGSqmF0KXOa/55NhpeUSLxV8snyuhgLZ+E7fDB80MO0Fx",
-    "crossorigin": "anonymous"
+    "url": 'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500;600&display=swap',
+    "integrity": 'sNFXdv59aeHBf0mjmt2WGSqmF0KXOa/55NhpeUSLxV8snyuhgLZ+E7fDB80MO0Fx',
+    "crossorigin": 'anonymous'
   }
 ]

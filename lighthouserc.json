@@ -2,28 +2,28 @@
   "ci": {
     "collect": {
       "url": [
-        "http://localhost:3000/",
-        "http://localhost:3000/properties",
-        "http://localhost:3000/contact",
-        "http://localhost:3000/about",
-        "http://localhost:3000/resources",
-        "http://localhost:3000/faq",
-        "http://localhost:3000/impact",
-        "http://localhost:3000/transparency",
-        "http://localhost:3000/privacy",
-        "http://localhost:3000/terms",
-        "http://localhost:3000/tyler-ranch-home",
-        "http://localhost:3000/longview-victorian",
-        "http://localhost:3000/jefferson-riverfront",
-        "http://localhost:3000/kemp-townhome",
-        "http://localhost:3000/marshall-historic-farm",
-        "http://localhost:3000/mineola-modern-studio"
+        'http://localhost:3000/',
+        'http://localhost:3000/properties',
+        'http://localhost:3000/contact',
+        'http://localhost:3000/about',
+        'http://localhost:3000/resources',
+        'http://localhost:3000/faq',
+        'http://localhost:3000/impact',
+        'http://localhost:3000/transparency',
+        'http://localhost:3000/privacy',
+        'http://localhost:3000/terms',
+        'http://localhost:3000/tyler-ranch-home',
+        'http://localhost:3000/longview-victorian',
+        'http://localhost:3000/jefferson-riverfront',
+        'http://localhost:3000/kemp-townhome',
+        'http://localhost:3000/marshall-historic-farm',
+        'http://localhost:3000/mineola-modern-studio'
       ],
       "numberOfRuns": 3,
       "settings": {
-        "chromeFlags": "--no-sandbox --disable-dev-shm-usage",
-        "staticDistDir": "./dist",
-        "throttlingMethod": "devtools",
+        "chromeFlags": '--no-sandbox --disable-dev-shm-usage',
+        "staticDistDir": './dist',
+        "throttlingMethod": 'devtools',
         "throttling": {
           "rttMs": 150,
           "throughputKbps": 1638.4,
@@ -33,23 +33,23 @@
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["error", {"minScore": 0.9}],
-        "categories:accessibility": ["error", {"minScore": 0.95}],
-        "categories:best-practices": ["error", {"minScore": 0.9}],
-        "categories:seo": ["error", {"minScore": 0.9}],
-        "categories:pwa": ["warn", {"minScore": 0.8}],
-        "first-contentful-paint": ["warn", {"maxNumericValue": 2000}],
-        "largest-contentful-paint": ["warn", {"maxNumericValue": 2500}],
-        "cumulative-layout-shift": ["warn", {"maxNumericValue": 0.1}],
-        "total-blocking-time": ["warn", {"maxNumericValue": 200}],
-        "speed-index": ["warn", {"maxNumericValue": 3000}],
-        "server-response-time": ["warn", {"maxNumericValue": 800}],
-        "mainthread-tasks": ["warn", {"maxNumericValue": 200}],
-        "render-blocking-resources": ["warn", {"maxNumericValue": 0}]
+        'categories:performance': ['error', {"minScore": 0.9}],
+        'categories:accessibility': ['error', {"minScore": 0.95}],
+        'categories:best-practices': ['error', {"minScore": 0.9}],
+        'categories:seo': ['error', {"minScore": 0.9}],
+        'categories:pwa': ['warn', {"minScore": 0.8}],
+        'first-contentful-paint': ['warn', {"maxNumericValue": 2000}],
+        'largest-contentful-paint': ['warn', {"maxNumericValue": 2500}],
+        'cumulative-layout-shift': ['warn', {"maxNumericValue": 0.1}],
+        'total-blocking-time': ['warn', {"maxNumericValue": 200}],
+        'speed-index': ['warn', {"maxNumericValue": 3000}],
+        'server-response-time': ['warn', {"maxNumericValue": 800}],
+        'mainthread-tasks': ['warn', {"maxNumericValue": 200}],
+        'render-blocking-resources': ['warn', {"maxNumericValue": 0}]
       }
     },
     "upload": {
-      "target": "temporary-public-storage"
+      "target": 'temporary-public-storage'
     }
   }
 }

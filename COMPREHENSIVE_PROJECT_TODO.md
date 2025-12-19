@@ -18,7 +18,7 @@
 
 ### Accessibility Compliance - ✅ ALL COMPLETED
 - [x] **Add ARIA Live Regions for Dynamic Content** (2 hours) - ✅ COMPLETED
-  - Add `aria-live="polite"` and `aria-live="assertive"` regions
+  - Add `aria-live='polite'` and `aria-live='assertive'` regions
   - Update form validation messages to use live regions
   - Ensure WCAG 2.2 AA compliance
   - Test with screen readers (NVDA, JAWS, VoiceOver)
@@ -393,7 +393,7 @@ Before declaring project "perfect":
 - [x] Create keyboard shortcut system - ✅ IMPLEMENTED
 - [x] Add gesture support for mobile swipes - ✅ IMPLEMENTED
 - [x] Implement progressive disclosure for long content - ✅ IMPLEMENTED
-- [x] Add "copy to clipboard" functionality for addresses - ✅ IMPLEMENTED
+- [x] Add 'copy to clipboard' functionality for addresses - ✅ IMPLEMENTED
 - [x] Create form autosave functionality - ✅ IMPLEMENTED
 
 ### Visual Design - ✅ ALL COMPLETED

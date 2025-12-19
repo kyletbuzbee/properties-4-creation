@@ -98,10 +98,6 @@
 
   // Enhanced Focus Management
   function enhanceFocusManagement () {
-    // Focus trap for modals/dialogs when they exist
-    const focusableElementsString =
-      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
-
     document.addEventListener('keydown', (e) => {
       // ESC key handling for overlays
       if (e.key === 'Escape') {
@@ -116,7 +112,7 @@
       modal.classList.remove('active');
       modal.setAttribute('aria-hidden', 'true');
       // Return focus to trigger element
-      const trigger = document.querySelector('[data-modal="' + modal.id + '"]');
+      const trigger = document.querySelector('[data-modal='' + modal.id + '']');
       if (trigger) {
         trigger.focus();
       }
@@ -130,7 +126,7 @@
 
     images.forEach((img) => {
       if (!img.alt || img.alt.trim() === '') {
-        console.warn('Accessibility Warning: Image missing alt text:', img.src);
+        // Accessibility Warning: Image missing alt text
         missingAltCount++;
 
         // In development mode, highlight missing alt text
@@ -145,9 +141,7 @@
     });
 
     if (missingAltCount > 0) {
-      console.warn(
-        `Accessibility: ${missingAltCount} images missing alt text.`
-      );
+      // Accessibility: Images missing alt text detected
     }
   }
 
@@ -164,12 +158,9 @@
           !input.getAttribute('aria-label') &&
           !input.getAttribute('aria-labelledby')
         ) {
-          const label = form.querySelector(`label[for="${input.id}"]`);
+          const label = form.querySelector(`label[for='${input.id}']`);
           if (!label && input.id) {
-            console.warn(
-              'Form accessibility: Input may be missing label:',
-              input.id
-            );
+            // Form accessibility: Input may be missing label
           }
         }
 
@@ -238,7 +229,7 @@
       }, 1000);
     }
 
-    console.log('Accessibility enhancements initialized');
+    // Accessibility enhancements initialized
   }
 
   // Initialize on DOM ready

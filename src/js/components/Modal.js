@@ -227,11 +227,11 @@ export class Modal {
     const focusableSelectors = [
       'button:not([disabled])',
       'a[href]',
-      'input:not([disabled]):not([type="hidden"])',
+      'input:not([disabled]):not([type='hidden'])',
       'select:not([disabled])',
       'textarea:not([disabled])',
-      '[tabindex]:not([tabindex="-1"])',
-      '[contenteditable="true"]'
+      '[tabindex]:not([tabindex='-1'])',
+      '[contenteditable='true']'
     ].join(', ');
 
     return container.querySelectorAll(focusableSelectors);
@@ -287,23 +287,23 @@ export class Modal {
     modal.tabIndex = -1;
 
     modal.innerHTML = `
-      <div class="modal__backdrop"></div>
-      <div class="modal__dialog" role="document">
-        <div class="modal__content">
+      <div class='modal__backdrop'></div>
+      <div class='modal__dialog' role='document'>
+        <div class='modal__content'>
           ${
   title
     ? `
-            <header class="modal__header">
-              <h2 class="modal__title" id="${id}-title">${title}</h2>
+            <header class='modal__header'>
+              <h2 class='modal__title' id='${id}-title'>${title}</h2>
               ${
   closable
     ? `
-                <button type="button" 
-                        class="modal__close" 
+                <button type='button' 
+                        class='modal__close' 
                         data-modal-close
-                        aria-label="Close dialog">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12"/>
+                        aria-label='Close dialog'>
+                  <svg width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' aria-hidden='true'>
+                    <path d='M18 6L6 18M6 6l12 12'/>
                   </svg>
                 </button>
               `
@@ -313,13 +313,13 @@ export class Modal {
           `
     : ''
 }
-          <div class="modal__body">
+          <div class='modal__body'>
             ${content}
           </div>
           ${
   footer
     ? `
-            <footer class="modal__footer">
+            <footer class='modal__footer'>
               ${footer}
             </footer>
           `

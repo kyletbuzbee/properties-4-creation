@@ -114,12 +114,12 @@ async function main() {
         if (result.integrity) {
             if (result.url.includes('.css')) {
                 console.log(`<!-- Stylesheet with SRI -->`);
-                console.log(`<link rel="stylesheet" href="${result.url}"`);
-                console.log(`      integrity="sha384-${result.integrity}" crossorigin="anonymous">`);
+                console.log(`<link rel='stylesheet' href='${result.url}'`);
+                console.log(`      integrity='sha384-${result.integrity}' crossorigin='anonymous'>`);
             } else if (result.url.includes('.js')) {
                 console.log(`<!-- Script with SRI -->`);
-                console.log(`<script src="${result.url}"`);
-                console.log(`        integrity="sha384-${result.integrity}" crossorigin="anonymous"></script>`);
+                console.log(`<script src='${result.url}'`);
+                console.log(`        integrity='sha384-${result.integrity}' crossorigin='anonymous'></script>`);
             }
             console.log('');
         }

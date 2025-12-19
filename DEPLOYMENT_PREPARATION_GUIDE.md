@@ -160,7 +160,7 @@ docs/
 ```bash
 # Deploy to GitHub Pages
 git add .
-git commit -m "Enterprise deployment ready - Properties 4 Creations"
+git commit -m 'Enterprise deployment ready - Properties 4 Creations'
 git push origin main
 
 # GitHub Actions will automatically deploy

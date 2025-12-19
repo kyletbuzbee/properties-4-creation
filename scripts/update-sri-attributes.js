@@ -31,24 +31,24 @@ function updateSRIInFile(filePath) {
             
             // For stylesheets
             const cssPattern = new RegExp(
-                `<link rel="stylesheet" href="${url}"[^>]*>`,
+                `<link rel='stylesheet' href='${url}'[^>]*>`,
                 'g'
             );
             
             if (content.match(cssPattern)) {
-                const replacement = `<link rel="stylesheet" href="${url}" integrity="${integrity}" crossorigin="anonymous">`;
+                const replacement = `<link rel='stylesheet' href='${url}' integrity='${integrity}' crossorigin='anonymous'>`;
                 content = content.replace(cssPattern, replacement);
                 updated = true;
             }
             
             // For scripts
             const jsPattern = new RegExp(
-                `<script src="${url}"[^>]*></script>`,
+                `<script src='${url}'[^>]*></script>`,
                 'g'
             );
             
             if (content.match(jsPattern)) {
-                const replacement = `<script src="${url}" integrity="${integrity}" crossorigin="anonymous"></script>`;
+                const replacement = `<script src='${url}' integrity='${integrity}' crossorigin='anonymous'></script>`;
                 content = content.replace(jsPattern, replacement);
                 updated = true;
             }

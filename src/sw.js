@@ -3,7 +3,7 @@
  * Implements stale-while-revalidate caching strategy for optimal performance
  */
 
-const CACHE_VERSION = "v2";
+const CACHE_VERSION = 'v2';
 const STATIC_CACHE = `p4c-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `p4c-dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `p4c-images-${CACHE_VERSION}`;
@@ -17,31 +17,31 @@ const CACHE_EXPIRATION = 7 * 24 * 60 * 60 * 1000;
 
 // Resources to cache on install (critical assets)
 const STATIC_ASSETS = [
-  "/",
-  "/index.html",
-  "/about.html",
-  "/properties.html",
-  "/contact.html",
-  "/apply.html",
-  "/impact.html",
-  "/transparency.html",
-  "/privacy.html",
-  "/terms.html",
-  "/thank-you.html",
-  "/resources.html",
-  "/faq.html",
-  "/offline.html",
-  "/manifest.json",
-  "/css/style.css",
-  "/js/main.js",
-  "/js/ui-header.js",
-  "/js/accessibility-enhanced.js",
+  '/',
+  '/index.html',
+  '/about.html',
+  '/properties.html',
+  '/contact.html',
+  '/apply.html',
+  '/impact.html',
+  '/transparency.html',
+  '/privacy.html',
+  '/terms.html',
+  '/thank-you.html',
+  '/resources.html',
+  '/faq.html',
+  '/offline.html',
+  '/manifest.json',
+  '/css/style.css',
+  '/js/main.js',
+  '/js/ui-header.js',
+  '/js/accessibility-enhanced.js',
 ];
 
 /**
  * Install event - cache static assets
  */
-self.addEventListener("install", (event) => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
@@ -59,7 +59,7 @@ self.addEventListener("install", (event) => {
 /**
  * Activate event - clean up old caches
  */
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
@@ -68,7 +68,7 @@ self.addEventListener("activate", (event) => {
           cacheNames
             .filter((cacheName) => {
               return (
-                cacheName.startsWith("p4c-") &&
+                cacheName.startsWith('p4c-') &&
                 !cacheName.includes(CACHE_VERSION)
               );
             })
@@ -82,24 +82,24 @@ self.addEventListener("activate", (event) => {
 /**
  * Fetch event - implement stale-while-revalidate strategy
  */
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   // Skip non-GET requests
-  if (request.method !== "GET") return;
+  if (request.method !== 'GET') return;
 
   // Skip external requests
   if (!url.origin.includes(self.location.origin)) return;
 
   // Handle navigation requests (HTML pages)
-  if (request.mode === "navigate") {
+  if (request.mode === 'navigate') {
     event.respondWith(handleNavigationRequest(request));
     return;
   }
 
   // Handle image requests
-  if (request.destination === "image") {
+  if (request.destination === 'image') {
     event.respondWith(handleImageRequest(request));
     return;
   }
@@ -136,9 +136,9 @@ async function handleNavigationRequest(request) {
 
     // Return offline page if available
     return (
-      caches.match("/offline.html") ||
-      new Response("<h1>Offline</h1><p>Please check your connection.</p>", {
-        headers: { "Content-Type": "text/html" },
+      caches.match('/offline.html') ||
+      new Response('<h1>Offline</h1><p>Please check your connection.</p>', {
+        headers: { 'Content-Type': 'text/html' },
       })
     );
   }
@@ -168,7 +168,7 @@ async function handleImageRequest(request) {
     return networkResponse;
   } catch (error) {
     // Return placeholder for failed images
-    return new Response("", { status: 404 });
+    return new Response('', { status: 404 });
   }
 }
 
@@ -202,7 +202,7 @@ async function handleDynamicRequest(request) {
 
   // Check if cached response is expired
   if (cachedResponse) {
-    const cachedTime = cachedResponse.headers.get("sw-cache-timestamp");
+    const cachedTime = cachedResponse.headers.get('sw-cache-timestamp');
     const isExpired =
       cachedTime && Date.now() - parseInt(cachedTime) > CACHE_EXPIRATION;
 
@@ -223,7 +223,7 @@ async function handleDynamicRequest(request) {
         statusText: networkResponse.statusText,
         headers: new Headers({
           ...Object.fromEntries(networkResponse.headers.entries()),
-          "sw-cache-timestamp": Date.now().toString(),
+          'sw-cache-timestamp': Date.now().toString(),
         }),
       });
 
@@ -235,7 +235,7 @@ async function handleDynamicRequest(request) {
 
     return cachedResponse || networkResponse;
   } catch (error) {
-    return cachedResponse || new Response("Network error", { status: 503 });
+    return cachedResponse || new Response('Network error', { status: 503 });
   }
 }
 
@@ -268,7 +268,7 @@ async function updateDynamicCache(request, cache) {
         statusText: networkResponse.statusText,
         headers: new Headers({
           ...Object.fromEntries(networkResponse.headers.entries()),
-          "sw-cache-timestamp": Date.now().toString(),
+          'sw-cache-timestamp': Date.now().toString(),
         }),
       });
 
@@ -285,10 +285,10 @@ async function updateDynamicCache(request, cache) {
 function isStaticAsset(request) {
   const url = new URL(request.url);
   return (
-    url.pathname.endsWith(".css") ||
-    url.pathname.endsWith(".js") ||
-    url.pathname.endsWith(".woff2") ||
-    url.pathname.endsWith(".woff")
+    url.pathname.endsWith('.css') ||
+    url.pathname.endsWith('.js') ||
+    url.pathname.endsWith('.woff2') ||
+    url.pathname.endsWith('.woff')
   );
 }
 
@@ -309,8 +309,8 @@ async function limitCacheSize(cacheName, maxSize) {
 /**
  * Background sync for form submissions
  */
-self.addEventListener("sync", (event) => {
-  if (event.tag === "background-sync-forms") {
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'background-sync-forms') {
     event.waitUntil(syncPendingForms());
   }
 });
@@ -326,8 +326,8 @@ async function syncPendingForms() {
     for (const form of pendingForms) {
       try {
         const response = await fetch(form.url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form.data),
         });
 
@@ -348,16 +348,16 @@ async function syncPendingForms() {
  */
 function openIndexedDB() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open("p4c-forms", 1);
+    const request = indexedDB.open('p4c-forms', 1);
 
     request.onerror = () => reject(request.error);
     request.onsuccess = () => resolve(request.result);
 
     request.onupgradeneeded = (event) => {
       const db = event.target.result;
-      if (!db.objectStoreNames.contains("pending-forms")) {
-        db.createObjectStore("pending-forms", {
-          keyPath: "id",
+      if (!db.objectStoreNames.contains('pending-forms')) {
+        db.createObjectStore('pending-forms', {
+          keyPath: 'id',
           autoIncrement: true,
         });
       }
@@ -370,8 +370,8 @@ function openIndexedDB() {
  */
 function getPendingForms(db) {
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(["pending-forms"], "readonly");
-    const store = transaction.objectStore("pending-forms");
+    const transaction = db.transaction(['pending-forms'], 'readonly');
+    const store = transaction.objectStore('pending-forms');
     const request = store.getAll();
 
     request.onerror = () => reject(request.error);
@@ -384,8 +384,8 @@ function getPendingForms(db) {
  */
 function deletePendingForm(db, id) {
   return new Promise((resolve, reject) => {
-    const transaction = db.transaction(["pending-forms"], "readwrite");
-    const store = transaction.objectStore("pending-forms");
+    const transaction = db.transaction(['pending-forms'], 'readwrite');
+    const store = transaction.objectStore('pending-forms');
     const request = store.delete(id);
 
     request.onerror = () => reject(request.error);
@@ -396,7 +396,7 @@ function deletePendingForm(db, id) {
 /**
  * Push notification handler
  */
-self.addEventListener("push", (event) => {
+self.addEventListener('push', (event) => {
   if (event.data) {
     const data = event.data.json();
     const options = {
@@ -415,18 +415,18 @@ self.addEventListener("push", (event) => {
 /**
  * Notification click handler
  */
-self.addEventListener("notificationclick", (event) => {
+self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  const urlToOpen = event.notification.data?.url || "/";
+  const urlToOpen = event.notification.data?.url || '/';
 
   event.waitUntil(
     clients
-      .matchAll({ type: "window", includeUncontrolled: true })
+      .matchAll({ type: 'window', includeUncontrolled: true })
       .then((windowClients) => {
         // Check if there's already a window open
         for (const client of windowClients) {
-          if (client.url === urlToOpen && "focus" in client) {
+          if (client.url === urlToOpen && 'focus' in client) {
             return client.focus();
           }
         }
@@ -441,7 +441,7 @@ self.addEventListener("notificationclick", (event) => {
 /**
  * Message handler for cache management
  */
-self.addEventListener("message", (event) => {
+self.addEventListener('message', (event) => {
   if (event.data) {
     switch (event.data.type) {
       case "SKIP_WAITING":

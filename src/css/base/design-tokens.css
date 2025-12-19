@@ -42,10 +42,10 @@
   --color-neutral-black: #000000;
 
   /* Typography - Font Families */
-  --font-family-serif: "Merriweather", Georgia, serif;
+  --font-family-serif: 'Merriweather', Georgia, serif;
   --font-family-sans:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-  --font-family-mono: "Monaco", "Courier New", monospace;
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  --font-family-mono: 'Monaco', 'Courier New', monospace;
 
   /* Typography - Font Sizes */
   --font-size-xs: 0.75rem;
@@ -150,7 +150,7 @@
    Dark Mode Overrides
    ======================================== */
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-primary-navy: #1a2332;
   --color-primary-beige: #1f2937;
   --color-neutral-white: #111827;
@@ -163,7 +163,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --color-primary-navy: #1a2332;
     --color-primary-beige: #1f2937;
     --color-neutral-white: #111827;

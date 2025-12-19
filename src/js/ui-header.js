@@ -120,16 +120,10 @@
     const ctaLinks = document.querySelectorAll('.cta-link');
 
     ctaLinks.forEach((link) => {
-      // Add click tracking if needed in future
-      link.addEventListener('click', (e) => {
-        // Could add analytics tracking here
-        console.log('CTA clicked:', link.textContent.trim(), link.href);
-      });
-
       // Enhance with smooth scrolling for anchor links
       if (link.getAttribute('href').startsWith('#')) {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
           const targetId = link.getAttribute('href').substring(1);
           const targetElement = document.getElementById(targetId);
 
@@ -154,10 +148,9 @@
     const searchToggle = document.querySelector('.search-toggle');
 
     if (searchToggle) {
-      searchToggle.addEventListener('click', (e) => {
-        e.preventDefault();
+      searchToggle.addEventListener('click', (event) => {
+        event.preventDefault();
         // Future search modal implementation
-        console.log('Search toggle clicked - feature not yet implemented');
       });
     }
   }
@@ -213,7 +206,7 @@
     ];
 
     criticalLinks.forEach((link) => {
-      const linkElement = document.querySelector(`link[href="${link}"]`);
+      const linkElement = document.querySelector(`link[href='${link}']`);
       if (linkElement && !linkElement.hasAttribute('rel')) {
         linkElement.setAttribute('rel', 'preload');
         linkElement.setAttribute('as', 'style');
@@ -221,7 +214,7 @@
     });
   }
 
-  // Initialize all header features
+    // Initialize all header features
   function initHeaderFeatures () {
     initializeMobileMenu();
     initializeStickyHeader();
@@ -230,8 +223,6 @@
     initializeSearchToggle();
     initializeLogoLink();
     optimizeHeaderPerformance();
-
-    console.log('Header UI features initialized');
 
     // Announce successful initialization
     announceToScreenReader('Navigation features loaded successfully');

@@ -367,7 +367,7 @@ describe('ErrorBoundary', () => {
     });
 
     it('should inject CSS styles', () => {
-      errorBoundary.renderFallbackUI('<div class="error-boundary">Test</div>');
+      errorBoundary.renderFallbackUI('<div class='error-boundary'>Test</div>');
       
       const styles = document.getElementById('error-boundary-styles');
       expect(styles).toBeDefined();
@@ -421,7 +421,7 @@ describe('ErrorBoundary', () => {
 
   describe('showDetails', () => {
     it('should toggle details visibility', () => {
-      document.body.innerHTML = '<div id="error-details" style="display: none;">Details</div>';
+      document.body.innerHTML = '<div id='error-details' style='display: none;'>Details</div>';
       
       errorBoundary.showDetails();
       

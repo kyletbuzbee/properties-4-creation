@@ -17,15 +17,15 @@ const dom = new JSDOM(`
       <title>Test Environment</title>
     </head>
     <body>
-      <div id="app"></div>
-      <form id="test-form">
-        <input type="text" id="test-input" name="test" required>
-        <input type="email" id="email-input" name="email">
-        <button type="submit">Submit</button>
+      <div id='app'></div>
+      <form id='test-form'>
+        <input type='text' id='test-input' name='test' required>
+        <input type='email' id='email-input' name='email'>
+        <button type='submit'>Submit</button>
       </form>
-      <div class="form-group">
-        <input type="text" class="form-control">
-        <span class="form-error" role="alert"></span>
+      <div class='form-group'>
+        <input type='text' class='form-control'>
+        <span class='form-error' role='alert'></span>
       </div>
     </body>
   </html>

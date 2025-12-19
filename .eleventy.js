@@ -3,7 +3,7 @@
  * Properties 4 Creations - Veteran Housing Platform
  */
 
-module.exports = function(eleventyConfig) {
+module.exports = function  (eleventyConfig) {
   // Passthrough copy for static assets from src
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });

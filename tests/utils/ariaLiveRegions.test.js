@@ -83,7 +83,7 @@ describe('AriaLiveRegions', () => {
     });
 
     it('should sanitize message content', () => {
-      ariaLiveRegions.announce('<script>alert("xss")</script>Clean message');
+      ariaLiveRegions.announce('<script>alert('xss')</script>Clean message');
       
       expect(ariaLiveRegions.announcementQueue[0].message).toBe('Clean message');
       expect(ariaLiveRegions.announcementQueue[0].message).not.toContain('<script>');
@@ -314,7 +314,7 @@ describe('AriaLiveRegions', () => {
 
   describe('sanitizeMessage', () => {
     it('should remove script tags', () => {
-      const result = ariaLiveRegions.sanitizeMessage('<script>alert("xss")</script>Clean text');
+      const result = ariaLiveRegions.sanitizeMessage('<script>alert('xss')</script>Clean text');
       expect(result).toBe('Clean text');
     });
 

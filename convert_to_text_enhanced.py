@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+''"
 Enhanced File Converter - Single File Output with Directory Exclusion
 Converts source code files to append to a single .txt format file.
 
@@ -12,7 +12,7 @@ Features:
 - Configurable file extensions
 - Statistics and summary reporting
 - Windows-compatible (no emoji characters)
-"""
+''"
 
 import os
 import sys
@@ -22,45 +22,45 @@ from pathlib import Path
 
 
 class SingleFileConverter:
-    """Enhanced file converter with single file append output."""
+    '''Enhanced file converter with single file append output.'''
     
     def __init__(self, source_folder, output_file, extensions=None, exclude_extensions=None):
         self.source_folder = Path(source_folder)
         self.output_file = Path(output_file)
-        self.extensions = extensions or [".html", ".json", ".js", ".css", ".md", ".njk", ".txt", ".py", ".yml", ".yaml"]
-        self.exclude_extensions = exclude_extensions or [".png", ".jpg", ".jpeg", ".gif", ".svg", ".mp4", ".webm", ".ico", ".woff", ".woff2"]
-        self.exclude_directories = ["node_modules", "codeReview"]
+        self.extensions = extensions or ['.html', '.json', '.js', '.css', '.md', '.njk', '.txt', '.py', '.yml', '.yaml']
+        self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2']
+        self.exclude_directories = ['node_modules', 'codeReview']
         self.skipped_files = []
         self.error_files = []
         self.stats = {
-            'total_files': 0,
-            'converted': 0,
-            'skipped': 0,
-            'errors': 0,
-            'total_chars': 0,
-            'total_lines': 0
+            "total_files": 0,
+            "converted": 0,
+            "skipped": 0,
+            "errors": 0,
+            "total_chars": 0,
+            "total_lines": 0
         }
         
     def should_convert_file(self, file_path):
-        """Determine if a file should be converted."""
+        '''Determine if a file should be converted.'''
         # Check if file extension matches conversion criteria
         file_ext = file_path.suffix.lower()
 
         # Skip binary files
         if file_ext in self.exclude_extensions:
-            return False, "binary file"
+            return False, 'binary file'
 
         # Skip if extension not in conversion list
         if file_ext not in self.extensions:
-            return False, "unsupported extension"
+            return False, 'unsupported extension'
 
         return True, None
 
     def generate_project_tree(self):
-        """Generate a text-based project tree excluding specified directories."""
+        '''Generate a text-based project tree excluding specified directories.'''
         tree_lines = []
 
-        def add_tree(path, prefix=""):
+        def add_tree(path, prefix=''):
             try:
                 items = sorted(os.listdir(path))
             except PermissionError:
@@ -76,36 +76,36 @@ class SingleFileConverter:
             for i, item in enumerate(filtered_items):
                 full_path = os.path.join(path, item)
                 is_last = (i == len(filtered_items) - 1)
-                connector = "└── " if is_last else "├── "
+                connector = '└── ' if is_last else '├── '
                 tree_lines.append(prefix + connector + item)
 
                 if os.path.isdir(full_path):
-                    extension = "    " if is_last else "│   "
+                    extension = '    ' if is_last else '│   '
                     add_tree(full_path, prefix + extension)
 
-        tree_lines.append(".")
+        tree_lines.append('.')
         add_tree(str(self.source_folder))
-        return "\n".join(tree_lines)
+        return '\n'.join(tree_lines)
         
     def format_file_separator(self, file_path, is_first=False):
-        """Create a formatted file separator."""
+        '''Create a formatted file separator.'''
         relative_path = file_path.relative_to(self.source_folder)
         separator = []
         
         if is_first:
-            separator.append("=" * 80)
+            separator.append('=' * 80)
         else:
-            separator.append("-" * 80)
+            separator.append('-' * 80)
             
-        separator.append(f"FILE: {relative_path}")
-        separator.append(f"SIZE: {file_path.stat().st_size:,} bytes")
-        separator.append(f"MODIFIED: {datetime.fromtimestamp(file_path.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}")
-        separator.append("=" * 80)
+        separator.append(f'FILE: {relative_path}')
+        separator.append(f'SIZE: {file_path.stat().st_size:} bytes')
+        separator.append(f'MODIFIED: {datetime.fromtimestamp(file_path.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}')
+        separator.append('=' * 80)
         
         return '\n'.join(separator)
         
     def convert_and_append_file(self, file_path, is_first=False):
-        """Convert a single file and append to the output file."""
+        '''Convert a single file and append to the output file.'''
         try:
             # Read file content with proper encoding handling
             try:
@@ -117,7 +117,7 @@ class SingleFileConverter:
                     content = f.read()
                     
             if not content.strip():
-                return False, "empty file"
+                return False, 'empty file'
                 
             # Calculate stats
             lines = len(content.splitlines())
@@ -139,37 +139,37 @@ class SingleFileConverter:
             self.stats['total_chars'] += chars
             self.stats['total_lines'] += lines
             
-            return True, f"converted ({lines} lines, {chars} chars)"
+            return True, f'converted ({lines} lines, {chars} chars)'
             
         except Exception as e:
             self.stats['errors'] += 1
-            error_msg = f"error: {str(e)}"
-            self.error_files.append({'file': str(file_path), 'error': error_msg})
+            error_msg = f'error: {str(e)}'
+            self.error_files.append({"file": str(file_path), "error": error_msg})
             return False, error_msg
             
     def process_files(self):
-        """Process all files in the source directory, excluding specified directories."""
-        print(f"[SEARCH] Scanning source folder: {self.source_folder}")
-        print(f"[EXCLUDE] Skipping directories: {', '.join(self.exclude_directories)}")
-        print(f"[FILE] Looking for extensions: {', '.join(self.extensions)}")
-        print(f"[SKIP] Excluding: {', '.join(self.exclude_extensions)}")
-        print(f"[OUTPUT] Single file mode: {self.output_file}")
-        print("-" * 60)
+        '''Process all files in the source directory, excluding specified directories.'''
+        print(f'[SEARCH] Scanning source folder: {self.source_folder}')
+        print(f'[EXCLUDE] Skipping directories: {', '.join(self.exclude_directories)}')
+        print(f'[FILE] Looking for extensions: {', '.join(self.extensions)}')
+        print(f'[SKIP] Excluding: {', '.join(self.exclude_extensions)}')
+        print(f'[OUTPUT] Single file mode: {self.output_file}')
+        print('-' * 60)
         
         # Clear the output file at start
         self.output_file.parent.mkdir(parents=True, exist_ok=True)
         with open(self.output_file, 'w', encoding='utf-8') as f:
-            f.write(f"CONSOLIDATED PROJECT FILES\n")
-            f.write(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-            f.write(f"Source: {self.source_folder}\n")
-            f.write(f"Output: {self.output_file}\n")
-            f.write("=" * 80 + "\n\n")
+            f.write(f'CONSOLIDATED PROJECT FILES\n')
+            f.write(f'Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n')
+            f.write(f'Source: {self.source_folder}\n')
+            f.write(f'Output: {self.output_file}\n')
+            f.write('=' * 80 + '\n\n')
 
             # Generate and append project tree
             project_tree = self.generate_project_tree()
-            f.write("PROJECT TREE:\n")
+            f.write('PROJECT TREE:\n')
             f.write(project_tree)
-            f.write("\n\n" + "=" * 80 + "\n\n")
+            f.write('\n\n' + '=' * 80 + '\n\n')
         
         # Get all files for processing (excluding specified directories)
         all_files = []
@@ -196,74 +196,74 @@ class SingleFileConverter:
                 is_first = (self.stats['converted'] == 0)
                 success, message = self.convert_and_append_file(file_path, is_first)
                 if success:
-                    print(f"[OK] {file_path.relative_to(self.source_folder)} -> {message}")
+                    print(f'[OK] {file_path.relative_to(self.source_folder)} -> {message}')
                 else:
-                    print(f"[FAIL] {file_path.relative_to(self.source_folder)} -> {message}")
+                    print(f'[FAIL] {file_path.relative_to(self.source_folder)} -> {message}')
                     self.skipped_files.append(str(file_path))
             else:
-                print(f"[SKIP] {file_path.relative_to(self.source_folder)} -> skipped ({reason})")
+                print(f'[SKIP] {file_path.relative_to(self.source_folder)} -> skipped ({reason})')
                 self.stats['skipped'] += 1
                 self.skipped_files.append(str(file_path))
                 
     def generate_summary_report(self):
-        """Generate detailed conversion summary."""
+        '''Generate detailed conversion summary.'''
         report_lines = []
-        report_lines.append("=" * 80)
-        report_lines.append("FILE CONVERSION SUMMARY REPORT")
-        report_lines.append("=" * 80)
-        report_lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        report_lines.append(f"Source folder: {self.source_folder}")
-        report_lines.append(f"Output file: {self.output_file}")
-        report_lines.append(f"Excluded directories: {', '.join(self.exclude_directories)}")
-        report_lines.append("")
+        report_lines.append('=' * 80)
+        report_lines.append('FILE CONVERSION SUMMARY REPORT')
+        report_lines.append('=' * 80)
+        report_lines.append(f'Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}')
+        report_lines.append(f'Source folder: {self.source_folder}')
+        report_lines.append(f'Output file: {self.output_file}')
+        report_lines.append(f'Excluded directories: {', '.join(self.exclude_directories)}')
+        report_lines.append('')
         
         # Statistics
-        report_lines.append("STATISTICS:")
-        report_lines.append("-" * 40)
-        report_lines.append(f"Total files scanned: {self.stats['total_files']}")
-        report_lines.append(f"Files converted: {self.stats['converted']}")
-        report_lines.append(f"Files skipped: {self.stats['skipped']}")
-        report_lines.append(f"Errors: {self.stats['errors']}")
-        report_lines.append(f"Total characters: {self.stats['total_chars']:,}")
-        report_lines.append(f"Total lines: {self.stats['total_lines']:,}")
-        report_lines.append("")
+        report_lines.append('STATISTICS:')
+        report_lines.append('-' * 40)
+        report_lines.append(f'Total files scanned: {self.stats['total_files']}')
+        report_lines.append(f'Files converted: {self.stats['converted']}')
+        report_lines.append(f'Files skipped: {self.stats['skipped']}')
+        report_lines.append(f'Errors: {self.stats['errors']}')
+        report_lines.append(f'Total characters: {self.stats['total_chars']:}')
+        report_lines.append(f'Total lines: {self.stats['total_lines']:}')
+        report_lines.append('')
         
         # Skipped files
         if self.skipped_files:
-            report_lines.append("SKIPPED FILES:")
-            report_lines.append("-" * 40)
+            report_lines.append('SKIPPED FILES:')
+            report_lines.append('-' * 40)
             for file_path in self.skipped_files:
                 rel_path = Path(file_path).relative_to(self.source_folder)
-                report_lines.append(f"{rel_path}")
-            report_lines.append("")
+                report_lines.append(f'{rel_path}')
+            report_lines.append('')
             
         # Error files
         if self.error_files:
-            report_lines.append("ERROR FILES:")
-            report_lines.append("-" * 40)
+            report_lines.append('ERROR FILES:')
+            report_lines.append('-' * 40)
             for error_info in self.error_files:
                 rel_path = Path(error_info['file']).relative_to(self.source_folder)
-                report_lines.append(f"{rel_path}: {error_info['error']}")
-            report_lines.append("")
+                report_lines.append(f'{rel_path}: {error_info['error']}')
+            report_lines.append('')
             
-        report_lines.append("=" * 80)
+        report_lines.append('=' * 80)
         
         # Save summary report
-        summary_path = self.output_file.parent / "conversion_summary.txt"
+        summary_path = self.output_file.parent / 'conversion_summary.txt'
         with open(summary_path, 'w', encoding='utf-8') as f:
             f.write('\n'.join(report_lines))
             
         return summary_path, '\n'.join(report_lines)
         
     def run(self):
-        """Execute the conversion process."""
-        print("[START] Starting single-file conversion process")
-        print("=" * 60)
+        '''Execute the conversion process.'''
+        print('[START] Starting single-file conversion process')
+        print('=' * 60)
         
         try:
             # Validate source folder
             if not self.source_folder.exists():
-                print(f"[ERROR] Source folder does not exist: {self.source_folder}")
+                print(f'[ERROR] Source folder does not exist: {self.source_folder}')
                 return False
                 
             # Process files
@@ -273,36 +273,36 @@ class SingleFileConverter:
             summary_path, summary_content = self.generate_summary_report()
             
             # Print summary
-            print("\n" + "=" * 60)
-            print("[SUCCESS] CONVERSION COMPLETED SUCCESSFULLY!")
-            print("=" * 60)
-            print(f"[STATS] Summary:")
-            print(f"   * Files converted: {self.stats['converted']}")
-            print(f"   * Files skipped: {self.stats['skipped']}")
-            print(f"   * Errors: {self.stats['errors']}")
-            print(f"   * Total characters: {self.stats['total_chars']:,}")
-            print(f"   * Total lines: {self.stats['total_lines']:,}")
-            print(f"\n[FILE] Single output file: {self.output_file}")
-            print(f"[SUMMARY] Report: {summary_path}")
+            print('\n' + '=' * 60)
+            print('[SUCCESS] CONVERSION COMPLETED SUCCESSFULLY!')
+            print('=' * 60)
+            print(f'[STATS] Summary:')
+            print(f'   * Files converted: {self.stats['converted']}')
+            print(f'   * Files skipped: {self.stats['skipped']}')
+            print(f'   * Errors: {self.stats['errors']}')
+            print(f'   * Total characters: {self.stats['total_chars']:}')
+            print(f'   * Total lines: {self.stats['total_lines']:}')
+            print(f'\n[FILE] Single output file: {self.output_file}')
+            print(f'[SUMMARY] Report: {summary_path}')
             
             return True
             
         except Exception as e:
-            print(f"[ERROR] Fatal error during conversion: {e}")
+            print(f'[ERROR] Fatal error during conversion: {e}')
             return False
 
 
 def main():
-    """Main function with command-line argument parsing."""
+    '''Main function with command-line argument parsing.'''
     parser = argparse.ArgumentParser(
-        description="Convert source code files to single .txt file (append mode).",
+        description='Convert source code files to single .txt file (append mode).',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
+        epilog=''"
 Examples:
   python convert_to_text_enhanced.py
   python convert_to_text_enhanced.py --source ./src --output ./all_code.txt
   python convert_to_text_enhanced.py --extensions .html,.js,.css --exclude .png,.jpg
-        """
+        ''"
     )
     
     parser.add_argument(
