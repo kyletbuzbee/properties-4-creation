@@ -21,7 +21,32 @@
     <a href="#main" class="skip-link">Skip to main content</a>
 
     <!-- HEADER -->
-    {% include "nav.html" %}
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <a href="/" class="brand-link">
+                <img src="/images/logo/brand-logo-header-footer.svg" alt="Properties 4 Creations Logo" class="brand-logo">
+                <span class="brand-text">Properties 4 Creations</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/properties/" class="nav-link">Properties</a></li>
+            <li><a href="/about/" class="nav-link">About</a></li>
+            <li><a href="/resources/" class="nav-link">Resources</a></li>
+            <li><a href="/contact/" class="nav-link">Contact</a></li>
+            <li><a href="/apply/" class="btn btn-primary cta-link">Apply Now</a></li>
+        </ul>
+    </div>
+</nav>
+
 
     <main id="main">
         <!-- 404 ERROR SECTION -->
@@ -138,7 +163,54 @@
     </main>
 
     <!-- FOOTER -->
-    {% include "footer.html" %}
+    <!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Properties 4 Creations</h3>
+        <p>Building homes, rebuilding lives in East Texas.</p>
+        <p class="veteran-badge">
+          <i data-lucide="award"></i> Veteran-Owned & Operated
+        </p>
+      </div>
+      <div class="footer-section">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="properties.html">Properties</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="transparency.html">Transparency</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="resources.html">VA Programs</a></li>
+          <li><a href="resources.html">Section 8 Info</a></li>
+          <li><a href="impact.html">Our Impact</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal & Contact</h4>
+        <ul>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
+      <p>
+        Serving East Texas with premium housing solutions for veterans and
+        families.
+      </p>
+    </div>
+  </div>
+</footer>
+
 
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"
