@@ -11,17 +11,17 @@
  */
 
 export class ErrorHandler {
-  constructor (options = {}) {
+  constructor(options = {}) {
     this.options = {
       logToConsole: true,
       showUserNotification: true,
       reportToServer: false,
-      serverEndpoint: '/api/log-error',
+      serverEndpoint: "/api/log-error",
       maxErrors: 100,
       deduplicateErrors: true,
       deduplicateWindow: 5000, // ms
       onError: null,
-      ...options
+      ...options,
     };
 
     this.errorLog = [];
@@ -34,29 +34,29 @@ export class ErrorHandler {
   /**
    * Initialize global error handlers
    */
-  init () {
+  init() {
     if (this.isInitialized) return;
 
     // Global JavaScript error handler
-    window.addEventListener('error', (event) => {
+    window.addEventListener("error", (event) => {
       this.handleError({
-        type: 'JavaScript Error',
+        type: "JavaScript Error",
         message: event.message,
         filename: event.filename,
         lineno: event.lineno,
         colno: event.colno,
         stack: event.error?.stack,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     });
 
     // Unhandled promise rejection handler
-    window.addEventListener('unhandledrejection', (event) => {
+    window.addEventListener("unhandledrejection", (event) => {
       this.handleError({
-        type: 'Unhandled Promise Rejection',
+        type: "Unhandled Promise Rejection",
         message: event.reason?.message || String(event.reason),
         stack: event.reason?.stack,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     });
 
@@ -69,7 +69,7 @@ export class ErrorHandler {
   /**
    * Wrap global fetch to catch network errors
    */
-  wrapFetch () {
+  wrapFetch() {
     const originalFetch = window.fetch;
     const self = this;
 
@@ -79,22 +79,22 @@ export class ErrorHandler {
 
         if (!response.ok) {
           self.handleError({
-            type: 'Network Error',
+            type: "Network Error",
             message: `HTTP ${response.status}: ${response.statusText}`,
             url: args[0],
             status: response.status,
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
           });
         }
 
         return response;
       } catch (error) {
         self.handleError({
-          type: 'Fetch Error',
+          type: "Fetch Error",
           message: error.message,
           url: args[0],
           stack: error.stack,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         });
         throw error;
       }
@@ -105,7 +105,7 @@ export class ErrorHandler {
    * Handle an error
    * @param {Object} error - Error object
    */
-  handleError (error) {
+  handleError(error) {
     // Deduplicate errors
     if (this.options.deduplicateErrors) {
       const errorKey = `${error.type}:${error.message}`;
@@ -131,7 +131,6 @@ export class ErrorHandler {
       // Error logged silently
     }
 
-
     // Store in error log
     this.logError(error);
 
@@ -146,7 +145,7 @@ export class ErrorHandler {
     }
 
     // Custom callback
-    if (typeof this.options.onError === 'function') {
+    if (typeof this.options.onError === "function") {
       this.options.onError(error);
     }
   }
@@ -155,7 +154,7 @@ export class ErrorHandler {
    * Log error to internal storage
    * @param {Object} error - Error object
    */
-  logError (error) {
+  logError(error) {
     this.errorLog.push(error);
 
     // Limit error log size
@@ -166,8 +165,8 @@ export class ErrorHandler {
     // Store in sessionStorage for persistence
     try {
       sessionStorage.setItem(
-        'p4c_error_log',
-        JSON.stringify(this.errorLog.slice(-20))
+        "p4c_error_log",
+        JSON.stringify(this.errorLog.slice(-20)),
       );
     } catch (e) {
       // Storage might be full or disabled
@@ -178,23 +177,23 @@ export class ErrorHandler {
    * Show user-friendly notification
    * @param {Object} error - Error object
    */
-  showNotification (error) {
+  showNotification(error) {
     const message = this.getUserFriendlyMessage(error);
 
     // Create or get toast container
-    let toastContainer = document.getElementById('error-toast-container');
+    let toastContainer = document.getElementById("error-toast-container");
     if (!toastContainer) {
-      toastContainer = document.createElement('div');
-      toastContainer.id = 'error-toast-container';
-      toastContainer.className = 'toast-container';
-      toastContainer.setAttribute('role', 'alert');
-      toastContainer.setAttribute('aria-live', 'polite');
+      toastContainer = document.createElement("div");
+      toastContainer.id = "error-toast-container";
+      toastContainer.className = "toast-container";
+      toastContainer.setAttribute("role", "alert");
+      toastContainer.setAttribute("aria-live", "polite");
       document.body.appendChild(toastContainer);
     }
 
     // Create toast
-    const toast = document.createElement('div');
-    toast.className = 'toast toast--error';
+    const toast = document.createElement("div");
+    toast.className = "toast toast--error";
     toast.innerHTML = `
       <div class="toast__icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -214,9 +213,9 @@ export class ErrorHandler {
     `;
 
     // Close button handler
-    const closeBtn = toast.querySelector('.toast__close');
-    closeBtn.addEventListener('click', () => {
-      toast.classList.add('toast--hiding');
+    const closeBtn = toast.querySelector(".toast__close");
+    closeBtn.addEventListener("click", () => {
+      toast.classList.add("toast--hiding");
       setTimeout(() => toast.remove(), 300);
     });
 
@@ -226,7 +225,7 @@ export class ErrorHandler {
     // Auto-remove after 5 seconds
     setTimeout(() => {
       if (toast.parentElement) {
-        toast.classList.add('toast--hiding');
+        toast.classList.add("toast--hiding");
         setTimeout(() => toast.remove(), 300);
       }
     }, 5000);
@@ -237,34 +236,34 @@ export class ErrorHandler {
    * @param {Object} error - Error object
    * @returns {string} User-friendly message
    */
-  getUserFriendlyMessage (error) {
+  getUserFriendlyMessage(error) {
     const messages = {
-      'Network Error':
-        'Unable to connect to the server. Please check your internet connection.',
-      'Fetch Error': 'Failed to load data. Please try again later.',
-      'JavaScript Error': 'Something went wrong. Please refresh the page.',
-      'Unhandled Promise Rejection':
-        'An unexpected error occurred. Please try again.',
-      default: 'An error occurred. Please try again or contact support.'
+      "Network Error":
+        "Unable to connect to the server. Please check your internet connection.",
+      "Fetch Error": "Failed to load data. Please try again later.",
+      "JavaScript Error": "Something went wrong. Please refresh the page.",
+      "Unhandled Promise Rejection":
+        "An unexpected error occurred. Please try again.",
+      default: "An error occurred. Please try again or contact support.",
     };
 
     // Check for specific HTTP status codes
     if (error.status) {
       switch (error.status) {
-      case 400:
-        return 'Invalid request. Please check your input and try again.';
-      case 401:
-        return 'Please log in to continue.';
-      case 403:
-        return 'You don\'t have permission to access this resource.';
-      case 404:
-        return 'The requested resource was not found.';
-      case 429:
-        return 'Too many requests. Please wait a moment and try again.';
-      case 500:
-        return 'Server error. Our team has been notified.';
-      case 503:
-        return 'Service temporarily unavailable. Please try again later.';
+        case 400:
+          return "Invalid request. Please check your input and try again.";
+        case 401:
+          return "Please log in to continue.";
+        case 403:
+          return "You don't have permission to access this resource.";
+        case 404:
+          return "The requested resource was not found.";
+        case 429:
+          return "Too many requests. Please wait a moment and try again.";
+        case 500:
+          return "Server error. Our team has been notified.";
+        case 503:
+          return "Service temporarily unavailable. Please try again later.";
       }
     }
 
@@ -275,32 +274,31 @@ export class ErrorHandler {
    * Report error to server
    * @param {Object} error - Error object
    */
-  async reportError (error) {
+  async reportError(error) {
     // Don't report in development
     if (
-      window.location.hostname === 'localhost' ||
-      window.location.hostname === '127.0.0.1'
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
     ) {
       return;
     }
 
     try {
       await fetch(this.options.serverEndpoint, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...error,
           sessionId: this.getSessionId(),
           pageUrl: window.location.href,
-          referrer: document.referrer
-        })
+          referrer: document.referrer,
+        }),
       });
     } catch (e) {
       // Silently fail - don't create infinite error loop
       // Failed to report error to server - silently continue
-
     }
   }
 
@@ -308,11 +306,11 @@ export class ErrorHandler {
    * Get or create session ID
    * @returns {string} Session ID
    */
-  getSessionId () {
-    let sessionId = sessionStorage.getItem('p4c_session_id');
+  getSessionId() {
+    let sessionId = sessionStorage.getItem("p4c_session_id");
     if (!sessionId) {
       sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem('p4c_session_id', sessionId);
+      sessionStorage.setItem("p4c_session_id", sessionId);
     }
     return sessionId;
   }
@@ -322,8 +320,8 @@ export class ErrorHandler {
    * @param {string} text - Text to escape
    * @returns {string} Escaped text
    */
-  escapeHtml (text) {
-    const div = document.createElement('div');
+  escapeHtml(text) {
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }
@@ -334,7 +332,7 @@ export class ErrorHandler {
    * @param {Object} options - Options
    * @returns {Function} Wrapped function
    */
-  createBoundary (fn, options = {}) {
+  createBoundary(fn, options = {}) {
     const self = this;
     const { fallback, rethrow = false } = options;
 
@@ -343,14 +341,14 @@ export class ErrorHandler {
         return await fn.apply(this, args);
       } catch (error) {
         self.handleError({
-          type: 'Async Error',
+          type: "Async Error",
           message: error.message,
           stack: error.stack,
-          functionName: fn.name || 'anonymous',
-          timestamp: new Date().toISOString()
+          functionName: fn.name || "anonymous",
+          timestamp: new Date().toISOString(),
         });
 
-        if (typeof fallback === 'function') {
+        if (typeof fallback === "function") {
           return fallback(error);
         }
 
@@ -368,12 +366,12 @@ export class ErrorHandler {
    * @param {string} message - Error message
    * @param {Object} context - Additional context
    */
-  log (message, context = {}) {
+  log(message, context = {}) {
     this.handleError({
-      type: 'Manual Log',
+      type: "Manual Log",
       message,
       ...context,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
 
@@ -381,28 +379,28 @@ export class ErrorHandler {
    * Get error log
    * @returns {Array} Error log
    */
-  getErrorLog () {
+  getErrorLog() {
     return [...this.errorLog];
   }
 
   /**
    * Clear error log
    */
-  clearErrorLog () {
+  clearErrorLog() {
     this.errorLog = [];
     this.recentErrors.clear();
-    sessionStorage.removeItem('p4c_error_log');
+    sessionStorage.removeItem("p4c_error_log");
   }
 
   /**
    * Get error statistics
    * @returns {Object} Error statistics
    */
-  getStats () {
+  getStats() {
     const stats = {
       total: this.errorLog.length,
       byType: {},
-      recent: this.errorLog.slice(-5)
+      recent: this.errorLog.slice(-5),
     };
 
     this.errorLog.forEach((error) => {
@@ -421,7 +419,7 @@ let errorHandlerInstance = null;
  * @param {Object} options - Error handler options
  * @returns {ErrorHandler} Error handler instance
  */
-export function getErrorHandler (options = {}) {
+export function getErrorHandler(options = {}) {
   if (!errorHandlerInstance) {
     errorHandlerInstance = new ErrorHandler(options);
   }
@@ -431,16 +429,16 @@ export function getErrorHandler (options = {}) {
 /**
  * Initialize error handler with default options
  */
-export function initErrorHandler () {
+export function initErrorHandler() {
   return getErrorHandler({
     logToConsole: true,
     showUserNotification: true,
-    reportToServer: false
+    reportToServer: false,
   });
 }
 
 // Export for global access
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.ErrorHandler = ErrorHandler;
   window.getErrorHandler = getErrorHandler;
   window.initErrorHandler = initErrorHandler;
