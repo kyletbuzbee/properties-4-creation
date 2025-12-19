@@ -6,13 +6,13 @@
  */
 
 // Import components and utilities
-import { PropertyFilter } from "./features/PropertyFilter.js";
-import { Modal, getModalInstance } from "./components/Modal.js";
-import { Accordion, initAccordions } from "./components/Accordion.js";
-import { FormValidator } from "./features/FormValidator.js";
-import { initErrorHandler } from "./utils/errorHandler.js";
-import { createPropertiesErrorBoundary } from "./utils/errorBoundary.js";
-import { LazyLoader } from "./utils/lazyLoad.js";
+import { PropertyFilter } from './features/PropertyFilter.js';
+import { Modal, getModalInstance } from './components/Modal.js';
+import { Accordion, initAccordions } from './components/Accordion.js';
+import { FormValidator } from './features/FormValidator.js';
+import { initErrorHandler } from './utils/errorHandler.js';
+import { createPropertiesErrorBoundary } from './utils/errorBoundary.js';
+import { LazyLoader } from './utils/lazyLoad.js';
 
 // Initialize error boundary first (before other components)
 const errorBoundary = createPropertiesErrorBoundary();
@@ -21,20 +21,20 @@ const errorBoundary = createPropertiesErrorBoundary();
 const errorHandler = initErrorHandler();
 
 // MOBILE MENU TOGGLE
-const menuToggle = document.querySelector(".menu-toggle");
-const navMenu = document.getElementById("nav-menu");
-const navLinks = document.querySelectorAll(".nav-link");
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.getElementById('nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
 
 if (menuToggle && navMenu) {
-  menuToggle.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-    menuToggle.classList.toggle("active");
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    menuToggle.classList.toggle('active');
   });
 
   navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navMenu.classList.remove("active");
-      menuToggle.classList.remove("active");
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+      menuToggle.classList.remove('active');
     });
   });
 }
@@ -42,130 +42,130 @@ if (menuToggle && navMenu) {
 // PROPERTIES DATA
 const propertiesData = [
   {
-    name: "Tyler Ranch Home",
+    name: 'Tyler Ranch Home',
     bedrooms: 3,
     bathrooms: 2,
-    price: "Section 8 Ready",
-    tags: ["Section 8 Ready", "Newly Renovated", "HVAC New"],
-    location: "Tyler, TX",
-    image: "images//properties/properties-tyler-ranch-home.webp",
+    price: 'Section 8 Ready',
+    tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
+    location: 'Tyler, TX',
+    image: 'images//properties/properties-tyler-ranch-home.webp'
   },
   {
-    name: "Longview Victorian",
+    name: 'Longview Victorian',
     bedrooms: 4,
     bathrooms: 2.5,
-    price: "HUD-VASH Ready",
-    tags: ["HUD-VASH Approved", "Historic Home", "New Roof"],
-    location: "Longview, TX",
-    image: "images//properties/properties-longview-victorian.webp",
+    price: 'HUD-VASH Ready',
+    tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
+    location: 'Longview, TX',
+    image: 'images//properties/properties-longview-victorian.webp'
   },
   {
-    name: "Marshall Farmhouse",
+    name: 'Marshall Farmhouse',
     bedrooms: 3,
     bathrooms: 1.5,
-    price: "Section 8 Ready",
-    tags: ["Section 8 Ready", "Family Friendly", "Yard Space"],
-    location: "Marshall, TX",
-    image: "images//properties/properties-marshall-farmhouse.webp",
+    price: 'Section 8 Ready',
+    tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
+    location: 'Marshall, TX',
+    image: 'images//properties/properties-marshall-farmhouse.webp'
   },
   {
-    name: "Kemp Townhome",
+    name: 'Kemp Townhome',
     bedrooms: 2,
     bathrooms: 1,
-    price: "Section 8/HUD-VASH",
-    tags: ["Both Programs", "Modern Build", "Energy Efficient"],
-    location: "Kemp, TX",
-    image: "images//properties/properties-kemp-townhome.webp",
+    price: 'Section 8/HUD-VASH',
+    tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
+    location: 'Kemp, TX',
+    image: 'images//properties/properties-kemp-townhome.webp'
   },
   {
-    name: "Jefferson Riverfront",
+    name: 'Jefferson Riverfront',
     bedrooms: 3,
     bathrooms: 2,
-    price: "HUD-VASH Ready",
-    tags: ["Veteran Focused", "Scenic Location", "Newly Renovated"],
-    location: "Jefferson, TX",
-    image: "images//properties/properties-jefferson-river-front.webp",
+    price: 'HUD-VASH Ready',
+    tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
+    location: 'Jefferson, TX',
+    image: 'images//properties/properties-jefferson-river-front.webp'
   },
   {
-    name: "Mineola Studio",
+    name: 'Mineola Studio',
     bedrooms: 1,
     bathrooms: 1,
-    price: "Section 8 Ready",
-    tags: ["Section 8 Ready", "Affordable", "Modern Amenities"],
-    location: "Mineola, TX",
-    image: "images//properties/properties-mineola-studio.webp",
-  },
+    price: 'Section 8 Ready',
+    tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
+    location: 'Mineola, TX',
+    image: 'images//properties/properties-mineola-studio.webp'
+  }
 ];
 
 // POPULATE PROPERTIES GRID (SECURE - NO XSS VULNERABILITIES)
-const propertiesGrid = document.getElementById("properties-grid");
+const propertiesGrid = document.getElementById('properties-grid');
 if (propertiesGrid) {
   propertiesData.forEach((prop) => {
-    const card = document.createElement("div");
-    card.className = "property-card";
+    const card = document.createElement('div');
+    card.className = 'property-card';
 
     // Create image container
-    const imageDiv = document.createElement("div");
-    imageDiv.className = "property-image";
+    const imageDiv = document.createElement('div');
+    imageDiv.className = 'property-image';
     imageDiv.style.backgroundImage = `url('${prop.image}')`;
-    imageDiv.style.backgroundSize = "cover";
-    imageDiv.style.backgroundPosition = "center";
-    imageDiv.setAttribute("alt", prop.name);
+    imageDiv.style.backgroundSize = 'cover';
+    imageDiv.style.backgroundPosition = 'center';
+    imageDiv.setAttribute('alt', prop.name);
 
     // Create content container
-    const contentDiv = document.createElement("div");
-    contentDiv.className = "property-content";
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'property-content';
 
     // Create title element (secure - uses textContent)
-    const titleEl = document.createElement("h3");
-    titleEl.className = "property-title";
+    const titleEl = document.createElement('h3');
+    titleEl.className = 'property-title';
     titleEl.textContent = prop.name;
 
     // Create location element (secure)
-    const locationEl = document.createElement("p");
-    locationEl.style.color = "var(--dark-gray)";
-    locationEl.style.fontSize = "0.9rem";
-    locationEl.style.marginBottom = "1rem";
+    const locationEl = document.createElement('p');
+    locationEl.style.color = 'var(--dark-gray)';
+    locationEl.style.fontSize = '0.9rem';
+    locationEl.style.marginBottom = '1rem';
     locationEl.textContent = prop.location;
 
     // Create details container
-    const detailsDiv = document.createElement("div");
-    detailsDiv.className = "property-details";
+    const detailsDiv = document.createElement('div');
+    detailsDiv.className = 'property-details';
 
     // Add beds detail
-    const bedsItem = document.createElement("div");
-    bedsItem.className = "detail-item";
-    const bedsLabel = document.createElement("div");
-    bedsLabel.className = "detail-label";
-    bedsLabel.textContent = "Beds";
-    const bedsValue = document.createElement("div");
-    bedsValue.className = "detail-value";
+    const bedsItem = document.createElement('div');
+    bedsItem.className = 'detail-item';
+    const bedsLabel = document.createElement('div');
+    bedsLabel.className = 'detail-label';
+    bedsLabel.textContent = 'Beds';
+    const bedsValue = document.createElement('div');
+    bedsValue.className = 'detail-value';
     bedsValue.textContent = prop.bedrooms.toString();
     bedsItem.appendChild(bedsLabel);
     bedsItem.appendChild(bedsValue);
 
     // Add baths detail
-    const bathsItem = document.createElement("div");
-    bathsItem.className = "detail-item";
-    const bathsLabel = document.createElement("div");
-    bathsLabel.className = "detail-label";
-    bathsLabel.textContent = "Baths";
-    const bathsValue = document.createElement("div");
-    bathsValue.className = "detail-value";
+    const bathsItem = document.createElement('div');
+    bathsItem.className = 'detail-item';
+    const bathsLabel = document.createElement('div');
+    bathsLabel.className = 'detail-label';
+    bathsLabel.textContent = 'Baths';
+    const bathsValue = document.createElement('div');
+    bathsValue.className = 'detail-value';
     bathsValue.textContent = prop.bathrooms.toString();
     bathsItem.appendChild(bathsLabel);
     bathsItem.appendChild(bathsValue);
 
     // Add status detail
-    const statusItem = document.createElement("div");
-    statusItem.className = "detail-item";
-    const statusLabel = document.createElement("div");
-    statusLabel.className = "detail-label";
-    statusLabel.textContent = "Status";
-    const statusValue = document.createElement("div");
-    statusValue.className = "detail-value";
-    statusValue.style.fontSize = "0.8rem";
-    statusValue.style.color = "var(--gold)";
+    const statusItem = document.createElement('div');
+    statusItem.className = 'detail-item';
+    const statusLabel = document.createElement('div');
+    statusLabel.className = 'detail-label';
+    statusLabel.textContent = 'Status';
+    const statusValue = document.createElement('div');
+    statusValue.className = 'detail-value';
+    statusValue.style.fontSize = '0.8rem';
+    statusValue.style.color = 'var(--gold)';
     statusValue.textContent = prop.price;
     statusItem.appendChild(statusLabel);
     statusItem.appendChild(statusValue);
@@ -176,22 +176,22 @@ if (propertiesGrid) {
     detailsDiv.appendChild(statusItem);
 
     // Create tags container
-    const tagsDiv = document.createElement("div");
-    tagsDiv.className = "property-tags";
+    const tagsDiv = document.createElement('div');
+    tagsDiv.className = 'property-tags';
 
     // Add tags securely (escape text content)
     prop.tags.forEach((tag) => {
-      const tagSpan = document.createElement("span");
-      tagSpan.className = "tag";
+      const tagSpan = document.createElement('span');
+      tagSpan.className = 'tag';
       tagSpan.textContent = tag; // Secure - no HTML injection possible
       tagsDiv.appendChild(tagSpan);
     });
 
     // Create apply button
-    const applyLink = document.createElement("a");
-    applyLink.href = "apply.html";
-    applyLink.className = "btn btn-primary property-btn";
-    applyLink.textContent = "Apply for This Home";
+    const applyLink = document.createElement('a');
+    applyLink.href = 'apply.html';
+    applyLink.className = 'btn btn-primary property-btn';
+    applyLink.textContent = 'Apply for This Home';
 
     // Assemble all elements
     contentDiv.appendChild(titleEl);
@@ -208,9 +208,9 @@ if (propertiesGrid) {
 }
 
 // COMPARISON SLIDER
-const sliderContainer = document.querySelector(".slider-container");
+const sliderContainer = document.querySelector('.slider-container');
 if (sliderContainer) {
-  const sliderHandle = sliderContainer.querySelector(".slider-handle");
+  const sliderHandle = sliderContainer.querySelector('.slider-handle');
   let isDragging = false;
 
   const moveSlider = (e) => {
@@ -220,55 +220,55 @@ if (sliderContainer) {
     x = Math.max(0, Math.min(x, rect.width));
     const percentage = (x / rect.width) * 100;
     sliderHandle.style.left = `${percentage}%`;
-    sliderContainer.querySelector(".slider-after").style.clipPath =
+    sliderContainer.querySelector('.slider-after').style.clipPath =
       `inset(0 0 0 ${percentage}%)`;
   };
 
-  sliderHandle.addEventListener("mousedown", () => {
+  sliderHandle.addEventListener('mousedown', () => {
     isDragging = true;
   });
 
-  document.addEventListener("mousemove", moveSlider);
-  document.addEventListener("mouseup", () => {
+  document.addEventListener('mousemove', moveSlider);
+  document.addEventListener('mouseup', () => {
     isDragging = false;
   });
 
   // Touch events for mobile
-  sliderHandle.addEventListener("touchstart", (e) => {
+  sliderHandle.addEventListener('touchstart', (e) => {
     isDragging = true;
     e.preventDefault();
   });
 
-  document.addEventListener("touchmove", (e) => {
+  document.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     const touch = e.touches[0];
     moveSlider(touch);
   });
 
-  document.addEventListener("touchend", () => {
+  document.addEventListener('touchend', () => {
     isDragging = false;
   });
 }
 
 // FILTER PROPERTIES
-const filterBtn = document.getElementById("filter-btn");
+const filterBtn = document.getElementById('filter-btn');
 if (filterBtn) {
-  filterBtn.addEventListener("click", () => {
-    const bedroomFilter = document.getElementById("bedroom-filter").value;
-    const locationFilter = document.getElementById("location-filter").value;
+  filterBtn.addEventListener('click', () => {
+    const bedroomFilter = document.getElementById('bedroom-filter').value;
+    const locationFilter = document.getElementById('location-filter').value;
     const searchFilter = document
-      .getElementById("search-filter")
+      .getElementById('search-filter')
       .value.toLowerCase();
 
-    const cards = document.querySelectorAll(".property-card");
+    const cards = document.querySelectorAll('.property-card');
     cards.forEach((card) => {
       const title = card
-        .querySelector(".property-title")
+        .querySelector('.property-title')
         .textContent.toLowerCase();
       const location = card
-        .querySelector(".property-content p")
+        .querySelector('.property-content p')
         .textContent.toLowerCase();
-      const bedrooms = card.querySelector(".detail-value").textContent;
+      const bedrooms = card.querySelector('.detail-value').textContent;
 
       const matchesBedroom = !bedroomFilter || bedrooms === bedroomFilter;
       const matchesLocation =
@@ -279,162 +279,162 @@ if (filterBtn) {
         location.includes(searchFilter);
 
       if (matchesBedroom && matchesLocation && matchesSearch) {
-        card.style.display = "block";
+        card.style.display = 'block';
       } else {
-        card.style.display = "none";
+        card.style.display = 'none';
       }
     });
   });
 }
 
 // FORM VALIDATION WITH INPUT SANITIZATION
-const form = document.getElementById("application-form");
+const form = document.getElementById('application-form');
 if (form) {
-  const successMessage = document.getElementById("success-message");
+  const successMessage = document.getElementById('success-message');
 
   // Sanitize input function
-  function sanitizeInput(input) {
+  function sanitizeInput (input) {
     // Use DOMPurify if available, otherwise basic sanitization
     if (window.DOMPurify) {
       return DOMPurify.sanitize(input, {
         ALLOWED_TAGS: [],
-        ALLOWED_ATTR: [],
+        ALLOWED_ATTR: []
       });
     }
     // Basic fallback sanitization
     return input
-      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
-      .replace(/<[^>]*>/g, "")
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+      .replace(/<[^>]*>/g, '')
       .trim();
   }
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let isValid = true;
-    const formGroups = form.querySelectorAll(".form-group");
+    const formGroups = form.querySelectorAll('.form-group');
 
     formGroups.forEach((group) => {
-      const input = group.querySelector("input, select, textarea");
+      const input = group.querySelector('input, select, textarea');
       if (!input) return;
 
-      group.classList.remove("error");
+      group.classList.remove('error');
 
       // Sanitize input value
       const sanitizedValue = sanitizeInput(input.value);
 
       if (input.required && !sanitizedValue) {
-        group.classList.add("error");
+        group.classList.add('error');
         isValid = false;
       } else if (
-        input.type === "email" &&
+        input.type === 'email' &&
         sanitizedValue &&
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
-        group.classList.add("error");
+        group.classList.add('error');
         isValid = false;
       } else if (
-        input.id === "phone" &&
+        input.id === 'phone' &&
         sanitizedValue &&
         !/^[0-9\-\+\(\)\s]+$/.test(sanitizedValue)
       ) {
-        group.classList.add("error");
+        group.classList.add('error');
         isValid = false;
-      } else if (input.type === "checkbox" && !input.checked) {
-        group.classList.add("error");
+      } else if (input.type === 'checkbox' && !input.checked) {
+        group.classList.add('error');
         isValid = false;
       }
     });
 
     if (isValid) {
-      successMessage.classList.add("show");
-      form.style.display = "none";
+      successMessage.classList.add('show');
+      form.style.display = 'none';
 
       // Production build will strip console statements
       // Development logging removed for security
 
       setTimeout(() => {
         form.reset();
-        form.style.display = "block";
-        successMessage.classList.remove("show");
+        form.style.display = 'block';
+        successMessage.classList.remove('show');
       }, 3000);
     }
   });
 }
 
 // CONTACT FORM HANDLING
-const contactForm = document.getElementById("contact-form");
+const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-  const contactSuccess = document.getElementById("contact-success");
+  const contactSuccess = document.getElementById('contact-success');
 
-  contactForm.addEventListener("submit", (e) => {
+  contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let isValid = true;
-    const contactFormGroups = contactForm.querySelectorAll(".form-group");
+    const contactFormGroups = contactForm.querySelectorAll('.form-group');
 
     contactFormGroups.forEach((group) => {
-      const input = group.querySelector("input, textarea");
+      const input = group.querySelector('input, textarea');
       if (!input) return;
 
-      group.classList.remove("error");
+      group.classList.remove('error');
 
       if (input.required && !input.value.trim()) {
-        group.classList.add("error");
+        group.classList.add('error');
         isValid = false;
       } else if (
-        input.type === "email" &&
+        input.type === 'email' &&
         input.value &&
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
       ) {
-        group.classList.add("error");
+        group.classList.add('error');
         isValid = false;
       }
     });
 
     if (isValid) {
-      contactSuccess.style.display = "block";
-      contactForm.style.display = "none";
+      contactSuccess.style.display = 'block';
+      contactForm.style.display = 'none';
 
       // Production build will strip console statements
       // Development logging removed for security
 
       setTimeout(() => {
         contactForm.reset();
-        contactForm.style.display = "block";
-        contactSuccess.style.display = "none";
+        contactForm.style.display = 'block';
+        contactSuccess.style.display = 'none';
       }, 3000);
     }
   });
 }
 
 // ACCESSIBILITY ENHANCEMENTS
-const skipLink = document.querySelector(".skip-link");
+const skipLink = document.querySelector('.skip-link');
 if (!skipLink) {
-  const newSkipLink = document.createElement("a");
-  newSkipLink.href = "#main-content";
-  newSkipLink.textContent = "Skip to main content";
-  newSkipLink.className = "skip-link";
+  const newSkipLink = document.createElement('a');
+  newSkipLink.href = '#main-content';
+  newSkipLink.textContent = 'Skip to main content';
+  newSkipLink.className = 'skip-link';
   document.body.prepend(newSkipLink);
 }
 
 // SCROLL TO FUNCTIONALITY (Replaces inline onclick handlers)
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("js-scroll-to")) {
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('js-scroll-to')) {
     e.preventDefault();
-    const targetId = e.target.getAttribute("data-target");
+    const targetId = e.target.getAttribute('data-target');
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
       targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   }
 });
 
 // Alt text checker - Production build will strip console statements
-document.querySelectorAll("img").forEach((img) => {
+document.querySelectorAll('img').forEach((img) => {
   if (!img.alt) {
     // Accessibility issue detected - alt text missing
     // This would be logged in development builds only
@@ -448,7 +448,7 @@ document.querySelectorAll("img").forEach((img) => {
 /**
  * Initialize all components when DOM is ready
  */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   // Initialize Lazy Loading
   try {
     const lazyLoader = new LazyLoader();
@@ -467,40 +467,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize Accordions (FAQ page)
   try {
-    const accordions = initAccordions(".accordion");
+    const accordions = initAccordions('.accordion');
     window.accordions = accordions;
   } catch (e) {
     // Accordion initialization failed silently
   }
 
   // Initialize Property Filter (Properties page)
-  const propertiesContainer = document.getElementById("properties-grid");
+  const propertiesContainer = document.getElementById('properties-grid');
   if (propertiesContainer && propertiesData.length > 0) {
     try {
       // Transform data for PropertyFilter
       const formattedProperties = propertiesData.map((prop, index) => ({
         id: `property-${index}`,
-        slug: prop.name.toLowerCase().replace(/\s+/g, "-"),
+        slug: prop.name.toLowerCase().replace(/\s+/g, '-'),
         name: prop.name,
         address: prop.location,
-        city: prop.location.split(",")[0].trim(),
+        city: prop.location.split(',')[0].trim(),
         bedrooms: prop.bedrooms,
         bathrooms: prop.bathrooms,
         sqft: 1200 + index * 150, // Placeholder sqft
         image: prop.image,
         tags: prop.tags.map((tag) => {
-          if (tag.includes("Section 8")) return "Section 8";
-          if (tag.includes("HUD-VASH")) return "HUD-VASH";
-          if (tag.includes("Pet") || tag.includes("Family"))
-            return "Pet Friendly";
+          if (tag.includes('Section 8')) return 'Section 8';
+          if (tag.includes('HUD-VASH')) return 'HUD-VASH';
+          if (tag.includes('Pet') || tag.includes('Family'))
+            return 'Pet Friendly';
           return tag;
         }),
-        featured: index === 0,
+        featured: index === 0
       }));
 
       const propertyFilter = new PropertyFilter(
         formattedProperties,
-        "#properties-grid",
+        '#properties-grid'
       );
       propertyFilter.init();
       window.propertyFilter = propertyFilter;
@@ -510,29 +510,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initialize Form Validators
-  const applicationForm = document.getElementById("application-form");
+  const applicationForm = document.getElementById('application-form');
   if (applicationForm) {
     try {
-      const appValidator = new FormValidator("#application-form", {
+      const appValidator = new FormValidator('#application-form', {
         onSubmit: async (data) => {
           // Handle form submission
-          const successMessage = document.getElementById("success-message");
+          const successMessage = document.getElementById('success-message');
           if (successMessage) {
-            successMessage.classList.add("show");
-            applicationForm.style.display = "none";
+            successMessage.classList.add('show');
+            applicationForm.style.display = 'none';
           }
 
           setTimeout(() => {
             applicationForm.reset();
-            applicationForm.style.display = "block";
+            applicationForm.style.display = 'block';
             if (successMessage) {
-              successMessage.classList.remove("show");
+              successMessage.classList.remove('show');
             }
           }, 3000);
         },
         onError: (errors) => {
           // Errors are handled by FormValidator UI
-        },
+        }
       });
       window.applicationFormValidator = appValidator;
     } catch (e) {
@@ -540,25 +540,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  const contactFormEl = document.getElementById("contact-form");
+  const contactFormEl = document.getElementById('contact-form');
   if (contactFormEl) {
     try {
-      const contactValidator = new FormValidator("#contact-form", {
+      const contactValidator = new FormValidator('#contact-form', {
         onSubmit: async (data) => {
-          const contactSuccess = document.getElementById("contact-success");
+          const contactSuccess = document.getElementById('contact-success');
           if (contactSuccess) {
-            contactSuccess.style.display = "block";
-            contactFormEl.style.display = "none";
+            contactSuccess.style.display = 'block';
+            contactFormEl.style.display = 'none';
           }
 
           setTimeout(() => {
             contactFormEl.reset();
-            contactFormEl.style.display = "block";
+            contactFormEl.style.display = 'block';
             if (contactSuccess) {
-              contactSuccess.style.display = "none";
+              contactSuccess.style.display = 'none';
             }
           }, 3000);
-        },
+        }
       });
       window.contactFormValidator = contactValidator;
     } catch (e) {
@@ -567,14 +567,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Keyboard navigation detection
-  document.body.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") {
-      document.body.classList.add("keyboard-nav");
+  document.body.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      document.body.classList.add('keyboard-nav');
     }
   });
 
-  document.body.addEventListener("mousedown", () => {
-    document.body.classList.remove("keyboard-nav");
+  document.body.addEventListener('mousedown', () => {
+    document.body.classList.remove('keyboard-nav');
   });
 });
 

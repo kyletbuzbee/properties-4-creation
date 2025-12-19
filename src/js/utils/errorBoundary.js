@@ -11,14 +11,14 @@
  */
 
 export class ErrorBoundary {
-  constructor(options = {}) {
+  constructor (options = {}) {
     this.options = {
       fallbackUI: null,
       enableLogging: true,
       enableMonitoring: true,
       enableRetry: true,
       maxRetries: 3,
-      ...options,
+      ...options
     };
 
     this.errorCount = 0;
@@ -34,15 +34,15 @@ export class ErrorBoundary {
   /**
    * Set up global error and unhandled rejection handlers
    */
-  setupGlobalHandlers() {
+  setupGlobalHandlers () {
     // Handle JavaScript runtime errors
     this.originalErrorHandler = window.onerror;
     window.onerror = (message, source, lineno, colno, error) => {
       this.handleError(error || new Error(message), {
-        type: "runtime",
+        type: 'runtime',
         source,
         lineno,
-        colno,
+        colno
       });
 
       // Call original handler if it exists
@@ -57,8 +57,8 @@ export class ErrorBoundary {
     this.originalUnhandledRejection = window.onunhandledrejection;
     window.onunhandledrejection = (event) => {
       this.handleError(event.reason, {
-        type: "unhandledRejection",
-        promise: event.promise,
+        type: 'unhandledRejection',
+        promise: event.promise
       });
 
       // Prevent default browser behavior
@@ -73,7 +73,7 @@ export class ErrorBoundary {
    * @param {Error} error - The error object
    * @param {Object} context - Additional error context
    */
-  handleError(error, context = {}) {
+  handleError (error, context = {}) {
     if (this.isReportingError) {
       // Prevent infinite recursion
       return;
@@ -91,7 +91,7 @@ export class ErrorBoundary {
       this.errorHistory.push({
         error: enhancedError,
         timestamp: new Date().toISOString(),
-        context,
+        context
       });
 
       // Keep only last 10 errors in history
@@ -119,9 +119,9 @@ export class ErrorBoundary {
     } catch (reportingError) {
       // Fallback error handling if reporting itself fails
       // eslint-disable-next-line no-console
-      console.error("ErrorBoundary: Failed to handle error:", reportingError);
+      console.error('ErrorBoundary: Failed to handle error:', reportingError);
       // eslint-disable-next-line no-console
-      console.error("Original error:", error);
+      console.error('Original error:', error);
     } finally {
       this.isReportingError = false;
     }
@@ -133,32 +133,32 @@ export class ErrorBoundary {
    * @param {Object} context - Error context
    * @returns {Object} Enhanced error object
    */
-  enhanceError(error, context) {
+  enhanceError (error, context) {
     const enhanced = {
-      message: error?.message || "Unknown error",
-      stack: error?.stack || "No stack trace available",
-      name: error?.name || "Error",
+      message: error?.message || 'Unknown error',
+      stack: error?.stack || 'No stack trace available',
+      name: error?.name || 'Error',
       timestamp: new Date().toISOString(),
       url: window.location.href,
       userAgent: navigator.userAgent,
       viewport: {
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight
       },
       context,
-      errorId: this.generateErrorId(),
+      errorId: this.generateErrorId()
     };
 
     // Add additional context for different error types
     switch (context.type) {
-      case "unhandledRejection":
-        enhanced.promise = context.promise;
-        break;
-      case "runtime":
-        enhanced.source = context.source;
-        enhanced.lineno = context.lineno;
-        enhanced.colno = context.colno;
-        break;
+    case 'unhandledRejection':
+      enhanced.promise = context.promise;
+      break;
+    case 'runtime':
+      enhanced.source = context.source;
+      enhanced.lineno = context.lineno;
+      enhanced.colno = context.colno;
+      break;
     }
 
     return enhanced;
@@ -168,7 +168,7 @@ export class ErrorBoundary {
    * Generate unique error ID
    * @returns {string} Unique error identifier
    */
-  generateErrorId() {
+  generateErrorId () {
     return `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 
@@ -177,13 +177,13 @@ export class ErrorBoundary {
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  logError(error, context) {
+  logError (error, context) {
     const logMessage = `
 🚨 Error Boundary Caught Error
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Error ID: ${error.errorId}
 Message: ${error.message}
-Type: ${context.type || "unknown"}
+Type: ${context.type || 'unknown'}
 URL: ${error.url}
 Time: ${error.timestamp}
 User Agent: ${error.userAgent}
@@ -193,11 +193,11 @@ User Agent: ${error.userAgent}
     // eslint-disable-next-line no-console
     console.groupCollapsed(logMessage);
     // eslint-disable-next-line no-console
-    console.error("Stack Trace:", error.stack);
+    console.error('Stack Trace:', error.stack);
     // eslint-disable-next-line no-console
-    console.error("Full Error Object:", error);
+    console.error('Full Error Object:', error);
     // eslint-disable-next-line no-console
-    console.error("Context:", context);
+    console.error('Context:', context);
     // eslint-disable-next-line no-console
     console.groupEnd();
   }
@@ -207,28 +207,28 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  async reportToMonitoring(error, context) {
+  async reportToMonitoring (error, context) {
     try {
       // Check if monitoring service is available
-      if (typeof window.Sentry !== "undefined") {
+      if (typeof window.Sentry !== 'undefined') {
         // Sentry integration
         window.Sentry.withScope((scope) => {
-          scope.setTag("errorBoundary", "true");
-          scope.setContext("errorBoundary", {
+          scope.setTag('errorBoundary', 'true');
+          scope.setContext('errorBoundary', {
             errorId: error.errorId,
             errorCount: this.errorCount,
-            context,
+            context
           });
           scope.captureException(error);
         });
-      } else if (typeof window.Rollbar !== "undefined") {
+      } else if (typeof window.Rollbar !== 'undefined') {
         // Rollbar integration
         window.Rollbar.error(error, {
           custom: {
             errorId: error.errorId,
             errorCount: this.errorCount,
-            context,
-          },
+            context
+          }
         });
       } else {
         // Fallback to custom error reporting endpoint
@@ -237,8 +237,8 @@ User Agent: ${error.userAgent}
     } catch (reportingError) {
       // eslint-disable-next-line no-console
       console.warn(
-        "ErrorBoundary: Failed to report to monitoring service:",
-        reportingError,
+        'ErrorBoundary: Failed to report to monitoring service:',
+        reportingError
       );
     }
   }
@@ -248,12 +248,12 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @param {Object} context - Error context
    */
-  async reportToCustomEndpoint(error, context) {
+  async reportToCustomEndpoint (error, context) {
     try {
-      await fetch("/api/error-report", {
-        method: "POST",
+      await fetch('/api/error-report', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           error,
@@ -261,16 +261,16 @@ User Agent: ${error.userAgent}
           metadata: {
             errorCount: this.errorCount,
             userSession: this.getSessionId(),
-            timestamp: new Date().toISOString(),
-          },
-        }),
+            timestamp: new Date().toISOString()
+          }
+        })
       });
     } catch (fetchError) {
       // Silent fail for custom endpoint
       // eslint-disable-next-line no-console
       console.warn(
-        "ErrorBoundary: Failed to report to custom endpoint:",
-        fetchError,
+        'ErrorBoundary: Failed to report to custom endpoint:',
+        fetchError
       );
     }
   }
@@ -279,11 +279,11 @@ User Agent: ${error.userAgent}
    * Get current session ID for error tracking
    * @returns {string} Session identifier
    */
-  getSessionId() {
-    let sessionId = sessionStorage.getItem("error_boundary_session");
+  getSessionId () {
+    let sessionId = sessionStorage.getItem('error_boundary_session');
     if (!sessionId) {
       sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem("error_boundary_session", sessionId);
+      sessionStorage.setItem('error_boundary_session', sessionId);
     }
     return sessionId;
   }
@@ -292,15 +292,15 @@ User Agent: ${error.userAgent}
    * Display user-friendly fallback UI
    * @param {Object} error - Enhanced error object
    */
-  displayFallbackUI(error) {
+  displayFallbackUI (error) {
     // Check if we have a custom fallback UI
     if (
       this.options.fallbackUI &&
-      typeof this.options.fallbackUI === "function"
+      typeof this.options.fallbackUI === 'function'
     ) {
       const fallbackContent = this.options.fallbackUI(
         error,
-        this.getRetryOptions(),
+        this.getRetryOptions()
       );
       this.renderFallbackUI(fallbackContent);
       return;
@@ -316,7 +316,7 @@ User Agent: ${error.userAgent}
    * @param {Object} error - Enhanced error object
    * @returns {string} HTML content for fallback UI
    */
-  createDefaultFallbackUI(error) {
+  createDefaultFallbackUI (error) {
     const isCritical = this.errorCount > 3;
     const canRetry = this.retryCount < this.options.maxRetries && !isCritical;
 
@@ -324,25 +324,25 @@ User Agent: ${error.userAgent}
       <div class="error-boundary" role="alert" aria-live="assertive">
         <div class="error-boundary__content">
           <div class="error-boundary__icon" aria-hidden="true">
-            ${isCritical ? "⚠️" : "🔧"}
+            ${isCritical ? '⚠️' : '🔧'}
           </div>
           
           <h2 class="error-boundary__title">
-            ${isCritical ? "System Error" : "Something went wrong"}
+            ${isCritical ? 'System Error' : 'Something went wrong'}
           </h2>
           
           <p class="error-boundary__message">
             ${
-              isCritical
-                ? "We're experiencing technical difficulties. Please try refreshing the page."
-                : "We encountered an unexpected error. You can try again or refresh the page."
-            }
+  isCritical
+    ? 'We\'re experiencing technical difficulties. Please try refreshing the page.'
+    : 'We encountered an unexpected error. You can try again or refresh the page.'
+}
           </p>
           
           <div class="error-boundary__actions">
             ${
-              canRetry
-                ? `
+  canRetry
+    ? `
               <button 
                 type="button" 
                 class="btn btn-primary error-boundary__retry"
@@ -351,8 +351,8 @@ User Agent: ${error.userAgent}
                 Try Again
               </button>
             `
-                : ""
-            }
+    : ''
+}
             
             <button 
               type="button" 
@@ -389,9 +389,9 @@ User Agent: ${error.userAgent}
    * Render fallback UI to the page
    * @param {string} content - HTML content to render
    */
-  renderFallbackUI(content) {
+  renderFallbackUI (content) {
     // Find appropriate container
-    const container = document.getElementById("app") || document.body;
+    const container = document.getElementById('app') || document.body;
 
     // Clear existing content
     container.innerHTML = content;
@@ -404,7 +404,7 @@ User Agent: ${error.userAgent}
 
     // Focus management for accessibility
     const firstFocusable = container.querySelector(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
     if (firstFocusable) {
       firstFocusable.focus();
@@ -414,8 +414,8 @@ User Agent: ${error.userAgent}
   /**
    * Inject CSS styles for error boundary UI
    */
-  injectErrorBoundaryStyles() {
-    if (document.getElementById("error-boundary-styles")) {
+  injectErrorBoundaryStyles () {
+    if (document.getElementById('error-boundary-styles')) {
       return; // Styles already injected
     }
 
@@ -498,8 +498,8 @@ User Agent: ${error.userAgent}
       }
     `;
 
-    const styleSheet = document.createElement("style");
-    styleSheet.id = "error-boundary-styles";
+    const styleSheet = document.createElement('style');
+    styleSheet.id = 'error-boundary-styles';
     styleSheet.textContent = styles;
     document.head.appendChild(styleSheet);
   }
@@ -508,12 +508,12 @@ User Agent: ${error.userAgent}
    * Get retry options for fallback UI
    * @returns {Object} Retry configuration
    */
-  getRetryOptions() {
+  getRetryOptions () {
     return {
       canRetry: this.retryCount < this.options.maxRetries,
       retryCount: this.retryCount,
       maxRetries: this.options.maxRetries,
-      errorCount: this.errorCount,
+      errorCount: this.errorCount
     };
   }
 
@@ -521,7 +521,7 @@ User Agent: ${error.userAgent}
    * Attempt to recover from error
    * @param {Object} error - Enhanced error object
    */
-  attemptRecovery() {
+  attemptRecovery () {
     // Simple recovery strategy: clear error state after a delay
     setTimeout(() => {
       this.retryCount = 0;
@@ -531,13 +531,13 @@ User Agent: ${error.userAgent}
   /**
    * Retry operation (called from fallback UI)
    */
-  retry() {
+  retry () {
     if (this.retryCount < this.options.maxRetries) {
       this.retryCount++;
 
       // Hide error UI and try to restore normal state
-      const container = document.getElementById("app") || document.body;
-      container.innerHTML = "";
+      const container = document.getElementById('app') || document.body;
+      container.innerHTML = '';
 
       // Trigger a page reload to reset state
       window.location.reload();
@@ -547,11 +547,11 @@ User Agent: ${error.userAgent}
   /**
    * Show detailed error information (called from fallback UI)
    */
-  showDetails() {
-    const detailsElement = document.getElementById("error-details");
+  showDetails () {
+    const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display =
-        detailsElement.style.display === "none" ? "block" : "none";
+        detailsElement.style.display === 'none' ? 'block' : 'none';
     }
   }
 
@@ -559,20 +559,20 @@ User Agent: ${error.userAgent}
    * Get error statistics
    * @returns {Object} Error statistics
    */
-  getStats() {
+  getStats () {
     return {
       errorCount: this.errorCount,
       lastError: this.lastError,
       retryCount: this.retryCount,
       errorHistory: this.errorHistory,
-      isActive: true,
+      isActive: true
     };
   }
 
   /**
    * Reset error boundary state (for testing)
    */
-  reset() {
+  reset () {
     this.errorCount = 0;
     this.lastError = null;
     this.retryCount = 0;
@@ -583,7 +583,7 @@ User Agent: ${error.userAgent}
   /**
    * Destroy error boundary and restore original handlers
    */
-  destroy() {
+  destroy () {
     // Restore original error handlers
     window.onerror = this.originalErrorHandler;
     window.onunhandledrejection = this.originalUnhandledRejection;
@@ -605,7 +605,7 @@ User Agent: ${error.userAgent}
  * @param {Object} options - Error boundary options
  * @returns {ErrorBoundary} Error boundary instance
  */
-export function createGlobalErrorBoundary(options = {}) {
+export function createGlobalErrorBoundary (options = {}) {
   const errorBoundary = new ErrorBoundary(options);
 
   // Store globally for fallback UI callbacks
@@ -618,7 +618,7 @@ export function createGlobalErrorBoundary(options = {}) {
  * Create error boundary with Properties 4 Creations defaults
  * @returns {ErrorBoundary} Configured error boundary instance
  */
-export function createPropertiesErrorBoundary() {
+export function createPropertiesErrorBoundary () {
   return new ErrorBoundary({
     fallbackUI: () => {
       return `
@@ -656,12 +656,12 @@ export function createPropertiesErrorBoundary() {
     enableLogging: true,
     enableMonitoring: true,
     enableRetry: true,
-    maxRetries: 2,
+    maxRetries: 2
   });
 }
 
 // Export for global access
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   window.ErrorBoundary = ErrorBoundary;
   window.createGlobalErrorBoundary = createGlobalErrorBoundary;
   window.createPropertiesErrorBoundary = createPropertiesErrorBoundary;
