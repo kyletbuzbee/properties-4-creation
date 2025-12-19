@@ -81,7 +81,8 @@ export class RateLimiter {
           return id;
         }
       } catch (error) {
-        console.warn('RateLimiter: Failed to get identifier:', error);
+        // Failed to get identifier - silently continue
+
       }
     }
 
@@ -268,9 +269,8 @@ export class RateLimiter {
       this.attempts.delete(key);
     });
 
-    console.log(
-      `RateLimiter: Cleaned up ${expiredKeys.length} expired entries`
-    );
+    // Cleaned up expired entries
+
   }
 
   /**

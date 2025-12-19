@@ -128,8 +128,9 @@ export class ErrorHandler {
 
     // Log to console
     if (this.options.logToConsole) {
-      console.error('[ErrorHandler]', error);
+      // Error logged silently
     }
+
 
     // Store in error log
     this.logError(error);
@@ -298,7 +299,8 @@ export class ErrorHandler {
       });
     } catch (e) {
       // Silently fail - don't create infinite error loop
-      console.warn('Failed to report error to server:', e);
+      // Failed to report error to server - silently continue
+
     }
   }
 

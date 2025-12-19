@@ -112,7 +112,8 @@ export class LazyLoader {
 
     preloadImg.onerror = () => {
       img.classList.add('lazy-error');
-      console.warn(`[LazyLoader] Failed to load image: ${src}`);
+      // Failed to load image - silently handle error
+
     };
 
     // Start loading
