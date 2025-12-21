@@ -17,8 +17,132 @@ import { LazyLoader } from './utils/lazyLoad.js';
 // Initialize error boundary first (before other components)
 createPropertiesErrorBoundary();
 
-// Initialize global error handler
-initErrorHandler();
+// SERVICE WORKER REGISTRATION
+function registerServiceWorker () {
+  // Check if service workers are supported
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          // Service worker registered successfully
+          console.log('Service Worker registered successfully:', registration.scope);
+          
+          // Add event listeners for service worker lifecycle
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker installed, prompt user to refresh
+                console.log('New content is available, please refresh the page.');
+              }
+            });
+          });
+          
+          // Initialize cache management
+          initCacheManagement(registration);
+        })
+        .catch((error) => {
+          // Service worker registration failed
+          console.error('Service Worker registration failed:', error);
+          
+          // Fallback: disable offline functionality gracefully
+          if (window.lazyLoader) {
+            window.lazyLoader.enableFallbackMode();
+          }
+        });
+    });
+    
+    // Handle service worker updates
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  } else {
+    // Service workers not supported
+    console.warn('Service Worker not supported by this browser');
+    
+    // Enable fallback mode for lazy loading
+    if (window.lazyLoader) {
+      window.lazyLoader.enableFallbackMode();
+    }
+  }
+}
+
+/**
+ * Initialize cache management functionality
+ * @param {ServiceWorkerRegistration} registration - Service worker registration
+ */
+function initCacheManagement (registration) {
+  // Add cache management methods to window for debugging
+  window.p4cCache = {
+    clear: () => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          registration.active.postMessage({ type: 'CLEAR_CACHE' });
+          resolve('Cache cleared successfully');
+        } else {
+          reject('No active service worker');
+        }
+      });
+    },
+    
+    getStatus: () => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          const messageChannel = new MessageChannel();
+          messageChannel.port1.onmessage = (event) => {
+            if (event.data.type === 'CACHE_STATUS') {
+              resolve(event.data.data);
+            }
+          };
+          
+          registration.active.postMessage(
+            { type: 'GET_CACHE_STATUS' },
+            [messageChannel.port2]
+          );
+        } else {
+          reject('No active service worker');
+        }
+      });
+    },
+    
+    cacheUrls: (urls) => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          registration.active.postMessage({
+            type: 'CACHE_URLS',
+            urls: urls
+          });
+          resolve('URLs queued for caching');
+        } else {
+          reject('No active service worker');
+        }
+      });
+    }
+  };
+}
+
+// Initialize global error handler with comprehensive error boundaries
+const errorHandler = initErrorHandler();
+
+// Add comprehensive error boundary for all main.js operations
+const mainErrorHandler = errorHandler.createBoundary(() => {
+  // Initialize global error handler
+  initErrorHandler();
+
+  // Register service worker
+  registerServiceWorker();
+}, {
+  fallback: (error) => {
+    console.error('Critical error in main.js initialization:', error);
+    // Fallback: ensure basic functionality still works
+    registerServiceWorker();
+  },
+  rethrow: false
+});
+
+// Execute main initialization with error boundary
+mainErrorHandler();
 
 // MOBILE MENU TOGGLE
 const menuToggle = document.querySelector('.menu-toggle');
@@ -107,26 +231,27 @@ if (propertiesGrid) {
     // Create image container
     const imageDiv = document.createElement('div');
     imageDiv.className = 'property-image';
-    
+
     // Secure image handling - validate and sanitize image path
     const sanitizedImagePath = sanitizeInput(prop.image);
-    const isValidImagePath = sanitizedImagePath &&
-      (sanitizedImagePath.startsWith('images/') || sanitizedImagePath.startsWith('/images/')) &&
-      sanitizedImagePath.endsWith('.webp');
-    
-    if (isValidImagePath) {
-      imageDiv.style.backgroundImage = `url('${sanitizedImagePath}')`;
-    } else {
-      // Fallback to default image if path is invalid
-      imageDiv.style.backgroundImage = `url('images/properties/properties-default.webp')`;
-    }
-    
-    imageDiv.style.backgroundSize = 'cover';
-    imageDiv.style.backgroundPosition = 'center';
-    
-    // Set alt text securely
+    const allowedImagePath = (path) => {
+      if (typeof path !== 'string') return false;
+      const re = /^\/?images\/(properties|banners|icons|our-work-gallery)\/[a-z0-9\/_\-.]+\.webp$/i;
+      return re.test(path);
+    };
+    const imgSrc = allowedImagePath(sanitizedImagePath)
+      ? sanitizedImagePath
+      : 'images/properties/properties-default.webp';
+
+    // Use semantic image for accessibility and performance
+    const imgEl = document.createElement('img');
+    imgEl.src = imgSrc;
     const sanitizedAltText = sanitizeInput(prop.name);
-    imageDiv.setAttribute('alt', sanitizedAltText || 'Property image');
+    imgEl.alt = sanitizedAltText || 'Property image';
+    imgEl.loading = 'lazy';
+    imgEl.decoding = 'async';
+    imgEl.className = 'property-img';
+    imageDiv.appendChild(imgEl);
 
     // Create content container
     const contentDiv = document.createElement('div');
@@ -355,6 +480,7 @@ if (form) {
       if (!input) return;
 
       group.classList.remove('error');
+      input.removeAttribute('aria-invalid');
 
       // Sanitize input value with additional validation
       const sanitizedValue = sanitizeInput(input.value);
@@ -362,6 +488,7 @@ if (form) {
       // Additional validation for specific fields
       if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'email' &&
@@ -369,16 +496,19 @@ if (form) {
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.id === 'phone' &&
         sanitizedValue &&
-        !/^[0-9\-+() ]+$/.test(sanitizedValue)
+        !/^[0-9\-+()\s.,]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (input.type === 'checkbox' && !input.checked) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'text' &&
@@ -388,6 +518,7 @@ if (form) {
       ) {
         // Additional validation for name field
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       }
     });
@@ -424,12 +555,14 @@ if (contactForm) {
       if (!input) return;
 
       group.classList.remove('error');
+      input.removeAttribute('aria-invalid');
 
       // Sanitize input value
       const sanitizedValue = sanitizeInput(input.value);
 
       if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'email' &&
@@ -437,6 +570,7 @@ if (contactForm) {
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'text' &&
@@ -446,6 +580,7 @@ if (contactForm) {
       ) {
         // Additional validation for name field
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       }
     });
@@ -618,6 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 3000);
         }
       });
+      
       window.contactFormValidator = contactValidator;
     } catch (e) {
       // FormValidator initialization failed silently
@@ -634,7 +770,69 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('mousedown', () => {
     document.body.classList.remove('keyboard-nav');
   });
+
+  // Initialize responsive hero backgrounds
+  initResponsiveHeroBackgrounds();
 });
+
+/**
+ * Initialize responsive hero backgrounds using the lazy loading utility
+ */
+function initResponsiveHeroBackgrounds () {
+  // Check if LazyLoader is available
+  if (typeof window.LazyLoader !== 'undefined' || typeof LazyLoader !== 'undefined') {
+    // Create responsive hero background for the main hero section
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+      // Use the existing WebP images with responsive sizes
+      const heroImageBase = '/images/banners/hero-home-banner';
+      const responsiveBg = `
+        linear-gradient(
+          135deg,
+          rgba(11, 17, 32, 0.8) 0%,
+          rgba(11, 17, 32, 0.6) 100%
+        ),
+        url('${heroImageBase}.webp')
+      `;
+      
+      // Apply responsive background
+      heroSection.style.backgroundImage = responsiveBg;
+      
+      // Add media queries for different screen sizes
+      const style = document.createElement('style');
+      style.textContent = `
+        @media (max-width: 600px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-400w.webp');
+          }
+        }
+        @media (min-width: 601px) and (max-width: 1000px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-800w.webp');
+          }
+        }
+        @media (min-width: 1001px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-1200w.webp');
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+}
 
 // Export for module usage
 export { propertiesData };

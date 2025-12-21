@@ -1,0 +1,153 @@
+<!-- Veteran & Family Resources Section -->
+<section class='veteran-resources' aria-label='Resources for veterans and families'>
+  <div class='container'>
+    <div class='resources-header'>
+      <h2>Support Resources for Veterans & Families</h2>
+      <p>
+        Comprehensive support services available throughout East Texas.
+        We're here to help connect you with the resources you need.
+      </p>
+    </div>
+
+    <div class='resources-grid'>
+      <!-- Veteran Services -->
+      <div class='resource-category'>
+        <div class='category-header'>
+          <div class='category-icon'>
+            <i data-lucide='shield' aria-hidden='true'></i>
+          </div>
+          <h3>Veteran Services</h3>
+        </div>
+        <div class='resource-list'>
+          {% for service in veterans.resources.veteranServices %}
+          <div class='resource-item'>
+            <h4>{{ service.name }}</h4>
+            <p>{{ service.description }}</p>
+            <div class='resource-actions'>
+              {% if service.url %}
+              <a href='{{ service.url }}' class='btn btn-link' target='_blank' rel='noopener'>
+                Learn More
+              </a>
+              {% endif %}
+              {% if service.phone %}
+              <a href='tel:{{ service.phone }}' class='btn btn-link'>
+                Call {{ service.phone }}
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Family Support -->
+      <div class='resource-category'>
+        <div class='category-header'>
+          <div class='category-icon'>
+            <i data-lucide='home' aria-hidden='true'></i>
+          </div>
+          <h3>Family Support</h3>
+        </div>
+        <div class='resource-list'>
+          {% for service in veterans.resources.familySupport %}
+          <div class='resource-item'>
+            <h4>{{ service.name }}</h4>
+            <p>{{ service.description }}</p>
+            <div class='resource-actions'>
+              {% if service.url %}
+              <a href='{{ service.url }}' class='btn btn-link' target='_blank' rel='noopener'>
+                Learn More
+              </a>
+              {% endif %}
+              {% if service.phone %}
+              <a href='tel:{{ service.phone }}' class='btn btn-link'>
+                Call {{ service.phone }}
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Local Organizations -->
+      <div class='resource-category'>
+        <div class='category-header'>
+          <div class='category-icon'>
+            <i data-lucide='map-pin' aria-hidden='true'></i>
+          </div>
+          <h3>Local East Texas Support</h3>
+        </div>
+        <div class='resource-list'>
+          {% for org in veterans.resources.localOrganizations %}
+          <div class='resource-item'>
+            <h4>{{ org.name }}</h4>
+            <p>{{ org.description }}</p>
+            <div class='resource-meta'>
+              <span class='location'>{{ org.address }}</span>
+              {% if org.phone %}
+              <a href='tel:{{ org.phone }}' class='phone-link'>{{ org.phone }}</a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Financial Counseling -->
+      <div class='resource-category'>
+        <div class='category-header'>
+          <div class='category-icon'>
+            <i data-lucide='dollar-sign' aria-hidden='true'></i>
+          </div>
+          <h3>Financial & Housing Counseling</h3>
+        </div>
+        <div class='resource-list'>
+          {% for service in veterans.resources.financialCounseling %}
+          <div class='resource-item'>
+            <h4>{{ service.name }}</h4>
+            <p>{{ service.description }}</p>
+            <div class='resource-actions'>
+              {% if service.url %}
+              <a href='{{ service.url }}' class='btn btn-link' target='_blank' rel='noopener'>
+                Get Help
+              </a>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Emergency Contacts -->
+    <div class='emergency-section'>
+      <h3>Emergency Support</h3>
+      <p>In case of emergency, these resources are available 24/7:</p>
+      <div class='emergency-grid'>
+        {% for contact in veterans.emergencyContacts %}
+        <div class='emergency-card'>
+          <h4>{{ contact.name }}</h4>
+          <p>{{ contact.description }}</p>
+          <a href='tel:{{ contact.phone }}' class='emergency-phone'>
+            {{ contact.phone }}
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Service Area Cities -->
+    <div class='service-area'>
+      <h3>Serving These East Texas Communities</h3>
+      <div class='cities-grid'>
+        {% for city in veterans.cities %}
+        <span class='city-tag'>{{ city }}</span>
+        {% endfor %}
+      </div>
+      <p class='service-note'>
+        Additional cities and services available. Contact us for specific location assistance.
+      </p>
+    </div>
+  </div>
+</section>

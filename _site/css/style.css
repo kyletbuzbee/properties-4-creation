@@ -41,6 +41,63 @@ body {
   line-height: 1.6;
 }
 
+/* Enhanced color contrast for accessibility */
+.text-navy-on-beige {
+  color: var(--navy);
+  background-color: var(--beige);
+}
+
+.text-navy-on-white {
+  color: var(--navy);
+  background-color: var(--white);
+}
+
+.text-gold-on-navy {
+  color: var(--gold);
+  background-color: var(--navy);
+}
+
+.text-white-on-navy {
+  color: var(--white);
+  background-color: var(--navy);
+}
+
+/* Ensure sufficient contrast for all text elements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--navy);
+}
+
+p, span, div {
+  color: var(--navy);
+}
+
+/* High contrast links */
+a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+/* Form labels and inputs with high contrast */
+label {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+input, select, textarea {
+  color: var(--navy);
+  border-color: #ccc;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(194, 142, 90, 0.2);
+}
+
 /* HEADER & NAVIGATION */
 .header-glass {
   position: fixed;
@@ -195,7 +252,7 @@ body {
       rgba(11, 17, 32, 0.8) 0%,
       rgba(11, 17, 32, 0.6) 100%
     ),
-    url('data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'><rect fill='%230B1120' width='1200' height='600'/></svg>');
+    url('/images/backgrounds/hero-pattern.svg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -261,7 +318,25 @@ body {
 }
 
 .btn:focus-visible {
-  outline-color: var(--gold);
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Enhanced focus states for all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(194, 142, 90, 0.2);
+}
+
+/* Ensure focus visibility for all interactive elements */
+*:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
 }
 
 .btn-primary {

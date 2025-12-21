@@ -3,7 +3,7 @@
  * Implements stale-while-revalidate caching strategy for optimal performance
  */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const STATIC_CACHE = `p4c-static-${CACHE_VERSION}`;
 const DYNAMIC_CACHE = `p4c-dynamic-${CACHE_VERSION}`;
 const IMAGE_CACHE = `p4c-images-${CACHE_VERSION}`;
@@ -104,7 +104,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Handle static assets (CSS, JS)
+  // Handle static assets (CSS, JS) - Cache First Strategy
   if (isStaticAsset(request)) {
     event.respondWith(handleStaticRequest(request));
     return;
@@ -401,8 +401,9 @@ self.addEventListener('push', (event) => {
     const data = event.data.json();
     const options = {
       body: data.body,
-      icon: '"/images/icons/icon-192x192.png',
-      badge: '"/images/icons/icon-72x72.png',
+      // Use fallback icons if the specific sizes don't exist
+      icon: '/images/icons/brand-logo.svg',
+      badge: '/images/icons/brand-logo.svg',
       vibrate: [100, 50, 100],
       data: data.data,
       actions: data.actions || [],
@@ -466,6 +467,28 @@ self.addEventListener('message', (event) => {
             }),
           );
         }
+        break;
+
+      case "GET_CACHE_STATUS":
+        event.waitUntil(
+          caches.keys().then((cacheNames) => {
+            const cacheInfo = {};
+            return Promise.all(
+              cacheNames.map((cacheName) => {
+                return caches.open(cacheName).then((cache) => {
+                  return cache.keys().then((keys) => {
+                    cacheInfo[cacheName] = keys.length;
+                  });
+                });
+              })
+            ).then(() => {
+              event.ports[0].postMessage({
+                type: 'CACHE_STATUS',
+                data: cacheInfo
+              });
+            });
+          })
+        );
         break;
     }
   }
