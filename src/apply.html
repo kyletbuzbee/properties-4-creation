@@ -2,18 +2,10 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Apply Now - Properties 4 Creations</title>
-    <link rel='manifest' href='/manifest.json' />
-    <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
-    <link rel='stylesheet' href='/css/style.css' />
+    {% include 'meta.html' %}
     <link rel='stylesheet' href='https://unpkg.com/lucide@latest/dist/umd/lucide.css'
         integrity='sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu'
         crossorigin='anonymous' />
-    <meta name='msapplication-TileColor' content='#0B1120' />
-    <meta name='description'
-        content='Start your application for veteran housing in East Texas. Properties 4 Creations accepts Section 8 and HUD-VASH vouchers.' />
 </head>
 
 <body>
@@ -21,11 +13,11 @@
     <a href='#main' class='skip-link'>Skip to main content</a>
 
     <!-- HEADER -->
-    {% include 'nav.html' %}
+    {% include 'header.html' %}
 
-    <main id='main'>
+    <main id='main-content'>
         <!-- APPLICATION HEADER -->
-        <section class='page-banner bg-home-banner' aria-label='apply Properties 4 Creations'></section>
+        <section class='page-banner bg-contact-banner' aria-label='Apply for Housing with Properties 4 Creations'></section>
         <div class='container'>
             <h1>Start Your Application</h1>
             <p>

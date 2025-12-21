@@ -21,18 +21,35 @@
   <a href='#main-content' class='skip-link'>Skip to main content</a>
 
   <!-- HEADER -->
-  {% include 'nav.html' %}
+  {% include 'header.html' %}
 
   <main id='main-content'>
     <!-- IMPACT HERO -->
-    <section class='impact-hero' style="
-          background-image: url(&quot;/images/banners/hero-impact-banner.webp&quot;);
-          background-size: cover;
-          background-position: center;
-        ">
-      <div class='container'>
-        <h1>Our Community Impact</h1>
-        <p>Real families. Real homes. Real change in East Texas.</p>
+    <section class='video-hero' aria-label='Our Community Impact'>
+      <div class='video-container'>
+        <video 
+          class='hero-video' 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          preload='metadata'
+          poster='/images/banners/hero-impact-banner.webp'
+          aria-label='Our Community Impact'
+        >
+          <source src='/videos/hero-our-work-banner.mp4' type='video/mp4'>
+          <p>Your browser does not support the video tag. <a href='/videos/hero-our-work-banner.mp4'>Download the video</a> instead.</p>
+        </video>
+        
+        <!-- Fallback image for browsers that don't support video or when video fails to load -->
+        <div class='video-fallback' style="background-image: url('/images/banners/hero-impact-banner.webp');"></div>
+        
+        <div class='video-overlay'>
+          <div class='container'>
+            <h1>Our Community Impact</h1>
+            <p class='hero-subtitle'>Real families. Real homes. Real change in East Texas.</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -137,7 +154,7 @@
         </div>
       </div>
       <div class='footer-bottom'>
-        <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
+        <p>© 2025 Properties 4 Creations. All rights reserved.</p>
         <p>
           Serving East Texas with premium housing solutions for veterans and
           families.
@@ -152,6 +169,42 @@
     crossorigin='anonymous'></script>
   <script>
     lucide.createIcons();
+  </script>
+  <script src='/js/accessibility-enhanced.js'></script>
+  <script>
+    // Video loading optimization and fallback handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('.hero-video');
+      const fallback = document.querySelector('.video-fallback');
+      
+      if (video) {
+        // Hide fallback when video loads
+        video.addEventListener('loadeddata', function() {
+          fallback.style.display = 'none';
+        });
+        
+        // Show fallback if video fails to load
+        video.addEventListener('error', function() {
+          fallback.style.display = 'block';
+        });
+        
+        // Handle video visibility for performance
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              video.play().catch(e => {
+                console.warn('Video autoplay failed:', e);
+                fallback.style.display = 'block';
+              });
+            } else {
+              video.pause();
+            }
+          });
+        });
+        
+        observer.observe(video);
+      }
+    });
   </script>
 </body>
 

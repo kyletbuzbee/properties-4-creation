@@ -50,6 +50,37 @@
     });
   }
 
+  // Mobile Menu Toggle
+  function initializeMobileMenu () {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-navigation');
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener('click', () => {
+        const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!expanded));
+        mainNav.setAttribute('aria-hidden', String(expanded));
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          mainNav.setAttribute('aria-hidden', 'true');
+        }
+      });
+
+      // Close menu on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          menuToggle.setAttribute('aria-expanded', 'false');
+          mainNav.setAttribute('aria-hidden', 'true');
+          menuToggle.focus();
+        }
+      });
+    }
+  }
+
   // ARIA Live Regions for Dynamic Content
   function initializeAriaLiveRegions () {
     // Create live region for filter results
@@ -213,6 +244,7 @@
   function initAccessibility () {
     initializeSkipLinks();
     enhanceKeyboardNavigation();
+    initializeMobileMenu();
     initializeAriaLiveRegions();
     initializeScreenReaderText();
     enhanceFocusManagement();

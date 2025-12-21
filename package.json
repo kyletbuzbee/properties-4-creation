@@ -5,7 +5,10 @@
   "main": "src/index.html",
   "scripts": {
     "dev": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy",
+    "build": "npx @11ty/eleventy && npm run minify && npm run strip-console",
+    "build:prod": "npm run build",
+    "minify": "postcss src/css/style.css -o _site/css/style.min.css && terser src/js/main.js -o _site/js/main.min.js",
+    "strip-console": "node scripts/strip-console.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
@@ -47,7 +50,9 @@
     "jsdom": "^23.0.1",
     "playwright": "^1.40.0",
     "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.0",
     "prettier": "^3.0.3",
+    "terser": "^5.27.0",
     "vitest": "^4.0.16"
   },
   "keywords": [

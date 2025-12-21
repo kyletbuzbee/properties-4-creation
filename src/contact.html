@@ -2,18 +2,10 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Contact Us - Properties 4 Creations</title>
-    <link rel='manifest' href='/manifest.json' />
-    <link rel='apple-touch-icon' href='/images/apple-touch-icon.png' />
-    <link rel='stylesheet' href='/css/style.css' />
+    {% include 'meta.html' %}
     <link rel='stylesheet' href='https://unpkg.com/lucide@latest/dist/umd/lucide.css'
         integrity='sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu'
         crossorigin='anonymous' />
-    <meta name='msapplication-TileColor' content='#0B1120' />
-    <meta name='description'
-        content='Get in touch with Properties 4 Creations for veteran housing assistance in East Texas. Contact us about voucher programs and available properties.' />
 </head>
 
 <body>
@@ -21,9 +13,9 @@
     <a href='#main' class='skip-link'>Skip to main content</a>
 
     <!-- HEADER -->
-    {% include 'nav.html' %}
+    {% include 'header.html' %}
 
-    <main id='main'>
+    <main id='main-content'>
         <!-- CONTACT HEADER -->
         <section class='page-banner bg-contact-banner'>
             <div class='container'>
@@ -131,7 +123,7 @@
                                 <span class='error-message'>You must agree to continue</span>
                             </div>
 
-                            <button type='submit' class='submit-btn'>Send Message</button>
+                            <button type='submit' class='btn btn-cta'>Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -139,53 +131,7 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class='footer'>
-        <div class='container'>
-            <div class='footer-content'>
-                <div class='footer-section'>
-                    <h3>Properties 4 Creations</h3>
-                    <p>Building homes, rebuilding lives in East Texas.</p>
-                    <p class='veteran-badge'>
-                        <i data-lucide='award'></i> Veteran-Owned & Operated
-                    </p>
-                </div>
-                <div class='footer-section'>
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href='index.html'>Home</a></li>
-                        <li><a href='properties.html'>Properties</a></li>
-                        <li><a href='resources.html'>Resources</a></li>
-                        <li><a href='transparency.html'>Transparency</a></li>
-                    </ul>
-                </div>
-                <div class='footer-section'>
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href='resources.html'>VA Programs</a></li>
-                        <li><a href='resources.html'>Section 8 Info</a></li>
-                        <li><a href='impact.html'>Our Impact</a></li>
-                        <li><a href='contact.html'>Contact</a></li>
-                    </ul>
-                </div>
-                <div class='footer-section'>
-                    <h4>Legal & Contact</h4>
-                    <ul>
-                        <li><a href='terms.html'>Terms of Service</a></li>
-                        <li><a href='privacy.html'>Privacy Policy</a></li>
-                        <li><a href='contact.html'>Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class='footer-bottom'>
-                <p>&copy; 2025 Properties 4 Creations. All rights reserved.</p>
-                <p>
-                    Serving East Texas with premium housing solutions for veterans and
-                    families.
-                </p>
-            </div>
-        </div>
-    </footer>
+    {% include 'footer.html' %}
 
     <!-- SCRIPTS -->
     <script src='https://unpkg.com/lucide@latest/dist/umd/lucide.js'

@@ -2,18 +2,10 @@
 <html lang='en'>
 
 <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>About Us - Properties 4 Creations</title>
-    <link rel='manifest' href='/manifest.json' />
-    <link rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png' />
-    <link rel='stylesheet' href='/css/style.css' />
+    {% include 'meta.html' %}
     <link rel='stylesheet' href='https://unpkg.com/lucide@latest/dist/umd/lucide.css'
         integrity='sha384-sha384-GGE05hfBHktPnRBuvrQUr4zlWkq0EU1L8niEW9sctrgzmzYcAWFcIo2ywmkZa0Hu'
         crossorigin='anonymous' />
-    <meta name='msapplication-TileColor' content='#0B1120' />
-    <meta name='description'
-        content='Learn about Properties 4 Creations - veteran-owned housing provider transforming communities in East Texas with premium renovated homes.' />
 </head>
 
 <body>
@@ -21,9 +13,9 @@
     <a href='#main' class='skip-link'>Skip to main content</a>
 
     <!-- HEADER -->
-    {% include 'nav.html' %}
+    {% include 'header.html' %}
 
-    <main id='main'>
+    <main id='main-content'>
         <!-- ABOUT HEADER -->
         <section class='page-banner about-banner' aria-label='About Properties 4 Creations'>
             <div class='container'>
@@ -238,7 +230,7 @@
                             veteran looking to give back or a professional wanting to make a
                             difference, we'd love to hear from you.
                         </p>
-                        <a href='/contact/' class='btn btn-primary'>Get In Touch</a>
+                        <a href='/contact/' class='btn btn-cta'>Get In Touch</a>
                     </div>
                 </div>
             </div>
@@ -332,7 +324,7 @@
                     about our mission, we're here to help.
                 </p>
                 <div class='cta-buttons'>
-                    <a href='/apply/' class='btn btn-primary btn-lg'>Apply for Housing</a>
+                    <a href='/apply/' class='btn btn-cta btn-lg'>Apply for Housing</a>
                     <a href='/contact/' class='btn btn-secondary btn-lg'>Contact Us</a>
                 </div>
             </div>

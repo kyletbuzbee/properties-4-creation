@@ -11,16 +11,20 @@
 <!-- Open Graph -->
 <meta property='og:type' content='website' />
 <meta property='og:title' content='{{ title or "Properties4Creation" }}' />
-<meta property='og:description' content='{{ description or "Affordable, sustainable properties." }}' />
+<meta property='og:description' content='{{ description or "Affordable, sustainable properties for veterans and families in East Texas." }}' />
 <meta property='og:url' content='{{ site.url or "" }}{{ page.url }}' />
-<meta property='og:image' content='/images/logo/brand-logo.svg' />
+<meta property='og:image' content='{{ site.url or "" }}/images/logo/brand-logo.svg' />
 <meta property='og:site_name' content='{{ site.title or "Properties4Creation" }}' />
+<meta property='og:locale' content='en_US' />
+<meta property='og:updated_time' content='{{ page.date | date: "%Y-%m-%dT%H:%M:%S%:z" }}' />
 
 <!-- Twitter Cards -->
-<meta name='twitter:card' content='summary' />
+<meta name='twitter:card' content='summary_large_image' />
 <meta name='twitter:title' content='{{ title or "Properties4Creation" }}' />
-<meta name='twitter:description' content='{{ description or "Affordable, sustainable properties." }}' />
-<meta name='twitter:image' content='/images/logo/brand-logo.svg' />
+<meta name='twitter:description' content='{{ description or "Affordable, sustainable properties for veterans and families in East Texas." }}' />
+<meta name='twitter:image' content='{{ site.url or "" }}/images/logo/brand-logo.svg' />
+<meta name='twitter:site' content='@Properties4Creation' />
+<meta name='twitter:creator' content='@Properties4Creation' />
 
 <!-- Theme Colors for light/dark -->
 <meta name='theme-color' content='#ffffff' media='(prefers-color-scheme: light)' />
@@ -29,6 +33,22 @@
 <!-- Favicon fallbacks -->
 <link rel='icon' href='/favicon.ico' sizes='any' />
 
+<!-- Structured Data for SEO -->
+<script type='application/ld+json'>
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Properties4Creation",
+  "url": "{{ site.url or "" }}",
+  "logo": "{{ site.url or "" }}/images/logo/brand-logo.svg",
+  "description": "Veteran & family housing website in East Texas",
+  "sameAs": [
+    "https://www.facebook.com/Properties4Creation",
+    "https://twitter.com/Properties4Creation",
+    "https://www.instagram.com/Properties4Creation"
+  ]
+}
+</script>
 
 <!-- Preload Critical Assets -->
 <link rel='preload' href='/css/style.css' as='style' />

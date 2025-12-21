@@ -20,6 +20,15 @@
 /* Buttons */
 @import 'components/buttons.css';
 
+/* Header */
+@import 'components/header.css';
+
+/* Hero Section */
+@import 'components/hero-section.css';
+
+/* Comparison Slider */
+@import 'components/comparison-slider.css';
+
 /* Cards */
 @import 'components/cards.css';
 

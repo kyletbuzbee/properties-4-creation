@@ -1,0 +1,186 @@
+<!-- Video Hero Component -->
+<section class="video-hero" aria-label="{{ title }}">
+  <div class="video-container">
+    <video 
+      class="hero-video" 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      preload="metadata"
+      poster="{{ poster }}"
+      aria-label="{{ title }}"
+    >
+      <source src="{{ videoSrc }}" type="video/mp4">
+      <p>Your browser does not support the video tag. <a href="{{ videoSrc }}">Download the video</a> instead.</p>
+    </video>
+    
+    <!-- Fallback image for browsers that don't support video or when video fails to load -->
+    <div class="video-fallback" style="background-image: url('{{ poster }}');"></div>
+    
+    <div class="video-overlay">
+      <div class="container">
+        <h1>{{ title }}</h1>
+        {% if subtitle %}
+          <p class="hero-subtitle">{{ subtitle }}</p>
+        {% endif %}
+        {% if ctaText and ctaLink %}
+          <div class="hero-ctas">
+            <a href="{{ ctaLink }}" class="btn btn-primary">{{ ctaText }}</a>
+            {% if secondaryCtaText and secondaryCtaLink %}
+              <a href="{{ secondaryCtaLink }}" class="btn btn-secondary">{{ secondaryCtaText }}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.video-hero {
+  position: relative;
+  height: 70vh;
+  min-height: 400px;
+  overflow: hidden;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-fallback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(11, 17, 32, 0.8), rgba(11, 17, 32, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.video-overlay .container {
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.video-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .video-hero {
+    height: 60vh;
+    min-height: 300px;
+  }
+  
+  .video-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Accessibility improvements */
+.video-hero:focus-within {
+  outline: 3px solid var(--color-primary-gold);
+  outline-offset: 4px;
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+  
+  .video-fallback {
+    display: block;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .video-overlay {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  }
+}
+</style>
+
+<script>
+// Video loading optimization and fallback handling
+document.addEventListener('DOMContentLoaded', function() {
+  const video = document.querySelector('.hero-video');
+  const fallback = document.querySelector('.video-fallback');
+  
+  if (video) {
+    // Hide fallback when video loads
+    video.addEventListener('loadeddata', function() {
+      fallback.style.display = 'none';
+    });
+    
+    // Show fallback if video fails to load
+    video.addEventListener('error', function() {
+      fallback.style.display = 'block';
+    });
+    
+    // Handle video visibility for performance
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play().catch(e => {
+            console.warn('Video autoplay failed:', e);
+            fallback.style.display = 'block';
+          });
+        } else {
+          video.pause();
+        }
+      });
+    });
+    
+    observer.observe(video);
+  }
+});
+</script>

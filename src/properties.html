@@ -1,5 +1,5 @@
 ---
-title: 'Available Properties - Properties 4 Creations'
+title: 'Available Homes - Properties 4 Creations'
 description: 'Browse our premium, renovated homes ready for veteran and family occupancy in East Texas.'
 ---
 
@@ -22,17 +22,35 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
 
   <main id='main-content'>
     <!-- PROPERTIES HEADER -->
-    <section class='properties-header' style="
-          background-image: url(&quot;/images/banners/hero-projects-banner.webp&quot;);
-          background-size: cover;
-          background-position: center;
-        ">
-      <div class='container'>
-        <h1>Available Properties</h1>
-        <p>
-          Browse our premium, renovated homes ready for veteran and family
-          occupancy.
-        </p>
+    <section class='video-hero' aria-label='Available Properties'>
+      <div class='video-container'>
+        <video 
+          class='hero-video' 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          preload='metadata'
+          poster='/images/banners/hero-projects-banner.webp'
+          aria-label='Available Properties'
+        >
+          <source src='/videos/hero-properties-banner.mp4' type='video/mp4'>
+          <p>Your browser does not support the video tag. <a href='/videos/hero-properties-banner.mp4'>Download the video</a> instead.</p>
+        </video>
+        
+        <!-- Fallback image for browsers that don't support video or when video fails to load -->
+        <div class='video-fallback' style="background-image: url('/images/banners/hero-projects-banner.webp');"></div>
+        
+        <div class='video-overlay'>
+          <div class='container'>
+            <h1>Available Properties</h1>
+            <p class='hero-subtitle'>Browse our premium, renovated homes ready for veteran and family occupancy.</p>
+            <div class='hero-ctas'>
+              <a href='apply.html' class='btn btn-primary'>Start Your Application</a>
+              <a href='#properties-grid' class='btn btn-secondary'>View Properties</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -86,7 +104,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-tyler-ranch-home.webp'
               alt='Tyler Ranch Home exterior - renovated 3BR ranch with modern updates' loading='lazy'
               class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-tyler-ranch-home.webp&quot;);
+                  background-image: url("/images/properties/properties-tyler-ranch-home.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -97,7 +115,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-tyler-ranch-home.webp&quot;)
+                    url("/images/properties/properties-tyler-ranch-home.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -141,7 +159,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-longview-victorian.webp'
               alt='Longview Victorian home - historic Queen Anne architecture with modern restorations' loading='lazy'
               class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-longview-victorian.webp&quot;);
+                  background-image: url("/images/properties/properties-longview-victorian.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -152,7 +170,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-longview-victorian.webp&quot;)
+                    url("/images/properties/properties-longview-victorian.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -196,7 +214,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-jefferson-river-front.webp'
               alt='Jefferson Riverfront apartment - ADA accessible waterfront living with modern amenities'
               loading='lazy' class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-jefferson-river-front.webp&quot;);
+                  background-image: url("/images/properties/properties-jefferson-river-front.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -207,7 +225,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-jefferson-river-front.webp&quot;)
+                    url("/images/properties/properties-jefferson-river-front.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -251,7 +269,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-kemp-townhome.webp'
               alt='Kemp Townhome - maintenance-free living in quiet community with modern updates' loading='lazy'
               class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-kemp-townhome.webp&quot;);
+                  background-image: url("/images/properties/properties-kemp-townhome.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -262,7 +280,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-kemp-townhome.webp&quot;)
+                    url("/images/properties/properties-kemp-townhome.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -306,7 +324,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-marshall-farmhouse.webp'
               alt='Marshall Historic Farmhouse - restored East Texas heritage home with modern amenities' loading='lazy'
               class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-marshall-farmhouse.webp&quot;);
+                  background-image: url("/images/properties/properties-marshall-farmhouse.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -317,7 +335,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-marshall-farmhouse.webp&quot;)
+                    url("/images/properties/properties-marshall-farmhouse.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -361,7 +379,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
             <img src='/images/properties/properties-mineola-studio.webp'
               alt='Mineola Modern Studio - efficient apartment with modern amenities and affordable pricing'
               loading='lazy' class='property-image' style="
-                  background-image: url(&quot;/images/properties/properties-mineola-studio.webp&quot;);
+                  background-image: url("/images/properties/properties-mineola-studio.webp");
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -372,7 +390,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
                       rgba(11, 17, 32, 0.7),
                       rgba(194, 142, 90, 0.7)
                     ),
-                    url(&quot;/images/properties/properties-mineola-studio.webp&quot;)
+                    url("/images/properties/properties-mineola-studio.webp")
                       center/cover;
                 " />
             <div class='property-content'>
@@ -427,6 +445,41 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
   </script>
   <script src='/js/accessibility-enhanced.js'></script>
   <script src='/js/main.js'></script>
+  <script>
+    // Video loading optimization and fallback handling
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.querySelector('.hero-video');
+      const fallback = document.querySelector('.video-fallback');
+      
+      if (video) {
+        // Hide fallback when video loads
+        video.addEventListener('loadeddata', function() {
+          fallback.style.display = 'none';
+        });
+        
+        // Show fallback if video fails to load
+        video.addEventListener('error', function() {
+          fallback.style.display = 'block';
+        });
+        
+        // Handle video visibility for performance
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              video.play().catch(e => {
+                console.warn('Video autoplay failed:', e);
+                fallback.style.display = 'block';
+              });
+            } else {
+              video.pause();
+            }
+          });
+        });
+        
+        observer.observe(video);
+      }
+    });
+  </script>
 </body>
 
 </html>

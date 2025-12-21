@@ -1,1 +1,46 @@
-<header class='header-glass'>{% include 'nav.html' %}</header>
+<header class="header-glass" role="banner">
+  <div class="skip-to-content">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+  </div>
+  
+  <div class="header-container">
+    <div class="brand-container">
+      <a href="/" class="brand-link" aria-label="Properties 4 Creations - Home">
+        <img src="/images/logo/brand-logo.svg" alt="Properties 4 Creations Logo" class="brand-logo" />
+        <span class="brand-text">Properties 4 Creations</span>
+      </a>
+    </div>
+
+    <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-navigation">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <nav class="main-navigation" id="main-navigation" role="navigation" aria-label="Main navigation">
+      <ul class="nav-menu" role="menubar">
+        <li role="none">
+          <a href="/" class="nav-link" role="menuitem" aria-current="page">Home</a>
+        </li>
+        <li role="none">
+          <a href="/properties/" class="nav-link" role="menuitem">Properties</a>
+        </li>
+        <li role="none">
+          <a href="/about/" class="nav-link" role="menuitem">About</a>
+        </li>
+        <li role="none">
+          <a href="/impact/" class="nav-link" role="menuitem">Our Impact</a>
+        </li>
+        <li role="none">
+          <a href="/resources/" class="nav-link" role="menuitem">Resources</a>
+        </li>
+        <li role="none">
+          <a href="/contact/" class="nav-link" role="menuitem">Contact</a>
+        </li>
+        <li role="none" class="nav-cta">
+          <a href="/apply/" class="btn btn-primary cta-link" role="menuitem">Apply Now</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

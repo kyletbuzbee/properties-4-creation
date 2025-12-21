@@ -265,10 +265,31 @@ input:focus, select:focus, textarea:focus {
   justify-content: center;
 }
 
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
   max-width: 800px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.hero-text {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .hero h2 {
@@ -277,12 +298,22 @@ input:focus, select:focus, textarea:focus {
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .hero-subtitle {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   opacity: 0.95;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .hero-tagline {
@@ -290,6 +321,11 @@ input:focus, select:focus, textarea:focus {
   opacity: 0.85;
   margin-bottom: 2rem;
   font-weight: 500;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .hero-ctas {
