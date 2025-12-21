@@ -1,0 +1,45 @@
+{
+  "files": [
+    {
+      "path": "./_site/css/main.css",
+      "maxSize": "100kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/css/style.css",
+      "maxSize": "50kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/js/main.js",
+      "maxSize": "150kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/js/accessibility-enhanced.js",
+      "maxSize": "25kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/js/ui-header.js",
+      "maxSize": "20kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/js/button-utilities.js",
+      "maxSize": "20kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "./_site/sw.js",
+      "maxSize": "10kb",
+      "compression": "gzip"
+    }
+  ],
+  "ci": {
+    "trackBranches": ["main", "master", "develop"],
+    "github": {
+      "commentMode": "new"
+    }
+  }
+}

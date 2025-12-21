@@ -17,8 +17,132 @@ import { LazyLoader } from './utils/lazyLoad.js';
 // Initialize error boundary first (before other components)
 createPropertiesErrorBoundary();
 
-// Initialize global error handler
-initErrorHandler();
+// SERVICE WORKER REGISTRATION
+function registerServiceWorker () {
+  // Check if service workers are supported
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration) => {
+          // Service worker registered successfully
+          console.log('Service Worker registered successfully:', registration.scope);
+          
+          // Add event listeners for service worker lifecycle
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker installed, prompt user to refresh
+                console.log('New content is available, please refresh the page.');
+              }
+            });
+          });
+          
+          // Initialize cache management
+          initCacheManagement(registration);
+        })
+        .catch((error) => {
+          // Service worker registration failed
+          console.error('Service Worker registration failed:', error);
+          
+          // Fallback: disable offline functionality gracefully
+          if (window.lazyLoader) {
+            window.lazyLoader.enableFallbackMode();
+          }
+        });
+    });
+    
+    // Handle service worker updates
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      window.location.reload();
+    });
+  } else {
+    // Service workers not supported
+    console.warn('Service Worker not supported by this browser');
+    
+    // Enable fallback mode for lazy loading
+    if (window.lazyLoader) {
+      window.lazyLoader.enableFallbackMode();
+    }
+  }
+}
+
+/**
+ * Initialize cache management functionality
+ * @param {ServiceWorkerRegistration} registration - Service worker registration
+ */
+function initCacheManagement (registration) {
+  // Add cache management methods to window for debugging
+  window.p4cCache = {
+    clear: () => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          registration.active.postMessage({ type: 'CLEAR_CACHE' });
+          resolve('Cache cleared successfully');
+        } else {
+          reject('No active service worker');
+        }
+      });
+    },
+    
+    getStatus: () => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          const messageChannel = new MessageChannel();
+          messageChannel.port1.onmessage = (event) => {
+            if (event.data.type === 'CACHE_STATUS') {
+              resolve(event.data.data);
+            }
+          };
+          
+          registration.active.postMessage(
+            { type: 'GET_CACHE_STATUS' },
+            [messageChannel.port2]
+          );
+        } else {
+          reject('No active service worker');
+        }
+      });
+    },
+    
+    cacheUrls: (urls) => {
+      return new Promise((resolve, reject) => {
+        if (registration.active) {
+          registration.active.postMessage({
+            type: 'CACHE_URLS',
+            urls: urls
+          });
+          resolve('URLs queued for caching');
+        } else {
+          reject('No active service worker');
+        }
+      });
+    }
+  };
+}
+
+// Initialize global error handler with comprehensive error boundaries
+const errorHandler = initErrorHandler();
+
+// Add comprehensive error boundary for all main.js operations
+const mainErrorHandler = errorHandler.createBoundary(() => {
+  // Initialize global error handler
+  initErrorHandler();
+
+  // Register service worker
+  registerServiceWorker();
+}, {
+  fallback: (error) => {
+    console.error('Critical error in main.js initialization:', error);
+    // Fallback: ensure basic functionality still works
+    registerServiceWorker();
+  },
+  rethrow: false
+});
+
+// Execute main initialization with error boundary
+mainErrorHandler();
 
 // MOBILE MENU TOGGLE
 const menuToggle = document.querySelector('.menu-toggle');
@@ -107,26 +231,45 @@ if (propertiesGrid) {
     // Create image container
     const imageDiv = document.createElement('div');
     imageDiv.className = 'property-image';
-    imageDiv.style.backgroundImage = `url('${prop.image}')`;
-    imageDiv.style.backgroundSize = 'cover';
-    imageDiv.style.backgroundPosition = 'center';
-    imageDiv.setAttribute('alt', prop.name);
+
+    // Secure image handling - validate and sanitize image path
+    const sanitizedImagePath = sanitizeInput(prop.image);
+    const allowedImagePath = (path) => {
+      if (typeof path !== 'string') return false;
+      const re = /^\/?images\/(properties|banners|icons|our-work-gallery)\/[a-z0-9\/_\-.]+\.webp$/i;
+      return re.test(path);
+    };
+    const imgSrc = allowedImagePath(sanitizedImagePath)
+      ? sanitizedImagePath
+      : 'images/properties/properties-default.webp';
+
+    // Use semantic image for accessibility and performance
+    const imgEl = document.createElement('img');
+    imgEl.src = imgSrc;
+    const sanitizedAltText = sanitizeInput(prop.name);
+    imgEl.alt = sanitizedAltText || 'Property image';
+    imgEl.loading = 'lazy';
+    imgEl.decoding = 'async';
+    imgEl.className = 'property-img';
+    imageDiv.appendChild(imgEl);
 
     // Create content container
     const contentDiv = document.createElement('div');
     contentDiv.className = 'property-content';
 
-    // Create title element (secure - uses textContent)
+    // Create title element (secure - uses textContent with sanitization)
     const titleEl = document.createElement('h3');
     titleEl.className = 'property-title';
-    titleEl.textContent = prop.name;
+    const sanitizedTitle = sanitizeInput(prop.name);
+    titleEl.textContent = sanitizedTitle || 'Property';
 
-    // Create location element (secure)
+    // Create location element (secure with sanitization)
     const locationEl = document.createElement('p');
     locationEl.style.color = 'var(--dark-gray)';
     locationEl.style.fontSize = '0.9rem';
     locationEl.style.marginBottom = '1rem';
-    locationEl.textContent = prop.location;
+    const sanitizedLocation = sanitizeInput(prop.location);
+    locationEl.textContent = sanitizedLocation || 'Location not available';
 
     // Create details container
     const detailsDiv = document.createElement('div');
@@ -179,13 +322,18 @@ if (propertiesGrid) {
     const tagsDiv = document.createElement('div');
     tagsDiv.className = 'property-tags';
 
-    // Add tags securely (escape text content)
-    prop.tags.forEach((tag) => {
-      const tagSpan = document.createElement('span');
-      tagSpan.className = 'tag';
-      tagSpan.textContent = tag; // Secure - no HTML injection possible
-      tagsDiv.appendChild(tagSpan);
-    });
+    // Add tags securely with sanitization
+    if (prop.tags && Array.isArray(prop.tags)) {
+      prop.tags.forEach((tag) => {
+        const sanitizedTag = sanitizeInput(tag);
+        if (sanitizedTag) {
+          const tagSpan = document.createElement('span');
+          tagSpan.className = 'tag';
+          tagSpan.textContent = sanitizedTag;
+          tagsDiv.appendChild(tagSpan);
+        }
+      });
+    }
 
     // Create apply button
     const applyLink = document.createElement('a');
@@ -254,11 +402,13 @@ if (sliderContainer) {
 const filterBtn = document.getElementById('filter-btn');
 if (filterBtn) {
   filterBtn.addEventListener('click', () => {
-    const bedroomFilter = document.getElementById('bedroom-filter').value;
-    const locationFilter = document.getElementById('location-filter').value;
-    const searchFilter = document
-      .getElementById('search-filter')
-      .value.toLowerCase();
+    // Sanitize filter inputs
+    const bedroomFilter = sanitizeInput(document.getElementById('bedroom-filter').value);
+    const locationFilter = sanitizeInput(document.getElementById('location-filter').value);
+    const searchFilter = sanitizeInput(document.getElementById('search-filter').value);
+    
+    // Normalize search filter for case-insensitive matching
+    const normalizedSearchFilter = searchFilter ? searchFilter.toLowerCase() : '';
 
     const cards = document.querySelectorAll('.property-card');
     cards.forEach((card) => {
@@ -274,9 +424,9 @@ if (filterBtn) {
       const matchesLocation =
         !locationFilter || location.includes(locationFilter.toLowerCase());
       const matchesSearch =
-        !searchFilter ||
-        title.includes(searchFilter) ||
-        location.includes(searchFilter);
+        !normalizedSearchFilter ||
+        title.includes(normalizedSearchFilter) ||
+        location.includes(normalizedSearchFilter);
 
       if (matchesBedroom && matchesLocation && matchesSearch) {
         card.style.display = 'block';
@@ -289,13 +439,24 @@ if (filterBtn) {
 
 // Sanitize input function (moved to program root)
 function sanitizeInput (input) {
-  // Use DOMPurify if available, otherwise basic sanitization
-  if (window.DOMPurify) {
-    return window.DOMPurify.sanitize(input, {
-      ALLOWED_TAGS: [],
-      ALLOWED_ATTR: []
-    });
+  // Input validation - ensure input is a string
+  if (typeof input !== 'string') {
+    return '';
   }
+  
+  // Use DOMPurify if available, otherwise basic sanitization
+  if (window.DOMPurify && typeof window.DOMPurify.sanitize === 'function') {
+    try {
+      return window.DOMPurify.sanitize(input, {
+        ALLOWED_TAGS: [],
+        ALLOWED_ATTR: []
+      });
+    } catch (e) {
+      // Fallback to basic sanitization if DOMPurify fails
+      // Silent fallback - no console output for security
+    }
+  }
+  
   // Basic fallback sanitization
   return input
     .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
@@ -319,12 +480,15 @@ if (form) {
       if (!input) return;
 
       group.classList.remove('error');
+      input.removeAttribute('aria-invalid');
 
-      // Sanitize input value
+      // Sanitize input value with additional validation
       const sanitizedValue = sanitizeInput(input.value);
 
-      if (input.required && !sanitizedValue) {
+      // Additional validation for specific fields
+      if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'email' &&
@@ -332,16 +496,29 @@ if (form) {
         !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.id === 'phone' &&
         sanitizedValue &&
-        !/^[0-9\-+() ]+$/.test(sanitizedValue)
+        !/^[0-9\-+()\s.,]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (input.type === 'checkbox' && !input.checked) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else if (
+        input.type === 'text' &&
+        input.name === 'name' &&
+        sanitizedValue &&
+        sanitizedValue.length < 2
+      ) {
+        // Additional validation for name field
+        group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       }
     });
@@ -378,16 +555,32 @@ if (contactForm) {
       if (!input) return;
 
       group.classList.remove('error');
+      input.removeAttribute('aria-invalid');
 
-      if (input.required && !input.value.trim()) {
+      // Sanitize input value
+      const sanitizedValue = sanitizeInput(input.value);
+
+      if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       } else if (
         input.type === 'email' &&
-        input.value &&
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
+        sanitizedValue &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
+        isValid = false;
+      } else if (
+        input.type === 'text' &&
+        input.name === 'name' &&
+        sanitizedValue &&
+        sanitizedValue.length < 2
+      ) {
+        // Additional validation for name field
+        group.classList.add('error');
+        input.setAttribute('aria-invalid', 'true');
         isValid = false;
       }
     });
@@ -560,6 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 3000);
         }
       });
+      
       window.contactFormValidator = contactValidator;
     } catch (e) {
       // FormValidator initialization failed silently
@@ -576,7 +770,69 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('mousedown', () => {
     document.body.classList.remove('keyboard-nav');
   });
+
+  // Initialize responsive hero backgrounds
+  initResponsiveHeroBackgrounds();
 });
+
+/**
+ * Initialize responsive hero backgrounds using the lazy loading utility
+ */
+function initResponsiveHeroBackgrounds () {
+  // Check if LazyLoader is available
+  if (typeof window.LazyLoader !== 'undefined' || typeof LazyLoader !== 'undefined') {
+    // Create responsive hero background for the main hero section
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+      // Use the existing WebP images with responsive sizes
+      const heroImageBase = '/images/banners/hero-home-banner';
+      const responsiveBg = `
+        linear-gradient(
+          135deg,
+          rgba(11, 17, 32, 0.8) 0%,
+          rgba(11, 17, 32, 0.6) 100%
+        ),
+        url('${heroImageBase}.webp')
+      `;
+      
+      // Apply responsive background
+      heroSection.style.backgroundImage = responsiveBg;
+      
+      // Add media queries for different screen sizes
+      const style = document.createElement('style');
+      style.textContent = `
+        @media (max-width: 600px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-400w.webp');
+          }
+        }
+        @media (min-width: 601px) and (max-width: 1000px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-800w.webp');
+          }
+        }
+        @media (min-width: 1001px) {
+          .hero {
+            background-image: linear-gradient(
+              135deg,
+              rgba(11, 17, 32, 0.8) 0%,
+              rgba(11, 17, 32, 0.6) 100%
+            ), url('${heroImageBase}-1200w.webp');
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  }
+}
 
 // Export for module usage
 export { propertiesData };

@@ -10,6 +10,12 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
+    "test:security": "vitest tests/security/",
+    "test:accessibility": "vitest tests/accessibility/",
+    "test:performance": "vitest tests/performance/",
+    "test:cross-browser": "vitest tests/cross-browser/",
+    "test:service-worker": "vitest tests/service-worker/",
+    "test:all": "vitest tests/",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "lint": "eslint src/js/**/*.js",
@@ -17,7 +23,10 @@
     "lighthouse": "lhci autorun",
     "security-audit": "npm audit",
     "format": "prettier --write \"src/**/*.{html,js,css,md}\"",
-    "format:check": "prettier --check \"src/**/*.{html,js,css,md}\""
+    "format:check": "prettier --check \"src/**/*.{html,js,css,md}\"",
+    "bundle-size": "bundlewatch",
+    "bundle-size:check": "bundlewatch --ci",
+    "bundle-size:report": "bundlewatch --ci --json"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
@@ -26,6 +35,7 @@
     "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "axe-core": "^4.8.2",
+    "bundlewatch": "^0.3.3",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",

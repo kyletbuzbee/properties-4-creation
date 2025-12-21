@@ -107,26 +107,44 @@ if (propertiesGrid) {
     // Create image container
     const imageDiv = document.createElement('div');
     imageDiv.className = 'property-image';
-    imageDiv.style.backgroundImage = `url('${prop.image}')`;
+    
+    // Secure image handling - validate and sanitize image path
+    const sanitizedImagePath = sanitizeInput(prop.image);
+    const isValidImagePath = sanitizedImagePath &&
+      (sanitizedImagePath.startsWith('images/') || sanitizedImagePath.startsWith('/images/')) &&
+      sanitizedImagePath.endsWith('.webp');
+    
+    if (isValidImagePath) {
+      imageDiv.style.backgroundImage = `url('${sanitizedImagePath}')`;
+    } else {
+      // Fallback to default image if path is invalid
+      imageDiv.style.backgroundImage = `url('images/properties/properties-default.webp')`;
+    }
+    
     imageDiv.style.backgroundSize = 'cover';
     imageDiv.style.backgroundPosition = 'center';
-    imageDiv.setAttribute('alt', prop.name);
+    
+    // Set alt text securely
+    const sanitizedAltText = sanitizeInput(prop.name);
+    imageDiv.setAttribute('alt', sanitizedAltText || 'Property image');
 
     // Create content container
     const contentDiv = document.createElement('div');
     contentDiv.className = 'property-content';
 
-    // Create title element (secure - uses textContent)
+    // Create title element (secure - uses textContent with sanitization)
     const titleEl = document.createElement('h3');
     titleEl.className = 'property-title';
-    titleEl.textContent = prop.name;
+    const sanitizedTitle = sanitizeInput(prop.name);
+    titleEl.textContent = sanitizedTitle || 'Property';
 
-    // Create location element (secure)
+    // Create location element (secure with sanitization)
     const locationEl = document.createElement('p');
     locationEl.style.color = 'var(--dark-gray)';
     locationEl.style.fontSize = '0.9rem';
     locationEl.style.marginBottom = '1rem';
-    locationEl.textContent = prop.location;
+    const sanitizedLocation = sanitizeInput(prop.location);
+    locationEl.textContent = sanitizedLocation || 'Location not available';
 
     // Create details container
     const detailsDiv = document.createElement('div');
@@ -179,13 +197,18 @@ if (propertiesGrid) {
     const tagsDiv = document.createElement('div');
     tagsDiv.className = 'property-tags';
 
-    // Add tags securely (escape text content)
-    prop.tags.forEach((tag) => {
-      const tagSpan = document.createElement('span');
-      tagSpan.className = 'tag';
-      tagSpan.textContent = tag; // Secure - no HTML injection possible
-      tagsDiv.appendChild(tagSpan);
-    });
+    // Add tags securely with sanitization
+    if (prop.tags && Array.isArray(prop.tags)) {
+      prop.tags.forEach((tag) => {
+        const sanitizedTag = sanitizeInput(tag);
+        if (sanitizedTag) {
+          const tagSpan = document.createElement('span');
+          tagSpan.className = 'tag';
+          tagSpan.textContent = sanitizedTag;
+          tagsDiv.appendChild(tagSpan);
+        }
+      });
+    }
 
     // Create apply button
     const applyLink = document.createElement('a');
@@ -254,11 +277,13 @@ if (sliderContainer) {
 const filterBtn = document.getElementById('filter-btn');
 if (filterBtn) {
   filterBtn.addEventListener('click', () => {
-    const bedroomFilter = document.getElementById('bedroom-filter').value;
-    const locationFilter = document.getElementById('location-filter').value;
-    const searchFilter = document
-      .getElementById('search-filter')
-      .value.toLowerCase();
+    // Sanitize filter inputs
+    const bedroomFilter = sanitizeInput(document.getElementById('bedroom-filter').value);
+    const locationFilter = sanitizeInput(document.getElementById('location-filter').value);
+    const searchFilter = sanitizeInput(document.getElementById('search-filter').value);
+    
+    // Normalize search filter for case-insensitive matching
+    const normalizedSearchFilter = searchFilter ? searchFilter.toLowerCase() : '';
 
     const cards = document.querySelectorAll('.property-card');
     cards.forEach((card) => {
@@ -274,9 +299,9 @@ if (filterBtn) {
       const matchesLocation =
         !locationFilter || location.includes(locationFilter.toLowerCase());
       const matchesSearch =
-        !searchFilter ||
-        title.includes(searchFilter) ||
-        location.includes(searchFilter);
+        !normalizedSearchFilter ||
+        title.includes(normalizedSearchFilter) ||
+        location.includes(normalizedSearchFilter);
 
       if (matchesBedroom && matchesLocation && matchesSearch) {
         card.style.display = 'block';
@@ -289,13 +314,24 @@ if (filterBtn) {
 
 // Sanitize input function (moved to program root)
 function sanitizeInput (input) {
-  // Use DOMPurify if available, otherwise basic sanitization
-  if (window.DOMPurify) {
-    return window.DOMPurify.sanitize(input, {
-      ALLOWED_TAGS: [],
-      ALLOWED_ATTR: []
-    });
+  // Input validation - ensure input is a string
+  if (typeof input !== 'string') {
+    return '';
   }
+  
+  // Use DOMPurify if available, otherwise basic sanitization
+  if (window.DOMPurify && typeof window.DOMPurify.sanitize === 'function') {
+    try {
+      return window.DOMPurify.sanitize(input, {
+        ALLOWED_TAGS: [],
+        ALLOWED_ATTR: []
+      });
+    } catch (e) {
+      // Fallback to basic sanitization if DOMPurify fails
+      // Silent fallback - no console output for security
+    }
+  }
+  
   // Basic fallback sanitization
   return input
     .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
@@ -320,10 +356,11 @@ if (form) {
 
       group.classList.remove('error');
 
-      // Sanitize input value
+      // Sanitize input value with additional validation
       const sanitizedValue = sanitizeInput(input.value);
 
-      if (input.required && !sanitizedValue) {
+      // Additional validation for specific fields
+      if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
         isValid = false;
       } else if (
@@ -341,6 +378,15 @@ if (form) {
         group.classList.add('error');
         isValid = false;
       } else if (input.type === 'checkbox' && !input.checked) {
+        group.classList.add('error');
+        isValid = false;
+      } else if (
+        input.type === 'text' &&
+        input.name === 'name' &&
+        sanitizedValue &&
+        sanitizedValue.length < 2
+      ) {
+        // Additional validation for name field
         group.classList.add('error');
         isValid = false;
       }
@@ -379,14 +425,26 @@ if (contactForm) {
 
       group.classList.remove('error');
 
-      if (input.required && !input.value.trim()) {
+      // Sanitize input value
+      const sanitizedValue = sanitizeInput(input.value);
+
+      if (input.required && (!sanitizedValue || sanitizedValue.trim() === '')) {
         group.classList.add('error');
         isValid = false;
       } else if (
         input.type === 'email' &&
-        input.value &&
-        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)
+        sanitizedValue &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedValue)
       ) {
+        group.classList.add('error');
+        isValid = false;
+      } else if (
+        input.type === 'text' &&
+        input.name === 'name' &&
+        sanitizedValue &&
+        sanitizedValue.length < 2
+      ) {
+        // Additional validation for name field
         group.classList.add('error');
         isValid = false;
       }
