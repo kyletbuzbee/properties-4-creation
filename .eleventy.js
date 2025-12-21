@@ -3,32 +3,41 @@
  * Properties 4 Creations - Veteran Housing Platform
  */
 
-module.exports = function  (eleventyConfig) {
-  // Passthrough copy for static assets from src
+module.exports = function (eleventyConfig) {
+  // -----------------------------------------------------------------
+  // PASSTHROUGH COPIES
+  // -----------------------------------------------------------------
+  
+  // Static Assets
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/videos": "videos" });
+  eleventyConfig.addPassthroughCopy({ "src/images": "images" });
+
+  // Root Files
   eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
   eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
   eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
-  eleventyConfig.addPassthroughCopy({ "src/_data": "_data" });
-  eleventyConfig.addPassthroughCopy({ "src/_includes": "_includes" });
-  eleventyConfig.addPassthroughCopy({ "src/design-system": "design-system" });
-  
-  
-  // Copy public folder assets (images, etc) to root
-  eleventyConfig.addPassthroughCopy({ "src/images": "images" });
 
-
-  // Copy root files needed for GitHub Pages
+  // GitHub Pages requirements
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy(".nojekyll");
 
-  // Watch targets for development
-  eleventyConfig.addWatchTarget("src/css/");
-  eleventyConfig.addWatchTarget("src/js/");
+  // -----------------------------------------------------------------
+  // REMOVED LINES (DO NOT UNCOMMENT)
+  // -----------------------------------------------------------------
+  // eleventyConfig.addPassthroughCopy({ "src/_data": "_data" });      <-- UNSAFE
+  // eleventyConfig.addPassthroughCopy({ "src/_includes": "_includes" }); <-- UNSAFE
+  
+  // NOTE: If your JavaScript needs specific JSON data (like properties.json), 
+  // copy ONLY that specific file, not the entire _data folder:
+  // eleventyConfig.addPassthroughCopy({ "src/_data/properties.json": "data/properties.json" });
 
-  // Add date filters
+  // -----------------------------------------------------------------
+  // FILTERS
+  // -----------------------------------------------------------------
+
+  // Date Filter
   eleventyConfig.addFilter("dateFormat", (date) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -37,26 +46,35 @@ module.exports = function  (eleventyConfig) {
     });
   });
 
-  // Add truncate filter for descriptions
+  // Truncate Filter
   eleventyConfig.addFilter("truncate", (str, length = 120) => {
     if (!str) return '';
     if (str.length <= length) return str;
     return str.substring(0, length) + '...';
   });
 
-  // Browser sync config for development
+  // -----------------------------------------------------------------
+  // DEVELOPMENT CONFIG
+  // -----------------------------------------------------------------
+  
+  eleventyConfig.addWatchTarget("src/css/");
+  eleventyConfig.addWatchTarget("src/js/");
+
   eleventyConfig.setBrowserSyncConfig({
     files: ['docs/**/*'],
     open: true,
     notify: false
   });
 
+  // -----------------------------------------------------------------
+  // RETURN OBJECT
+  // -----------------------------------------------------------------
   return {
     dir: {
       input: "src",
       output: "docs",
-      includes: "_includes",
-      data: "_data"
+      includes: "_includes", // Eleventy looks here automatically for templates
+      data: "_data"          // Eleventy looks here automatically for data
     },
     templateFormats: ["html", "njk", "md"],
     htmlTemplateEngine: "njk",

@@ -1,0 +1,23 @@
+# Development and debug files that should not be deployed
+CSP_FIX_CONFIG.html
+*.backup
+*.log
+node_modules/
+.temp/
+.cache/
+.vscode/
+.idea/
+*.tmp
+*.swp
+*.swo
+README.md
+code_review.py
+consolidated_output.txt
+node_modules/
+.github/
+
+# Test files (should not be deployed)
+test-*.html
+test-*.js
+test-*.css
+test-*.json
