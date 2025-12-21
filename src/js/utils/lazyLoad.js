@@ -168,7 +168,7 @@ export function initNativeLazyLoading () {
   // Check for native lazy loading support
   if ('loading' in HTMLImageElement.prototype) {
     // Native lazy loading is supported
-    const images = document.querySelectorAll('img[loading='lazy']');
+    const images = document.querySelectorAll('img[loading="lazy"]');
     images.forEach((img) => {
       // Ensure src is set for native lazy loading
       if (img.dataset.src && !img.src) {
@@ -178,7 +178,7 @@ export function initNativeLazyLoading () {
   } else {
     // Fall back to IntersectionObserver
     const lazyLoader = new LazyLoader({
-      selector: 'img[loading='lazy']'
+      selector: 'img[loading="lazy"]'
     });
     return lazyLoader;
   }

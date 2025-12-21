@@ -1,4 +1,4 @@
-// UI HEADER FEATURES
+git // UI HEADER FEATURES
 // Navigation and header behavior for Properties 4 Creations website
 (function () {
   'use strict';
@@ -214,7 +214,7 @@
     });
   }
 
-  // Initialize all header features
+    // Initialize all header features
   function initHeaderFeatures () {
     initializeMobileMenu();
     initializeStickyHeader();

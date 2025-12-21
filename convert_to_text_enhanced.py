@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-''"
+"""
 Enhanced File Converter - Single File Output with Directory Exclusion
 Converts source code files to append to a single .txt format file.
 
 Features:
-- Excludes node_modules and codeReview directories during scanning
+- Excludes node_modules, codeReview, .git, and .clinerules directories during scanning
 - Outputs everything to one single text file (append mode)
 - Command-line configurable source folder and output file
 - Progress tracking with detailed output
@@ -12,7 +12,7 @@ Features:
 - Configurable file extensions
 - Statistics and summary reporting
 - Windows-compatible (no emoji characters)
-''"
+"""
 
 import os
 import sys
@@ -29,7 +29,7 @@ class SingleFileConverter:
         self.output_file = Path(output_file)
         self.extensions = extensions or ['.html', '.json', '.js', '.css', '.md', '.njk', '.txt', '.py', '.yml', '.yaml']
         self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2']
-        self.exclude_directories = ['node_modules', 'codeReview']
+        self.exclude_directories = ['node_modules', 'codeReview', '.git', '.clinerules']
         self.skipped_files = []
         self.error_files = []
         self.stats = {
@@ -297,12 +297,12 @@ def main():
     parser = argparse.ArgumentParser(
         description='Convert source code files to single .txt file (append mode).',
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=''"
+    epilog="""
 Examples:
   python convert_to_text_enhanced.py
   python convert_to_text_enhanced.py --source ./src --output ./all_code.txt
   python convert_to_text_enhanced.py --extensions .html,.js,.css --exclude .png,.jpg
-        ''"
+        """
     )
     
     parser.add_argument(

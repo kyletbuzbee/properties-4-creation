@@ -450,7 +450,7 @@ export class FormValidator {
       formErrorContainer.setAttribute('role', 'alert');
       formErrorContainer.setAttribute('aria-live', 'assertive');
 
-      const submitButton = this.form.querySelector('[type='submit']');
+      const submitButton = this.form.querySelector('[type="submit"]');
       if (submitButton) {
         submitButton.parentNode.insertBefore(formErrorContainer, submitButton);
       } else {
@@ -465,7 +465,7 @@ export class FormValidator {
     this.form.classList.add('form--rate-limited');
 
     // Disable submit button during rate limit
-    const submitButton = this.form.querySelector('[type='submit']');
+    const submitButton = this.form.querySelector('[type="submit"]');
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.classList.add('btn--rate-limited');
@@ -500,7 +500,7 @@ export class FormValidator {
    * @param {boolean} loading - Loading state
    */
   setLoadingState (loading) {
-    const submitButton = this.form.querySelector('[type='submit']');
+    const submitButton = this.form.querySelector('[type="submit"]');
 
     if (loading) {
       this.form.classList.add('form--loading');
@@ -572,7 +572,7 @@ export class FormValidator {
       }
 
       this.form.classList.remove('form--rate-limited');
-      const submitButton = this.form.querySelector('[type='submit']');
+      const submitButton = this.form.querySelector('[type="submit"]');
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.classList.remove('btn--rate-limited');

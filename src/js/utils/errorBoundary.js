@@ -627,7 +627,21 @@ export function createPropertiesErrorBoundary () {
             <div class="error-boundary__icon" aria-hidden="true">🏠</div>
             <h2 class="error-boundary__title">Properties 4 Creations</h2>
             <p class="error-boundary__message">
-              We're experiencing technical difficulties with our housing services. 
+              We're experiencing technical difficulties with our housing services.
               Please try refreshing the page or contact support if the problem persists.
             </p>
-            <div class
+            <div class="error-boundary__actions">
+              <button
+                type="button"
+                class="btn btn-secondary error-boundary__refresh"
+                onclick="location.reload()"
+              >
+                Refresh Page
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  });
+}
