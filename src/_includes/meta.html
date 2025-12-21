@@ -6,32 +6,32 @@
 <link rel='icon' type='image/svg+xml' href='/images/logo/brand-logo.svg' />
 <meta name='msapplication-TileColor' content='#0B1120' />
 <meta name='description' content='{{ description }}' />
+<link rel='canonical' href='{{ site.url or "" }}{{ page.url }}' />
 
-<!-- DNS Prefetch & Preconnect for Performance -->
-<link rel='preconnect' href='https://fonts.googleapis.com' />
-<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-<link rel='dns-prefetch' href='https://unpkg.com' />
-<link rel='dns-prefetch' href='https://cdn.jsdelivr.net' />
-<link rel='dns-prefetch' href='https://www.googletagmanager.com' />
+<!-- Open Graph -->
+<meta property='og:type' content='website' />
+<meta property='og:title' content='{{ title or "Properties4Creation" }}' />
+<meta property='og:description' content='{{ description or "Affordable, sustainable properties." }}' />
+<meta property='og:url' content='{{ site.url or "" }}{{ page.url }}' />
+<meta property='og:image' content='/images/logo/brand-logo.svg' />
+<meta property='og:site_name' content='{{ site.title or "Properties4Creation" }}' />
+
+<!-- Twitter Cards -->
+<meta name='twitter:card' content='summary' />
+<meta name='twitter:title' content='{{ title or "Properties4Creation" }}' />
+<meta name='twitter:description' content='{{ description or "Affordable, sustainable properties." }}' />
+<meta name='twitter:image' content='/images/logo/brand-logo.svg' />
+
+<!-- Theme Colors for light/dark -->
+<meta name='theme-color' content='#ffffff' media='(prefers-color-scheme: light)' />
+<meta name='theme-color' content='#0B1120' media='(prefers-color-scheme: dark)' />
+
+<!-- Favicon fallbacks -->
+<link rel='icon' href='/favicon.ico' sizes='any' />
+
 
 <!-- Preload Critical Assets -->
 <link rel='preload' href='/css/style.css' as='style' />
 <link rel='preload' href='/js/main.js' as='script' />
 
-<!-- Content Security Policy - Development Mode (SECURE) -->
-<meta http-equiv='Content-Security-Policy' content="default-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com data:;
-               script-src 'self' https://unpkg.com https://cdn.jsdelivr.net;
-               style-src 'self' https://unpkg.com https://cdn.jsdelivr.net https://fonts.googleapis.com;
-               img-src 'self' data: https: http:;
-               font-src 'self' https://fonts.gstatic.com data:;
-               connect-src 'self' https:;
-               media-src 'self' https:;
-               object-src 'none';
-               frame-ancestors 'self';
-               base-uri 'self';
-               form-action 'self';" />
-
-<!-- Security Headers -->
-<meta http-equiv='X-Content-Type-Options' content='nosniff' />
-<meta http-equiv='X-Frame-Options' content='SAMEORIGIN' />
-<meta http-equiv='Referrer-Policy' content='strict-origin-when-cross-origin' />
+{% include "partials/security-headers.html" %}

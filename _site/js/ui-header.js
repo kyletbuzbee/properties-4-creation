@@ -1,4 +1,4 @@
-git // UI HEADER FEATURES
+// UI HEADER FEATURES
 // Navigation and header behavior for Properties 4 Creations website
 (() => {
   'use strict';
