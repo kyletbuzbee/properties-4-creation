@@ -21820,7 +21820,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
     location: 'Tyler, TX',
-    image: 'images//properties/properties-tyler-ranch-home.webp'
+    image: 'images/properties/properties-tyler-ranch-home.webp'
   },
   {
     name: 'Longview Victorian',
@@ -21829,7 +21829,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
     location: 'Longview, TX',
-    image: 'images//properties/properties-longview-victorian.webp'
+    image: 'images/properties/properties-longview-victorian.webp'
   },
   {
     name: 'Marshall Farmhouse',
@@ -21838,7 +21838,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
     location: 'Marshall, TX',
-    image: 'images//properties/properties-marshall-farmhouse.webp'
+    image: 'images/properties/properties-marshall-farmhouse.webp'
   },
   {
     name: 'Kemp Townhome',
@@ -21847,7 +21847,7 @@ const propertiesData = [
     price: 'Section 8/HUD-VASH',
     tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
     location: 'Kemp, TX',
-    image: 'images//properties/properties-kemp-townhome.webp'
+    image: 'images/properties/properties-kemp-townhome.webp'
   },
   {
     name: 'Jefferson Riverfront',
@@ -21856,7 +21856,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
     location: 'Jefferson, TX',
-    image: 'images//properties/properties-jefferson-river-front.webp'
+    image: 'images/properties/properties-jefferson-river-front.webp'
   },
   {
     name: 'Mineola Studio',
@@ -21865,7 +21865,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
     location: 'Mineola, TX',
-    image: 'images//properties/properties-mineola-studio.webp'
+    image: 'images/properties/properties-mineola-studio.webp'
   }
 ];
 
@@ -44524,49 +44524,49 @@ MODIFIED: 2025-12-20 22:50:24
   "dir": "ltr",
   "icons": [
     {
-      "src": "images//icons/icon-72x72.png",
+      "src": "images/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-96x96.png",
+      "src": "images/icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-128x128.png",
+      "src": "images/icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-144x144.png",
+      "src": "images/icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-152x152.png",
+      "src": "images/icons/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-192x192.png",
+      "src": "images/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-384x384.png",
+      "src": "images/icons/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-512x512.png",
+      "src": "images/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -44574,13 +44574,13 @@ MODIFIED: 2025-12-20 22:50:24
   ],
   "screenshots": [
     {
-      "src": "images//screenshot-wide.png",
+      "src": "images/screenshot-wide.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "images//screenshot-narrow.png",
+      "src": "images/screenshot-narrow.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow"
@@ -44594,7 +44594,7 @@ MODIFIED: 2025-12-20 22:50:24
       "url": "/projects.html",
       "icons": [
         {
-          "src": "images//icons/icon-96x96.png",
+          "src": "images/icons/icon-96x96.png",
           "sizes": "96x96"
         }
       ]
@@ -44606,7 +44606,7 @@ MODIFIED: 2025-12-20 22:50:24
       "url": "/get-started.html",
       "icons": [
         {
-          "src": "images//icons/icon-96x96.png",
+          "src": "images/icons/icon-96x96.png",
           "sizes": "96x96"
         }
       ]
@@ -62785,10 +62785,10 @@ const CONFIG = {
   placeholderWidth: 32,
   placeholderQuality: 60,
   inputDirs: [
-    'images//properties',
-    'images//banners',
-    'images//our-work-gallery',
-    'images//before-after-comparison'
+    'images/properties',
+    'images/banners',
+    'images/our-work-gallery',
+    'images/before-after-comparison'
   ],
   outputFormat: 'webp'
 };
@@ -73744,7 +73744,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
     location: 'Tyler, TX',
-    image: 'images//properties/properties-tyler-ranch-home.webp'
+    image: 'images/properties/properties-tyler-ranch-home.webp'
   },
   {
     name: 'Longview Victorian',
@@ -73753,7 +73753,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
     location: 'Longview, TX',
-    image: 'images//properties/properties-longview-victorian.webp'
+    image: 'images/properties/properties-longview-victorian.webp'
   },
   {
     name: 'Marshall Farmhouse',
@@ -73762,7 +73762,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
     location: 'Marshall, TX',
-    image: 'images//properties/properties-marshall-farmhouse.webp'
+    image: 'images/properties/properties-marshall-farmhouse.webp'
   },
   {
     name: 'Kemp Townhome',
@@ -73771,7 +73771,7 @@ const propertiesData = [
     price: 'Section 8/HUD-VASH',
     tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
     location: 'Kemp, TX',
-    image: 'images//properties/properties-kemp-townhome.webp'
+    image: 'images/properties/properties-kemp-townhome.webp'
   },
   {
     name: 'Jefferson Riverfront',
@@ -73780,7 +73780,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
     location: 'Jefferson, TX',
-    image: 'images//properties/properties-jefferson-river-front.webp'
+    image: 'images/properties/properties-jefferson-river-front.webp'
   },
   {
     name: 'Mineola Studio',
@@ -73789,7 +73789,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
     location: 'Mineola, TX',
-    image: 'images//properties/properties-mineola-studio.webp'
+    image: 'images/properties/properties-mineola-studio.webp'
   }
 ];
 
@@ -96448,49 +96448,49 @@ MODIFIED: 2025-12-20 22:50:24
   "dir": "ltr",
   "icons": [
     {
-      "src": "images//icons/icon-72x72.png",
+      "src": "images/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-96x96.png",
+      "src": "images/icons/icon-96x96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-128x128.png",
+      "src": "images/icons/icon-128x128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-144x144.png",
+      "src": "images/icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-152x152.png",
+      "src": "images/icons/icon-152x152.png",
       "sizes": "152x152",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-192x192.png",
+      "src": "images/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-384x384.png",
+      "src": "images/icons/icon-384x384.png",
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "images//icons/icon-512x512.png",
+      "src": "images/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -96498,13 +96498,13 @@ MODIFIED: 2025-12-20 22:50:24
   ],
   "screenshots": [
     {
-      "src": "images//screenshot-wide.png",
+      "src": "images/screenshot-wide.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "images//screenshot-narrow.png",
+      "src": "images/screenshot-narrow.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow"
@@ -96518,7 +96518,7 @@ MODIFIED: 2025-12-20 22:50:24
       "url": "/projects.html",
       "icons": [
         {
-          "src": "images//icons/icon-96x96.png",
+          "src": "images/icons/icon-96x96.png",
           "sizes": "96x96"
         }
       ]
@@ -96530,7 +96530,7 @@ MODIFIED: 2025-12-20 22:50:24
       "url": "/get-started.html",
       "icons": [
         {
-          "src": "images//icons/icon-96x96.png",
+          "src": "images/icons/icon-96x96.png",
           "sizes": "96x96"
         }
       ]

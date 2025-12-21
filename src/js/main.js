@@ -48,7 +48,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
     location: 'Tyler, TX',
-    image: 'images//properties/properties-tyler-ranch-home.webp'
+    image: 'images/properties/properties-tyler-ranch-home.webp'
   },
   {
     name: 'Longview Victorian',
@@ -57,7 +57,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
     location: 'Longview, TX',
-    image: 'images//properties/properties-longview-victorian.webp'
+    image: 'images/properties/properties-longview-victorian.webp'
   },
   {
     name: 'Marshall Farmhouse',
@@ -66,7 +66,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
     location: 'Marshall, TX',
-    image: 'images//properties/properties-marshall-farmhouse.webp'
+    image: 'images/properties/properties-marshall-farmhouse.webp'
   },
   {
     name: 'Kemp Townhome',
@@ -75,7 +75,7 @@ const propertiesData = [
     price: 'Section 8/HUD-VASH',
     tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
     location: 'Kemp, TX',
-    image: 'images//properties/properties-kemp-townhome.webp'
+    image: 'images/properties/properties-kemp-townhome.webp'
   },
   {
     name: 'Jefferson Riverfront',
@@ -84,7 +84,7 @@ const propertiesData = [
     price: 'HUD-VASH Ready',
     tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
     location: 'Jefferson, TX',
-    image: 'images//properties/properties-jefferson-river-front.webp'
+    image: 'images/properties/properties-jefferson-river-front.webp'
   },
   {
     name: 'Mineola Studio',
@@ -93,7 +93,7 @@ const propertiesData = [
     price: 'Section 8 Ready',
     tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
     location: 'Mineola, TX',
-    image: 'images//properties/properties-mineola-studio.webp'
+    image: 'images/properties/properties-mineola-studio.webp'
   }
 ];
 
