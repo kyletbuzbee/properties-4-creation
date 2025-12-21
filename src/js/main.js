@@ -336,7 +336,7 @@ if (form) {
       } else if (
         input.id === 'phone' &&
         sanitizedValue &&
-        !/^[0-9\-\+\(\)\s]+$/.test(sanitizedValue)
+        !/^[0-9\-+() ]+$/.test(sanitizedValue)
       ) {
         group.classList.add('error');
         isValid = false;
@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (applicationForm) {
     try {
       const appValidator = new FormValidator('#application-form', {
-        onSubmit: async (data) => {
+        onSubmit: async (data) => { // eslint-disable-line no-unused-vars
           // Handle form submission
           const successMessage = document.getElementById('success-message');
           if (successMessage) {
@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }, 3000);
         },
-        onError: (errors) => {
+        onError: (errors) => { // eslint-disable-line no-unused-vars
           // Errors are handled by FormValidator UI
         }
       });
@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (contactFormEl) {
     try {
       const contactValidator = new FormValidator('#contact-form', {
-        onSubmit: async (data) => {
+        onSubmit: async (data) => { // eslint-disable-line no-unused-vars
           const contactSuccess = document.getElementById('contact-success');
           if (contactSuccess) {
             contactSuccess.style.display = 'block';

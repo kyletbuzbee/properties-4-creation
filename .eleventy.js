@@ -18,6 +18,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
   eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
   eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
+  eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 
   // GitHub Pages requirements
   eleventyConfig.addPassthroughCopy("CNAME");
@@ -61,7 +62,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addWatchTarget("src/js/");
 
   eleventyConfig.setBrowserSyncConfig({
-    files: ['docs/**/*'],
+    files: ['_site/**/*'],
     open: true,
     notify: false
   });
@@ -72,7 +73,7 @@ module.exports = function (eleventyConfig) {
   return {
     dir: {
       input: "src",
-      output: "docs",
+      output: "_site",
       includes: "_includes", // Eleventy looks here automatically for templates
       data: "_data"          // Eleventy looks here automatically for data
     },

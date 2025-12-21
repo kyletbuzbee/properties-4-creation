@@ -151,10 +151,10 @@ export class ErrorBoundary {
 
     // Add additional context for different error types
     switch (context.type) {
-    case "unhandledRejection":
+    case 'unhandledRejection':
       enhanced.promise = context.promise;
       break;
-    case "runtime":
+    case 'runtime':
       enhanced.source = context.source;
       enhanced.lineno = context.lineno;
       enhanced.colno = context.colno;
@@ -551,7 +551,7 @@ User Agent: ${error.userAgent}
     const detailsElement = document.getElementById('error-details');
     if (detailsElement) {
       detailsElement.style.display =
-        detailsElement.style.display === 'none' ? "block" : 'none';
+        detailsElement.style.display === 'none' ? 'block' : 'none';
     }
   }
 

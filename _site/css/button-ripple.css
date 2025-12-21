@@ -1,0 +1,31 @@
+/* ============================================
+   BUTTON RIPPLE EFFECT STYLES
+   ============================================ */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple-animation 0.6s ease-out;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Disable ripple for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-ripple {
+    display: none;
+  }
+}
