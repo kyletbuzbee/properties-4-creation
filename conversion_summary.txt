@@ -1,19 +1,19 @@
 ================================================================================
 FILE CONVERSION SUMMARY REPORT
 ================================================================================
-Generated: 2025-12-20 22:54:27
+Generated: 2025-12-21 00:57:15
 Source folder: .
 Output file: consolidated_output.txt
 Excluded directories: node_modules, codeReview, .git, .clinerules
 
 STATISTICS:
 ----------------------------------------
-Total files scanned: 573
-Files converted: 168
-Files skipped: 405
+Total files scanned: 821
+Files converted: 217
+Files skipped: 604
 Errors: 0
-Total characters: 3380833
-Total lines: 105320
+Total characters: 4398161
+Total lines: 138329
 
 SKIPPED FILES:
 ----------------------------------------
@@ -22,12 +22,211 @@ SKIPPED FILES:
 .gitignore
 .kilocode\rules\.kilo-rules.md
 .nojekyll
+_site\.nojekyll
+_site\CNAME
+_site\favicon.ico
+_site\images\banners\hero-about-us-banner-1200w.webp
+_site\images\banners\hero-about-us-banner-1600w.webp
+_site\images\banners\hero-about-us-banner-400w.webp
+_site\images\banners\hero-about-us-banner-800w.webp
+_site\images\banners\hero-about-us-banner-placeholder.jpg
+_site\images\banners\hero-about-us-banner.webp
+_site\images\banners\hero-contact-banner-1200w.webp
+_site\images\banners\hero-contact-banner-400w.webp
+_site\images\banners\hero-contact-banner-800w.webp
+_site\images\banners\hero-contact-banner-placeholder.jpg
+_site\images\banners\hero-contact-banner.webp
+_site\images\banners\hero-home-banner-1200w.webp
+_site\images\banners\hero-home-banner-1600w.webp
+_site\images\banners\hero-home-banner-400w.webp
+_site\images\banners\hero-home-banner-800w.webp
+_site\images\banners\hero-home-banner-placeholder.jpg
+_site\images\banners\hero-home-banner.webp
+_site\images\banners\hero-impact-banner-1200w.webp
+_site\images\banners\hero-impact-banner-1600w.webp
+_site\images\banners\hero-impact-banner-400w.webp
+_site\images\banners\hero-impact-banner-800w.webp
+_site\images\banners\hero-impact-banner-placeholder.jpg
+_site\images\banners\hero-impact-banner.webp
+_site\images\banners\hero-privacy-banner-1200w.webp
+_site\images\banners\hero-privacy-banner-1600w.webp
+_site\images\banners\hero-privacy-banner-400w.webp
+_site\images\banners\hero-privacy-banner-800w.webp
+_site\images\banners\hero-privacy-banner-placeholder.jpg
+_site\images\banners\hero-privacy-banner.webp
+_site\images\banners\hero-projects-banner-1200w.webp
+_site\images\banners\hero-projects-banner-1600w.webp
+_site\images\banners\hero-projects-banner-400w.webp
+_site\images\banners\hero-projects-banner-800w.webp
+_site\images\banners\hero-projects-banner-placeholder.jpg
+_site\images\banners\hero-projects-banner.webp
+_site\images\banners\hero-terms-banner-1200w.webp
+_site\images\banners\hero-terms-banner-1600w.webp
+_site\images\banners\hero-terms-banner-400w.webp
+_site\images\banners\hero-terms-banner-800w.webp
+_site\images\banners\hero-terms-banner-placeholder.jpg
+_site\images\banners\hero-terms-banner.webp
+_site\images\banners\hero-transparency-banner-1200w.webp
+_site\images\banners\hero-transparency-banner-1600w.webp
+_site\images\banners\hero-transparency-banner-400w.webp
+_site\images\banners\hero-transparency-banner-800w.webp
+_site\images\banners\hero-transparency-banner-placeholder.jpg
+_site\images\banners\hero-transparency-banner.webp
+_site\images\before-after-comparison\projects-after-bathroom-1200w.webp
+_site\images\before-after-comparison\projects-after-bathroom-1600w.webp
+_site\images\before-after-comparison\projects-after-bathroom-400w.webp
+_site\images\before-after-comparison\projects-after-bathroom-800w.webp
+_site\images\before-after-comparison\projects-after-bathroom-placeholder.jpg
+_site\images\before-after-comparison\projects-after-bathroom.webp
+_site\images\before-after-comparison\projects-after-brick-patio-1200w.webp
+_site\images\before-after-comparison\projects-after-brick-patio-1600w.webp
+_site\images\before-after-comparison\projects-after-brick-patio-400w.webp
+_site\images\before-after-comparison\projects-after-brick-patio-800w.webp
+_site\images\before-after-comparison\projects-after-brick-patio-placeholder.jpg
+_site\images\before-after-comparison\projects-after-brick-patio.webp
+_site\images\before-after-comparison\projects-after-front-porch-400w.webp
+_site\images\before-after-comparison\projects-after-front-porch-800w.webp
+_site\images\before-after-comparison\projects-after-front-porch-placeholder.jpg
+_site\images\before-after-comparison\projects-after-front-porch.webp
+_site\images\before-after-comparison\projects-after-kitchen-400w.webp
+_site\images\before-after-comparison\projects-after-kitchen-800w.webp
+_site\images\before-after-comparison\projects-after-kitchen-placeholder.jpg
+_site\images\before-after-comparison\projects-after-kitchen.webp
+_site\images\before-after-comparison\projects-after-living-room-400w.webp
+_site\images\before-after-comparison\projects-after-living-room-800w.webp
+_site\images\before-after-comparison\projects-after-living-room-placeholder.jpg
+_site\images\before-after-comparison\projects-after-living-room.webp
+_site\images\before-after-comparison\projects-before-bathroom-1200w.webp
+_site\images\before-after-comparison\projects-before-bathroom-400w.webp
+_site\images\before-after-comparison\projects-before-bathroom-800w.webp
+_site\images\before-after-comparison\projects-before-bathroom-placeholder.jpg
+_site\images\before-after-comparison\projects-before-bathroom.webp
+_site\images\before-after-comparison\projects-before-front-porch-1200w.webp
+_site\images\before-after-comparison\projects-before-front-porch-1600w.webp
+_site\images\before-after-comparison\projects-before-front-porch-400w.webp
+_site\images\before-after-comparison\projects-before-front-porch-800w.webp
+_site\images\before-after-comparison\projects-before-front-porch-placeholder.jpg
+_site\images\before-after-comparison\projects-before-front-porch.webp
+_site\images\before-after-comparison\projects-before-kitchen-400w.webp
+_site\images\before-after-comparison\projects-before-kitchen-800w.webp
+_site\images\before-after-comparison\projects-before-kitchen-placeholder.jpg
+_site\images\before-after-comparison\projects-before-kitchen.webp
+_site\images\before-after-comparison\projects-before-living-room-1200w.webp
+_site\images\before-after-comparison\projects-before-living-room-400w.webp
+_site\images\before-after-comparison\projects-before-living-room-800w.webp
+_site\images\before-after-comparison\projects-before-living-room-placeholder.jpg
+_site\images\before-after-comparison\projects-before-living-room.webp
+_site\images\icons\001-house.png
+_site\images\icons\001.house.png
+_site\images\icons\002-house-1.png
+_site\images\icons\003-house-2.png
+_site\images\icons\004-search.png
+_site\images\icons\005-3d-house.png
+_site\images\icons\006-protection.png
+_site\images\icons\007-mortgage.png
+_site\images\icons\008-standard.png
+_site\images\icons\009-quality-control.png
+_site\images\icons\010-check.png
+_site\images\icons\011-standard-1.png
+_site\images\icons\012-quality-control-1.png
+_site\images\icons\013-quality-standard.png
+_site\images\icons\014-community-engagement.png
+_site\images\icons\015-epidemiology.png
+_site\images\icons\016-social-care.png
+_site\images\icons\017-public-health.png
+_site\images\icons\018-social-justice.png
+_site\images\icons\019-heart.png
+_site\images\icons\020-online-community.png
+_site\images\icons\021-family.png
+_site\images\icons\022-family-1.png
+_site\images\icons\023-family-2.png
+_site\images\icons\024-family-3.png
+_site\images\icons\025-home.png
+_site\images\icons\026-family-4.png
+_site\images\icons\027-family-5.png
+_site\images\icons\028-family-6.png
+_site\images\icons\029-home-1.png
+_site\images\icons\030-family-7.png
+_site\images\icons\031-happy-house.png
+_site\images\icons\032-va-loan.png
+_site\images\icons\033-va-loan-1.png
+_site\images\icons\034-soldier.png
+_site\images\icons\035-usa.png
+_site\images\icons\036-patriotism.png
+_site\images\icons\037-flag.png
+_site\images\icons\038-ribbon.png
+_site\images\icons\039-flat.png
+_site\images\icons\american-flag-icon.svg
+_site\images\icons\home.svg
+_site\images\icons\patriotism.svg
+_site\images\illustrations\trust badge.png
+_site\images\illustrations\value gap.png
+_site\images\logo\brand-logo-header-footer.svg
+_site\images\logo\brand-logo.svg
+_site\images\our-work-gallery\our-work-detailed-measuring-1200w.webp
+_site\images\our-work-gallery\our-work-detailed-measuring-400w.webp
+_site\images\our-work-gallery\our-work-detailed-measuring-800w.webp
+_site\images\our-work-gallery\our-work-detailed-measuring-placeholder.jpg
+_site\images\our-work-gallery\our-work-detailed-measuring.webp
+_site\images\our-work-gallery\our-work-framing-door-1200w.webp
+_site\images\our-work-gallery\our-work-framing-door-400w.webp
+_site\images\our-work-gallery\our-work-framing-door-800w.webp
+_site\images\our-work-gallery\our-work-framing-door-placeholder.jpg
+_site\images\our-work-gallery\our-work-framing-door.webp
+_site\images\our-work-gallery\our-work-painting-dog-1200w.webp
+_site\images\our-work-gallery\our-work-painting-dog-400w.webp
+_site\images\our-work-gallery\our-work-painting-dog-800w.webp
+_site\images\our-work-gallery\our-work-painting-dog-placeholder.jpg
+_site\images\our-work-gallery\our-work-painting-dog.webp
+_site\images\our-work-gallery\our-work-remodeling-1200w.webp
+_site\images\our-work-gallery\our-work-remodeling-400w.webp
+_site\images\our-work-gallery\our-work-remodeling-800w.webp
+_site\images\our-work-gallery\our-work-remodeling-placeholder.jpg
+_site\images\our-work-gallery\our-work-remodeling.webp
+_site\images\properties\card-impact-rodriguez-family-400w.webp
+_site\images\properties\card-impact-rodriguez-family-800w.webp
+_site\images\properties\card-impact-rodriguez-family-placeholder.jpg
+_site\images\properties\card-impact-rodriguez-family.webp
+_site\images\properties\projects-home-exterior-1200w.webp
+_site\images\properties\projects-home-exterior-400w.webp
+_site\images\properties\projects-home-exterior-800w.webp
+_site\images\properties\projects-home-exterior-placeholder.jpg
+_site\images\properties\projects-home-exterior.webp
+_site\images\properties\properties-jefferson-river-front-400w.webp
+_site\images\properties\properties-jefferson-river-front-placeholder.jpg
+_site\images\properties\properties-jefferson-river-front.webp
+_site\images\properties\properties-kemp-townhome-400w.webp
+_site\images\properties\properties-kemp-townhome-placeholder.jpg
+_site\images\properties\properties-kemp-townhome.webp
+_site\images\properties\properties-longview-victorian-400w.webp
+_site\images\properties\properties-longview-victorian-placeholder.jpg
+_site\images\properties\properties-longview-victorian.webp
+_site\images\properties\properties-marshall-farmhouse-400w.webp
+_site\images\properties\properties-marshall-farmhouse-placeholder.jpg
+_site\images\properties\properties-marshall-farmhouse.webp
+_site\images\properties\properties-marshall-victorian-400w.webp
+_site\images\properties\properties-marshall-victorian-800w.webp
+_site\images\properties\properties-marshall-victorian-placeholder.jpg
+_site\images\properties\properties-marshall-victorian.webp
+_site\images\properties\properties-mineola-studio-400w.webp
+_site\images\properties\properties-mineola-studio-placeholder.jpg
+_site\images\properties\properties-mineola-studio.webp
+_site\images\properties\properties-tyler-ranch-home-1200w.webp
+_site\images\properties\properties-tyler-ranch-home-400w.webp
+_site\images\properties\properties-tyler-ranch-home-800w.webp
+_site\images\properties\properties-tyler-ranch-home-placeholder.jpg
+_site\images\properties\properties-tyler-ranch-home.webp
+_site\images\videos\hero-our-work-banner.mp4
+_site\images\videos\hero-properties-banner.mp4
 CNAME
 code_review.py
 consolidated_output.txt
+conversion_summary.txt
+DEPLOYMENT_FIX_SUMMARY.md
 docs\.nojekyll
 docs\CNAME
 docs\design-system\DESIGN_PRINCIPLES.md
+docs\favicon.ico
 docs\images\banners\hero-about-us-banner-1200w.webp
 docs\images\banners\hero-about-us-banner-1600w.webp
 docs\images\banners\hero-about-us-banner-400w.webp
