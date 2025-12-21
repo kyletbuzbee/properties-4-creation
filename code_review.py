@@ -27,8 +27,8 @@ class SingleFileConverter:
     def __init__(self, source_folder, output_file, extensions=None, exclude_extensions=None):
         self.source_folder = Path(source_folder)
         self.output_file = Path(output_file)
-        self.extensions = extensions or ['.html', '.json', '.js', '.css', '.njk', '.yml', '.yaml', '.txt']
-        self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2', '.txt', '.py','.md'] 
+        self.extensions = extensions or ['.html', '.json', '.js', '.css', '.njk', '.yml', '.yaml']
+        self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2', '.txt', '.py','.md', '.txt'] 
         self.exclude_directories = ['node_modules', 'codeReview', '.git', '.clinerules']
         self.skipped_files = []
         self.error_files = []

@@ -28,3 +28,5 @@ yarn-debug.log*
 # Temporary files
 *.tmp
 *.temp
+*.py
+code_review.py
