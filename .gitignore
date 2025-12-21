@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+package-lock.json # OPTIONAL: Keep this if you want exact versions (Recommended to KEEP), ignore if you use yarn.lock or pnpm-lock.yaml
+
+# Eleventy Build Output
+_site/
+dist/
+
+# Environment Variables (CRITICAL)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing Artifacts (Vitest & Playwright)
+coverage/
+test-results/
+.nyc_output/
+playwright-report/
+blob-report/
+test-results/
+
+# System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE & Editor Settings (Optional but recommended)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Project Specific Generated Files
+# (Block these if they are auto-generated on every build and cause merge conflicts)
+# src/sri-hashes.json  <-- Uncomment if this is generated fresh every build and doesn't need to be in repo
