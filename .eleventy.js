@@ -20,9 +20,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
   eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
 
-  // GitHub Pages requirements
-  eleventyConfig.addPassthroughCopy("CNAME");
-  eleventyConfig.addPassthroughCopy(".nojekyll");
+  // GitHub Pages requirements (kept under src for single source of truth)
+  eleventyConfig.addPassthroughCopy("src/CNAME");
+  eleventyConfig.addPassthroughCopy("src/.nojekyll");
 
   // -----------------------------------------------------------------
   // REMOVED LINES (DO NOT UNCOMMENT)
