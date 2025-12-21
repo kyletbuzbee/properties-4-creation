@@ -161,7 +161,7 @@ class ButtonUtils {
           }, 2000);
         }
       })
-      .catch((err) => {
+      .catch(() => {
         // Failed to copy text - silently handle error
       });
   }

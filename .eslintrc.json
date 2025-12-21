@@ -34,6 +34,7 @@
   "ignorePatterns": [
     "docs/",
     "public/",
-    "node_modules/"
+    "node_modules/",
+    "src/js/vendor/"
   ]
 }
