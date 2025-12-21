@@ -28,7 +28,7 @@ class SingleFileConverter:
         self.source_folder = Path(source_folder)
         self.output_file = Path(output_file)
         self.extensions = extensions or ['.html', '.json', '.js', '.css', '.njk', '.yml', '.yaml', '.txt']
-        self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2', '.txt', '.py','.md']]
+        self.exclude_extensions = exclude_extensions or ['.png', '.jpg', '.jpeg', '.svg', '.mp4', '.webm', '.ico', '.woff', '.woff2', '.txt', '.py','.md'] 
         self.exclude_directories = ['node_modules', 'codeReview', '.git', '.clinerules']
         self.skipped_files = []
         self.error_files = []

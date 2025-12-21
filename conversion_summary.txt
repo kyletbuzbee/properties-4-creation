@@ -1,28 +1,33 @@
 ================================================================================
 FILE CONVERSION SUMMARY REPORT
 ================================================================================
-Generated: 2025-12-20 20:26:36
+Generated: 2025-12-20 22:54:27
 Source folder: .
 Output file: consolidated_output.txt
 Excluded directories: node_modules, codeReview, .git, .clinerules
 
 STATISTICS:
 ----------------------------------------
-Total files scanned: 558
-Files converted: 163
-Files skipped: 395
+Total files scanned: 573
+Files converted: 168
+Files skipped: 405
 Errors: 0
-Total characters: 2270370
-Total lines: 70084
+Total characters: 3380833
+Total lines: 105320
 
 SKIPPED FILES:
 ----------------------------------------
 .blackboxrules
+.eleventyignore
 .gitignore
+.kilocode\rules\.kilo-rules.md
 .nojekyll
 CNAME
+code_review.py
+consolidated_output.txt
 docs\.nojekyll
 docs\CNAME
+docs\design-system\DESIGN_PRINCIPLES.md
 docs\images\banners\hero-about-us-banner-1200w.webp
 docs\images\banners\hero-about-us-banner-1600w.webp
 docs\images\banners\hero-about-us-banner-400w.webp
@@ -214,10 +219,15 @@ docs\images\properties\properties-tyler-ranch-home-400w.webp
 docs\images\properties\properties-tyler-ranch-home-800w.webp
 docs\images\properties\properties-tyler-ranch-home-placeholder.jpg
 docs\images\properties\properties-tyler-ranch-home.webp
+docs\images\videos\hero-our-work-banner.mp4
+docs\images\videos\hero-properties-banner.mp4
 docs\videos\hero-our-work-banner.mp4
 docs\videos\hero-properties-banner.mp4
+image.py
 postcss.config.js.backup
+README.md
 sitemap.xml
+src\design-system\DESIGN_PRINCIPLES.md
 src\favicon.ico
 src\images\banners\hero-about-us-banner-1200w.webp
 src\images\banners\hero-about-us-banner-1600w.webp
