@@ -1,45 +1,28 @@
-/**
- * Eleventy Configuration
- * Properties 4 Creations - Veteran Housing Platform
- */
+const Image = require('@11ty/eleventy-img');
 
-module.exports = function (eleventyConfig) {
-  // -----------------------------------------------------------------
-  // PASSTHROUGH COPIES
-  // -----------------------------------------------------------------
+module.exports = function(eleventyConfig) {
+  // ============================================
+  // PASSTHROUGH COPY
+  // ============================================
+  eleventyConfig.addPassthroughCopy({ 'src/css': 'css' });
+  eleventyConfig.addPassthroughCopy({ 'src/js': 'js' });
+  eleventyConfig.addPassthroughCopy({ 'src/images': 'images' });
+  eleventyConfig.addPassthroughCopy({ 'src/manifest.json': 'manifest.json' });
+  eleventyConfig.addPassthroughCopy('src/CNAME');
+  eleventyConfig.addPassthroughCopy('src/.nojekyll');
+
+  // ============================================
+  // CUSTOM FILTERS
+  // ============================================
   
-  // Static Assets
-  eleventyConfig.addPassthroughCopy({ "src/css": "css" });
-  eleventyConfig.addPassthroughCopy({ "src/js": "js" });
-  eleventyConfig.addPassthroughCopy({ "src/videos": "videos" });
-  eleventyConfig.addPassthroughCopy({ "src/images": "images" });
-
-  // Root Files
-  eleventyConfig.addPassthroughCopy({ "src/manifest.json": "manifest.json" });
-  eleventyConfig.addPassthroughCopy({ "src/sw.js": "sw.js" });
-  eleventyConfig.addPassthroughCopy({ "src/search-index.json": "search-index.json" });
-  eleventyConfig.addPassthroughCopy({ "src/favicon.ico": "favicon.ico" });
-
-  // GitHub Pages requirements (kept under src for single source of truth)
-  eleventyConfig.addPassthroughCopy("src/CNAME");
-  eleventyConfig.addPassthroughCopy("src/.nojekyll");
-
-  // -----------------------------------------------------------------
-  // REMOVED LINES (DO NOT UNCOMMENT)
-  // -----------------------------------------------------------------
-  // eleventyConfig.addPassthroughCopy({ "src/_data": "_data" });      <-- UNSAFE
-  // eleventyConfig.addPassthroughCopy({ "src/_includes": "_includes" }); <-- UNSAFE
-  
-  // NOTE: If your JavaScript needs specific JSON data (like properties.json), 
-  // copy ONLY that specific file, not the entire _data folder:
-  // eleventyConfig.addPassthroughCopy({ "src/_data/properties.json": "data/properties.json" });
-
-  // -----------------------------------------------------------------
-  // FILTERS
-  // -----------------------------------------------------------------
+  // Limit Filter (for property listings)
+  eleventyConfig.addFilter('limit', (array, limit) => {
+    if (!Array.isArray(array)) return [];
+    return array.slice(0, limit);
+  });
 
   // Date Filter
-  eleventyConfig.addFilter("dateFormat", (date) => {
+  eleventyConfig.addFilter('formatDate', (date) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -47,38 +30,59 @@ module.exports = function (eleventyConfig) {
     });
   });
 
-  // Truncate Filter
-  eleventyConfig.addFilter("truncate", (str, length = 120) => {
-    if (!str) return '';
-    if (str.length <= length) return str;
-    return str.substring(0, length) + '...';
+  // ============================================
+  // IMAGE SHORTCODE (Optional - requires setup)
+  // ============================================
+  eleventyConfig.addShortcode('image', async function(src, alt, sizes = '100vw') {
+    try {
+      let metadata = await Image(src, {
+        widths: [400, 800, 1200],
+        formats: ['webp', 'jpeg'],
+        outputDir: './_site/images/optimized/',
+        urlPath: '/images/optimized/'
+      });
+
+      let imageAttributes = {
+        alt,
+        sizes,
+        loading: 'lazy',
+        decoding: 'async'
+      };
+
+      return Image.generateHTML(metadata, imageAttributes);
+    } catch (error) {
+      console.warn(`Image optimization failed for ${src}:`, error.message);
+      return `<img src="${src}" alt="${alt}" loading="lazy">`;
+    }
   });
 
-  // -----------------------------------------------------------------
-  // DEVELOPMENT CONFIG
-  // -----------------------------------------------------------------
-  
-  eleventyConfig.addWatchTarget("src/css/");
-  eleventyConfig.addWatchTarget("src/js/");
+  // ============================================
+  // WATCH TARGETS
+  // ============================================
+  eleventyConfig.addWatchTarget('./src/css/');
+  eleventyConfig.addWatchTarget('./src/js/');
 
+  // ============================================
+  // BROWSERSYNC CONFIG
+  // ============================================
   eleventyConfig.setBrowserSyncConfig({
-    files: ['_site/**/*'],
+    files: ['./_site/css/**/*.css', './_site/js/**/*.js'],
     open: true,
     notify: false
   });
 
-  // -----------------------------------------------------------------
-  // RETURN OBJECT
-  // -----------------------------------------------------------------
+  // ============================================
+  // RETURN CONFIG
+  // ============================================
   return {
     dir: {
-      input: "src",
-      output: "_site",
-      includes: "_includes", // Eleventy looks here automatically for templates
-      data: "_data"          // Eleventy looks here automatically for data
+      input: 'src',
+      output: '_site',
+      includes: '_includes',
+      data: '_data'
     },
-    templateFormats: ["html", "njk", "md"],
-    htmlTemplateEngine: "njk",
-    markdownTemplateEngine: "njk"
+    templateFormats: ['njk', 'md', 'html'],
+    htmlTemplateEngine: 'njk',
+    markdownTemplateEngine: 'njk'
   };
 };
