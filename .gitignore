@@ -5,6 +5,7 @@ package-lock.json # OPTIONAL: Keep this if you want exact versions (Recommended 
 # Eleventy Build Output
 _site/
 dist/
+docs/
 
 # Environment Variables (CRITICAL)
 .env

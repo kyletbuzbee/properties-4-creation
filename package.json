@@ -76,7 +76,6 @@
   ],
   "dependencies": {
     "@11ty/eleventy-img": "^6.0.4",
-    "@lydell/node-pty": "^1.1.0",
     "eleventy": "^2.0.1"
   }
 }
