@@ -145,35 +145,37 @@ Section 8 & HUD-VASH programs."
   <script src='/js/accessibility-enhanced.js'></script>
   <script src='/js/main.js'></script>
   <script>
-    // MAP INITIALIZATION
-    if (document.getElementById('map')) {
-      const script = document.createElement('script');
-      script.src =
-        'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
-      script.integrity =
-        'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-      script.crossOrigin = 'anonymous';
-      script.onload = () => {
-        const map = L.map('map').setView([32.35, -95.3], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors',
-          maxZoom: 19,
-        }).addTo(map);
+    document.addEventListener('DOMContentLoaded', function () {
+      // MAP INITIALIZATION
+      if (document.getElementById('map')) {
+        const script = document.createElement('script');
+        script.src =
+          'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+        script.integrity =
+          'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+        script.crossOrigin = 'anonymous';
+        script.onload = () => {
+          const map = L.map('map').setView([32.35, -95.3], 10);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+          }).addTo(map);
 
-        L.marker([32.351, -95.301], {
-          title: 'Tyler Properties',
-        })
-          .addTo(map)
-          .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
+          L.marker([32.351, -95.301], {
+            title: 'Tyler Properties',
+          })
+            .addTo(map)
+            .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
 
-        L.marker([32.5, -94.74], {
-          title: 'Longview Properties',
-        })
-          .addTo(map)
-          .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
-      };
-      document.head.appendChild(script);
-    }
+          L.marker([32.5, -94.74], {
+            title: 'Longview Properties',
+          })
+            .addTo(map)
+            .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
+        };
+        document.head.appendChild(script);
+      }
+    });
   </script>
 </body>
 
