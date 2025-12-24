@@ -26,7 +26,7 @@ function registerServiceWorker () {
         .register('/sw.js')
         .then((registration) => {
           // Service worker registered successfully
-          console.log('Service Worker registered successfully:', registration.scope);
+          // Service worker registered successfully
           
           // Add event listeners for service worker lifecycle
           registration.addEventListener('updatefound', () => {
@@ -34,7 +34,7 @@ function registerServiceWorker () {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
                 // New service worker installed, prompt user to refresh
-                console.log('New content is available, please refresh the page.');
+                // New content is available; prompt user to refresh the page (no console output in production)
               }
             });
           });
@@ -59,7 +59,7 @@ function registerServiceWorker () {
     });
   } else {
     // Service workers not supported
-    console.warn('Service Worker not supported by this browser');
+    // Service Worker not supported by this browser
     
     // Enable fallback mode for lazy loading
     if (window.lazyLoader) {
@@ -134,7 +134,7 @@ const mainErrorHandler = errorHandler.createBoundary(() => {
   registerServiceWorker();
 }, {
   fallback: (error) => {
-    console.error('Critical error in main.js initialization:', error);
+    // Critical error in main.js initialization
     // Fallback: ensure basic functionality still works
     registerServiceWorker();
   },
