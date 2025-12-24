@@ -63,12 +63,11 @@
 }
 
 .slider-before {
-  z-index: 1;
-  clip-path: inset(0 50% 0 0);
+  z-index: 2;
 }
 
 .slider-after {
-  z-index: 2;
+  z-index: 1;
 }
 
 /* ========================================

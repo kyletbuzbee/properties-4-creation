@@ -3,7 +3,7 @@
     <a href="#main-content" class="skip-link">Skip to main content</a>
   </div>
   
-  <div class="header-container">
+  <div class="nav-container">
     <div class="brand-container">
       <a href="/" class="brand-link" aria-label="Properties 4 Creations - Home">
         <img src="/images/logo/brand-logo.svg" alt="Properties 4 Creations Logo" class="brand-logo" />
@@ -37,10 +37,36 @@
         <li role="none">
           <a href="/contact/" class="nav-link" role="menuitem">Contact</a>
         </li>
-        <li role="none" class="nav-cta">
-          <a href="/apply/" class="btn btn-primary cta-link" role="menuitem">Apply Now</a>
-        </li>
       </ul>
+      <div id="auth-links" class="nav-auth-links">
+        <!-- Auth links will be dynamically loaded here -->
+      </div>
     </nav>
   </div>
 </header>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const authLinksContainer = document.getElementById('auth-links');
+
+    if (authLinksContainer) {
+      if (auth.isAuthenticated) {
+        authLinksContainer.innerHTML = `
+          <a href="/profile.html" class="btn btn-secondary cta-link" role="menuitem">Profile</a>
+          <button id="logout-btn" class="btn btn-primary cta-link" role="menuitem">Logout</button>
+        `;
+        document.getElementById('logout-btn').addEventListener('click', () => {
+          auth.logout();
+          window.location.href = '/login.html';
+        });
+      } else {
+        authLinksContainer.innerHTML = `
+          <a href="/login.html" class="btn btn-secondary cta-link" role="menuitem">Login</a>
+          <a href="/register.html" class="btn btn-primary cta-link" role="menuitem">Register</a>
+        `;
+      }
+    }
+  });
+</script>

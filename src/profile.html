@@ -1,0 +1,96 @@
+---
+title: 'User Profile - Properties 4 Creations'
+description: 'View your profile and saved properties.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container profile-section">
+    <h1>Your Profile</h1>
+    <div id="profile-content">
+      <p>Loading user data...</p>
+    </div>
+    <button id="logout-button" class="btn btn-secondary">Logout</button>
+
+    <h2>Your Saved Properties</h2>
+    <div id="saved-properties-grid" class="properties-grid">
+      <p>No saved properties yet.</p>
+    </div>
+    <div id="profile-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Redirect if not authenticated
+    if (!auth.isAuthenticated) {
+      window.location.href = '/login.html';
+      return;
+    }
+
+    const profileContent = document.getElementById('profile-content');
+    const savedPropertiesGrid = document.getElementById('saved-properties-grid');
+    const profileMessage = document.getElementById('profile-message');
+    const logoutButton = document.getElementById('logout-button');
+
+    logoutButton.addEventListener('click', () => {
+      auth.logout();
+      window.location.href = '/login.html';
+    });
+
+    // Display user info
+    if (auth.user) {
+      profileContent.innerHTML = `
+        <p><strong>Name:</strong> ${auth.user.name}</p>
+        <p><strong>Email:</strong> ${auth.user.email}</p>
+      `;
+    } else {
+      // Try loading user if not already loaded (e.g., direct access to profile page)
+      await auth.loadUser();
+      if (auth.user) {
+        profileContent.innerHTML = `
+          <p><strong>Name:</strong> ${auth.user.name}</p>
+          <p><strong>Email:</strong> ${auth.user.email}</p>
+        `;
+      } else {
+        profileContent.innerHTML = `<p>Unable to load user data. Please <a href="/login.html">login</a> again.</p>`;
+        profileMessage.textContent = 'Unable to load user data.';
+        profileMessage.style.display = 'block';
+        return;
+      }
+    }
+
+    // Fetch and display saved properties
+    async function loadSavedProperties() {
+      try {
+        const response = await fetch('/api/users/me/saved-properties', {
+          headers: auth.getAuthHeaders()
+        });
+        const savedPropertyIds = await response.json();
+
+        if (response.ok && savedPropertyIds.length > 0) {
+          // You'll need to fetch the full property details from your properties.json or a similar source
+          // For now, let's just display the IDs or a placeholder
+          savedPropertiesGrid.innerHTML = `
+            ${savedPropertyIds.map(id => `<div class="property-card"><p>Saved Property ID: ${id}</p></div>`).join('')}
+          `;
+          profileMessage.style.display = 'none';
+        } else if (response.ok && savedPropertyIds.length === 0) {
+          savedPropertiesGrid.innerHTML = `<p>You haven't saved any properties yet.</p>`;
+          profileMessage.style.display = 'none';
+        } else {
+          profileMessage.textContent = 'Error loading saved properties.';
+          profileMessage.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error fetching saved properties:', error);
+        profileMessage.textContent = 'Network error loading saved properties.';
+        profileMessage.style.display = 'block';
+      }
+    }
+
+    loadSavedProperties();
+  });
+</script>

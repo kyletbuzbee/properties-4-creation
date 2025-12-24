@@ -13,6 +13,8 @@ import { FormValidator } from './features/FormValidator.js';
 import { initErrorHandler } from './utils/errorHandler.js';
 import { createPropertiesErrorBoundary } from './utils/errorBoundary.js';
 import { LazyLoader } from './utils/lazyLoad.js';
+import { initComparisonSliders } from './comparison-slider.js';
+import { auth } from './auth.js';
 
 // Initialize error boundary first (before other components)
 createPropertiesErrorBoundary();
@@ -144,82 +146,38 @@ const mainErrorHandler = errorHandler.createBoundary(() => {
 // Execute main initialization with error boundary
 mainErrorHandler();
 
-// MOBILE MENU TOGGLE
-const menuToggle = document.querySelector('.menu-toggle');
-const navMenu = document.getElementById('nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+let propertiesData = []; // Declare propertiesData globally
 
-if (menuToggle && navMenu) {
-  menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-  });
-
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('active');
-      menuToggle.classList.remove('active');
-    });
-  });
+async function fetchPropertiesData () {
+  try {
+    const response = await fetch('/properties.json');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    // Map fetched data to the format expected by existing code
+    propertiesData = data.map((prop) => ({ // Removed index as it's not used in this map
+      id: prop.id,
+      name: prop.title,
+      bedrooms: prop.bedrooms,
+      bathrooms: prop.bathrooms,
+      price: prop.price ? prop.price.formatted : 'N/A',
+      price_amount: prop.price ? prop.price.amount : 0,
+      type: prop.type,
+      tags: prop.tags,
+      location: prop.location,
+      image: prop.images && prop.images.length > 0 ? prop.images[0] : 'images/properties/properties-default.webp'
+    }));
+  } catch (error) {
+    console.error('Failed to fetch properties data:', error);
+    // Fallback or error handling
+    propertiesData = []; // Ensure propertiesData is an empty array on error
+  }
 }
 
-// PROPERTIES DATA
-const propertiesData = [
-  {
-    name: 'Tyler Ranch Home',
-    bedrooms: 3,
-    bathrooms: 2,
-    price: 'Section 8 Ready',
-    tags: ['Section 8 Ready', 'Newly Renovated', 'HVAC New'],
-    location: 'Tyler, TX',
-    image: 'images/properties/properties-tyler-ranch-home.webp'
-  },
-  {
-    name: 'Longview Victorian',
-    bedrooms: 4,
-    bathrooms: 2.5,
-    price: 'HUD-VASH Ready',
-    tags: ['HUD-VASH Approved', 'Historic Home', 'New Roof'],
-    location: 'Longview, TX',
-    image: 'images/properties/properties-longview-victorian.webp'
-  },
-  {
-    name: 'Marshall Farmhouse',
-    bedrooms: 3,
-    bathrooms: 1.5,
-    price: 'Section 8 Ready',
-    tags: ['Section 8 Ready', 'Family Friendly', 'Yard Space'],
-    location: 'Marshall, TX',
-    image: 'images/properties/properties-marshall-farmhouse.webp'
-  },
-  {
-    name: 'Kemp Townhome',
-    bedrooms: 2,
-    bathrooms: 1,
-    price: 'Section 8/HUD-VASH',
-    tags: ['Both Programs', 'Modern Build', 'Energy Efficient'],
-    location: 'Kemp, TX',
-    image: 'images/properties/properties-kemp-townhome.webp'
-  },
-  {
-    name: 'Jefferson Riverfront',
-    bedrooms: 3,
-    bathrooms: 2,
-    price: 'HUD-VASH Ready',
-    tags: ['Veteran Focused', 'Scenic Location', 'Newly Renovated'],
-    location: 'Jefferson, TX',
-    image: 'images/properties/properties-jefferson-river-front.webp'
-  },
-  {
-    name: 'Mineola Studio',
-    bedrooms: 1,
-    bathrooms: 1,
-    price: 'Section 8 Ready',
-    tags: ['Section 8 Ready', 'Affordable', 'Modern Amenities'],
-    location: 'Mineola, TX',
-    image: 'images/properties/properties-mineola-studio.webp'
-  }
-];
+
+
+
 
 // POPULATE PROPERTIES GRID (SECURE - NO XSS VULNERABILITIES)
 const propertiesGrid = document.getElementById('properties-grid');
@@ -355,87 +313,9 @@ if (propertiesGrid) {
   });
 }
 
-// COMPARISON SLIDER
-const sliderContainer = document.querySelector('.slider-container');
-if (sliderContainer) {
-  const sliderHandle = sliderContainer.querySelector('.slider-handle');
-  let isDragging = false;
 
-  const moveSlider = (e) => {
-    if (!isDragging) return;
-    const rect = sliderContainer.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    x = Math.max(0, Math.min(x, rect.width));
-    const percentage = (x / rect.width) * 100;
-    sliderHandle.style.left = `${percentage}%`;
-    sliderContainer.querySelector('.slider-after').style.clipPath =
-      `inset(0 0 0 ${percentage}%)`;
-  };
 
-  sliderHandle.addEventListener('mousedown', () => {
-    isDragging = true;
-  });
 
-  document.addEventListener('mousemove', moveSlider);
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
-
-  // Touch events for mobile
-  sliderHandle.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    e.preventDefault();
-  });
-
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    moveSlider(touch);
-  });
-
-  document.addEventListener('touchend', () => {
-    isDragging = false;
-  });
-}
-
-// FILTER PROPERTIES
-const filterBtn = document.getElementById('filter-btn');
-if (filterBtn) {
-  filterBtn.addEventListener('click', () => {
-    // Sanitize filter inputs
-    const bedroomFilter = sanitizeInput(document.getElementById('bedroom-filter').value);
-    const locationFilter = sanitizeInput(document.getElementById('location-filter').value);
-    const searchFilter = sanitizeInput(document.getElementById('search-filter').value);
-    
-    // Normalize search filter for case-insensitive matching
-    const normalizedSearchFilter = searchFilter ? searchFilter.toLowerCase() : '';
-
-    const cards = document.querySelectorAll('.property-card');
-    cards.forEach((card) => {
-      const title = card
-        .querySelector('.property-title')
-        .textContent.toLowerCase();
-      const location = card
-        .querySelector('.property-content p')
-        .textContent.toLowerCase();
-      const bedrooms = card.querySelector('.detail-value').textContent;
-
-      const matchesBedroom = !bedroomFilter || bedrooms === bedroomFilter;
-      const matchesLocation =
-        !locationFilter || location.includes(locationFilter.toLowerCase());
-      const matchesSearch =
-        !normalizedSearchFilter ||
-        title.includes(normalizedSearchFilter) ||
-        location.includes(normalizedSearchFilter);
-
-      if (matchesBedroom && matchesLocation && matchesSearch) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-}
 
 // Sanitize input function (moved to program root)
 function sanitizeInput (input) {
@@ -641,7 +521,9 @@ document.querySelectorAll('img').forEach((img) => {
 /**
  * Initialize all components when DOM is ready
  */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  auth.init(); // Initialize auth state
+  await fetchPropertiesData(); // Ensure data is loaded before components that use it
   // Initialize Lazy Loading
   try {
     const lazyLoader = new LazyLoader();
@@ -666,6 +548,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Accordion initialization failed silently
   }
 
+  // Initialize Comparison Slider
+  try {
+    initComparisonSliders();
+  } catch (e) {
+    // Slider initialization failed silently
+  }
+
   // Initialize Property Filter (Properties page)
   const propertiesContainer = document.getElementById('properties-grid');
   if (propertiesContainer && propertiesData.length > 0) {
@@ -679,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
         city: prop.location.split(',')[0].trim(),
         bedrooms: prop.bedrooms,
         bathrooms: prop.bathrooms,
-        sqft: 1200 + index * 150, // Placeholder sqft
+        sqft: prop.sqft, // Use actual sqft from fetched data
         image: prop.image,
         tags: prop.tags.map((tag) => {
           if (tag.includes('Section 8')) return 'Section 8';
@@ -834,5 +723,4 @@ function initResponsiveHeroBackgrounds () {
   }
 }
 
-// Export for module usage
-export { propertiesData };
+

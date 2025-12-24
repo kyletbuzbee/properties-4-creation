@@ -6,7 +6,7 @@
   // Mobile Navigation Toggle
   function initializeMobileMenu () {
     const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
+    const navMenu = document.getElementById('main-navigation');
     const navLinks = document.querySelectorAll('.nav-link');
 
     if (menuToggle && navMenu) {

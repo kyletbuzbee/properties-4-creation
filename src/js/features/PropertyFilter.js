@@ -10,6 +10,8 @@
  * - Accessible filter controls
  */
 
+import { auth } from '../../js/auth.js';
+
 export class PropertyFilter {
   constructor (properties, containerSelector) {
     this.allProperties = properties || [];
@@ -20,7 +22,10 @@ export class PropertyFilter {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: ''
+      search: '',
+      minPrice: null,
+      maxPrice: null,
+      propertyType: ''
     };
     this.debounceTimeout = null;
     this.debounceDelay = 300;
@@ -82,9 +87,32 @@ export class PropertyFilter {
             <option value="3">3+ Bathrooms</option>
           </select>
         </div>
+
+        <div class="filter-group">
+          <label for="filter-property-type" class="filter-label">Property Type</label>
+          <select id="filter-property-type" class="filter-select" aria-label="Filter by property type">
+            <option value="">All Types</option>
+            <option value="Single Family">Single Family</option>
+            <option value="Townhome">Townhome</option>
+            <option value="Historic">Historic</option>
+            <option value="Waterfront">Waterfront</option>
+            <option value="Studio">Studio</option>
+            <option value="Suburban">Suburban</option>
+            <option value="Urban">Urban</option>
+          </select>
+        </div>
+
+        <div class="filter-group filter-group--price">
+          <label for="filter-price-range" class="filter-label">Price Range</label>
+          <div class="price-range-inputs">
+            <input type="number" id="filter-min-price" class="filter-input" placeholder="Min Price" aria-label="Minimum price">
+            <span>-</span>
+            <input type="number" id="filter-max-price" class="filter-input" placeholder="Max Price" aria-label="Maximum price">
+          </div>
+        </div>
         
         <div class="filter-group filter-group--tags">
-          <span class="filter-label" id="tag-filter-label">Programs</span>
+          <span class="filter-label" id="tag-filter-label">Amenities & Programs</span>
           <div class="filter-tags" role="group" aria-labelledby="tag-filter-label">
             <button type="button" 
                     class="tag-filter" 
@@ -103,6 +131,18 @@ export class PropertyFilter {
                     data-tag="Pet Friendly"
                     aria-pressed="false">
               Pet Friendly
+            </button>
+            <button type="button" 
+                    class="tag-filter" 
+                    data-tag="ADA Accessible"
+                    aria-pressed="false">
+              ADA Accessible
+            </button>
+            <button type="button" 
+                    class="tag-filter" 
+                    data-tag="Family Friendly"
+                    aria-pressed="false">
+              Family Friendly
             </button>
           </div>
         </div>
@@ -172,6 +212,38 @@ export class PropertyFilter {
       });
     }
 
+    // Property Type filter
+    const propertyTypeSelect = document.getElementById('filter-property-type');
+    if (propertyTypeSelect) {
+      propertyTypeSelect.addEventListener('change', (e) => {
+        this.filters.propertyType = e.target.value;
+        this.applyFilters();
+      });
+    }
+
+    // Price range filters
+    const minPriceInput = document.getElementById('filter-min-price');
+    const maxPriceInput = document.getElementById('filter-max-price');
+
+    const handlePriceChange = () => {
+      this.filters.minPrice = minPriceInput.value ? parseInt(minPriceInput.value, 10) : null;
+      this.filters.maxPrice = maxPriceInput.value ? parseInt(maxPriceInput.value, 10) : null;
+      this.applyFilters();
+    };
+
+    if (minPriceInput) {
+      minPriceInput.addEventListener('input', () => {
+        clearTimeout(this.debounceTimeout);
+        this.debounceTimeout = setTimeout(handlePriceChange, this.debounceDelay);
+      });
+    }
+    if (maxPriceInput) {
+      maxPriceInput.addEventListener('input', () => {
+        clearTimeout(this.debounceTimeout);
+        this.debounceTimeout = setTimeout(handlePriceChange, this.debounceDelay);
+      });
+    }
+
     // Tag filters (event delegation)
     const tagContainer = this.filterBar.querySelector('.filter-tags');
     if (tagContainer) {
@@ -235,6 +307,28 @@ export class PropertyFilter {
         return false;
       }
 
+      // Property type filter
+      if (
+        this.filters.propertyType &&
+        prop.type !== this.filters.propertyType
+      ) {
+        return false;
+      }
+
+      // Price range filter
+      if (
+        this.filters.minPrice !== null &&
+        prop.price_amount < this.filters.minPrice
+      ) {
+        return false;
+      }
+      if (
+        this.filters.maxPrice !== null &&
+        prop.price_amount > this.filters.maxPrice
+      ) {
+        return false;
+      }
+
       // Tag filter (must have ALL selected tags)
       if (this.filters.tags.length > 0) {
         const propTags = prop.tags || [];
@@ -262,7 +356,10 @@ export class PropertyFilter {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: ''
+      search: '',
+      minPrice: null,
+      maxPrice: null,
+      propertyType: ''
     };
 
     // Reset UI elements
@@ -274,6 +371,15 @@ export class PropertyFilter {
 
     const bathroomSelect = document.getElementById('filter-bathrooms');
     if (bathroomSelect) bathroomSelect.value = '';
+
+    const propertyTypeSelect = document.getElementById('filter-property-type');
+    if (propertyTypeSelect) propertyTypeSelect.value = '';
+
+    const minPriceInput = document.getElementById('filter-min-price');
+    if (minPriceInput) minPriceInput.value = '';
+
+    const maxPriceInput = document.getElementById('filter-max-price');
+    if (maxPriceInput) maxPriceInput.value = '';
 
     // Reset tag buttons
     document.querySelectorAll('.tag-filter').forEach((btn) => {
@@ -388,9 +494,33 @@ export class PropertyFilter {
              class="btn btn-primary btn-sm">
             View Details
           </a>
+          ${auth.isAuthenticated ? 
+            `<button class="btn btn-secondary btn-sm save-property-btn" data-property-id="${prop.id}">
+              ${auth.isPropertySaved(prop.id) ? 'Unsave' : 'Save'}
+            </button>` : ''}
         </div>
       </div>
     `;
+
+    // Attach event listener for save/unsave button
+    if (auth.isAuthenticated) {
+      const saveButton = card.querySelector('.save-property-btn');
+      if (saveButton) {
+        saveButton.addEventListener('click', async (e) => {
+          const propertyId = e.target.dataset.propertyId;
+          if (auth.isPropertySaved(propertyId)) {
+            await auth.removeProperty(propertyId);
+            e.target.textContent = 'Save';
+          } else {
+            await auth.saveProperty(propertyId);
+            e.target.textContent = 'Unsave';
+          }
+          // Optionally, re-render the card or entire list to update state
+          // this.render(); // This would re-render everything, might be too heavy
+          // Just update the button text for now.
+        });
+      }
+    }
 
     return card;
   }

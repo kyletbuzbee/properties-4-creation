@@ -1,0 +1,32 @@
+---
+title: 'Blog - Properties 4 Creations'
+description: 'Latest news and updates from Properties 4 Creations.'
+layout: 'base.html'
+pagination:
+  data: collections.posts
+  size: 5
+  alias: posts
+---
+
+<main id="main-content">
+  <section class="container blog-index-section">
+    <h1>Our Blog</h1>
+    <p class="section-description">Stay updated with our latest news, property insights, and community impact stories.</p>
+
+    <div class="blog-list">
+      {%- for post in pagination.items %}
+      <article class="blog-post-card">
+        <a href="{{ post.url }}" class="post-card-link">
+          <h2 class="post-card-title">{{ post.data.title }}</h2>
+        </a>
+        <time class="post-card-date" datetime="{{ post.data.date | htmlDateString }}">{{ post.data.date | formatDate }}</time>
+        <p class="post-card-excerpt">{{ post.data.description or post.templateContent | striptags | truncate(200) }}</p>
+        <a href="{{ post.url }}" class="btn btn-tertiary btn-sm">Read More</a>
+      </article>
+      {%- endfor %}
+    </div>
+
+    {% include "partials/pagination.html" %}
+
+  </section>
+</main>

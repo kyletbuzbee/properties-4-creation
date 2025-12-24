@@ -1,0 +1,107 @@
+---
+title: 'Online Application - Properties 4 Creations'
+description: 'Submit your application for a property online.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container application-section">
+    <h1>Property Application Form</h1>
+    <p>Please fill out the form below to apply for a property. All fields are required unless otherwise noted.</p>
+
+    <form id="property-application-form" class="application-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="applicant-name">Full Name</label>
+        <input type="text" id="applicant-name" name="name" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="applicant-email">Email Address</label>
+        <input type="email" id="applicant-email" name="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="applicant-phone">Phone Number</label>
+        <input type="tel" id="applicant-phone" name="phone" autocomplete="tel">
+      </div>
+      <div class="form-group">
+        <label for="property-interest">Property of Interest</label>
+        <select id="property-interest" name="propertyOfInterest" required>
+          <option value="">-- Select a Property --</option>
+          <!-- Options will be dynamically loaded by JavaScript -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="applicant-message">Additional Message (Optional)</label>
+        <textarea id="applicant-message" name="message" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="applicant-documents">Upload Documents (e.g., ID, Proof of Income, max 5 files, 10MB each)</label>
+        <input type="file" id="applicant-documents" name="documents" multiple accept=".jpeg,.jpg,.png,.pdf,.doc,.docx">
+        <small>Accepted formats: JPEG, PNG, PDF, DOC, DOCX. Max 5 files, 10MB per file.</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit Application</button>
+      <div id="application-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+      <div id="application-success" class="message-box success-message" aria-live="polite" style="display: none;">
+        Your application has been submitted successfully! We will review it shortly.
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js'; // Potentially use auth for pre-filling
+  import { propertiesData } from '/js/main.js'; // To populate property dropdown
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Populate properties dropdown
+    const propertySelect = document.getElementById('property-interest');
+    if (propertySelect && propertiesData && propertiesData.length > 0) {
+      propertiesData.forEach(prop => {
+        const option = document.createElement('option');
+        option.value = prop.name;
+        option.textContent = prop.name;
+        propertySelect.appendChild(option);
+      });
+    }
+
+    const applicationForm = document.getElementById('property-application-form');
+    const applicationMessage = document.getElementById('application-message');
+    const applicationSuccess = document.getElementById('application-success');
+
+    if (applicationForm) {
+      applicationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        applicationMessage.style.display = 'none';
+        applicationMessage.textContent = '';
+        applicationSuccess.style.display = 'none';
+
+        const formData = new FormData(applicationForm);
+
+        try {
+          const res = await fetch('/api/applications', {
+            method: 'POST',
+            body: formData // FormData object is automatically set with Content-Type: multipart/form-data
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            applicationSuccess.style.display = 'block';
+            applicationForm.reset();
+            // Clear file input manually if needed (some browsers don't reset file input with form.reset())
+            const fileInput = document.getElementById('applicant-documents');
+            if (fileInput) fileInput.value = '';
+          } else {
+            applicationMessage.textContent = data.msg || 'Application submission failed.';
+            applicationMessage.style.display = 'block';
+          }
+        } catch (err) {
+          console.error('Application submission error:', err);
+          applicationMessage.textContent = 'Network error during application submission.';
+          applicationMessage.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>

@@ -30,6 +30,23 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+    return new Date(dateObj).toISOString().split('T')[0];
+  });
+
+  eleventyConfig.addFilter('truncate', (text, limit) => {
+    if (!text) return '';
+    if (text.length <= limit) return text;
+    return text.slice(0, limit) + '...';
+  });
+
+  // ============================================
+  // COLLECTIONS
+  // ============================================
+  eleventyConfig.addCollection('posts', function(collectionApi) {
+    return collectionApi.getFilteredByGlob('src/blog/**/*.md');
+  });
+
   // ============================================
   // IMAGE SHORTCODE (Optional - requires setup)
   // ============================================

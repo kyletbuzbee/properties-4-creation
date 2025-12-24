@@ -1,0 +1,59 @@
+---
+title: 'Register - Properties 4 Creations'
+description: 'Create a new account on Properties 4 Creations.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container register-section">
+    <h1>Create Your Account</h1>
+    <form id="register-form" class="auth-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <p class="auth-switch">Already have an account? <a href="/login.html">Login here</a>.</p>
+      <div id="register-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('register-form');
+    const registerMessage = document.getElementById('register-message');
+
+    if (registerForm) {
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        registerMessage.style.display = 'none';
+        registerMessage.textContent = '';
+
+        const result = await auth.register(name, email, password);
+
+        if (result.success) {
+          window.location.href = '/profile.html'; // Redirect to profile page on successful registration
+        } else {
+          registerMessage.textContent = result.message;
+          registerMessage.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>

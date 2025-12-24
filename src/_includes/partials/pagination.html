@@ -1,0 +1,27 @@
+{%- if pagination.pages.length > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination-list">
+    {%- if pagination.previousPageLink %}
+    <li class="pagination-item">
+      <a href="{{ pagination.previousPageLink }}" class="pagination-link" aria-label="Previous page">Previous</a>
+    </li>
+    {%- endif %}
+
+    {%- for pageEntry in pagination.pages %}
+    <li class="pagination-item">
+      <a href="{{ pageEntry.url }}"
+         class="pagination-link{% if pageEntry.url == page.url %} active" aria-current="page"{% endif %}"
+         aria-label="Go to page {{ loop.index }}">
+        {{ loop.index }}
+      </a>
+    </li>
+    {%- endfor %}
+
+    {%- if pagination.nextPageLink %}
+    <li class="pagination-item">
+      <a href="{{ pagination.nextPageLink }}" class="pagination-link" aria-label="Next page">Next</a>
+    </li>
+    {%- endif %}
+  </ul>
+</nav>
+{%- endif %}

@@ -3,7 +3,7 @@
  * Interactive slider for showcasing property transformations
  */
 
-class ComparisonSlider {
+export class ComparisonSlider {
   constructor(container, options = {}) {
     this.container = container;
     this.options = {
@@ -181,7 +181,7 @@ class ComparisonSlider {
 }
 
 // Initialize all comparison sliders on the page
-function initComparisonSliders() {
+export function initComparisonSliders() {
   const sliders = document.querySelectorAll('.comparison-slider .slider-container');
   
   sliders.forEach(container => {
@@ -190,15 +190,4 @@ function initComparisonSliders() {
       sensitivity: 1
     });
   });
-}
-
-// Export for external use
-window.ComparisonSlider = ComparisonSlider;
-window.initComparisonSliders = initComparisonSliders;
-
-// Initialize on DOM ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initComparisonSliders);
-} else {
-  initComparisonSliders();
 }
