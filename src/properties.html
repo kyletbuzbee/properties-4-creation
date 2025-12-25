@@ -1,6 +1,7 @@
 ---
 title: 'Available Homes - Properties 4 Creations'
 description: 'Browse our premium, renovated homes ready for veteran and family occupancy in East Texas.'
+pageTitle: 'Available Properties'
 ---
 
 <!doctype html>
@@ -16,6 +17,9 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
   <a href='#main-content' class='skip-link'>Skip to main content</a>
 
   {% include 'header.html' %}
+
+  <!-- Breadcrumb Navigation -->
+  {% include 'partials/breadcrumb.html' %}
 
   <main id='main-content'>
     <!-- PROPERTIES HEADER -->
@@ -441,7 +445,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
     lucide.createIcons();
   </script>
   <script src='/js/accessibility-enhanced.js'></script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
   <script>
     // Video loading optimization and fallback handling
     document.addEventListener('DOMContentLoaded', function() {

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { google } = require('googleapis');
+const rateLimiter = require('../../middleware/rateLimiter');
 require('dotenv').config();
 
 // Configuration for Google Sheets API
@@ -15,7 +16,7 @@ const auth = new google.auth.GoogleAuth({
 // @route   POST api/contact
 // @desc    Submit contact form data to Google Sheet
 // @access  Public
-router.post('/', async (req, res) => {
+router.post('/', rateLimiter(5, 1), async (req, res) => {
   const { name, email, subject, message } = req.body;
 
   // Simple validation

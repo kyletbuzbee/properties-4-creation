@@ -120,28 +120,32 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          
+           
       - name: Install dependencies
         run: npm ci
-        
+         
       - name: Build site
         run: npm run build
-        
+         
       - name: Start development server
         run: |
           npm run dev &
           sleep 10
-          
+           
+      - name: Run comprehensive accessibility tests
+        run: |
+          npx playwright test tests/e2e/accessibility.spec.js --reporter=html
+           
       - name: Run accessibility tests with axe-core
         run: |
           npx playwright test tests/e2e/ --grep="Accessibility|accessibility" --reporter=html
-          
+           
       - name: Upload accessibility test results
         uses: actions/upload-artifact@v3
         if: always()

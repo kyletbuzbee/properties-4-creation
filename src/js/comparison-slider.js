@@ -4,7 +4,7 @@
  */
 
 export class ComparisonSlider {
-  constructor(container, options = {}) {
+  constructor (container, options = {}) {
     this.container = container;
     this.options = {
       initialPosition: 50, // Percentage
@@ -25,7 +25,7 @@ export class ComparisonSlider {
     this.init();
   }
   
-  init() {
+  init () {
     if (!this.beforeImage || !this.afterImage || !this.handle) {
       console.warn('Comparison slider elements not found');
       return;
@@ -62,7 +62,7 @@ export class ComparisonSlider {
     this.addLabels();
   }
   
-  addLabels() {
+  addLabels () {
     if (!this.beforeLabel) {
       const beforeLabel = document.createElement('div');
       beforeLabel.className = 'slider-label before';
@@ -80,14 +80,14 @@ export class ComparisonSlider {
     }
   }
   
-  startDrag(e) {
+  startDrag (e) {
     e.preventDefault();
     this.isDragging = true;
     this.container.classList.add('dragging');
     this.handle.focus();
   }
   
-  drag(e) {
+  drag (e) {
     if (!this.isDragging) return;
     
     const clientX = e.clientX || e.touches[0].clientX;
@@ -98,14 +98,14 @@ export class ComparisonSlider {
     this.setPosition(Math.max(0, Math.min(100, percentage)));
   }
   
-  endDrag() {
+  endDrag () {
     if (!this.isDragging) return;
     
     this.isDragging = false;
     this.container.classList.remove('dragging');
   }
   
-  setPosition(percentage) {
+  setPosition (percentage) {
     this.options.initialPosition = percentage;
     
     // Update clip path
@@ -126,52 +126,52 @@ export class ComparisonSlider {
     }
   }
   
-  handleKeydown(e) {
+  handleKeydown (e) {
     const step = 1;
     
     switch (e.key) {
-      case 'ArrowLeft':
-      case 'ArrowDown':
-        e.preventDefault();
-        this.setPosition(this.options.initialPosition - step);
-        break;
-      case 'ArrowRight':
-      case 'ArrowUp':
-        e.preventDefault();
-        this.setPosition(this.options.initialPosition + step);
-        break;
-      case 'Home':
-        e.preventDefault();
-        this.setPosition(0);
-        break;
-      case 'End':
-        e.preventDefault();
-        this.setPosition(100);
-        break;
+    case 'ArrowLeft':
+    case 'ArrowDown':
+      e.preventDefault();
+      this.setPosition(this.options.initialPosition - step);
+      break;
+    case 'ArrowRight':
+    case 'ArrowUp':
+      e.preventDefault();
+      this.setPosition(this.options.initialPosition + step);
+      break;
+    case 'Home':
+      e.preventDefault();
+      this.setPosition(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      this.setPosition(100);
+      break;
     }
   }
   
-  handleResize() {
+  handleResize () {
     // Recalculate position on resize to maintain correct visual alignment
     this.setPosition(this.options.initialPosition);
   }
   
   // Public methods
-  reset() {
+  reset () {
     this.setPosition(50);
   }
   
-  setBeforeImage(src, alt) {
+  setBeforeImage (src, alt) {
     this.beforeImage.src = src;
     this.beforeImage.alt = alt;
   }
   
-  setAfterImage(src, alt) {
+  setAfterImage (src, alt) {
     this.afterImage.src = src;
     this.afterImage.alt = alt;
   }
   
-  destroy() {
+  destroy () {
     document.removeEventListener('mousemove', this.drag.bind(this));
     document.removeEventListener('touchmove', this.drag.bind(this));
     document.removeEventListener('mouseup', this.endDrag.bind(this));
@@ -181,7 +181,7 @@ export class ComparisonSlider {
 }
 
 // Initialize all comparison sliders on the page
-export function initComparisonSliders() {
+export function initComparisonSliders () {
   const sliders = document.querySelectorAll('.comparison-slider .slider-container');
   
   sliders.forEach(container => {

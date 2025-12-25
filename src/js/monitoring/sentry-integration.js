@@ -21,14 +21,14 @@ const shouldInitializeSentry = () => {
 // Initialize Sentry if conditions are met
 if (shouldInitializeSentry()) {
   // Load Sentry SDK dynamically to avoid build issues
-  (function() {
+  (function () {
     // Create script element for Sentry
     const script = document.createElement('script');
     script.src = 'https://browser.sentry-cdn.com/7.74.1/bundle.min.js';
     script.crossOrigin = 'anonymous';
     script.integrity = 'sha384-7a1dkAyUoJvJ4F7fBZZZVxO3j7ZOtCpF3n8YwRrYl12JkRr3sS0l3XGwGx1N9s';
     
-    script.onload = function() {
+    script.onload = function () {
       // Initialize Sentry after script loads
       if (window.Sentry) {
         window.Sentry.init({
@@ -41,7 +41,7 @@ if (shouldInitializeSentry()) {
           replaysOnErrorSampleRate: 1.0, // Capture 100% of sessions when there's an error
           
           // Filter out noise
-          beforeSend(event) {
+          beforeSend (event) {
             // Don't send events in development
             if (process.env.NODE_ENV === 'development') {
               return null;
@@ -99,7 +99,7 @@ if (shouldInitializeSentry()) {
   })();
   
   // Helper function to determine page type
-  function getPageType() {
+  function getPageType () {
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') return 'homepage';
     if (path.includes('properties')) return 'properties';

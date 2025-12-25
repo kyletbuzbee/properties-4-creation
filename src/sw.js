@@ -217,8 +217,9 @@ async function handleDynamicRequest(request) {
     const networkResponse = await fetch(request);
 
     if (networkResponse.ok) {
+      const responseToCache = networkResponse.clone();
       // Add timestamp header for expiration tracking
-      const responseWithTimestamp = new Response(networkResponse.body, {
+      const responseWithTimestamp = new Response(responseToCache.body, {
         status: networkResponse.status,
         statusText: networkResponse.statusText,
         headers: new Headers({
@@ -248,7 +249,7 @@ async function updateImageCache(request) {
 
     if (networkResponse.ok) {
       const cache = await caches.open(IMAGE_CACHE);
-      cache.put(request, networkResponse);
+      cache.put(request, networkResponse.clone());
     }
   } catch (error) {
     // Silently fail - cached version is still valid
@@ -263,7 +264,8 @@ async function updateDynamicCache(request, cache) {
     const networkResponse = await fetch(request);
 
     if (networkResponse.ok) {
-      const responseWithTimestamp = new Response(networkResponse.body, {
+      const responseToCache = networkResponse.clone();
+      const responseWithTimestamp = new Response(responseToCache.body, {
         status: networkResponse.status,
         statusText: networkResponse.statusText,
         headers: new Headers({

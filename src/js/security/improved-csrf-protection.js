@@ -10,7 +10,7 @@
  */
 
 export class ImprovedCSRFProtection {
-  constructor() {
+  constructor () {
     this.tokenName = 'csrf_token';
     this.cookieName = 'csrf_token';
     this.formspreeEndpoint = 'https://formspree.io/f/';
@@ -18,7 +18,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Generate a cryptographically secure token
-  generateSecureToken() {
+  generateSecureToken () {
     if (window.crypto && window.crypto.getRandomValues) {
       const array = new Uint8Array(32);
       window.crypto.getRandomValues(array);
@@ -30,7 +30,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Set CSRF token in cookie (double-submit cookie pattern)
-  setCSRFCookie(token) {
+  setCSRFCookie (token) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (30 * 60 * 1000)); // 30 minutes
     
@@ -38,12 +38,12 @@ export class ImprovedCSRFProtection {
   }
 
   // Get CSRF token from cookie
-  getCSRFCookie() {
+  getCSRFCookie () {
     const name = this.cookieName + '=';
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(';');
     
-    for(let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) === ' ') {
         c = c.substring(1);
@@ -56,7 +56,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Initialize CSRF protection
-  init() {
+  init () {
     // Check if we already have a token in cookie
     let token = this.getCSRFCookie();
     
@@ -74,7 +74,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Attach CSRF protection to all forms
-  attachToAllForms() {
+  attachToAllForms () {
     const forms = document.querySelectorAll('form');
     
     forms.forEach((form) => {
@@ -101,7 +101,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Attach CSRF token to specific form
-  attachToForm(form) {
+  attachToForm (form) {
     // Check if CSRF token already exists
     const existingToken = form.querySelector(`input[name="${this.tokenName}"]`);
     if (existingToken) {
@@ -120,7 +120,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Validate form submission
-  validateForm(form) {
+  validateForm (form) {
     const submittedToken = form.querySelector(`input[name="${this.tokenName}"]`)?.value;
     const cookieToken = this.getCSRFCookie();
     
@@ -138,13 +138,13 @@ export class ImprovedCSRFProtection {
   }
 
   // Check if form uses Formspree
-  isFormspreeForm(form) {
+  isFormspreeForm (form) {
     const action = form.getAttribute('action') || '';
     return action.includes(this.formspreeEndpoint) || action.includes('formspree.io');
   }
 
   // Validate Formspree-specific requirements
-  validateFormspreeForm(form) {
+  validateFormspreeForm (form) {
     // Formspree has its own CSRF protection, but we add additional validation
     const honeypot = form.querySelector('input[name="_gotcha"]');
     if (honeypot && honeypot.value !== '') {
@@ -164,7 +164,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Handle validation errors
-  handleValidationError(form) {
+  handleValidationError (form) {
     // Show error message
     const errorContainer = form.querySelector('.form-error') || 
                           form.querySelector('.error-message') ||
@@ -187,7 +187,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Log security events
-  logSecurityEvent(eventType, data) {
+  logSecurityEvent (eventType, data) {
     // Only log in development or if explicitly enabled
     if (process.env.NODE_ENV === 'development' || window.DEBUG_CSRF) {
       console.warn(`[CSRF Protection] ${eventType}:`, data);
@@ -195,12 +195,12 @@ export class ImprovedCSRFProtection {
   }
 
   // Get current token
-  getToken() {
+  getToken () {
     return this.token || this.getCSRFCookie();
   }
 
   // Refresh token (for security, rotate tokens periodically)
-  refreshToken() {
+  refreshToken () {
     const newToken = this.generateSecureToken();
     this.setCSRFCookie(newToken);
     this.token = newToken;
@@ -216,7 +216,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Clean up expired tokens
-  cleanup() {
+  cleanup () {
     // Remove expired cookies by setting them to expire immediately
     document.cookie = `${this.cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }

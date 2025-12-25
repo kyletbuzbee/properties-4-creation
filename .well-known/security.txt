@@ -1,0 +1,46 @@
+# Security Policy for Properties 4 Creations
+
+# Contact Information
+Contact: mailto:security@properties4creations.com
+Contact: tel:+1-903-555-1234
+
+# Encryption
+Encryption: https://www.properties4creations.com/.well-known/pgp-key.txt
+
+# Policy
+Policy: https://www.properties4creations.com/security-policy
+
+# Acknowledgments
+Acknowledgments: https://www.properties4creations.com/security-hall-of-fame
+
+# Preferred Languages
+Preferred-Languages: en
+
+# Expiration
+Expires: 2025-12-31T23:59:59Z
+
+# Canonical
+Canonical: https://www.properties4creations.com/.well-known/security.txt
+
+# Hiring
+Hiring: https://www.properties4creations.com/careers
+
+# Scope
+# This security.txt applies to all Properties 4 Creations digital properties
+# including websites, APIs, and mobile applications.
+
+# Response Targets
+# We aim to respond to security reports within 48 hours.
+# Critical vulnerabilities will be addressed within 24 hours.
+
+# Safe Harbor
+# We support safe harbor for security researchers who:
+# - Act in good faith
+# - Do not violate privacy or disrupt services
+# - Follow responsible disclosure practices
+
+# Out of Scope
+# - Denial of Service attacks
+# - Social engineering
+# - Physical attacks
+# - Third-party services not operated by Properties 4 Creations

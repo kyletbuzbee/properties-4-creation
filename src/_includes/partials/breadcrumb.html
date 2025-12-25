@@ -1,0 +1,105 @@
+<!-- Breadcrumb Navigation -->
+<nav class="breadcrumb-navigation" aria-label="Breadcrumb" role="navigation">
+  <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="/" itemprop="item" class="breadcrumb-link">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    
+    <!-- Dynamic breadcrumb items will be inserted here based on page context -->
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" data-breadcrumb-current>
+      <span itemprop="name" class="breadcrumb-current">{{ pageTitle }}</span>
+      <meta itemprop="position" content="2" />
+    </li>
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb-navigation {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: var(--beige);
+    border-radius: 4px;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb-link:hover,
+  .breadcrumb-link:focus {
+    color: var(--wood);
+    outline: 3px solid var(--wood);
+    outline-offset: 2px;
+  }
+
+  .breadcrumb-current {
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: var(--navy);
+  }
+
+  .breadcrumb-separator::after {
+    content: ">";
+  }
+
+  @media (max-width: 768px) {
+    .breadcrumb-list {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .breadcrumb-separator::after {
+      content: "\\1F881"; /* Downwards arrow with corner leftwards */
+      transform: rotate(90deg);
+      display: inline-block;
+    }
+  }
+</style>
+
+<script>
+  // Enhance breadcrumb accessibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const breadcrumbItems = document.querySelectorAll('.breadcrumb-item');
+    
+    // Add ARIA attributes for better screen reader support
+    breadcrumbItems.forEach((item, index) => {
+      item.setAttribute('aria-current', index === breadcrumbItems.length - 1 ? 'page' : 'false');
+    });
+
+    // Add keyboard navigation support
+    const breadcrumbLinks = document.querySelectorAll('.breadcrumb-link');
+    breadcrumbLinks.forEach(link => {
+      link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          link.click();
+        }
+      });
+    });
+  });
+</script>

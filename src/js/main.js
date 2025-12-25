@@ -419,12 +419,46 @@ if (form) {
   });
 }
 
+// CSRF TOKEN MANAGEMENT
+async function fetchCSRFToken () {
+  try {
+    const response = await fetch('/api/csrf', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.csrfToken;
+    }
+
+    // Fallback token if API fails
+    return 'fallback-csrf-token';
+  } catch {
+    // Network error - use fallback token
+    return 'fallback-csrf-token';
+  }
+}
+
+// Add CSRF token to form
+async function addCSRFTokenToForm (form) {
+  const csrfToken = await fetchCSRFToken();
+  const csrfInput = form.querySelector('input[name="csrfToken"]');
+  
+  if (csrfInput) {
+    csrfInput.value = csrfToken;
+  }
+}
+
 // CONTACT FORM HANDLING
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   const contactSuccess = document.getElementById('contact-success');
 
-  contactForm.addEventListener('submit', (e) => {
+  // Fetch and add CSRF token when form loads
+  addCSRFTokenToForm(contactForm);
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let isValid = true;
@@ -466,17 +500,48 @@ if (contactForm) {
     });
 
     if (isValid) {
-      contactSuccess.style.display = 'block';
-      contactForm.style.display = 'none';
+      // Get form data including CSRF token
+      const formData = new FormData(contactForm);
+      const csrfToken = formData.get('csrfToken');
 
-      // Production build will strip console statements
-      // Development logging removed for security
+      try {
+        // Submit to server with CSRF token
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({
+            name: formData.get('contactName'),
+            email: formData.get('contactEmail'),
+            phone: formData.get('contactPhone'),
+            subject: formData.get('contactSubject'),
+            message: formData.get('contactMessage')
+          })
+        });
 
-      setTimeout(() => {
-        contactForm.reset();
-        contactForm.style.display = 'block';
-        contactSuccess.style.display = 'none';
-      }, 3000);
+        if (response.ok) {
+          contactSuccess.style.display = 'block';
+          contactForm.style.display = 'none';
+
+          setTimeout(() => {
+            contactForm.reset();
+            contactForm.style.display = 'block';
+            contactSuccess.style.display = 'none';
+            
+            // Refresh CSRF token after successful submission
+            addCSRFTokenToForm(contactForm);
+          }, 3000);
+        } else {
+          // Handle server validation errors
+          const errorData = await response.json();
+          alert('Error submitting form: ' + (errorData.message || 'Please try again'));
+        }
+      } catch (error) {
+        // Network error
+        alert('Network error. Please check your connection and try again.');
+      }
     }
   });
 }

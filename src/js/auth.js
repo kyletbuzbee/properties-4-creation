@@ -3,7 +3,7 @@ export const auth = {
   user: null,
   token: null,
   
-  init() {
+  init () {
     this.token = localStorage.getItem('token');
     if (this.token) {
       this.isAuthenticated = true;
@@ -11,7 +11,7 @@ export const auth = {
     }
   },
 
-  async register(name, email, password) {
+  async register (name, email, password) {
     try {
       const res = await fetch('/api/users/register', {
         method: 'POST',
@@ -33,7 +33,7 @@ export const auth = {
     }
   },
 
-  async login(email, password) {
+  async login (email, password) {
     try {
       const res = await fetch('/api/users/login', {
         method: 'POST',
@@ -55,7 +55,7 @@ export const auth = {
     }
   },
 
-  logout() {
+  logout () {
     this.isAuthenticated = false;
     this.user = null;
     this.token = null;
@@ -63,14 +63,14 @@ export const auth = {
     // Consider also clearing saved properties data if needed
   },
 
-  setAuth(token, user) {
+  setAuth (token, user) {
     this.token = token;
     this.user = user;
     this.isAuthenticated = true;
     localStorage.setItem('token', token);
   },
 
-  async loadUser() {
+  async loadUser () {
     if (!this.token) {
       this.logout();
       return;
@@ -94,7 +94,7 @@ export const auth = {
     }
   },
 
-  async saveProperty(propertyId) {
+  async saveProperty (propertyId) {
     if (!this.isAuthenticated || !this.user) return { success: false, message: 'Not authenticated.' };
     try {
       const res = await fetch('/api/users/me/saved-properties', {
@@ -118,7 +118,7 @@ export const auth = {
     }
   },
 
-  async removeProperty(propertyId) {
+  async removeProperty (propertyId) {
     if (!this.isAuthenticated || !this.user) return { success: false, message: 'Not authenticated.' };
     try {
       const res = await fetch(`/api/users/me/saved-properties/${propertyId}`, {
@@ -138,11 +138,11 @@ export const auth = {
     }
   },
 
-  isPropertySaved(propertyId) {
+  isPropertySaved (propertyId) {
     return this.isAuthenticated && this.user && this.user.savedProperties && this.user.savedProperties.includes(propertyId);
   },
 
-  getAuthHeaders() {
+  getAuthHeaders () {
     if (this.token) {
       return { 'x-auth-token': this.token };
     }

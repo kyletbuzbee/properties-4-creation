@@ -495,7 +495,7 @@ export class PropertyFilter {
             View Details
           </a>
           ${auth.isAuthenticated ? 
-            `<button class="btn btn-secondary btn-sm save-property-btn" data-property-id="${prop.id}">
+    `<button class="btn btn-secondary btn-sm save-property-btn" data-property-id="${prop.id}">
               ${auth.isPropertySaved(prop.id) ? 'Unsave' : 'Save'}
             </button>` : ''}
         </div>

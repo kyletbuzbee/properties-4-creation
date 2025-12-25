@@ -120,6 +120,9 @@
                                 <span class='error-message'>You must agree to continue</span>
                             </div>
 
+                            <!-- CSRF Token (will be added by JavaScript) -->
+                            <input type='hidden' id='csrf-token' name='csrfToken' value='' />
+
                             <button type='submit' class='btn btn-cta'>Send Message</button>
                         </form>
                     </div>
@@ -138,7 +141,7 @@
       lucide.createIcons();
     </script>
     <script src='/js/accessibility-enhanced.js'></script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 </body>
 
 </html>
