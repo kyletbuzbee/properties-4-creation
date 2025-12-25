@@ -10,9 +10,7 @@ Section 8 & HUD-VASH programs."
 
 <head>
   {% include 'meta.html' %}
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css'
-    integrity='sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU'
-    crossorigin='anonymous' />
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css' integrity='sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU' crossorigin='anonymous'>
 </head>
 
 <body>
@@ -22,7 +20,7 @@ Section 8 & HUD-VASH programs."
   <main id='main-content'>
     <!-- HOMEPAGE SECTION -->
     <section id='home' class='hero' style="
-          background-image: url(&quot;/images/banners/hero-home-banner.webp&quot;);
+          background-image: url('/images/banners/hero-home-banner-800w.webp');
           background-size: cover;
           background-position: center;
         " aria-label='Welcome to Properties 4 Creations'>
@@ -119,7 +117,7 @@ Section 8 & HUD-VASH programs."
       </div>
     </section>
 
-    {% include 'veteran-resources.njk' %}
+    <!-- {% include 'veteran-resources.njk' %} -->
 
     <!-- CTA SECTION -->
     <section class='cta-section'>
@@ -135,10 +133,17 @@ Section 8 & HUD-VASH programs."
 
   {% include 'footer.html' %}
 
-  <!-- SCRIPTS -->
-  <script src='https://unpkg.com/lucide@latest/dist/umd/lucide.js'
-    integrity='sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB'
-    crossorigin='anonymous'></script>
+  <script type='application/json' id='properties-data'>
+
+      {{ properties | dump | safe }}
+
+    </script>
+
+    <script src='https://unpkg.com/lucide@latest/dist/umd/lucide.js'
+
+      integrity='sha384-+BtA6NbrkZ1eh8kuyVylOCEebvmRK+hACkrA6LToCK5+FsvX+J6bnBBHslT+noJQ'
+
+      crossorigin='anonymous'></script>
   <script>
     lucide.createIcons();
   </script>
@@ -156,6 +161,8 @@ Section 8 & HUD-VASH programs."
         script.crossOrigin = 'anonymous';
         script.onload = () => {
           const map = L.map('map').setView([32.35, -95.3], 10);
+          L.Icon.Default.prototype.options.iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png';
+          L.Icon.Default.prototype.options.shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 19,

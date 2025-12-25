@@ -46,6 +46,7 @@ app.use('/api/csp', require('./routes/api/csp'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/applications', require('./routes/api/applications'));
 app.use('/api/contact', require('./routes/api/contact'));
+app.use('/api/error-report', require('./routes/api/error-report'));
 
 const port = process.env.PORT || 5000;
 

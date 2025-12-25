@@ -136,7 +136,7 @@ global.waitFor = (condition, timeout = 1000) => {
   });
 };
 
-// Mock intersection observer for lazy loading tests
+// Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
   constructor(callback) {
     this.callback = callback;
@@ -146,7 +146,7 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
 };
 
-// Mock resize observer for component tests
+// Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
   constructor(callback) {
     this.callback = callback;
@@ -154,6 +154,11 @@ global.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
+};
+
+// Mock DOMPurify
+global.DOMPurify = {
+  sanitize: vi.fn((input) => input)
 };
 
 console.log('Test environment initialized');

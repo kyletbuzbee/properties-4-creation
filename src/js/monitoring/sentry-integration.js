@@ -18,18 +18,7 @@ const shouldInitializeSentry = () => {
   return isProduction || isSentryEnabled;
 };
 
-// Helper function to determine page type
-function getPageType () {
-  const path = window.location.pathname;
-  if (path === '/' || path === '/index.html') return 'homepage';
-  if (path.includes('properties')) return 'properties';
-  if (path.includes('apply')) return 'application';
-  if (path.includes('contact')) return 'contact';
-  if (path.includes('about')) return 'about';
-  if (path.includes('faq')) return 'faq';
-  if (path.includes('404')) return 'error_404';
-  return 'other';
-}
+
 
 // Initialize Sentry if conditions are met
 if (shouldInitializeSentry()) {

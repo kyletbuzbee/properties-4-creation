@@ -83,7 +83,7 @@ describe('AriaLiveRegions', () => {
     });
 
     it('should sanitize message content', () => {
-      ariaLiveRegions.announce('<script>alert('xss')</script>Clean message');
+      ariaLiveRegions.announce('<script>alert(\'xss\')</script>Clean message');
       
       expect(ariaLiveRegions.announcementQueue[0].message).toBe('Clean message');
       expect(ariaLiveRegions.announcementQueue[0].message).not.toContain('<script>');

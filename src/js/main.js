@@ -15,6 +15,7 @@ import { createPropertiesErrorBoundary } from './utils/errorBoundary.js';
 import { LazyLoader } from './utils/lazyLoad.js';
 import { initComparisonSliders } from './comparison-slider.js';
 import { auth } from './auth.js';
+import './theme-toggle.js';
 
 // Initialize error boundary first (before other components)
 createPropertiesErrorBoundary();
@@ -148,13 +149,10 @@ mainErrorHandler();
 
 let propertiesData = []; // Declare propertiesData globally
 
-async function fetchPropertiesData () {
+const propertiesDataElement = document.getElementById('properties-data');
+if (propertiesDataElement) {
   try {
-    const response = await fetch('/properties.json');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
+    const data = JSON.parse(propertiesDataElement.textContent);
     // Map fetched data to the format expected by existing code
     propertiesData = data.map((prop) => ({ // Removed index as it's not used in this map
       id: prop.id,
@@ -588,7 +586,6 @@ document.querySelectorAll('img').forEach((img) => {
  */
 document.addEventListener('DOMContentLoaded', async () => {
   auth.init(); // Initialize auth state
-  await fetchPropertiesData(); // Ensure data is loaded before components that use it
   // Initialize Lazy Loading
   try {
     const lazyLoader = new LazyLoader();

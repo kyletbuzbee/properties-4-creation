@@ -2,7 +2,6 @@
 """
 Enhanced File Converter - Single File Output with Directory Exclusion
 Converts source code files to append to a single .txt format file.
-
 Features:
 - Excludes node_modules, codeReview, .git, and .clinerules directories during scanning
 - Outputs everything to one single text file (append mode)

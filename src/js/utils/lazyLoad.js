@@ -227,20 +227,4 @@ export function createResponsiveImage (options) {
   `.trim();
 }
 
-// Auto-initialize on DOMContentLoaded if not imported as module
-if (typeof window !== 'undefined' && !window.LazyLoader) {
-  window.LazyLoader = LazyLoader;
 
-  document.addEventListener('DOMContentLoaded', () => {
-    // Initialize for data-src images
-    const lazyLoader = new LazyLoader();
-
-    // Also handle native lazy loading
-    initNativeLazyLoading();
-
-    // Expose instance globally for debugging
-    window.lazyLoaderInstance = lazyLoader;
-  });
-}
-
-export default LazyLoader;

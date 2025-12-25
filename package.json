@@ -4,11 +4,14 @@
   "description": "Veteran & family housing website in East Texas",
   "main": "src/index.html",
   "scripts": {
-    "start:server": "node server/index.js",
     "dev": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy && npm run minify && npm run strip-console",
+    "build": "npx @11ty/eleventy && npm run optimize && npm run minify && npm run strip-console",
     "build:prod": "npm run build",
-    "minify": "postcss src/css/style.css -o _site/css/style.min.css && esbuild src/js/main.js --bundle --minify --outfile=_site/js/main.min.js",
+    "optimize": "npm run optimize:css && npm run optimize:js && npm run optimize:images",
+    "optimize:css": "node scripts/simple-optimize-css.js",
+    "optimize:js": "node scripts/optimize-js.js",
+    "optimize:images": "node scripts/optimize-images.js",
+    "minify": "postcss src/css/style.optimized.css -o _site/css/style.min.css && terser src/js/main.optimized.js -o _site/js/main.min.js",
     "strip-console": "node scripts/strip-console.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
@@ -30,20 +33,24 @@
     "format:check": "prettier --check \"src/**/*.{html,js,css,md}\"",
     "bundle-size": "bundlewatch",
     "bundle-size:check": "bundlewatch --ci",
-    "bundle-size:report": "bundlewatch --ci --json"
+    "bundle-size:report": "bundlewatch --ci --json",
+    "analyze": "npm run build && npx bundlesize",
+    "clean": "rimraf _site src/css/*.optimized.css src/js/*.optimized.js",
+    "precache": "node scripts/precache-assets.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
-    "@axe-core/playwright": "^4.8.2",
     "@lhci/cli": "^0.12.0",
     "@playwright/test": "^1.40.0",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/typography": "^0.5.19",
     "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "autoprefixer": "^10.4.23",
     "axe-core": "^4.8.2",
     "bundlewatch": "^0.3.3",
+    "bundlesize": "^0.18.1",
     "cssnano": "^7.1.2",
-    "esbuild": "^0.27.2",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",
@@ -55,6 +62,7 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.0",
     "prettier": "^3.0.3",
+    "rimraf": "^6.0.1",
     "terser": "^5.27.0",
     "vitest": "^4.0.16"
   },
@@ -77,6 +85,19 @@
   ],
   "dependencies": {
     "@11ty/eleventy-img": "^6.0.4",
+    "@lydell/node-pty": "^1.1.0",
     "eleventy": "^2.0.1"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "_site/css/style.min.css",
+      "maxSize": "50kb",
+      "compression": "gzip"
+    },
+    {
+      "path": "_site/js/main.min.js",
+      "maxSize": "100kb",
+      "compression": "gzip"
+    }
+  ]
 }

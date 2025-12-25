@@ -15,8 +15,8 @@ export class ErrorHandler {
     this.options = {
       logToConsole: true,
       showUserNotification: true,
-      reportToServer: false,
-      serverEndpoint: '/api/log-error',
+      reportToServer: true,
+      serverEndpoint: '/api/error-report',
       maxErrors: 100,
       deduplicateErrors: true,
       deduplicateWindow: 5000, // ms

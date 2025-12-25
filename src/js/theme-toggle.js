@@ -3,7 +3,7 @@
  * Handles theme switching and persistence
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   // Initialize theme toggle
   const themeToggle = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add event listener for theme toggle
-    themeToggle.addEventListener('click', function() {
+    themeToggle.addEventListener('click', () => {
       const isDarkMode = htmlElement.getAttribute('data-theme') === 'dark';
 
       if (isDarkMode) {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
       const savedTheme = localStorage.getItem('theme');
       
       // Only apply system preference if no theme is explicitly saved
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Update theme icon based on current mode
-  function updateThemeIcon(button, isDarkMode) {
+  function updateThemeIcon (button, isDarkMode) {
     const icon = button.querySelector('.theme-icon');
     const text = button.querySelector('.theme-text');
     
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Initialize theme for all pages
-  function initializeTheme() {
+  function initializeTheme () {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Expose theme functions to global scope for testing
   window.themeToggle = {
-    toggleTheme: function() {
+    toggleTheme () {
       const htmlElement = document.documentElement;
       const isDarkMode = htmlElement.getAttribute('data-theme') === 'dark';
       
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', 'dark');
       }
     },
-    getCurrentTheme: function() {
+    getCurrentTheme () {
       return document.documentElement.getAttribute('data-theme') || 'light';
     }
   };
