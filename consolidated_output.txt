@@ -1,5 +1,5 @@
 CONSOLIDATED PROJECT FILES
-Generated: 2025-12-24 11:01:19
+Generated: 2025-12-24 22:43:20
 Source: .
 Output: consolidated_output.txt
 ================================================================================
@@ -9,6 +9,7 @@ PROJECT TREE:
 ├── .blackboxrules
 ├── .eleventy.js
 ├── .eleventyignore
+├── .env
 ├── .env.example
 ├── .eslintrc.json
 ├── .github
@@ -23,6 +24,8 @@ PROJECT TREE:
 │   └── workflows
 ├── .vscode
 │   └── settings.json
+├── .well-known
+│   └── security.txt
 ├── CNAME
 ├── README.md
 ├── _site
@@ -260,6 +263,7 @@ PROJECT TREE:
 ├── bundlewatch.config.json
 ├── code_review.py
 ├── consolidated_output.txt
+├── conversion_summary.txt
 ├── docs
 │   ├── 404
 │   │   └── index.html
@@ -708,6 +712,8 @@ PROJECT TREE:
 ├── package-lock.json
 ├── package.json
 ├── plans
+│   ├── enterprise-grade-audit-report.md
+│   ├── enterprise-grade-implementation-plan.md
 │   └── website_layout_fix_plan.md
 ├── postcss.config.js
 ├── postcss.config.js.backup
@@ -720,6 +726,22 @@ PROJECT TREE:
 │   ├── sri-hashes.json
 │   ├── strip-console.js
 │   └── update-sri-attributes.js
+├── server
+│   ├── index.js
+│   ├── middleware
+│   │   ├── auth.js
+│   │   ├── csrf.js
+│   │   └── rateLimiter.js
+│   ├── models
+│   │   ├── Application.js
+│   │   └── User.js
+│   └── routes
+│       └── api
+│           ├── applications.js
+│           ├── contact.js
+│           ├── csp.js
+│           ├── csrf.js
+│           └── users.js
 ├── sitemap.xml
 ├── src
 │   ├── .gitignore
@@ -732,14 +754,22 @@ PROJECT TREE:
 │   ├── _includes
 │   │   ├── footer.html
 │   │   ├── header.html
+│   │   ├── layouts
+│   │   │   └── post.html
 │   │   ├── meta.html
 │   │   ├── nav.html
 │   │   ├── partials
+│   │   │   ├── breadcrumb.html
+│   │   │   ├── pagination.html
 │   │   │   └── security-headers.html
 │   │   ├── veteran-resources.njk
 │   │   └── video-hero.html
 │   ├── about.html
+│   ├── apply-online.html
 │   ├── apply.html
+│   ├── blog
+│   │   └── my-first-post.md
+│   ├── blog.html
 │   ├── button-examples.html
 │   ├── contact.html
 │   ├── css
@@ -911,6 +941,7 @@ PROJECT TREE:
 │   ├── jefferson-riverfront.html
 │   ├── js
 │   │   ├── accessibility-enhanced.js
+│   │   ├── auth.js
 │   │   ├── button-utilities.js
 │   │   ├── comparison-slider.js
 │   │   ├── components
@@ -934,13 +965,16 @@ PROJECT TREE:
 │   │       ├── rateLimiter.js
 │   │       └── sanitizer.js
 │   ├── kemp-townhome.html
+│   ├── login.html
 │   ├── longview-victorian.html
 │   ├── manifest.json
 │   ├── marshall-historic-farm.html
 │   ├── mineola-modern-studio.html
 │   ├── offline.html
 │   ├── privacy.html
+│   ├── profile.html
 │   ├── properties.html
+│   ├── register.html
 │   ├── resources.html
 │   ├── search-index.json
 │   ├── sitemap.xml
@@ -958,6 +992,7 @@ PROJECT TREE:
 │   ├── cross-browser
 │   │   └── cross-browser.test.js
 │   ├── e2e
+│   │   ├── accessibility.spec.js
 │   │   ├── critical-user-flows.spec.js
 │   │   └── playwright.config.js
 │   ├── features
@@ -982,8 +1017,8 @@ PROJECT TREE:
 
 ================================================================================
 FILE: .eleventy.js
-SIZE: 2810 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 3381 bytes
+MODIFIED: 2025-12-24 13:27:45
 ================================================================================
 const Image = require('@11ty/eleventy-img');
 
@@ -1015,6 +1050,23 @@ module.exports = function(eleventyConfig) {
       month: 'long',
       day: 'numeric'
     });
+  });
+
+  eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+    return new Date(dateObj).toISOString().split('T')[0];
+  });
+
+  eleventyConfig.addFilter('truncate', (text, limit) => {
+    if (!text) return '';
+    if (text.length <= limit) return text;
+    return text.slice(0, limit) + '...';
+  });
+
+  // ============================================
+  // COLLECTIONS
+  // ============================================
+  eleventyConfig.addCollection('posts', function(collectionApi) {
+    return collectionApi.getFilteredByGlob('src/blog/**/*.md');
   });
 
   // ============================================
@@ -1124,8 +1176,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: .github\workflows\main.yml
-SIZE: 13553 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 13720 bytes
+MODIFIED: 2025-12-24 15:49:07
 ================================================================================
 name: Build, Test & Deploy
 
@@ -1249,28 +1301,32 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+         
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-          
+           
       - name: Install dependencies
         run: npm ci
-        
+         
       - name: Build site
         run: npm run build
-        
+         
       - name: Start development server
         run: |
           npm run dev &
           sleep 10
-          
+           
+      - name: Run comprehensive accessibility tests
+        run: |
+          npx playwright test tests/e2e/accessibility.spec.js --reporter=html
+           
       - name: Run accessibility tests with axe-core
         run: |
           npx playwright test tests/e2e/ --grep="Accessibility|accessibility" --reporter=html
-          
+           
       - name: Upload accessibility test results
         uses: actions/upload-artifact@v3
         if: always()
@@ -44785,7 +44841,7 @@ MODIFIED: 2025-12-24 09:35:53
 --------------------------------------------------------------------------------
 FILE: package-lock.json
 SIZE: 470020 bytes
-MODIFIED: 2025-12-24 10:53:16
+MODIFIED: 2025-12-24 15:39:20
 ================================================================================
 {
   "name": "properties-4-creations",
@@ -57830,8 +57886,8 @@ MODIFIED: 2025-12-24 10:53:16
 
 --------------------------------------------------------------------------------
 FILE: package.json
-SIZE: 2634 bytes
-MODIFIED: 2025-12-24 10:53:16
+SIZE: 2716 bytes
+MODIFIED: 2025-12-24 15:48:46
 ================================================================================
 {
   "name": "properties-4-creations",
@@ -57839,6 +57895,7 @@ MODIFIED: 2025-12-24 10:53:16
   "description": "Veteran & family housing website in East Texas",
   "main": "src/index.html",
   "scripts": {
+    "start:server": "node server/index.js",
     "dev": "npx @11ty/eleventy --serve",
     "build": "npx @11ty/eleventy && npm run minify && npm run strip-console",
     "build:prod": "npm run build",
@@ -57868,6 +57925,7 @@ MODIFIED: 2025-12-24 10:53:16
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "@axe-core/playwright": "^4.8.2",
     "@lhci/cli": "^0.12.0",
     "@playwright/test": "^1.40.0",
     "@vitest/coverage-v8": "^4.0.16",
@@ -57913,7 +57971,6 @@ MODIFIED: 2025-12-24 10:53:16
     "eleventy": "^2.0.1"
   }
 }
-
 
 --------------------------------------------------------------------------------
 FILE: postcss.config.js
@@ -59651,9 +59708,744 @@ module.exports = { updateSRIInFile, updateAllHTMLFiles };
 
 
 --------------------------------------------------------------------------------
+FILE: server\index.js
+SIZE: 2157 bytes
+MODIFIED: 2025-12-24 22:40:32
+================================================================================
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const { csrfProtection } = require('./middleware/csrf');
+require('dotenv').config();
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Security Headers Middleware
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://unpkg.com https://cdn.jsdelivr.net 'sha256-TiPh3fdQRZCG/RjIQXFP2TtQd5JA4QqG6b1Xr+0i+/8=' 'sha256-FbrkNONlMi5vMW0Avoo8bVk0oPLDW640T7rQCXR+zb0='; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://formspree.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://formspree.io; object-src 'none'; media-src 'self'; worker-src 'self'; child-src 'none';"
+  );
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=()');
+  next();
+});
+
+// CSRF Protection Middleware (apply to all routes except CSRF endpoint)
+app.use((req, res, next) => {
+  if (req.path === '/api/csrf') {
+    return next(); // Skip CSRF protection for CSRF endpoint
+  }
+  csrfProtection(req, res, next);
+});
+
+// DB Config
+const db = process.env.MONGO_URI;
+
+// Connect to MongoDB
+mongoose
+  .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
+
+// Use Routes
+app.use('/api/csrf', require('./routes/api/csrf'));
+app.use('/api/csp', require('./routes/api/csp'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/applications', require('./routes/api/applications'));
+app.use('/api/contact', require('./routes/api/contact'));
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
+
+
+--------------------------------------------------------------------------------
+FILE: server\middleware\auth.js
+SIZE: 492 bytes
+MODIFIED: 2025-12-24 11:05:04
+================================================================================
+const jwt = require('jsonwebtoken');
+
+function auth(req, res, next) {
+  const token = req.header('x-auth-token');
+
+  // Check for token
+  if (!token) {
+    return res.status(401).json({ msg: 'No token, authorization denied' });
+  }
+
+  try {
+    // Verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Add user from payload
+    req.user = decoded;
+    next();
+  } catch (e) {
+    res.status(400).json({ msg: 'Token is not valid' });
+  }
+}
+
+module.exports = auth;
+
+
+--------------------------------------------------------------------------------
+FILE: server\middleware\csrf.js
+SIZE: 2796 bytes
+MODIFIED: 2025-12-24 14:25:08
+================================================================================
+/**
+ * CSRF Protection Middleware
+ * Server-side CSRF token generation and validation
+ */
+
+const crypto = require('crypto');
+
+// CSRF token storage (in production, use Redis or database)
+const tokenStore = new Map();
+
+/**
+ * Generate CSRF token
+ * @returns {string} CSRF token
+ */
+function generateCSRFToken () {
+  return crypto.randomBytes(32).toString('hex');
+}
+
+/**
+ * Generate CSRF token endpoint
+ */
+function generateCSRFTokenEndpoint (req, res) {
+  const token = generateCSRFToken();
+  const sessionId = req.sessionID || req.ip; // Use session ID or IP as key
+  
+  // Store token with expiration (30 minutes)
+  tokenStore.set(sessionId, {
+    token,
+    expires: Date.now() + 30 * 60 * 1000 // 30 minutes
+  });
+  
+  res.json({ csrfToken: token });
+}
+
+/**
+ * Validate CSRF token
+ * @param {string} token - CSRF token to validate
+ * @param {string} sessionId - Session ID or IP
+ * @returns {boolean} True if valid, false otherwise
+ */
+function validateCSRFToken (token, sessionId) {
+  const storedToken = tokenStore.get(sessionId);
+  
+  if (!storedToken) {
+    return false;
+  }
+  
+  // Check if token is expired
+  if (storedToken.expires < Date.now()) {
+    tokenStore.delete(sessionId);
+    return false;
+  }
+  
+  // Compare tokens using timing-safe comparison
+  return crypto.timingSafeEqual(
+    Buffer.from(storedToken.token),
+    Buffer.from(token)
+  );
+}
+
+/**
+ * CSRF Protection Middleware
+ * Validates CSRF token for POST, PUT, DELETE requests
+ */
+function csrfProtection (req, res, next) {
+  // Skip CSRF check for GET, HEAD, OPTIONS requests
+  if (req.method === 'GET' || req.method === 'HEAD' || req.method === 'OPTIONS') {
+    return next();
+  }
+  
+  // Check for CSRF token in header or body
+  const csrfToken = req.headers['x-csrf-token'] || req.body.csrfToken;
+  const sessionId = req.sessionID || req.ip;
+  
+  if (!csrfToken) {
+    return res.status(403).json({
+      error: 'CSRF token missing',
+      message: 'CSRF token is required for this request'
+    });
+  }
+  
+  if (!validateCSRFToken(csrfToken, sessionId)) {
+    return res.status(403).json({
+      error: 'Invalid CSRF token',
+      message: 'The CSRF token is invalid or has expired'
+    });
+  }
+  
+  // Token is valid, proceed with the request
+  next();
+}
+
+/**
+ * Clean up expired tokens
+ */
+function cleanupExpiredTokens () {
+  const now = Date.now();
+  
+  for (const [sessionId, { expires }] of tokenStore.entries()) {
+    if (expires < now) {
+      tokenStore.delete(sessionId);
+    }
+  }
+}
+
+// Clean up expired tokens every 15 minutes
+setInterval(cleanupExpiredTokens, 15 * 60 * 1000);
+
+module.exports = {
+  generateCSRFTokenEndpoint,
+  csrfProtection,
+  generateCSRFToken,
+  validateCSRFToken
+};
+
+--------------------------------------------------------------------------------
+FILE: server\middleware\rateLimiter.js
+SIZE: 2208 bytes
+MODIFIED: 2025-12-24 14:53:50
+================================================================================
+/**
+ * Rate Limiting Middleware
+ * Prevents abuse and brute force attacks on API endpoints
+ */
+
+// Rate limit storage (in production, use Redis or database)
+const rateLimitStore = new Map();
+
+/**
+ * Rate Limiter Middleware
+ * @param {number} maxRequests - Maximum requests allowed
+ * @param {number} timeWindow - Time window in minutes
+ * @returns {Function} Express middleware
+ */
+function rateLimiter (maxRequests = 5, timeWindow = 1) {
+  const windowMs = timeWindow * 60 * 1000; // Convert minutes to milliseconds
+
+  return function (req, res, next) {
+    const clientId = req.ip; // Use client IP as identifier
+    const now = Date.now();
+    
+    // Initialize client record if it doesn't exist
+    if (!rateLimitStore.has(clientId)) {
+      rateLimitStore.set(clientId, {
+        requests: [now],
+        lastReset: now
+      });
+      return next();
+    }
+    
+    const clientData = rateLimitStore.get(clientId);
+    
+    // Reset request count if time window has passed
+    if (now - clientData.lastReset > windowMs) {
+      clientData.requests = [now];
+      clientData.lastReset = now;
+      return next();
+    }
+    
+    // Add current request
+    clientData.requests.push(now);
+    
+    // Check if rate limit exceeded
+    if (clientData.requests.length > maxRequests) {
+      const retryAfter = Math.ceil((windowMs - (now - clientData.lastReset)) / 1000);
+      
+      res.set('Retry-After', retryAfter.toString());
+      return res.status(429).json({
+        error: 'Too many requests',
+        message: `You have exceeded the ${maxRequests} requests per ${timeWindow} minute limit`,
+        retryAfter: retryAfter
+      });
+    }
+    
+    // Request allowed
+    next();
+  };
+}
+
+/**
+ * Clean up expired rate limit records
+ */
+function cleanupRateLimitStore () {
+  const now = Date.now();
+  const oneHourAgo = now - 60 * 60 * 1000;
+  
+  for (const [clientId, { lastReset }] of rateLimitStore.entries()) {
+    if (lastReset < oneHourAgo) {
+      rateLimitStore.delete(clientId);
+    }
+  }
+}
+
+// Clean up expired records every 15 minutes
+setInterval(cleanupRateLimitStore, 15 * 60 * 1000);
+
+module.exports = rateLimiter;
+
+--------------------------------------------------------------------------------
+FILE: server\models\Application.js
+SIZE: 627 bytes
+MODIFIED: 2025-12-24 13:29:08
+================================================================================
+const mongoose = require('mongoose');
+const Schema = mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Create Schema
+const ApplicationSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String
+  },
+  propertyOfInterest: {
+    type: String
+  },
+  message: {
+    type: String
+  },
+  documents: [
+    {
+      type: String // Store path to uploaded documents
+    }
+  ],
+  date_submitted: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = Application = mongoose.model('application', ApplicationSchema);
+
+--------------------------------------------------------------------------------
+FILE: server\models\User.js
+SIZE: 505 bytes
+MODIFIED: 2025-12-24 11:04:31
+================================================================================
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Create Schema
+const UserSchema = new Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  register_date: {
+    type: Date,
+    default: Date.now
+  },
+  savedProperties: [{
+    type: Schema.Types.ObjectId,
+    ref: 'property'
+  }]
+});
+
+module.exports = User = mongoose.model('user', UserSchema);
+
+--------------------------------------------------------------------------------
+FILE: server\routes\api\applications.js
+SIZE: 3076 bytes
+MODIFIED: 2025-12-24 13:28:35
+================================================================================
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth'); // We will create this middleware
+const multer = require('multer'); // For file uploads
+const path = require('path');
+const fs = require('fs');
+
+// User Model
+const User = require('../../models/User');
+// Application Model (We will create this)
+const Application = require('../../models/Application');
+
+// Setup storage for multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, '../../uploads');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|pdf|doc|docx/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb('Error: File upload only supports images (jpeg/jpg/png) and documents (pdf/doc/docx)!');
+  }
+}).array('documents', 5); // Allow up to 5 documents to be uploaded
+
+// @route   POST api/applications
+// @desc    Submit a new application with documents
+// @access  Public (or Private if login is required to apply)
+router.post('/applications', (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ msg: err });
+    }
+
+    const { name, email, phone, propertyOfInterest, message } = req.body;
+    const documents = req.files ? req.files.map(file => file.path) : [];
+
+    // Simple validation
+    if (!name || !email || !phone || !propertyOfInterest) {
+      // Clean up uploaded files if validation fails
+      documents.forEach(docPath => {
+        fs.unlink(docPath, (unlinkErr) => {
+          if (unlinkErr) console.error('Error deleting file:', unlinkErr);
+        });
+      });
+      return res.status(400).json({ msg: 'Please enter all required fields for the application.' });
+    }
+
+    try {
+      const newApplication = new Application({
+        name,
+        email,
+        phone,
+        propertyOfInterest,
+        message,
+        documents
+      });
+
+      const application = await newApplication.save();
+      res.json({ msg: 'Application submitted successfully!', application });
+    } catch (dbErr) {
+      console.error('Database error during application submission:', dbErr);
+      // Clean up uploaded files if DB save fails
+      documents.forEach(docPath => {
+        fs.unlink(docPath, (unlinkErr) => {
+          if (unlinkErr) console.error('Error deleting file:', unlinkErr);
+        });
+      });
+      res.status(500).json({ msg: 'Server error during application submission.' });
+    }
+  });
+});
+
+module.exports = router;
+
+
+--------------------------------------------------------------------------------
+FILE: server\routes\api\contact.js
+SIZE: 1681 bytes
+MODIFIED: 2025-12-24 14:55:23
+================================================================================
+const express = require('express');
+const router = express.Router();
+const { google } = require('googleapis');
+const rateLimiter = require('../../middleware/rateLimiter');
+require('dotenv').config();
+
+// Configuration for Google Sheets API
+const auth = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+    private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY.replace(/\\n/g, '\n') // Handle multiline private key
+  },
+  scopes: ['https://www.googleapis.com/auth/spreadsheets']
+});
+
+// @route   POST api/contact
+// @desc    Submit contact form data to Google Sheet
+// @access  Public
+router.post('/', rateLimiter(5, 1), async (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  // Simple validation
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({ msg: 'Please enter all fields.' });
+  }
+
+  try {
+    const sheets = google.sheets({ version: 'v4', auth });
+    const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
+    const range = 'Contact Submissions!A:D'; // Assuming sheet named "Contact Submissions" and columns A-D for name, email, subject, message
+
+    const values = [[name, email, subject, message, new Date().toISOString()]];
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range,
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values
+      }
+    });
+
+    res.json({ msg: 'Contact form submitted successfully!' });
+  } catch (error) {
+    console.error('Error submitting contact form to Google Sheets:', error);
+    res.status(500).json({ msg: 'Server error: Could not submit form.' });
+  }
+});
+
+module.exports = router;
+
+
+--------------------------------------------------------------------------------
+FILE: server\routes\api\csp.js
+SIZE: 954 bytes
+MODIFIED: 2025-12-24 14:57:00
+================================================================================
+/**
+ * CSP Reporting Endpoint
+ * Receives Content Security Policy violation reports
+ */
+
+const express = require('express');
+const router = express.Router();
+
+// @route   POST api/csp
+// @desc    Receive CSP violation reports
+// @access  Public
+router.post('/', (req, res) => {
+  try {
+    // Log CSP violation report
+    const cspReport = req.body;
+    
+    // In production, you would:
+    // 1. Store the report in a database
+    // 2. Send alerts to security team
+    // 3. Analyze patterns for security improvements
+    
+    // For now, just log to console (in development)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('CSP Violation Report:', JSON.stringify(cspReport, null, 2));
+    }
+    
+    // Respond with 204 No Content as per CSP spec
+    res.status(204).end();
+  } catch (error) {
+    // Silent error handling for security
+    res.status(204).end();
+  }
+});
+
+module.exports = router;
+
+--------------------------------------------------------------------------------
+FILE: server\routes\api\csrf.js
+SIZE: 389 bytes
+MODIFIED: 2025-12-24 14:25:44
+================================================================================
+/**
+ * CSRF Token API Routes
+ * Endpoints for CSRF token generation and management
+ */
+
+const express = require('express');
+const router = express.Router();
+const { generateCSRFTokenEndpoint } = require('../../middleware/csrf');
+
+// @route   GET api/csrf
+// @desc    Generate CSRF token
+// @access  Public
+router.get('/', generateCSRFTokenEndpoint);
+
+module.exports = router;
+
+--------------------------------------------------------------------------------
+FILE: server\routes\api\users.js
+SIZE: 4042 bytes
+MODIFIED: 2025-12-24 11:04:56
+================================================================================
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth'); // We will create this middleware
+
+// User Model
+const User = require('../../models/User');
+
+// @route   POST api/users/register
+// @desc    Register new user
+// @access  Public
+router.post('/register', (req, res) => {
+  const { name, email, password } = req.body;
+
+  // Simple validation
+  if(!name || !email || !password) {
+    return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+
+  // Check for existing user
+  User.findOne({ email })
+    .then(user => {
+      if(user) return res.status(400).json({ msg: 'User already exists' });
+
+      const newUser = new User({
+        name,
+        email,
+        password
+      });
+
+      // Create salt & hash
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if(err) throw err;
+          newUser.password = hash;
+          newUser.save()
+            .then(user => {
+              jwt.sign(
+                { id: user.id },
+                process.env.JWT_SECRET,
+                { expiresIn: 3600 },
+                (err, token) => {
+                  if(err) throw err;
+                  res.json({
+                    token,
+                    user: {
+                      id: user.id,
+                      name: user.name,
+                      email: user.email
+                    }
+                  });
+                }
+              )
+            });
+        })
+      })
+    })
+});
+
+// @route   POST api/users/login
+// @desc    Login user
+// @access  Public
+router.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Simple validation
+  if(!email || !password) {
+    return res.status(400).json({ msg: 'Please enter all fields' });
+  }
+
+  // Check for existing user
+  User.findOne({ email })
+    .then(user => {
+      if(!user) return res.status(400).json({ msg: 'User does not exist' });
+
+      // Validate password
+      bcrypt.compare(password, user.password)
+        .then(isMatch => {
+          if(!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+
+          jwt.sign(
+            { id: user.id },
+            process.env.JWT_SECRET,
+            { expiresIn: 3600 },
+            (err, token) => {
+              if(err) throw err;
+              res.json({
+                token,
+                user: {
+                  id: user.id,
+                  name: user.name,
+                  email: user.email
+                }
+              });
+            }
+          )
+        })
+    })
+});
+
+// @route   GET api/users/me
+// @desc    Get user data
+// @access  Private
+router.get('/me', auth, (req, res) => {
+  User.findById(req.user.id)
+    .select('-password')
+    .then(user => res.json(user));
+});
+
+// @route   POST api/users/me/saved-properties
+// @desc    Save a property
+// @access  Private
+router.post('/me/saved-properties', auth, (req, res) => {
+    User.findById(req.user.id).then(user => {
+        if (!user) return res.status(404).json({ msg: 'User not found' });
+
+        const propertyId = req.body.propertyId;
+        if (!user.savedProperties.includes(propertyId)) {
+            user.savedProperties.push(propertyId);
+            user.save().then(user => res.json(user.savedProperties));
+        } else {
+            res.status(400).json({ msg: 'Property already saved' });
+        }
+    });
+});
+
+// @route   DELETE api/users/me/saved-properties/:propertyId
+// @desc    Remove a saved property
+// @access  Private
+router.delete('/me/saved-properties/:propertyId', auth, (req, res) => {
+    User.findById(req.user.id).then(user => {
+        if (!user) return res.status(404).json({ msg: 'User not found' });
+
+        user.savedProperties = user.savedProperties.filter(
+            property => property.toString() !== req.params.propertyId
+        );
+        user.save().then(user => res.json(user.savedProperties));
+    });
+});
+
+
+module.exports = router;
+
+
+--------------------------------------------------------------------------------
 FILE: src\404.html
-SIZE: 7463 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 7477 bytes
+MODIFIED: 2025-12-24 22:41:52
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -59802,7 +60594,7 @@ MODIFIED: 2025-12-24 09:35:53
     <script>
         lucide.createIcons();
     </script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 
     <script>
         // 404 PAGE ANALYTICS
@@ -60318,8 +61110,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\_includes\header.html
-SIZE: 1838 bytes
-MODIFIED: 2025-12-24 10:51:46
+SIZE: 2796 bytes
+MODIFIED: 2025-12-24 13:23:41
 ================================================================================
 <header class="header-glass" role="banner">
   <div class="skip-to-content">
@@ -60360,18 +61152,70 @@ MODIFIED: 2025-12-24 10:51:46
         <li role="none">
           <a href="/contact/" class="nav-link" role="menuitem">Contact</a>
         </li>
-        <li role="none" class="nav-cta">
-          <a href="/apply/" class="btn btn-primary cta-link" role="menuitem">Apply Now</a>
-        </li>
       </ul>
+      <div id="auth-links" class="nav-auth-links">
+        <!-- Auth links will be dynamically loaded here -->
+      </div>
     </nav>
   </div>
 </header>
 
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const authLinksContainer = document.getElementById('auth-links');
+
+    if (authLinksContainer) {
+      if (auth.isAuthenticated) {
+        authLinksContainer.innerHTML = `
+          <a href="/profile.html" class="btn btn-secondary cta-link" role="menuitem">Profile</a>
+          <button id="logout-btn" class="btn btn-primary cta-link" role="menuitem">Logout</button>
+        `;
+        document.getElementById('logout-btn').addEventListener('click', () => {
+          auth.logout();
+          window.location.href = '/login.html';
+        });
+      } else {
+        authLinksContainer.innerHTML = `
+          <a href="/login.html" class="btn btn-secondary cta-link" role="menuitem">Login</a>
+          <a href="/register.html" class="btn btn-primary cta-link" role="menuitem">Register</a>
+        `;
+      }
+    }
+  });
+</script>
+
+--------------------------------------------------------------------------------
+FILE: src\_includes\layouts\post.html
+SIZE: 575 bytes
+MODIFIED: 2025-12-24 13:26:42
+================================================================================
+---
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <article class="blog-post container">
+    <header class="post-header">
+      <h1 class="post-title">{{ title }}</h1>
+      <time class="post-date" datetime="{{ date | htmlDateString }}">{{ date | formatDate }}</time>
+      <p class="post-author">By {{ author or "Properties 4 Creations" }}</p>
+    </header>
+    <div class="post-content">
+      {{ content | safe }}
+    </div>
+    <footer class="post-footer">
+      <a href="/blog.html" class="btn btn-secondary">← Back to Blog</a>
+    </footer>
+  </article>
+</main>
+
+
 --------------------------------------------------------------------------------
 FILE: src\_includes\meta.html
-SIZE: 4995 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 3850 bytes
+MODIFIED: 2025-12-24 22:40:15
 ================================================================================
 <meta charset='UTF-8' />
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
@@ -60433,26 +61277,6 @@ MODIFIED: 2025-12-24 09:35:53
 <!-- Load main stylesheet globally for all pages -->
 <link rel='stylesheet' href='/css/main.css' />
 
-<!-- Content Security Policy - Fixed for External Resources -->
-<meta http-equiv='Content-Security-Policy' content="default-src 'self';
-               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com;
-               script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://unpkg.com https://cdn.jsdelivr.net;
-               img-src 'self' data: https:;
-               font-src 'self' https://fonts.gstatic.com;
-               connect-src 'self' https://www.google-analytics.com https://formspree.io;
-               frame-ancestors 'self';
-               base-uri 'self';
-               form-action 'self' https://formspree.io;
-               object-src 'none';
-               media-src 'self';
-               worker-src 'self';
-               child-src 'none';" />
-
-<!-- Additional Security Headers -->
-<meta http-equiv='X-Content-Type-Options' content='nosniff' />
-<meta http-equiv='Referrer-Policy' content='strict-origin-when-cross-origin' />
-<meta http-equiv='Permissions-Policy' content='camera=(), microphone=(), geolocation=(), payment=()' />
-
 <!-- DNS Prefetch for Performance -->
 <link rel='dns-prefetch' href='//fonts.googleapis.com' />
 <link rel='dns-prefetch' href='//fonts.gstatic.com' />
@@ -60506,11 +61330,155 @@ MODIFIED: 2025-12-24 09:35:53
 </nav>
 
 --------------------------------------------------------------------------------
-FILE: src\_includes\partials\security-headers.html
-SIZE: 2153 bytes
-MODIFIED: 2025-12-24 09:35:53
+FILE: src\_includes\partials\breadcrumb.html
+SIZE: 2852 bytes
+MODIFIED: 2025-12-24 15:50:38
 ================================================================================
-<!-- Content Security Policy - Fixed for External Resources -->
+<!-- Breadcrumb Navigation -->
+<nav class="breadcrumb-navigation" aria-label="Breadcrumb" role="navigation">
+  <ol class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a href="/" itemprop="item" class="breadcrumb-link">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1" />
+    </li>
+    
+    <!-- Dynamic breadcrumb items will be inserted here based on page context -->
+    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" data-breadcrumb-current>
+      <span itemprop="name" class="breadcrumb-current">{{ pageTitle }}</span>
+      <meta itemprop="position" content="2" />
+    </li>
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb-navigation {
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    background-color: var(--beige);
+    border-radius: 4px;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .breadcrumb-link {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb-link:hover,
+  .breadcrumb-link:focus {
+    color: var(--wood);
+    outline: 3px solid var(--wood);
+    outline-offset: 2px;
+  }
+
+  .breadcrumb-current {
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: var(--navy);
+  }
+
+  .breadcrumb-separator::after {
+    content: ">";
+  }
+
+  @media (max-width: 768px) {
+    .breadcrumb-list {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .breadcrumb-separator::after {
+      content: "\\1F881"; /* Downwards arrow with corner leftwards */
+      transform: rotate(90deg);
+      display: inline-block;
+    }
+  }
+</style>
+
+<script>
+  // Enhance breadcrumb accessibility
+  document.addEventListener('DOMContentLoaded', function() {
+    const breadcrumbItems = document.querySelectorAll('.breadcrumb-item');
+    
+    // Add ARIA attributes for better screen reader support
+    breadcrumbItems.forEach((item, index) => {
+      item.setAttribute('aria-current', index === breadcrumbItems.length - 1 ? 'page' : 'false');
+    });
+
+    // Add keyboard navigation support
+    const breadcrumbLinks = document.querySelectorAll('.breadcrumb-link');
+    breadcrumbLinks.forEach(link => {
+      link.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          link.click();
+        }
+      });
+    });
+  });
+</script>
+
+--------------------------------------------------------------------------------
+FILE: src\_includes\partials\pagination.html
+SIZE: 898 bytes
+MODIFIED: 2025-12-24 13:27:15
+================================================================================
+{%- if pagination.pages.length > 1 %}
+<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination-list">
+    {%- if pagination.previousPageLink %}
+    <li class="pagination-item">
+      <a href="{{ pagination.previousPageLink }}" class="pagination-link" aria-label="Previous page">Previous</a>
+    </li>
+    {%- endif %}
+
+    {%- for pageEntry in pagination.pages %}
+    <li class="pagination-item">
+      <a href="{{ pageEntry.url }}"
+         class="pagination-link{% if pageEntry.url == page.url %} active" aria-current="page"{% endif %}"
+         aria-label="Go to page {{ loop.index }}">
+        {{ loop.index }}
+      </a>
+    </li>
+    {%- endfor %}
+
+    {%- if pagination.nextPageLink %}
+    <li class="pagination-item">
+      <a href="{{ pagination.nextPageLink }}" class="pagination-link" aria-label="Next page">Next</a>
+    </li>
+    {%- endif %}
+  </ul>
+</nav>
+{%- endif %}
+
+--------------------------------------------------------------------------------
+FILE: src\_includes\partials\security-headers.html
+SIZE: 2205 bytes
+MODIFIED: 2025-12-24 14:59:25
+================================================================================
+<!-- Content Security Policy - Fixed for External Resources with Reporting -->
 <meta http-equiv='Content-Security-Policy' content="default-src 'self';
                script-src 'self' 'unsafe-inline' 'nonce-Formspree-Secure-2025' https://www.googletagmanager.com https://unpkg.com https://cdn.jsdelivr.net;
                style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://unpkg.com;
@@ -60523,7 +61491,8 @@ MODIFIED: 2025-12-24 09:35:53
                object-src 'none';
                media-src 'self';
                worker-src 'self';
-               child-src 'none';" />
+               child-src 'none';
+               report-uri /api/csp;" />
 
 <!-- Additional Security Headers -->
 <meta http-equiv='X-Content-Type-Options' content='nosniff' />
@@ -60902,9 +61871,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 --------------------------------------------------------------------------------
 FILE: src\about.html
-SIZE: 17618 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 17889 bytes
+MODIFIED: 2025-12-24 15:52:38
 ================================================================================
+---
+title: 'About Us - Properties 4 Creations'
+description: 'Learn about our mission to provide quality housing for veterans and families in East Texas.'
+pageTitle: 'About Us'
+---
+
 <!doctype html>
 <html lang='en'>
 
@@ -60918,6 +61893,9 @@ MODIFIED: 2025-12-24 09:35:53
 
     <!-- HEADER -->
     {% include 'header.html' %}
+
+    <!-- Breadcrumb Navigation -->
+    {% include 'partials/breadcrumb.html' %}
 
     <main id='main-content'>
         <!-- ABOUT HEADER -->
@@ -61254,9 +62232,123 @@ MODIFIED: 2025-12-24 09:35:53
 </html>
 
 --------------------------------------------------------------------------------
+FILE: src\apply-online.html
+SIZE: 4682 bytes
+MODIFIED: 2025-12-24 13:29:45
+================================================================================
+---
+title: 'Online Application - Properties 4 Creations'
+description: 'Submit your application for a property online.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container application-section">
+    <h1>Property Application Form</h1>
+    <p>Please fill out the form below to apply for a property. All fields are required unless otherwise noted.</p>
+
+    <form id="property-application-form" class="application-form" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="applicant-name">Full Name</label>
+        <input type="text" id="applicant-name" name="name" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="applicant-email">Email Address</label>
+        <input type="email" id="applicant-email" name="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="applicant-phone">Phone Number</label>
+        <input type="tel" id="applicant-phone" name="phone" autocomplete="tel">
+      </div>
+      <div class="form-group">
+        <label for="property-interest">Property of Interest</label>
+        <select id="property-interest" name="propertyOfInterest" required>
+          <option value="">-- Select a Property --</option>
+          <!-- Options will be dynamically loaded by JavaScript -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="applicant-message">Additional Message (Optional)</label>
+        <textarea id="applicant-message" name="message" rows="5"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="applicant-documents">Upload Documents (e.g., ID, Proof of Income, max 5 files, 10MB each)</label>
+        <input type="file" id="applicant-documents" name="documents" multiple accept=".jpeg,.jpg,.png,.pdf,.doc,.docx">
+        <small>Accepted formats: JPEG, PNG, PDF, DOC, DOCX. Max 5 files, 10MB per file.</small>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit Application</button>
+      <div id="application-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+      <div id="application-success" class="message-box success-message" aria-live="polite" style="display: none;">
+        Your application has been submitted successfully! We will review it shortly.
+      </div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js'; // Potentially use auth for pre-filling
+  import { propertiesData } from '/js/main.js'; // To populate property dropdown
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Populate properties dropdown
+    const propertySelect = document.getElementById('property-interest');
+    if (propertySelect && propertiesData && propertiesData.length > 0) {
+      propertiesData.forEach(prop => {
+        const option = document.createElement('option');
+        option.value = prop.name;
+        option.textContent = prop.name;
+        propertySelect.appendChild(option);
+      });
+    }
+
+    const applicationForm = document.getElementById('property-application-form');
+    const applicationMessage = document.getElementById('application-message');
+    const applicationSuccess = document.getElementById('application-success');
+
+    if (applicationForm) {
+      applicationForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        applicationMessage.style.display = 'none';
+        applicationMessage.textContent = '';
+        applicationSuccess.style.display = 'none';
+
+        const formData = new FormData(applicationForm);
+
+        try {
+          const res = await fetch('/api/applications', {
+            method: 'POST',
+            body: formData // FormData object is automatically set with Content-Type: multipart/form-data
+          });
+
+          const data = await res.json();
+
+          if (res.ok) {
+            applicationSuccess.style.display = 'block';
+            applicationForm.reset();
+            // Clear file input manually if needed (some browsers don't reset file input with form.reset())
+            const fileInput = document.getElementById('applicant-documents');
+            if (fileInput) fileInput.value = '';
+          } else {
+            applicationMessage.textContent = data.msg || 'Application submission failed.';
+            applicationMessage.style.display = 'block';
+          }
+        } catch (err) {
+          console.error('Application submission error:', err);
+          applicationMessage.textContent = 'Network error during application submission.';
+          applicationMessage.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
+
+--------------------------------------------------------------------------------
 FILE: src\apply.html
-SIZE: 21739 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 21753 bytes
+MODIFIED: 2025-12-24 22:41:55
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -61573,7 +62665,7 @@ MODIFIED: 2025-12-24 09:35:53
       lucide.createIcons();
     </script>
     <script src='/js/accessibility-enhanced.js'></script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 
     <script>
         // APPLICATION FORM JAVASCRIPT
@@ -61658,6 +62750,45 @@ MODIFIED: 2025-12-24 09:35:53
 </body>
 
 </html>
+
+--------------------------------------------------------------------------------
+FILE: src\blog.html
+SIZE: 1106 bytes
+MODIFIED: 2025-12-24 13:27:00
+================================================================================
+---
+title: 'Blog - Properties 4 Creations'
+description: 'Latest news and updates from Properties 4 Creations.'
+layout: 'base.html'
+pagination:
+  data: collections.posts
+  size: 5
+  alias: posts
+---
+
+<main id="main-content">
+  <section class="container blog-index-section">
+    <h1>Our Blog</h1>
+    <p class="section-description">Stay updated with our latest news, property insights, and community impact stories.</p>
+
+    <div class="blog-list">
+      {%- for post in pagination.items %}
+      <article class="blog-post-card">
+        <a href="{{ post.url }}" class="post-card-link">
+          <h2 class="post-card-title">{{ post.data.title }}</h2>
+        </a>
+        <time class="post-card-date" datetime="{{ post.data.date | htmlDateString }}">{{ post.data.date | formatDate }}</time>
+        <p class="post-card-excerpt">{{ post.data.description or post.templateContent | striptags | truncate(200) }}</p>
+        <a href="{{ post.url }}" class="btn btn-tertiary btn-sm">Read More</a>
+      </article>
+      {%- endfor %}
+    </div>
+
+    {% include "partials/pagination.html" %}
+
+  </section>
+</main>
+
 
 --------------------------------------------------------------------------------
 FILE: src\button-examples.html
@@ -61760,8 +62891,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\contact.html
-SIZE: 7272 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 7462 bytes
+MODIFIED: 2025-12-24 22:41:57
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -61885,6 +63016,9 @@ MODIFIED: 2025-12-24 09:35:53
                                 <span class='error-message'>You must agree to continue</span>
                             </div>
 
+                            <!-- CSRF Token (will be added by JavaScript) -->
+                            <input type='hidden' id='csrf-token' name='csrfToken' value='' />
+
                             <button type='submit' class='btn btn-cta'>Send Message</button>
                         </form>
                     </div>
@@ -61903,7 +63037,7 @@ MODIFIED: 2025-12-24 09:35:53
       lucide.createIcons();
     </script>
     <script src='/js/accessibility-enhanced.js'></script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 </body>
 
 </html>
@@ -69037,8 +70171,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\index.html
-SIZE: 6540 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 6554 bytes
+MODIFIED: 2025-12-24 22:41:59
 ================================================================================
 ---
 layout: false
@@ -69185,7 +70319,7 @@ Section 8 & HUD-VASH programs."
     lucide.createIcons();
   </script>
   <script src='/js/accessibility-enhanced.js'></script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       // MAP INITIALIZATION
@@ -69225,8 +70359,8 @@ Section 8 & HUD-VASH programs."
 
 --------------------------------------------------------------------------------
 FILE: src\jefferson-riverfront.html
-SIZE: 7742 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 7756 bytes
+MODIFIED: 2025-12-24 22:42:02
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -69397,7 +70531,7 @@ MODIFIED: 2025-12-24 09:35:53
     <script>
         lucide.createIcons();
     </script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 </body>
 
 </html>
@@ -69689,6 +70823,164 @@ MODIFIED: 2025-12-24 09:35:53
 
 
 --------------------------------------------------------------------------------
+FILE: src\js\auth.js
+SIZE: 4453 bytes
+MODIFIED: 2025-12-24 15:47:35
+================================================================================
+export const auth = {
+  isAuthenticated: false,
+  user: null,
+  token: null,
+  
+  init () {
+    this.token = localStorage.getItem('token');
+    if (this.token) {
+      this.isAuthenticated = true;
+      this.loadUser();
+    }
+  },
+
+  async register (name, email, password) {
+    try {
+      const res = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        this.setAuth(data.token, data.user);
+        return { success: true, message: 'Registration successful!' };
+      } else {
+        return { success: false, message: data.msg || 'Registration failed.' };
+      }
+    } catch (err) {
+      console.error('Registration error:', err);
+      return { success: false, message: 'Network error during registration.' };
+    }
+  },
+
+  async login (email, password) {
+    try {
+      const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        this.setAuth(data.token, data.user);
+        return { success: true, message: 'Login successful!' };
+      } else {
+        return { success: false, message: data.msg || 'Login failed.' };
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      return { success: false, message: 'Network error during login.' };
+    }
+  },
+
+  logout () {
+    this.isAuthenticated = false;
+    this.user = null;
+    this.token = null;
+    localStorage.removeItem('token');
+    // Consider also clearing saved properties data if needed
+  },
+
+  setAuth (token, user) {
+    this.token = token;
+    this.user = user;
+    this.isAuthenticated = true;
+    localStorage.setItem('token', token);
+  },
+
+  async loadUser () {
+    if (!this.token) {
+      this.logout();
+      return;
+    }
+    try {
+      const res = await fetch('/api/users/me', {
+        headers: {
+          'x-auth-token': this.token
+        }
+      });
+      const data = await res.json();
+      if (res.ok) {
+        this.user = data; // Assign the full user object, which should include savedProperties
+        this.isAuthenticated = true;
+      } else {
+        this.logout(); // Token might be expired or invalid
+      }
+    } catch (err) {
+      console.error('Error loading user:', err);
+      this.logout();
+    }
+  },
+
+  async saveProperty (propertyId) {
+    if (!this.isAuthenticated || !this.user) return { success: false, message: 'Not authenticated.' };
+    try {
+      const res = await fetch('/api/users/me/saved-properties', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...this.getAuthHeaders()
+        },
+        body: JSON.stringify({ propertyId })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        this.user.savedProperties = data; // Update local state
+        return { success: true, message: 'Property saved.' };
+      } else {
+        return { success: false, message: data.msg || 'Failed to save property.' };
+      }
+    } catch (err) {
+      console.error('Error saving property:', err);
+      return { success: false, message: 'Network error saving property.' };
+    }
+  },
+
+  async removeProperty (propertyId) {
+    if (!this.isAuthenticated || !this.user) return { success: false, message: 'Not authenticated.' };
+    try {
+      const res = await fetch(`/api/users/me/saved-properties/${propertyId}`, {
+        method: 'DELETE',
+        headers: this.getAuthHeaders()
+      });
+      const data = await res.json();
+      if (res.ok) {
+        this.user.savedProperties = data; // Update local state
+        return { success: true, message: 'Property removed.' };
+      } else {
+        return { success: false, message: data.msg || 'Failed to remove property.' };
+      }
+    } catch (err) {
+      console.error('Error removing property:', err);
+      return { success: false, message: 'Network error removing property.' };
+    }
+  },
+
+  isPropertySaved (propertyId) {
+    return this.isAuthenticated && this.user && this.user.savedProperties && this.user.savedProperties.includes(propertyId);
+  },
+
+  getAuthHeaders () {
+    if (this.token) {
+      return { 'x-auth-token': this.token };
+    }
+    return {};
+  }
+};
+
+
+--------------------------------------------------------------------------------
 FILE: src\js\button-utilities.js
 SIZE: 5906 bytes
 MODIFIED: 2025-12-24 09:35:53
@@ -69927,8 +71219,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
 --------------------------------------------------------------------------------
 FILE: src\js\comparison-slider.js
-SIZE: 5850 bytes
-MODIFIED: 2025-12-24 10:59:38
+SIZE: 5828 bytes
+MODIFIED: 2025-12-24 15:47:35
 ================================================================================
 /**
  * Before/After Comparison Slider Component
@@ -69936,7 +71228,7 @@ MODIFIED: 2025-12-24 10:59:38
  */
 
 export class ComparisonSlider {
-  constructor(container, options = {}) {
+  constructor (container, options = {}) {
     this.container = container;
     this.options = {
       initialPosition: 50, // Percentage
@@ -69957,7 +71249,7 @@ export class ComparisonSlider {
     this.init();
   }
   
-  init() {
+  init () {
     if (!this.beforeImage || !this.afterImage || !this.handle) {
       console.warn('Comparison slider elements not found');
       return;
@@ -69994,7 +71286,7 @@ export class ComparisonSlider {
     this.addLabels();
   }
   
-  addLabels() {
+  addLabels () {
     if (!this.beforeLabel) {
       const beforeLabel = document.createElement('div');
       beforeLabel.className = 'slider-label before';
@@ -70012,14 +71304,14 @@ export class ComparisonSlider {
     }
   }
   
-  startDrag(e) {
+  startDrag (e) {
     e.preventDefault();
     this.isDragging = true;
     this.container.classList.add('dragging');
     this.handle.focus();
   }
   
-  drag(e) {
+  drag (e) {
     if (!this.isDragging) return;
     
     const clientX = e.clientX || e.touches[0].clientX;
@@ -70030,14 +71322,14 @@ export class ComparisonSlider {
     this.setPosition(Math.max(0, Math.min(100, percentage)));
   }
   
-  endDrag() {
+  endDrag () {
     if (!this.isDragging) return;
     
     this.isDragging = false;
     this.container.classList.remove('dragging');
   }
   
-  setPosition(percentage) {
+  setPosition (percentage) {
     this.options.initialPosition = percentage;
     
     // Update clip path
@@ -70058,52 +71350,52 @@ export class ComparisonSlider {
     }
   }
   
-  handleKeydown(e) {
+  handleKeydown (e) {
     const step = 1;
     
     switch (e.key) {
-      case 'ArrowLeft':
-      case 'ArrowDown':
-        e.preventDefault();
-        this.setPosition(this.options.initialPosition - step);
-        break;
-      case 'ArrowRight':
-      case 'ArrowUp':
-        e.preventDefault();
-        this.setPosition(this.options.initialPosition + step);
-        break;
-      case 'Home':
-        e.preventDefault();
-        this.setPosition(0);
-        break;
-      case 'End':
-        e.preventDefault();
-        this.setPosition(100);
-        break;
+    case 'ArrowLeft':
+    case 'ArrowDown':
+      e.preventDefault();
+      this.setPosition(this.options.initialPosition - step);
+      break;
+    case 'ArrowRight':
+    case 'ArrowUp':
+      e.preventDefault();
+      this.setPosition(this.options.initialPosition + step);
+      break;
+    case 'Home':
+      e.preventDefault();
+      this.setPosition(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      this.setPosition(100);
+      break;
     }
   }
   
-  handleResize() {
+  handleResize () {
     // Recalculate position on resize to maintain correct visual alignment
     this.setPosition(this.options.initialPosition);
   }
   
   // Public methods
-  reset() {
+  reset () {
     this.setPosition(50);
   }
   
-  setBeforeImage(src, alt) {
+  setBeforeImage (src, alt) {
     this.beforeImage.src = src;
     this.beforeImage.alt = alt;
   }
   
-  setAfterImage(src, alt) {
+  setAfterImage (src, alt) {
     this.afterImage.src = src;
     this.afterImage.alt = alt;
   }
   
-  destroy() {
+  destroy () {
     document.removeEventListener('mousemove', this.drag.bind(this));
     document.removeEventListener('touchmove', this.drag.bind(this));
     document.removeEventListener('mouseup', this.endDrag.bind(this));
@@ -70113,7 +71405,7 @@ export class ComparisonSlider {
 }
 
 // Initialize all comparison sliders on the page
-export function initComparisonSliders() {
+export function initComparisonSliders () {
   const sliders = document.querySelectorAll('.comparison-slider .slider-container');
   
   sliders.forEach(container => {
@@ -71578,8 +72870,8 @@ export default FormValidator;
 
 --------------------------------------------------------------------------------
 FILE: src\js\features\PropertyFilter.js
-SIZE: 15324 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 20329 bytes
+MODIFIED: 2025-12-24 15:47:35
 ================================================================================
 /**
  * PropertyFilter - Advanced Property Filtering System
@@ -71593,6 +72885,8 @@ MODIFIED: 2025-12-24 09:35:53
  * - Accessible filter controls
  */
 
+import { auth } from '../../js/auth.js';
+
 export class PropertyFilter {
   constructor (properties, containerSelector) {
     this.allProperties = properties || [];
@@ -71603,7 +72897,10 @@ export class PropertyFilter {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: ''
+      search: '',
+      minPrice: null,
+      maxPrice: null,
+      propertyType: ''
     };
     this.debounceTimeout = null;
     this.debounceDelay = 300;
@@ -71665,9 +72962,32 @@ export class PropertyFilter {
             <option value="3">3+ Bathrooms</option>
           </select>
         </div>
+
+        <div class="filter-group">
+          <label for="filter-property-type" class="filter-label">Property Type</label>
+          <select id="filter-property-type" class="filter-select" aria-label="Filter by property type">
+            <option value="">All Types</option>
+            <option value="Single Family">Single Family</option>
+            <option value="Townhome">Townhome</option>
+            <option value="Historic">Historic</option>
+            <option value="Waterfront">Waterfront</option>
+            <option value="Studio">Studio</option>
+            <option value="Suburban">Suburban</option>
+            <option value="Urban">Urban</option>
+          </select>
+        </div>
+
+        <div class="filter-group filter-group--price">
+          <label for="filter-price-range" class="filter-label">Price Range</label>
+          <div class="price-range-inputs">
+            <input type="number" id="filter-min-price" class="filter-input" placeholder="Min Price" aria-label="Minimum price">
+            <span>-</span>
+            <input type="number" id="filter-max-price" class="filter-input" placeholder="Max Price" aria-label="Maximum price">
+          </div>
+        </div>
         
         <div class="filter-group filter-group--tags">
-          <span class="filter-label" id="tag-filter-label">Programs</span>
+          <span class="filter-label" id="tag-filter-label">Amenities & Programs</span>
           <div class="filter-tags" role="group" aria-labelledby="tag-filter-label">
             <button type="button" 
                     class="tag-filter" 
@@ -71686,6 +73006,18 @@ export class PropertyFilter {
                     data-tag="Pet Friendly"
                     aria-pressed="false">
               Pet Friendly
+            </button>
+            <button type="button" 
+                    class="tag-filter" 
+                    data-tag="ADA Accessible"
+                    aria-pressed="false">
+              ADA Accessible
+            </button>
+            <button type="button" 
+                    class="tag-filter" 
+                    data-tag="Family Friendly"
+                    aria-pressed="false">
+              Family Friendly
             </button>
           </div>
         </div>
@@ -71755,6 +73087,38 @@ export class PropertyFilter {
       });
     }
 
+    // Property Type filter
+    const propertyTypeSelect = document.getElementById('filter-property-type');
+    if (propertyTypeSelect) {
+      propertyTypeSelect.addEventListener('change', (e) => {
+        this.filters.propertyType = e.target.value;
+        this.applyFilters();
+      });
+    }
+
+    // Price range filters
+    const minPriceInput = document.getElementById('filter-min-price');
+    const maxPriceInput = document.getElementById('filter-max-price');
+
+    const handlePriceChange = () => {
+      this.filters.minPrice = minPriceInput.value ? parseInt(minPriceInput.value, 10) : null;
+      this.filters.maxPrice = maxPriceInput.value ? parseInt(maxPriceInput.value, 10) : null;
+      this.applyFilters();
+    };
+
+    if (minPriceInput) {
+      minPriceInput.addEventListener('input', () => {
+        clearTimeout(this.debounceTimeout);
+        this.debounceTimeout = setTimeout(handlePriceChange, this.debounceDelay);
+      });
+    }
+    if (maxPriceInput) {
+      maxPriceInput.addEventListener('input', () => {
+        clearTimeout(this.debounceTimeout);
+        this.debounceTimeout = setTimeout(handlePriceChange, this.debounceDelay);
+      });
+    }
+
     // Tag filters (event delegation)
     const tagContainer = this.filterBar.querySelector('.filter-tags');
     if (tagContainer) {
@@ -71818,6 +73182,28 @@ export class PropertyFilter {
         return false;
       }
 
+      // Property type filter
+      if (
+        this.filters.propertyType &&
+        prop.type !== this.filters.propertyType
+      ) {
+        return false;
+      }
+
+      // Price range filter
+      if (
+        this.filters.minPrice !== null &&
+        prop.price_amount < this.filters.minPrice
+      ) {
+        return false;
+      }
+      if (
+        this.filters.maxPrice !== null &&
+        prop.price_amount > this.filters.maxPrice
+      ) {
+        return false;
+      }
+
       // Tag filter (must have ALL selected tags)
       if (this.filters.tags.length > 0) {
         const propTags = prop.tags || [];
@@ -71845,7 +73231,10 @@ export class PropertyFilter {
       bedrooms: null,
       bathrooms: null,
       tags: [],
-      search: ''
+      search: '',
+      minPrice: null,
+      maxPrice: null,
+      propertyType: ''
     };
 
     // Reset UI elements
@@ -71857,6 +73246,15 @@ export class PropertyFilter {
 
     const bathroomSelect = document.getElementById('filter-bathrooms');
     if (bathroomSelect) bathroomSelect.value = '';
+
+    const propertyTypeSelect = document.getElementById('filter-property-type');
+    if (propertyTypeSelect) propertyTypeSelect.value = '';
+
+    const minPriceInput = document.getElementById('filter-min-price');
+    if (minPriceInput) minPriceInput.value = '';
+
+    const maxPriceInput = document.getElementById('filter-max-price');
+    if (maxPriceInput) maxPriceInput.value = '';
 
     // Reset tag buttons
     document.querySelectorAll('.tag-filter').forEach((btn) => {
@@ -71971,9 +73369,33 @@ export class PropertyFilter {
              class="btn btn-primary btn-sm">
             View Details
           </a>
+          ${auth.isAuthenticated ? 
+    `<button class="btn btn-secondary btn-sm save-property-btn" data-property-id="${prop.id}">
+              ${auth.isPropertySaved(prop.id) ? 'Unsave' : 'Save'}
+            </button>` : ''}
         </div>
       </div>
     `;
+
+    // Attach event listener for save/unsave button
+    if (auth.isAuthenticated) {
+      const saveButton = card.querySelector('.save-property-btn');
+      if (saveButton) {
+        saveButton.addEventListener('click', async (e) => {
+          const propertyId = e.target.dataset.propertyId;
+          if (auth.isPropertySaved(propertyId)) {
+            await auth.removeProperty(propertyId);
+            e.target.textContent = 'Save';
+          } else {
+            await auth.saveProperty(propertyId);
+            e.target.textContent = 'Unsave';
+          }
+          // Optionally, re-render the card or entire list to update state
+          // this.render(); // This would re-render everything, might be too heavy
+          // Just update the button text for now.
+        });
+      }
+    }
 
     return card;
   }
@@ -72073,8 +73495,8 @@ export default PropertyFilter;
 
 --------------------------------------------------------------------------------
 FILE: src\js\main.js
-SIZE: 23775 bytes
-MODIFIED: 2025-12-24 11:00:58
+SIZE: 25869 bytes
+MODIFIED: 2025-12-24 14:51:26
 ================================================================================
 /**
  * Main Application Entry Point
@@ -72092,6 +73514,7 @@ import { initErrorHandler } from './utils/errorHandler.js';
 import { createPropertiesErrorBoundary } from './utils/errorBoundary.js';
 import { LazyLoader } from './utils/lazyLoad.js';
 import { initComparisonSliders } from './comparison-slider.js';
+import { auth } from './auth.js';
 
 // Initialize error boundary first (before other components)
 createPropertiesErrorBoundary();
@@ -72238,7 +73661,9 @@ async function fetchPropertiesData () {
       name: prop.title,
       bedrooms: prop.bedrooms,
       bathrooms: prop.bathrooms,
-      price: prop.price ? prop.price.formatted : 'N/A', // Use formatted price
+      price: prop.price ? prop.price.formatted : 'N/A',
+      price_amount: prop.price ? prop.price.amount : 0,
+      type: prop.type,
       tags: prop.tags,
       location: prop.location,
       image: prop.images && prop.images.length > 0 ? prop.images[0] : 'images/properties/properties-default.webp'
@@ -72494,12 +73919,46 @@ if (form) {
   });
 }
 
+// CSRF TOKEN MANAGEMENT
+async function fetchCSRFToken () {
+  try {
+    const response = await fetch('/api/csrf', {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.csrfToken;
+    }
+
+    // Fallback token if API fails
+    return 'fallback-csrf-token';
+  } catch {
+    // Network error - use fallback token
+    return 'fallback-csrf-token';
+  }
+}
+
+// Add CSRF token to form
+async function addCSRFTokenToForm (form) {
+  const csrfToken = await fetchCSRFToken();
+  const csrfInput = form.querySelector('input[name="csrfToken"]');
+  
+  if (csrfInput) {
+    csrfInput.value = csrfToken;
+  }
+}
+
 // CONTACT FORM HANDLING
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   const contactSuccess = document.getElementById('contact-success');
 
-  contactForm.addEventListener('submit', (e) => {
+  // Fetch and add CSRF token when form loads
+  addCSRFTokenToForm(contactForm);
+
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     let isValid = true;
@@ -72541,17 +74000,48 @@ if (contactForm) {
     });
 
     if (isValid) {
-      contactSuccess.style.display = 'block';
-      contactForm.style.display = 'none';
+      // Get form data including CSRF token
+      const formData = new FormData(contactForm);
+      const csrfToken = formData.get('csrfToken');
 
-      // Production build will strip console statements
-      // Development logging removed for security
+      try {
+        // Submit to server with CSRF token
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+          },
+          body: JSON.stringify({
+            name: formData.get('contactName'),
+            email: formData.get('contactEmail'),
+            phone: formData.get('contactPhone'),
+            subject: formData.get('contactSubject'),
+            message: formData.get('contactMessage')
+          })
+        });
 
-      setTimeout(() => {
-        contactForm.reset();
-        contactForm.style.display = 'block';
-        contactSuccess.style.display = 'none';
-      }, 3000);
+        if (response.ok) {
+          contactSuccess.style.display = 'block';
+          contactForm.style.display = 'none';
+
+          setTimeout(() => {
+            contactForm.reset();
+            contactForm.style.display = 'block';
+            contactSuccess.style.display = 'none';
+            
+            // Refresh CSRF token after successful submission
+            addCSRFTokenToForm(contactForm);
+          }, 3000);
+        } else {
+          // Handle server validation errors
+          const errorData = await response.json();
+          alert('Error submitting form: ' + (errorData.message || 'Please try again'));
+        }
+      } catch (error) {
+        // Network error
+        alert('Network error. Please check your connection and try again.');
+      }
     }
   });
 }
@@ -72597,6 +74087,7 @@ document.querySelectorAll('img').forEach((img) => {
  * Initialize all components when DOM is ready
  */
 document.addEventListener('DOMContentLoaded', async () => {
+  auth.init(); // Initialize auth state
   await fetchPropertiesData(); // Ensure data is loaded before components that use it
   // Initialize Lazy Loading
   try {
@@ -72802,8 +74293,8 @@ function initResponsiveHeroBackgrounds () {
 
 --------------------------------------------------------------------------------
 FILE: src\js\monitoring\sentry-integration.js
-SIZE: 5791 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 5795 bytes
+MODIFIED: 2025-12-24 15:47:35
 ================================================================================
 /**
  * Sentry Error Monitoring Integration
@@ -72828,14 +74319,14 @@ const shouldInitializeSentry = () => {
 // Initialize Sentry if conditions are met
 if (shouldInitializeSentry()) {
   // Load Sentry SDK dynamically to avoid build issues
-  (function() {
+  (function () {
     // Create script element for Sentry
     const script = document.createElement('script');
     script.src = 'https://browser.sentry-cdn.com/7.74.1/bundle.min.js';
     script.crossOrigin = 'anonymous';
     script.integrity = 'sha384-7a1dkAyUoJvJ4F7fBZZZVxO3j7ZOtCpF3n8YwRrYl12JkRr3sS0l3XGwGx1N9s';
     
-    script.onload = function() {
+    script.onload = function () {
       // Initialize Sentry after script loads
       if (window.Sentry) {
         window.Sentry.init({
@@ -72848,7 +74339,7 @@ if (shouldInitializeSentry()) {
           replaysOnErrorSampleRate: 1.0, // Capture 100% of sessions when there's an error
           
           // Filter out noise
-          beforeSend(event) {
+          beforeSend (event) {
             // Don't send events in development
             if (process.env.NODE_ENV === 'development') {
               return null;
@@ -72906,7 +74397,7 @@ if (shouldInitializeSentry()) {
   })();
   
   // Helper function to determine page type
-  function getPageType() {
+  function getPageType () {
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') return 'homepage';
     if (path.includes('properties')) return 'properties';
@@ -73089,8 +74580,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 --------------------------------------------------------------------------------
 FILE: src\js\security\improved-csrf-protection.js
-SIZE: 7442 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 7458 bytes
+MODIFIED: 2025-12-24 15:47:35
 ================================================================================
 /**
  * Improved CSRF Protection Module
@@ -73104,7 +74595,7 @@ MODIFIED: 2025-12-24 09:35:53
  */
 
 export class ImprovedCSRFProtection {
-  constructor() {
+  constructor () {
     this.tokenName = 'csrf_token';
     this.cookieName = 'csrf_token';
     this.formspreeEndpoint = 'https://formspree.io/f/';
@@ -73112,7 +74603,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Generate a cryptographically secure token
-  generateSecureToken() {
+  generateSecureToken () {
     if (window.crypto && window.crypto.getRandomValues) {
       const array = new Uint8Array(32);
       window.crypto.getRandomValues(array);
@@ -73124,7 +74615,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Set CSRF token in cookie (double-submit cookie pattern)
-  setCSRFCookie(token) {
+  setCSRFCookie (token) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (30 * 60 * 1000)); // 30 minutes
     
@@ -73132,12 +74623,12 @@ export class ImprovedCSRFProtection {
   }
 
   // Get CSRF token from cookie
-  getCSRFCookie() {
+  getCSRFCookie () {
     const name = this.cookieName + '=';
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(';');
     
-    for(let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
       while (c.charAt(0) === ' ') {
         c = c.substring(1);
@@ -73150,7 +74641,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Initialize CSRF protection
-  init() {
+  init () {
     // Check if we already have a token in cookie
     let token = this.getCSRFCookie();
     
@@ -73168,7 +74659,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Attach CSRF protection to all forms
-  attachToAllForms() {
+  attachToAllForms () {
     const forms = document.querySelectorAll('form');
     
     forms.forEach((form) => {
@@ -73195,7 +74686,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Attach CSRF token to specific form
-  attachToForm(form) {
+  attachToForm (form) {
     // Check if CSRF token already exists
     const existingToken = form.querySelector(`input[name="${this.tokenName}"]`);
     if (existingToken) {
@@ -73214,7 +74705,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Validate form submission
-  validateForm(form) {
+  validateForm (form) {
     const submittedToken = form.querySelector(`input[name="${this.tokenName}"]`)?.value;
     const cookieToken = this.getCSRFCookie();
     
@@ -73232,13 +74723,13 @@ export class ImprovedCSRFProtection {
   }
 
   // Check if form uses Formspree
-  isFormspreeForm(form) {
+  isFormspreeForm (form) {
     const action = form.getAttribute('action') || '';
     return action.includes(this.formspreeEndpoint) || action.includes('formspree.io');
   }
 
   // Validate Formspree-specific requirements
-  validateFormspreeForm(form) {
+  validateFormspreeForm (form) {
     // Formspree has its own CSRF protection, but we add additional validation
     const honeypot = form.querySelector('input[name="_gotcha"]');
     if (honeypot && honeypot.value !== '') {
@@ -73258,7 +74749,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Handle validation errors
-  handleValidationError(form) {
+  handleValidationError (form) {
     // Show error message
     const errorContainer = form.querySelector('.form-error') || 
                           form.querySelector('.error-message') ||
@@ -73281,7 +74772,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Log security events
-  logSecurityEvent(eventType, data) {
+  logSecurityEvent (eventType, data) {
     // Only log in development or if explicitly enabled
     if (process.env.NODE_ENV === 'development' || window.DEBUG_CSRF) {
       console.warn(`[CSRF Protection] ${eventType}:`, data);
@@ -73289,12 +74780,12 @@ export class ImprovedCSRFProtection {
   }
 
   // Get current token
-  getToken() {
+  getToken () {
     return this.token || this.getCSRFCookie();
   }
 
   // Refresh token (for security, rotate tokens periodically)
-  refreshToken() {
+  refreshToken () {
     const newToken = this.generateSecureToken();
     this.setCSRFCookie(newToken);
     this.token = newToken;
@@ -73310,7 +74801,7 @@ export class ImprovedCSRFProtection {
   }
 
   // Clean up expired tokens
-  cleanup() {
+  cleanup () {
     // Remove expired cookies by setting them to expire immediately
     document.cookie = `${this.cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
@@ -75933,8 +77424,8 @@ export function cleanUserInput (input) {
 
 --------------------------------------------------------------------------------
 FILE: src\kemp-townhome.html
-SIZE: 6227 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 6241 bytes
+MODIFIED: 2025-12-24 22:42:05
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -76075,15 +77566,76 @@ MODIFIED: 2025-12-24 09:35:53
     <script>
         lucide.createIcons();
     </script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 </body>
 
 </html>
 
 --------------------------------------------------------------------------------
+FILE: src\login.html
+SIZE: 1844 bytes
+MODIFIED: 2025-12-24 13:23:09
+================================================================================
+---
+title: 'Login - Properties 4 Creations'
+description: 'Login to your Properties 4 Creations account.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container login-section">
+    <h1>Login to Your Account</h1>
+    <form id="login-form" class="auth-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+      <p class="auth-switch">Don't have an account? <a href="/register.html">Register here</a>.</p>
+      <div id="login-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    const loginMessage = document.getElementById('login-message');
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        loginMessage.style.display = 'none';
+        loginMessage.textContent = '';
+
+        const result = await auth.login(email, password);
+
+        if (result.success) {
+          window.location.href = '/profile.html'; // Redirect to profile page on successful login
+        } else {
+          loginMessage.textContent = result.message;
+          loginMessage.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
+
+--------------------------------------------------------------------------------
 FILE: src\longview-victorian.html
-SIZE: 16338 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 16352 bytes
+MODIFIED: 2025-12-24 22:42:14
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -76496,7 +78048,7 @@ MODIFIED: 2025-12-24 09:35:53
   <script>
     lucide.createIcons();
   </script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
 
   <script>
     // Historic property analytics
@@ -76517,8 +78069,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\manifest.json
-SIZE: 2695 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 2655 bytes
+MODIFIED: 2025-12-24 22:41:38
 ================================================================================
 {
   "name": "Properties 4 Creations - Affordable Housing for Families & Veterans",
@@ -76539,51 +78091,51 @@ MODIFIED: 2025-12-24 09:35:53
   "dir": "ltr",
   "icons": [
     {
-      "src": "/images/icons/icon-72x72.png",
+      "src": "/images/icons/home.svg",
       "sizes": "72x72",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-96x96.png",
+      "src": "/images/icons/home.svg",
       "sizes": "96x96",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-128x128.png",
+      "src": "/images/icons/home.svg",
       "sizes": "128x128",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-144x144.png",
+      "src": "/images/icons/home.svg",
       "sizes": "144x144",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-152x152.png",
+      "src": "/images/icons/home.svg",
       "sizes": "152x152",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-192x192.png",
+      "src": "/images/icons/home.svg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-384x384.png",
+      "src": "/images/icons/home.svg",
       "sizes": "384x384",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "/images/icons/icon-512x512.png",
+      "src": "/images/icons/home.svg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -76609,7 +78161,7 @@ MODIFIED: 2025-12-24 09:35:53
       "url": "/properties.html",
       "icons": [
         {
-          "src": "images/icons/icon-96x96.png",
+          "src": "images/icons/home.svg",
           "sizes": "96x96"
         }
       ]
@@ -76621,7 +78173,7 @@ MODIFIED: 2025-12-24 09:35:53
       "url": "/apply.html",
       "icons": [
         {
-          "src": "images/icons/icon-96x96.png",
+          "src": "images/icons/home.svg",
           "sizes": "96x96"
         }
       ]
@@ -76631,8 +78183,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\marshall-historic-farm.html
-SIZE: 5809 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 5823 bytes
+MODIFIED: 2025-12-24 22:42:11
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -76764,7 +78316,7 @@ MODIFIED: 2025-12-24 09:35:53
     <script>
         lucide.createIcons();
     </script>
-    <script src='/js/main.js'></script>
+    <script src='/js/main.js' type='module'></script>
 </body>
 
 </html>
@@ -77701,13 +79253,117 @@ MODIFIED: 2025-12-24 09:35:53
 </html>
 
 --------------------------------------------------------------------------------
+FILE: src\profile.html
+SIZE: 3500 bytes
+MODIFIED: 2025-12-24 13:23:27
+================================================================================
+---
+title: 'User Profile - Properties 4 Creations'
+description: 'View your profile and saved properties.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container profile-section">
+    <h1>Your Profile</h1>
+    <div id="profile-content">
+      <p>Loading user data...</p>
+    </div>
+    <button id="logout-button" class="btn btn-secondary">Logout</button>
+
+    <h2>Your Saved Properties</h2>
+    <div id="saved-properties-grid" class="properties-grid">
+      <p>No saved properties yet.</p>
+    </div>
+    <div id="profile-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    // Redirect if not authenticated
+    if (!auth.isAuthenticated) {
+      window.location.href = '/login.html';
+      return;
+    }
+
+    const profileContent = document.getElementById('profile-content');
+    const savedPropertiesGrid = document.getElementById('saved-properties-grid');
+    const profileMessage = document.getElementById('profile-message');
+    const logoutButton = document.getElementById('logout-button');
+
+    logoutButton.addEventListener('click', () => {
+      auth.logout();
+      window.location.href = '/login.html';
+    });
+
+    // Display user info
+    if (auth.user) {
+      profileContent.innerHTML = `
+        <p><strong>Name:</strong> ${auth.user.name}</p>
+        <p><strong>Email:</strong> ${auth.user.email}</p>
+      `;
+    } else {
+      // Try loading user if not already loaded (e.g., direct access to profile page)
+      await auth.loadUser();
+      if (auth.user) {
+        profileContent.innerHTML = `
+          <p><strong>Name:</strong> ${auth.user.name}</p>
+          <p><strong>Email:</strong> ${auth.user.email}</p>
+        `;
+      } else {
+        profileContent.innerHTML = `<p>Unable to load user data. Please <a href="/login.html">login</a> again.</p>`;
+        profileMessage.textContent = 'Unable to load user data.';
+        profileMessage.style.display = 'block';
+        return;
+      }
+    }
+
+    // Fetch and display saved properties
+    async function loadSavedProperties() {
+      try {
+        const response = await fetch('/api/users/me/saved-properties', {
+          headers: auth.getAuthHeaders()
+        });
+        const savedPropertyIds = await response.json();
+
+        if (response.ok && savedPropertyIds.length > 0) {
+          // You'll need to fetch the full property details from your properties.json or a similar source
+          // For now, let's just display the IDs or a placeholder
+          savedPropertiesGrid.innerHTML = `
+            ${savedPropertyIds.map(id => `<div class="property-card"><p>Saved Property ID: ${id}</p></div>`).join('')}
+          `;
+          profileMessage.style.display = 'none';
+        } else if (response.ok && savedPropertyIds.length === 0) {
+          savedPropertiesGrid.innerHTML = `<p>You haven't saved any properties yet.</p>`;
+          profileMessage.style.display = 'none';
+        } else {
+          profileMessage.textContent = 'Error loading saved properties.';
+          profileMessage.style.display = 'block';
+        }
+      } catch (error) {
+        console.error('Error fetching saved properties:', error);
+        profileMessage.textContent = 'Network error loading saved properties.';
+        profileMessage.style.display = 'block';
+      }
+    }
+
+    loadSavedProperties();
+  });
+</script>
+
+
+--------------------------------------------------------------------------------
 FILE: src\properties.html
-SIZE: 20428 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 20557 bytes
+MODIFIED: 2025-12-24 22:42:07
 ================================================================================
 ---
 title: 'Available Homes - Properties 4 Creations'
 description: 'Browse our premium, renovated homes ready for veteran and family occupancy in East Texas.'
+pageTitle: 'Available Properties'
 ---
 
 <!doctype html>
@@ -77723,6 +79379,9 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
   <a href='#main-content' class='skip-link'>Skip to main content</a>
 
   {% include 'header.html' %}
+
+  <!-- Breadcrumb Navigation -->
+  {% include 'partials/breadcrumb.html' %}
 
   <main id='main-content'>
     <!-- PROPERTIES HEADER -->
@@ -78148,7 +79807,7 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
     lucide.createIcons();
   </script>
   <script src='/js/accessibility-enhanced.js'></script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
   <script>
     // Video loading optimization and fallback handling
     document.addEventListener('DOMContentLoaded', function() {
@@ -78187,6 +79846,72 @@ description: 'Browse our premium, renovated homes ready for veteran and family o
 </body>
 
 </html>
+
+--------------------------------------------------------------------------------
+FILE: src\register.html
+SIZE: 2107 bytes
+MODIFIED: 2025-12-24 13:23:16
+================================================================================
+---
+title: 'Register - Properties 4 Creations'
+description: 'Create a new account on Properties 4 Creations.'
+layout: 'base.html'
+---
+
+<main id="main-content">
+  <section class="container register-section">
+    <h1>Create Your Account</h1>
+    <form id="register-form" class="auth-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <p class="auth-switch">Already have an account? <a href="/login.html">Login here</a>.</p>
+      <div id="register-message" class="message-box error-message" aria-live="polite" style="display: none;"></div>
+    </form>
+  </section>
+</main>
+
+<script type="module">
+  import { auth } from '/js/auth.js';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('register-form');
+    const registerMessage = document.getElementById('register-message');
+
+    if (registerForm) {
+      registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        registerMessage.style.display = 'none';
+        registerMessage.textContent = '';
+
+        const result = await auth.register(name, email, password);
+
+        if (result.success) {
+          window.location.href = '/profile.html'; // Redirect to profile page on successful registration
+        } else {
+          registerMessage.textContent = result.message;
+          registerMessage.style.display = 'block';
+        }
+      });
+    }
+  });
+</script>
+
 
 --------------------------------------------------------------------------------
 FILE: src\resources.html
@@ -78623,8 +80348,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\sw.js
-SIZE: 13196 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 13316 bytes
+MODIFIED: 2025-12-24 22:41:02
 ================================================================================
 /**
  * Service Worker for Properties 4 Creations PWA
@@ -78845,8 +80570,9 @@ async function handleDynamicRequest(request) {
     const networkResponse = await fetch(request);
 
     if (networkResponse.ok) {
+      const responseToCache = networkResponse.clone();
       // Add timestamp header for expiration tracking
-      const responseWithTimestamp = new Response(networkResponse.body, {
+      const responseWithTimestamp = new Response(responseToCache.body, {
         status: networkResponse.status,
         statusText: networkResponse.statusText,
         headers: new Headers({
@@ -78876,7 +80602,7 @@ async function updateImageCache(request) {
 
     if (networkResponse.ok) {
       const cache = await caches.open(IMAGE_CACHE);
-      cache.put(request, networkResponse);
+      cache.put(request, networkResponse.clone());
     }
   } catch (error) {
     // Silently fail - cached version is still valid
@@ -78891,7 +80617,8 @@ async function updateDynamicCache(request, cache) {
     const networkResponse = await fetch(request);
 
     if (networkResponse.ok) {
-      const responseWithTimestamp = new Response(networkResponse.body, {
+      const responseToCache = networkResponse.clone();
+      const responseWithTimestamp = new Response(responseToCache.body, {
         status: networkResponse.status,
         statusText: networkResponse.statusText,
         headers: new Headers({
@@ -79496,8 +81223,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\thank-you.html
-SIZE: 15775 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 15789 bytes
+MODIFIED: 2025-12-24 22:42:17
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -79901,7 +81628,7 @@ MODIFIED: 2025-12-24 09:35:53
   <script>
     lucide.createIcons();
   </script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
 
   <script>
     // THANK YOU PAGE ENHANCEMENTS
@@ -80315,8 +82042,8 @@ MODIFIED: 2025-12-24 09:35:53
 
 --------------------------------------------------------------------------------
 FILE: src\tyler-ranch-home.html
-SIZE: 13862 bytes
-MODIFIED: 2025-12-24 09:35:53
+SIZE: 13876 bytes
+MODIFIED: 2025-12-24 22:42:24
 ================================================================================
 <!doctype html>
 <html lang='en'>
@@ -80648,7 +82375,7 @@ MODIFIED: 2025-12-24 09:35:53
   <script>
     lucide.createIcons();
   </script>
-  <script src='/js/main.js'></script>
+  <script src='/js/main.js' type='module'></script>
 
   <!-- MINI MAP -->
   <script src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js'
@@ -82108,6 +83835,474 @@ describe('Cross-Browser Compatibility Tests', () => {
           // Measurement API not fully supported
         }
       }
+    });
+  });
+});
+
+--------------------------------------------------------------------------------
+FILE: tests\e2e\accessibility.spec.js
+SIZE: 17660 bytes
+MODIFIED: 2025-12-24 15:48:05
+================================================================================
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test.describe('Accessibility Testing - Properties 4 Creations', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test.describe('WCAG 2.1 AA Compliance', () => {
+    test('should pass automated accessibility audit on homepage', async ({ page }) => {
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(['wcag21aa', 'wcag2a', 'wcag2aa'])
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+
+    test('should pass accessibility audit on properties page', async ({ page }) => {
+      await page.goto('/properties');
+      await page.waitForLoadState('networkidle');
+
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(['wcag21aa'])
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+
+    test('should pass accessibility audit on contact page', async ({ page }) => {
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(['wcag21aa'])
+        .analyze();
+
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
+  });
+
+  test.describe('Keyboard Navigation', () => {
+    test('should support keyboard-only navigation through main menu', async ({ page }) => {
+      // Focus on skip link first
+      await page.keyboard.press('Tab');
+      await expect(page.locator('.skip-to-content:focus')).toBeVisible();
+
+      // Navigate through main menu items
+      const menuItems = page.locator('nav a');
+      const itemCount = await menuItems.count();
+
+      for (let i = 0; i < Math.min(itemCount, 5); i++) {
+        await page.keyboard.press('Tab');
+        const focusedItem = page.locator(':focus');
+        await expect(focusedItem).toBeVisible();
+      }
+    });
+
+    test('should support keyboard navigation in property search', async ({ page }) => {
+      await page.goto('/properties');
+      await page.waitForLoadState('networkidle');
+
+      // Navigate to search input
+      await page.keyboard.press('Tab');
+      await page.keyboard.press('Tab');
+
+      const focusedElement = page.locator(':focus');
+      if (await focusedElement.isVisible()) {
+        const elementType = await focusedElement.evaluate(el => el.tagName);
+        expect(['INPUT', 'SELECT', 'BUTTON']).toContain(elementType);
+      }
+    });
+
+    test('should support keyboard navigation in contact form', async ({ page }) => {
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      // Navigate through form fields
+      const formFields = page.locator('input, textarea, button');
+      const fieldCount = await formFields.count();
+
+      for (let i = 0; i < Math.min(fieldCount, 5); i++) {
+        await page.keyboard.press('Tab');
+        const focusedField = page.locator(':focus');
+        await expect(focusedField).toBeVisible();
+      }
+    });
+  });
+
+  test.describe('Screen Reader Compatibility', () => {
+    test('should have proper ARIA landmarks', async ({ page }) => {
+      const landmarks = {
+        'banner': await page.locator('[role="banner"]').count(),
+        'main': await page.locator('[role="main"]').count(),
+        'navigation': await page.locator('[role="navigation"]').count(),
+        'contentinfo': await page.locator('[role="contentinfo"]').count()
+      };
+
+      expect(landmarks.banner).toBeGreaterThan(0);
+      expect(landmarks.main).toBeGreaterThan(0);
+      expect(landmarks.navigation).toBeGreaterThan(0);
+      expect(landmarks.contentinfo).toBeGreaterThan(0);
+    });
+
+    test('should have proper heading hierarchy', async ({ page }) => {
+      const h1 = await page.locator('h1').count();
+      const h2 = await page.locator('h2').count();
+  
+      expect(h1).toBeGreaterThan(0);
+      expect(h2).toBeGreaterThan(0);
+  
+      // Check that heading hierarchy is logical
+      const headings = await page.locator('h1, h2, h3, h4, h5, h6').all();
+      for (let i = 1; i < headings.length; i++) {
+        const prevLevel = await headings[i - 1].evaluate(el => parseInt(el.tagName.substring(1)));
+        const currLevel = await headings[i].evaluate(el => parseInt(el.tagName.substring(1)));
+  
+        // Heading levels should not skip more than one level
+        expect(Math.abs(currLevel - prevLevel)).toBeLessThanOrEqual(1);
+      }
+    });
+
+    test('should have ARIA live regions for dynamic content', async ({ page }) => {
+      const liveRegions = page.locator('[aria-live="polite"], [aria-live="assertive"]');
+      const liveRegionCount = await liveRegions.count();
+
+      expect(liveRegionCount).toBeGreaterThan(0);
+
+      // Check that live regions are properly configured
+      for (let i = 0; i < liveRegionCount; i++) {
+        const region = liveRegions.nth(i);
+        const ariaLive = await region.getAttribute('aria-live');
+        const ariaAtomic = await region.getAttribute('aria-atomic');
+        
+        expect(['polite', 'assertive']).toContain(ariaLive);
+        expect(ariaAtomic).toBe('true');
+      }
+    });
+  });
+
+  test.describe('Image Accessibility', () => {
+    test('should have descriptive alt text for all images', async ({ page }) => {
+      const images = await page.locator('img').all();
+      
+      for (const img of images) {
+        const alt = await img.getAttribute('alt');
+        const src = await img.getAttribute('src');
+        
+        // Skip empty alt for decorative images
+        if (src && !src.includes('placeholder') && !src.includes('spacer')) {
+          expect(alt).toBeTruthy();
+          expect(alt.length).toBeGreaterThan(3); // Meaningful description
+        }
+      }
+    });
+
+    test('should use lazy loading for performance', async ({ page }) => {
+      const lazyImages = page.locator('img[loading="lazy"]');
+      const lazyImageCount = await lazyImages.count();
+
+      expect(lazyImageCount).toBeGreaterThan(0);
+    });
+
+    test('should have proper image dimensions for layout stability', async ({ page }) => {
+      const images = await page.locator('img').all();
+      
+      for (const img of images) {
+        const width = await img.getAttribute('width');
+        const height = await img.getAttribute('height');
+        
+        // Images should have explicit dimensions to prevent layout shifts
+        if (width && height) {
+          expect(parseInt(width)).toBeGreaterThan(0);
+          expect(parseInt(height)).toBeGreaterThan(0);
+        }
+      }
+    });
+  });
+
+  test.describe('Form Accessibility', () => {
+    test('should have proper labels for all form fields', async ({ page }) => {
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      const inputs = await page.locator('input[required], textarea[required]').all();
+      
+      for (const input of inputs) {
+        const id = await input.getAttribute('id');
+        const ariaLabel = await input.getAttribute('aria-label');
+        const placeholder = await input.getAttribute('placeholder');
+        
+        // Check for associated label
+        if (id) {
+          const label = page.locator(`label[for="${id}"]`);
+          const labelExists = await label.count() > 0;
+          expect(labelExists || ariaLabel || placeholder).toBe(true);
+        }
+      }
+    });
+
+    test('should have accessible error messages', async ({ page }) => {
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      const emailInput = page.locator('input[type="email"]').first();
+      const submitButton = page.locator('button[type="submit"]').first();
+
+      if (await emailInput.isVisible()) {
+        // Submit with invalid email
+        await emailInput.fill('invalid-email');
+        await submitButton.click();
+        await page.waitForTimeout(2000);
+
+        // Check for error messages with proper ARIA attributes
+        const errorMessages = page.locator('[role="alert"], [aria-live="assertive"]');
+        const errorCount = await errorMessages.count();
+        
+        expect(errorCount).toBeGreaterThan(0);
+      }
+    });
+
+    test('should have accessible form validation', async ({ page }) => {
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      const requiredInputs = page.locator('input[required], textarea[required]');
+      const requiredCount = await requiredInputs.count();
+
+      expect(requiredCount).toBeGreaterThan(0);
+
+      // Check that required fields have proper indicators
+      for (let i = 0; i < requiredCount; i++) {
+        const input = requiredInputs.nth(i);
+        const ariaRequired = await input.getAttribute('aria-required');
+        
+        expect(ariaRequired).toBe('true');
+      }
+    });
+  });
+
+  test.describe('Color Contrast', () => {
+    test('should have sufficient color contrast for text', async ({ page }) => {
+      // This test would typically use a visual testing tool
+      // For now, we verify that high-contrast CSS classes are applied
+      const highContrastElements = page.locator('.high-contrast, .contrast-text');
+      const highContrastCount = await highContrastElements.count();
+
+      expect(highContrastCount).toBeGreaterThan(0);
+    });
+
+    test('should support dark mode for better accessibility', async ({ page }) => {
+      // Check for dark mode support
+      const html = page.locator('html');
+      const hasDarkModeClass = await html.evaluate(el => 
+        el.classList.contains('dark-mode') || 
+        el.getAttribute('data-theme') === 'dark'
+      );
+
+      // Dark mode should be available (may not be active by default)
+      expect(hasDarkModeClass).toBe(false); // Not active by default
+
+      // Check for dark mode toggle
+      const darkModeToggle = page.locator('button[aria-label*="dark" i], button[aria-label*="theme" i]');
+      const toggleExists = await darkModeToggle.count() > 0;
+      
+      expect(toggleExists).toBe(true);
+    });
+  });
+
+  test.describe('Mobile Accessibility', () => {
+    test('should have touch-friendly targets on mobile', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 });
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+
+      const buttons = await page.locator('button, a[role="button"]').all();
+      
+      for (const button of buttons) {
+        const computedStyle = await button.evaluate(el => {
+          const style = window.getComputedStyle(el);
+          return {
+            minWidth: parseInt(style.minWidth) || 0,
+            minHeight: parseInt(style.minHeight) || 0,
+            padding: parseInt(style.padding) || 0
+          };
+        });
+
+        // Touch targets should be at least 44px (WCAG 2.1)
+        const effectiveSize = Math.max(
+          computedStyle.minWidth,
+          computedStyle.minHeight + (computedStyle.padding * 2)
+        );
+        
+        expect(effectiveSize).toBeGreaterThanOrEqual(44);
+      }
+    });
+
+    test('should have accessible mobile navigation', async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 667 });
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+
+      const mobileMenuButton = page.locator('button[aria-label*="menu" i], .mobile-menu-toggle');
+      const mobileMenuButtonExists = await mobileMenuButton.count() > 0;
+
+      expect(mobileMenuButtonExists).toBe(true);
+
+      if (mobileMenuButtonExists) {
+        await mobileMenuButton.click();
+        await page.waitForTimeout(1000);
+
+        // Mobile menu should open
+        const mobileMenu = page.locator('nav.mobile-nav, .mobile-menu');
+        const mobileMenuVisible = await mobileMenu.isVisible();
+        
+        expect(mobileMenuVisible).toBe(true);
+      }
+    });
+  });
+
+  test.describe('Focus Management', () => {
+    test('should have visible focus indicators', async ({ page }) => {
+      const button = page.locator('button').first();
+      if (await button.isVisible()) {
+        await button.focus();
+        
+        const computedStyle = await button.evaluate(el => {
+          const style = window.getComputedStyle(el);
+          return style.outline || style.border;
+        });
+
+        expect(computedStyle).toBeTruthy();
+      }
+    });
+
+    test('should manage focus for modal dialogs', async ({ page }) => {
+      await page.goto('/properties');
+      await page.waitForLoadState('networkidle');
+
+      const viewDetailsButtons = page.locator('button').filter({ hasText: /view details/i });
+      if (await viewDetailsButtons.first().isVisible()) {
+        await viewDetailsButtons.first().click();
+        await page.waitForTimeout(1000);
+
+        const modal = page.locator('.modal, [role="dialog"]');
+        if (await modal.isVisible()) {
+          // Focus should be trapped within modal
+          const focusedElement = page.locator(':focus');
+          const focusedElementInModal = await modal.evaluate((modal, focusedElement) => {
+            return modal.contains(focusedElement);
+          }, await focusedElement.elementHandle());
+
+          expect(focusedElementInModal).toBe(true);
+
+          // Close modal
+          await page.keyboard.press('Escape');
+          await page.waitForTimeout(500);
+          
+          expect(await modal.isVisible()).toBe(false);
+        }
+      }
+    });
+
+    test('should restore focus after modal closes', async ({ page }) => {
+      await page.goto('/properties');
+      await page.waitForLoadState('networkidle');
+
+      const viewDetailsButtons = page.locator('button').filter({ hasText: /view details/i });
+      const firstButton = viewDetailsButtons.first();
+
+      if (await firstButton.isVisible()) {
+        // Focus on button before opening modal
+        await firstButton.focus();
+        const buttonId = await firstButton.getAttribute('id');
+
+        // Open modal
+        await firstButton.click();
+        await page.waitForTimeout(1000);
+
+        const modal = page.locator('.modal, [role="dialog"]');
+        if (await modal.isVisible()) {
+          // Close modal
+          await page.keyboard.press('Escape');
+          await page.waitForTimeout(500);
+
+          // Focus should return to the button that opened the modal
+          const focusedElement = page.locator(':focus');
+          const focusedElementId = await focusedElement.getAttribute('id');
+          
+          expect(focusedElementId).toBe(buttonId);
+        }
+      }
+    });
+  });
+
+  test.describe('Error Handling Accessibility', () => {
+    test('should provide accessible error messages for failed operations', async ({ page }) => {
+      // Simulate a network error
+      await page.route('**/submit', route => route.abort());
+
+      await page.goto('/contact');
+      await page.waitForLoadState('networkidle');
+
+      const emailInput = page.locator('input[type="email"]').first();
+      const submitButton = page.locator('button[type="submit"]').first();
+
+      if (await emailInput.isVisible()) {
+        await emailInput.fill('test@example.com');
+        await submitButton.click();
+        await page.waitForTimeout(2000);
+
+        // Should show error message with proper ARIA attributes
+        const errorMessages = page.locator('[role="alert"], [aria-live="assertive"]');
+        const errorMessageVisible = await errorMessages.isVisible();
+        
+        expect(errorMessageVisible).toBe(true);
+      }
+    });
+
+    test('should handle 404 pages accessibly', async ({ page }) => {
+      await page.goto('/nonexistent-page');
+      await page.waitForLoadState('networkidle');
+
+      // Should either show accessible 404 page or redirect
+      const is404 = await page.locator('text=/404|Page not found|Not found/i').isVisible();
+      const isHomepage = page.url() === 'http://localhost:8080/';
+
+      expect(is404 || isHomepage).toBe(true);
+
+      if (is404) {
+        // 404 page should have proper heading
+        await expect(page.locator('h1')).toContainText(/404|Page not found|Not found/i);
+      }
+    });
+  });
+
+  test.describe('Performance Impact on Accessibility', () => {
+    test('should load accessibility features quickly', async ({ page }) => {
+      const startTime = Date.now();
+      await page.goto('/');
+      await page.waitForLoadState('networkidle');
+      const loadTime = Date.now() - startTime;
+
+      // Accessibility features should not significantly impact performance
+      expect(loadTime).toBeLessThan(5000);
+
+      // Check that accessibility script loads quickly
+      const accessibilityScript = page.locator('script[src*="accessibility"]');
+      const scriptLoaded = await accessibilityScript.count() > 0;
+      
+      expect(scriptLoaded).toBe(true);
+    });
+
+    test('should prioritize critical accessibility features', async ({ page }) => {
+      // Check for critical CSS that includes accessibility features
+      const criticalStyles = page.locator('style[data-critical], link[rel="stylesheet"][data-critical]');
+      const criticalStylesCount = await criticalStyles.count();
+
+      expect(criticalStylesCount).toBeGreaterThan(0);
     });
   });
 });

@@ -1,27 +1,29 @@
 ================================================================================
 FILE CONVERSION SUMMARY REPORT
 ================================================================================
-Generated: 2025-12-24 11:01:20
+Generated: 2025-12-24 22:43:23
 Source folder: .
 Output file: consolidated_output.txt
 Excluded directories: node_modules, codeReview, .git, .clinerules
 
 STATISTICS:
 ----------------------------------------
-Total files scanned: 830
-Files converted: 211
-Files skipped: 619
+Total files scanned: 857
+Files converted: 232
+Files skipped: 625
 Errors: 0
-Total characters: 2799588
-Total lines: 85380
+Total characters: 2865720
+Total lines: 87403
 
 SKIPPED FILES:
 ----------------------------------------
 .blackboxrules
 .eleventyignore
+.env
 .env.example
 .gitignore
 .kilocode\rules\.kilo-rules.md
+.well-known\security.txt
 _site\.nojekyll
 _site\CNAME
 _site\images\backgrounds\hero-pattern.svg
@@ -162,6 +164,7 @@ _site\images\properties\properties-tyler-ranch-home-placeholder.jpg
 CNAME
 code_review.py
 consolidated_output.txt
+conversion_summary.txt
 docs\images\backgrounds\hero-pattern.svg
 docs\images\banners\hero-about-us-banner-400w.webp
 docs\images\banners\hero-about-us-banner-placeholder.jpg
@@ -490,12 +493,15 @@ docs\public\images\properties\properties-tyler-ranch-home-placeholder.jpg
 docs\public\images\properties\properties-tyler-ranch-home.webp
 docs\videos\hero-our-work-banner.mp4
 docs\videos\hero-properties-banner.mp4
+plans\enterprise-grade-audit-report.md
+plans\enterprise-grade-implementation-plan.md
 plans\website_layout_fix_plan.md
 postcss.config.js.backup
 README.md
 sitemap.xml
 src\.gitignore
 src\.nojekyll
+src\blog\my-first-post.md
 src\CNAME
 src\design-system\DESIGN_PRINCIPLES.md
 src\favicon.ico

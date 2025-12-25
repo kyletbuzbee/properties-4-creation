@@ -44,9 +44,9 @@ function registerServiceWorker () {
           // Initialize cache management
           initCacheManagement(registration);
         })
-        .catch((error) => {
+        .catch(() => {
           // Service worker registration failed
-          console.error('Service Worker registration failed:', error);
+          
           
           // Fallback: disable offline functionality gracefully
           if (window.lazyLoader) {
@@ -135,7 +135,7 @@ const mainErrorHandler = errorHandler.createBoundary(() => {
   // Register service worker
   registerServiceWorker();
 }, {
-  fallback: (error) => {
+  fallback: () => {
     // Critical error in main.js initialization
     // Fallback: ensure basic functionality still works
     registerServiceWorker();
@@ -169,7 +169,7 @@ async function fetchPropertiesData () {
       image: prop.images && prop.images.length > 0 ? prop.images[0] : 'images/properties/properties-default.webp'
     }));
   } catch (error) {
-    console.error('Failed to fetch properties data:', error);
+    
     // Fallback or error handling
     propertiesData = []; // Ensure propertiesData is an empty array on error
   }
@@ -194,7 +194,7 @@ if (propertiesGrid) {
     const sanitizedImagePath = sanitizeInput(prop.image);
     const allowedImagePath = (path) => {
       if (typeof path !== 'string') return false;
-      const re = /^\/?images\/(properties|banners|icons|our-work-gallery)\/[a-z0-9\/_\-.]+\.webp$/i;
+      const re = /^\/?images\/(properties|banners|icons|our-work-gallery)\/[a-z0-9/_\-.]+\.webp$/i;
       return re.test(path);
     };
     const imgSrc = allowedImagePath(sanitizedImagePath)

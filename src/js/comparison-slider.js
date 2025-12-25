@@ -27,7 +27,7 @@ export class ComparisonSlider {
   
   init () {
     if (!this.beforeImage || !this.afterImage || !this.handle) {
-      console.warn('Comparison slider elements not found');
+      
       return;
     }
     

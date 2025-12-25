@@ -177,21 +177,6 @@ export class ImprovedCSRFProtection {
       // Fallback to alert for immediate feedback
       alert('Security validation failed. Please refresh the page and try again.');
     }
-
-    // Log security event (without sensitive data)
-    this.logSecurityEvent('csrf_validation_failed', {
-      timestamp: new Date().toISOString(),
-      formId: form.id || 'anonymous',
-      userAgent: navigator.userAgent
-    });
-  }
-
-  // Log security events
-  logSecurityEvent (eventType, data) {
-    // Only log in development or if explicitly enabled
-    if (process.env.NODE_ENV === 'development' || window.DEBUG_CSRF) {
-      console.warn(`[CSRF Protection] ${eventType}:`, data);
-    }
   }
 
   // Get current token

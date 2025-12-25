@@ -28,7 +28,7 @@ export const auth = {
         return { success: false, message: data.msg || 'Registration failed.' };
       }
     } catch (err) {
-      console.error('Registration error:', err);
+      
       return { success: false, message: 'Network error during registration.' };
     }
   },
@@ -50,7 +50,7 @@ export const auth = {
         return { success: false, message: data.msg || 'Login failed.' };
       }
     } catch (err) {
-      console.error('Login error:', err);
+      
       return { success: false, message: 'Network error during login.' };
     }
   },
@@ -89,7 +89,7 @@ export const auth = {
         this.logout(); // Token might be expired or invalid
       }
     } catch (err) {
-      console.error('Error loading user:', err);
+      
       this.logout();
     }
   },
@@ -113,7 +113,7 @@ export const auth = {
         return { success: false, message: data.msg || 'Failed to save property.' };
       }
     } catch (err) {
-      console.error('Error saving property:', err);
+      
       return { success: false, message: 'Network error saving property.' };
     }
   },
@@ -133,7 +133,7 @@ export const auth = {
         return { success: false, message: data.msg || 'Failed to remove property.' };
       }
     } catch (err) {
-      console.error('Error removing property:', err);
+      
       return { success: false, message: 'Network error removing property.' };
     }
   },
