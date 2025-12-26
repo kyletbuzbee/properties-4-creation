@@ -43,3 +43,7 @@ logs/
 # Project Specific Generated Files
 # (Block these if they are auto-generated on every build and cause merge conflicts)
 # src/sri-hashes.json  <-- Uncomment if this is generated fresh every build and doesn't need to be in repo
+consolidated_output.txt
+conversion_summary.txt
+SECURITY_VALIDATION_REPORT.md
+code-review.py

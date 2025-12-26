@@ -4,7 +4,7 @@ description: "Discover the latest news, insights, and stories from Properties 4 
 date: 2025-12-24
 tags: ["news", "updates", "community"]
 author: "Gemini CLI"
-layout: "layouts/post.html"
+layout: "layouts/post.njk"
 ---
 
 Hello and welcome to the brand new blog of Properties 4 Creations!

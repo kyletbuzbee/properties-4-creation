@@ -58,11 +58,17 @@ class SecurityValidator {
         // Check for essential security headers
         const requiredHeaders = [
           'Content-Security-Policy',
-          'X-Frame-Options',
           'X-Content-Type-Options',
           'Referrer-Policy',
           'Permissions-Policy'
         ];
+
+        // Special check for X-Frame-Options or frame-ancestors
+        if (content.includes('X-Frame-Options') || (content.includes('Content-Security-Policy') && content.includes('frame-ancestors'))) {
+            this.logTest(`Security Header: X-Frame-Options or CSP frame-ancestors`, 'PASS', 'Header found in implementation');
+        } else {
+            this.logTest(`Security Header: X-Frame-Options or CSP frame-ancestors`, 'FAIL', 'Header missing from implementation');
+        }
 
         requiredHeaders.forEach(header => {
           if (content.includes(header)) {

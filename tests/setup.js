@@ -15,6 +15,8 @@ const dom = new JSDOM(`
   <html>
     <head>
       <title>Test Environment</title>
+      <link rel='manifest' href='/manifest.json'>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     </head>
     <body>
       <div id='app'></div>
@@ -45,19 +47,27 @@ Object.defineProperty(global, 'navigator', {
   writable: true
 });
 
-global.localStorage = {
-  getItem: vi.fn(() => null),
-  setItem: vi.fn(() => {}),
-  removeItem: vi.fn(() => {}),
-  clear: vi.fn(() => {})
+// In-memory store for localStorage and sessionStorage mocks
+const createWebStorageMock = () => {
+  let store = {};
+  return {
+    getItem: vi.fn((key) => store[key] || null),
+    setItem: vi.fn((key, value) => {
+      store[key] = String(value);
+    }),
+    removeItem: vi.fn((key) => {
+      delete store[key];
+    }),
+    clear: vi.fn(() => {
+      store = {};
+    }),
+    length: vi.fn(() => Object.keys(store).length),
+    key: vi.fn((index) => Object.keys(store)[index] || null),
+  };
 };
 
-global.sessionStorage = {
-  getItem: vi.fn(() => null),
-  setItem: vi.fn(() => {}),
-  removeItem: vi.fn(() => {}),
-  clear: vi.fn(() => {})
-};
+global.localStorage = createWebStorageMock();
+global.sessionStorage = createWebStorageMock();
 
 // Mock fetch for API calls
 global.fetch = vi.fn(() =>
@@ -160,5 +170,33 @@ global.ResizeObserver = class ResizeObserver {
 global.DOMPurify = {
   sanitize: vi.fn((input) => input)
 };
+
+// Mock HTMLCanvasElement for fingerprinting tests
+Object.defineProperty(HTMLCanvasElement.prototype, 'getContext', {
+  value: vi.fn(() => ({
+    textBaseline: '',
+    font: '',
+    fillText: vi.fn(),
+  })),
+});
+
+Object.defineProperty(HTMLCanvasElement.prototype, 'toDataURL', {
+  value: vi.fn(() => 'data:image/png;base64,mocked_image_data'),
+});
+
+// Mock getComputedStyle for CSS custom properties test
+const originalGetComputedStyle = window.getComputedStyle;
+window.getComputedStyle = vi.fn((elt) => {
+  const computed = originalGetComputedStyle(elt);
+  return {
+    ...computed,
+    getPropertyValue: vi.fn((prop) => {
+      if (prop === '--test-property') {
+        return 'test-value';
+      }
+      return computed.getPropertyValue(prop);
+    }),
+  };
+});
 
 console.log('Test environment initialized');

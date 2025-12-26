@@ -12,8 +12,7 @@ export default defineConfig({
         'tests/',
         'dist/',
         '**/*.test.js',
-        '**/*.spec.js',
-        'e2e/'
+        'tests/e2e/'
       ]
     },
     testTimeout: 10000,

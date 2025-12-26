@@ -1,7 +1,7 @@
 ---
 title: 'Blog - Properties 4 Creations'
 description: 'Latest news and updates from Properties 4 Creations.'
-layout: 'base.html'
+layout: 'base.njk'
 pagination:
   data: collections.posts
   size: 5
@@ -26,7 +26,7 @@ pagination:
       {%- endfor %}
     </div>
 
-    {% include "partials/pagination.html" %}
+    {% include "partials/pagination.njk" %}
 
   </section>
 </main>

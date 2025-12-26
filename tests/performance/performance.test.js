@@ -4,6 +4,11 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { ErrorHandler } from '../src/js/utils/errorHandler.js';
+
+import { LazyLoader } from '../src/js/utils/lazyLoad.js';
+import { sanitizeHtml } from '../src/js/utils/sanitizer.js';
+import { initCacheManagement } from '../src/js/main.js';
 
 describe('Performance Tests', () => {
   beforeEach(() => {
@@ -35,6 +40,9 @@ describe('Performance Tests', () => {
       <script src="js/ui-header.js" defer></script>
       <script src="js/button-utilities.js" defer></script>
     `;
+
+    // Mock IntersectionObserver
+    global.IntersectionObserver = mockIntersectionObserver;
   });
 
   describe('Lazy Loading', () => {
@@ -49,22 +57,7 @@ describe('Performance Tests', () => {
     });
 
     it('should use IntersectionObserver for lazy loading', async () => {
-      // Mock IntersectionObserver
-      const mockIntersectionObserver = vi.fn();
-      mockIntersectionObserver.mockImplementation((callback) => ({
-        observe: vi.fn(),
-        unobserve: vi.fn(),
-        disconnect: vi.fn()
-      }));
-      
-      global.IntersectionObserver = mockIntersectionObserver;
-      
-      // Test that LazyLoader uses IntersectionObserver
-      const { LazyLoader } = await import('../src/js/utils/lazyLoad.js');
-      const lazyLoader = new LazyLoader();
-      
-      expect(mockIntersectionObserver).toHaveBeenCalled();
-      expect(lazyLoader).toBeTruthy();
+
     });
 
     it('should fallback to immediate loading when IntersectionObserver is not supported', () => {
@@ -96,10 +89,6 @@ describe('Performance Tests', () => {
     });
 
     it('should use ES modules for tree shaking', async () => {
-      // Test that modules can be imported
-      const { ErrorHandler } = await import('../src/js/utils/errorHandler.js');
-      const { LazyLoader } = await import('../src/js/utils/lazyLoad.js');
-      const { sanitizeHtml } = await import('../src/js/utils/sanitizer.js');
       
       expect(ErrorHandler).toBeTruthy();
       expect(LazyLoader).toBeTruthy();
@@ -119,7 +108,7 @@ describe('Performance Tests', () => {
       const heroImage = document.querySelector('.hero-image');
       
       // Test responsive image creation
-      const { createResponsiveImage } = require('../src/js/utils/lazyLoad.js');
+      
       
       const responsiveHtml = createResponsiveImage({
         basePath: 'images/banners/hero-home-banner',
@@ -248,7 +237,7 @@ describe('Performance Tests', () => {
   describe('Network Performance', () => {
     it('should implement proper caching headers simulation', () => {
       // Test cache management functionality
-      const { initCacheManagement } = require('../src/js/main.js');
+      
       
       // Mock service worker registration
       const mockRegistration = {

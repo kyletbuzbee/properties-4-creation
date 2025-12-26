@@ -314,7 +314,7 @@ describe('AriaLiveRegions', () => {
 
   describe('sanitizeMessage', () => {
     it('should remove script tags', () => {
-      const result = ariaLiveRegions.sanitizeMessage('<script>alert('xss')</script>Clean text');
+      const result = ariaLiveRegions.sanitizeMessage('<script>alert(\'xss\')</script>Clean text');
       expect(result).toBe('Clean text');
     });
 

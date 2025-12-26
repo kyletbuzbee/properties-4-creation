@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang='en'>
+
+<head>
+  {% include 'meta.njk' %}
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  {% include 'header.njk' %}
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  {% include 'footer.njk' %}
+
+ <script src='https://unpkg.com/lucide@latest/dist/umd/lucide.js'
+   integrity='sha384-sha384-XcPm71GSOvViJoCA7WCb/9rSD/M3VBABxIZH30y7wbDtwRymtm2Dw2NTumuGrJqB'
+   crossorigin='anonymous'></script>
+ <script src='/js/accessibility-enhanced.js'></script>
+ <script src='/js/main.js' type='module'></script>
+</body>
+
+</html>

@@ -9,13 +9,14 @@ Section 8 & HUD-VASH programs."
 <html lang='en'>
 
 <head>
-  {% include 'meta.html' %}
+  {% include 'meta.njk' %}
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.min.css' integrity='sha384-sha384-b8ANgTJvdlAnWM5YGMpKn7Kodm+1k7NYNG9zdjTCcZcKatzYHwZ0RLdWarbJJVzU' crossorigin='anonymous'>
+  <script src='https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js' integrity='sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=' crossorigin='anonymous'></script>
 </head>
 
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  {% include 'header.html' %}
+  {% include 'header.njk' %}
 
   <main id='main-content'>
     <!-- HOMEPAGE SECTION -->
@@ -117,8 +118,6 @@ Section 8 & HUD-VASH programs."
       </div>
     </section>
 
-    <!-- {% include 'veteran-resources.njk' %} -->
-
     <!-- CTA SECTION -->
     <section class='cta-section'>
       <div class='container'>
@@ -131,7 +130,7 @@ Section 8 & HUD-VASH programs."
     </section>
   </main>
 
-  {% include 'footer.html' %}
+  {% include 'footer.njk' %}
 
   <script type='application/json' id='properties-data'>
 
@@ -153,34 +152,25 @@ Section 8 & HUD-VASH programs."
     document.addEventListener('DOMContentLoaded', function () {
       // MAP INITIALIZATION
       if (document.getElementById('map')) {
-        const script = document.createElement('script');
-        script.src =
-          'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
-        script.integrity =
-          'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-        script.crossOrigin = 'anonymous';
-        script.onload = () => {
-          const map = L.map('map').setView([32.35, -95.3], 10);
-          L.Icon.Default.prototype.options.iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png';
-          L.Icon.Default.prototype.options.shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19,
-          }).addTo(map);
+        const map = L.map('map').setView([32.35, -95.3], 10);
+        L.Icon.Default.prototype.options.iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png';
+        L.Icon.Default.prototype.options.shadowUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png';
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors',
+          maxZoom: 19,
+        }).addTo(map);
 
-          L.marker([32.351, -95.301], {
-            title: 'Tyler Properties',
-          })
-            .addTo(map)
-            .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
+        L.marker([32.351, -95.301], {
+          title: 'Tyler Properties',
+        })
+          .addTo(map)
+          .bindPopup('<b>Tyler, TX</b><br>Multiple Properties Available');
 
-          L.marker([32.5, -94.74], {
-            title: 'Longview Properties',
-          })
-            .addTo(map)
-            .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
-        };
-        document.head.appendChild(script);
+        L.marker([32.5, -94.74], {
+          title: 'Longview Properties',
+        })
+          .addTo(map)
+          .bindPopup('<b>Longview, TX</b><br>Multiple Properties Available');
       }
     });
   </script>

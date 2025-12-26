@@ -4,8 +4,6 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { AccessibilityEnhancer } from '../src/js/accessibility-enhanced.js';
-
 describe('Accessibility Tests', () => {
   beforeEach(() => {
     // Setup DOM environment with accessible structure
@@ -38,8 +36,7 @@ describe('Accessibility Tests', () => {
             <div class="property-content">
               <h3 class="property-title">Tyler Ranch Home</h3>
               <p class="property-location">Tyler, TX</p>
-              <div class="property-details">
-                <div class="detail-item">
+              <div class="detail-item">
                   <div class="detail-label">Beds</div>
                   <div class="detail-value">3</div>
                 </div>
@@ -93,6 +90,7 @@ describe('Accessibility Tests', () => {
 
       <div id="aria-live-region" aria-live="polite" aria-atomic="true" class="sr-only"></div>
     `;
+    window.AccessibilityEnhancer.initAccessibility();
   });
 
   describe('Skip Links', () => {

@@ -421,7 +421,7 @@ describe('ErrorBoundary', () => {
 
   describe('showDetails', () => {
     it('should toggle details visibility', () => {
-      document.body.innerHTML = '<div id='error-details' style='display: none;'>Details</div>';
+      document.body.innerHTML = '<div id="error-details" style="display: none;">Details</div>';
       
       errorBoundary.showDetails();
       

@@ -461,10 +461,10 @@ describe('FormValidator Integration Tests', () => {
 
         it('should sanitize malicious input before validation', () => {
             const maliciousScripts = [
-                '<script>alert('xss')</script>',
-                'javascript:alert('xss')',
-                '<img src='x' onerror='alert(\'xss\')'>',
-                '\'><script>alert('xss')</script>'
+                '<script>alert(\'xss\')</script>',
+                'javascript:alert(\'xss\')',
+                '<img src=\'x\' onerror=\'alert(\\\'xss\\\')\'>',
+                '\'><script>alert(\'xss\')</script>'
             ];
 
             maliciousScripts.forEach(script => {

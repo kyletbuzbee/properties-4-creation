@@ -41,6 +41,8 @@
    These will be gradually migrated to modular components
    ======================================== */
 
+@import 'style.css';
+
 /* Note: The existing style.css contains all current styles.
    As we migrate to the new component system, we'll remove
    duplicate styles from style.css and rely on the modular files. */
